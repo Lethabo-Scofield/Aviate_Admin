@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "npm run dev --prefix Logistics-Optimization",
+    "build": "npm run build --prefix Logistics-Optimization",
+    "preview": "npm run preview --prefix Logistics-Optimization"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
