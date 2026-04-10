@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Truck, Plus, Trash2, Package, Phone } from "lucide-react";
+import { Truck, Plus, Trash2, Package, Phone, X } from "lucide-react";
+import { Spinner, SkeletonList } from "../components/Loader";
 import { getDrivers, addDriver, removeDriver, getJobs } from "../services/api";
 
 export default function Drivers() {
@@ -51,58 +52,67 @@ export default function Drivers() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-3 border-gray-200 border-t-[#008080] rounded-full animate-spin" />
+      <div>
+        <div className="mb-8">
+          <div className="skeleton h-7 w-28 mb-2" />
+          <div className="skeleton h-4 w-44" />
+        </div>
+        <SkeletonList count={3} />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="animate-fade-in">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Drivers</h1>
-          <p className="text-sm text-gray-400 mt-1">Manage your delivery fleet</p>
+          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Drivers</h1>
+          <p className="text-[14px] text-[#86868b] mt-1">Manage your delivery fleet</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="px-4 py-2 bg-[#008080] text-white rounded-lg font-medium text-sm hover:bg-[#006e6e] transition-colors flex items-center gap-2"
+          className="apple-btn apple-btn-primary"
         >
           <Plus size={16} /> Add Driver
         </button>
       </div>
 
       {showForm && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 mb-6 max-w-lg">
-          <h3 className="text-sm font-semibold text-gray-800 mb-4">New Driver</h3>
-          <div className="space-y-3">
+        <div className="apple-card p-6 mb-6 max-w-lg animate-slide-up">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="text-[15px] font-semibold text-[#1d1d1f]">New Driver</h3>
+            <button onClick={() => setShowForm(false)} className="w-7 h-7 rounded-full bg-[#f5f5f7] flex items-center justify-center hover:bg-[#e5e5ea] transition-colors">
+              <X size={14} className="text-[#86868b]" />
+            </button>
+          </div>
+          <div className="space-y-4">
             <div>
-              <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Name</label>
+              <label className="text-[12px] text-[#86868b] font-medium mb-1.5 block">Name</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="e.g. Thabo Mokoena"
-                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#008080]/20"
+                className="apple-input"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Phone</label>
+                <label className="text-[12px] text-[#86868b] font-medium mb-1.5 block">Phone</label>
                 <input
                   type="text"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   placeholder="+27 82 123 4567"
-                  className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#008080]/20"
+                  className="apple-input"
                 />
               </div>
               <div>
-                <label className="text-xs text-gray-400 uppercase tracking-wide mb-1 block">Vehicle Type</label>
+                <label className="text-[12px] text-[#86868b] font-medium mb-1.5 block">Vehicle Type</label>
                 <select
                   value={form.vehicle_type}
                   onChange={(e) => setForm({ ...form, vehicle_type: e.target.value })}
-                  className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm"
+                  className="apple-input"
                 >
                   <option value="van">Van</option>
                   <option value="truck">Truck</option>
@@ -111,79 +121,83 @@ export default function Drivers() {
                 </select>
               </div>
             </div>
-            <div className="flex gap-2 pt-2">
+            <div className="flex gap-2 pt-1">
               <button
                 onClick={handleAdd}
                 disabled={adding || !form.name.trim()}
-                className="px-4 py-2 bg-[#008080] text-white rounded-lg text-sm font-medium hover:bg-[#006e6e] disabled:opacity-50"
+                className="apple-btn apple-btn-primary"
               >
-                {adding ? "Adding..." : "Add Driver"}
+                {adding ? <><Spinner size={14} /><span>Adding...</span></> : "Add Driver"}
               </button>
-              <button onClick={() => setShowForm(false)} className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm">Cancel</button>
+              <button onClick={() => setShowForm(false)} className="apple-btn apple-btn-secondary">
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       )}
 
       {drivers.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-12 text-center">
-          <Truck size={32} className="text-gray-300 mx-auto mb-3" />
-          <p className="text-sm text-gray-400 mb-3">No drivers yet. Add drivers to start assigning jobs.</p>
+        <div className="apple-card p-16 text-center">
+          <div className="w-16 h-16 rounded-[16px] bg-[#f5f5f7] flex items-center justify-center mx-auto mb-5">
+            <Truck size={28} className="text-[#c7c7cc]" strokeWidth={1.5} />
+          </div>
+          <p className="text-[14px] text-[#86868b] mb-4">No drivers yet. Add drivers to start assigning jobs.</p>
           <button
             onClick={() => setShowForm(true)}
-            className="text-sm text-[#008080] font-semibold hover:underline"
+            className="apple-btn apple-btn-primary"
           >
             Add your first driver
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-5">
-          {drivers.map((driver) => {
+        <div className="grid grid-cols-2 gap-4">
+          {drivers.map((driver, i) => {
             const driverJobs = jobs.filter((j) => j.driver_id === driver.id);
             const totalStops = driverJobs.reduce((s, j) => s + j.total_stops, 0);
 
             return (
-              <div key={driver.id} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow">
+              <div key={driver.id} className="apple-card p-5 animate-fade-in" style={{ animationDelay: `${i * 60}ms` }}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-[#008080]/10 flex items-center justify-center">
-                      <Truck size={20} className="text-[#008080]" />
+                    <div className="w-11 h-11 rounded-xl bg-[#f5f5f7] flex items-center justify-center">
+                      <Truck size={18} className="text-[#86868b]" strokeWidth={1.8} />
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold text-gray-800">{driver.name}</h3>
-                      <p className="text-xs text-gray-400">{driver.id} | {driver.vehicle_type}</p>
+                      <h3 className="text-[14px] font-semibold text-[#1d1d1f]">{driver.name}</h3>
+                      <p className="text-[12px] text-[#aeaeb2]">{driver.id} | {driver.vehicle_type}</p>
                     </div>
                   </div>
-                  <button onClick={() => handleRemove(driver.id)} className="text-gray-300 hover:text-red-500 transition-colors">
-                    <Trash2 size={16} />
+                  <button onClick={() => handleRemove(driver.id)} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#ff3b30]/10 transition-colors">
+                    <Trash2 size={14} className="text-[#c7c7cc] hover:text-[#ff3b30]" />
                   </button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mb-3">
-                  <div className="text-center p-2 bg-gray-50 rounded-lg">
-                    <p className="text-lg font-bold text-gray-800">{driverJobs.length}</p>
-                    <p className="text-[10px] text-gray-400 uppercase">Jobs</p>
+                  <div className="text-center p-2.5 bg-[#f5f5f7] rounded-xl">
+                    <p className="text-[18px] font-semibold text-[#1d1d1f]">{driverJobs.length}</p>
+                    <p className="text-[10px] text-[#aeaeb2] font-medium uppercase">Jobs</p>
                   </div>
-                  <div className="text-center p-2 bg-gray-50 rounded-lg">
-                    <p className="text-lg font-bold text-gray-800">{totalStops}</p>
-                    <p className="text-[10px] text-gray-400 uppercase">Stops</p>
+                  <div className="text-center p-2.5 bg-[#f5f5f7] rounded-xl">
+                    <p className="text-[18px] font-semibold text-[#1d1d1f]">{totalStops}</p>
+                    <p className="text-[10px] text-[#aeaeb2] font-medium uppercase">Stops</p>
                   </div>
                 </div>
 
                 {driverJobs.length > 0 && (
                   <div className="space-y-1.5">
                     {driverJobs.map((j) => (
-                      <div key={j.id} className="p-2 bg-teal-50 rounded-lg flex items-center gap-2">
-                        <Package size={12} className="text-[#008080]" />
-                        <span className="text-xs font-semibold text-teal-800">{j.id}</span>
-                        <span className="text-xs text-teal-600">{j.area} ({j.total_stops} stops)</span>
+                      <div key={j.id} className="p-2.5 bg-[#007aff]/5 rounded-xl flex items-center gap-2">
+                        <Package size={12} className="text-[#007aff]" />
+                        <span className="text-[12px] font-semibold text-[#007aff]">{j.id}</span>
+                        <span className="text-[11px] text-[#007aff]/60">{j.area} ({j.total_stops} stops)</span>
                       </div>
                     ))}
                   </div>
                 )}
 
                 {driver.phone && (
-                  <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-gray-50 text-xs text-gray-400">
+                  <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-[#f0f0f0] text-[12px] text-[#aeaeb2]">
                     <Phone size={12} />
                     <span>{driver.phone}</span>
                   </div>

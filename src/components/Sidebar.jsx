@@ -3,7 +3,7 @@ import { LayoutDashboard, Radio, Map, Package, Truck, GitBranch, BarChart3, Sett
 
 const navItems = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/dispatch", icon: Radio, label: "Dispatch Center" },
+  { to: "/dispatch", icon: Radio, label: "Dispatch" },
   { to: "/map", icon: Map, label: "Live Map" },
   { to: "/jobs", icon: Package, label: "Jobs" },
   { to: "/drivers", icon: Truck, label: "Drivers" },
@@ -14,43 +14,53 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 bg-[#0a1628] text-white flex flex-col min-h-screen fixed left-0 top-0 z-30">
-      <div className="px-6 py-5 border-b border-white/10">
+    <aside className="w-[260px] fixed left-0 top-0 bottom-0 z-30 flex flex-col border-r border-black/[0.04]"
+      style={{
+        background: "rgba(245, 245, 247, 0.72)",
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+      }}
+    >
+      <div className="px-6 pt-7 pb-5">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-[#008080] flex items-center justify-center font-bold text-lg">A</div>
+          <div className="w-9 h-9 rounded-[10px] bg-[#1d1d1f] flex items-center justify-center font-bold text-sm text-white tracking-tight">
+            A
+          </div>
           <div>
-            <h1 className="text-base font-bold tracking-tight">Aviate Dispatch</h1>
-            <p className="text-[11px] text-white/50 uppercase tracking-widest">Logistics OS</p>
+            <h1 className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
+            <p className="text-[11px] text-[#86868b] font-medium tracking-wide">Dispatch System</p>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
         {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}
             end={to === "/"}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+              `flex items-center gap-3 px-3 py-[9px] rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-[#008080] text-white shadow-lg shadow-teal-500/20"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-[#1d1d1f] text-white shadow-sm"
+                  : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
               }`
             }
           >
-            <Icon size={18} />
+            <Icon size={17} strokeWidth={1.8} />
             <span>{label}</span>
           </NavLink>
         ))}
       </nav>
 
-      <div className="px-4 py-4 border-t border-white/10">
+      <div className="px-5 py-5 border-t border-black/[0.04]">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-[#008080]/30 flex items-center justify-center text-xs font-bold text-teal-300">AD</div>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#86868b] to-[#aeaeb2] flex items-center justify-center text-[11px] font-bold text-white">
+            AD
+          </div>
           <div>
-            <p className="text-sm font-medium">Admin</p>
-            <p className="text-[11px] text-white/40">admin@aviate.co.za</p>
+            <p className="text-[13px] font-medium text-[#1d1d1f]">Admin</p>
+            <p className="text-[11px] text-[#aeaeb2]">admin@aviate.co.za</p>
           </div>
         </div>
       </div>

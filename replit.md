@@ -8,11 +8,17 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding via Nominatim), Pandas
 - **Data**: In-memory store (no database) — resets on restart
 
-## Design System
-- Primary: `#008080` (teal)
-- Secondary: navy blue accents (`#0a1628`, `#1e3a5f`)
-- Background: pure white `#FFFFFF`
-- Style: clean SaaS dashboard (Stripe/Uber Freight inspired)
+## Design System (Apple-Inspired)
+- Background: `#f5f5f7` (Apple light grey)
+- Cards: white with subtle shadows (`apple-card` class)
+- Text primary: `#1d1d1f`, secondary: `#86868b`, tertiary: `#aeaeb2`
+- Accent blue: `#007aff`, green: `#34c759`, orange: `#ff9500`, red: `#ff3b30`
+- Active nav/buttons: `#1d1d1f` (near-black)
+- Frosted glass sidebar with backdrop blur
+- Skeleton loaders, fade-in/slide-up animations
+- Typography: SF Pro / system font stack, tight tracking
+- Inputs: `apple-input` class with blue focus rings
+- Buttons: `apple-btn apple-btn-primary` / `apple-btn-secondary`
 
 ## Project Structure
 ```

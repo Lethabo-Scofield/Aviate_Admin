@@ -3,13 +3,13 @@ import { Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-      <p className="text-6xl font-bold text-gray-200 mb-2">404</p>
-      <p className="text-lg font-semibold text-gray-600 mb-1">Page not found</p>
-      <p className="text-sm text-gray-400 mb-6">The page you are looking for does not exist.</p>
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center animate-fade-in">
+      <p className="text-[72px] font-bold text-[#e5e5ea] leading-none mb-3 tracking-tight">404</p>
+      <p className="text-[18px] font-semibold text-[#1d1d1f] mb-1">Page not found</p>
+      <p className="text-[14px] text-[#86868b] mb-8">The page you're looking for doesn't exist.</p>
       <Link
         to="/"
-        className="inline-flex items-center gap-2 px-4 py-2 bg-[#008080] text-white rounded-lg text-sm font-medium hover:bg-[#006e6e] transition-colors"
+        className="apple-btn apple-btn-primary"
       >
         <Home size={16} />
         Back to Dashboard
