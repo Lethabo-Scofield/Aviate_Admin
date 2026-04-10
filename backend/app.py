@@ -1,15 +1,15 @@
 import os
 import uuid
-import json
+import traceback
 from datetime import datetime, timedelta, timezone
 from functools import wraps
 from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 import pandas as pd
-from optimize_route import optimize_route_from_data, geocode_address, build_distance_matrix, DEPOT
+import requests as http_requests
+from optimize_route import geocode_address, build_distance_matrix, DEPOT
 from geopy.geocoders import Nominatim
 import time as time_module
-import numpy as np
 from math import radians, sin, cos, sqrt, atan2
 import jwt
 import bcrypt
@@ -162,7 +162,8 @@ def register():
 
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Registration failed"}), 500
     finally:
         db.close()
 
@@ -193,7 +194,8 @@ def login():
         })
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Login failed"}), 500
     finally:
         db.close()
 
@@ -342,7 +344,8 @@ def upload_excel():
             db.commit()
         except Exception as e:
             db.rollback()
-            return jsonify({"error": str(e)}), 500
+            traceback.print_exc()
+            return jsonify({"error": "Failed to save stops"}), 500
         finally:
             db.close()
 
@@ -356,11 +359,12 @@ def upload_excel():
         })
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Failed to process upload"}), 500
     finally:
         try:
             os.remove(filepath)
-        except:
+        except OSError:
             pass
 
 
@@ -412,7 +416,6 @@ def load_test_data():
         db.commit()
     except Exception as e:
         db.rollback()
-        import traceback
         traceback.print_exc()
         return jsonify({"error": "Failed to load test data"}), 500
     finally:
@@ -553,7 +556,6 @@ def optimize():
 
         db.commit()
 
-        import requests as http_requests
         for job in jobs_created:
             try:
                 sorted_stops = sorted(job.stops, key=lambda s: s.stop_number or 0)
@@ -586,9 +588,8 @@ def optimize():
 
     except Exception as e:
         db.rollback()
-        import traceback
         traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "Route optimization failed"}), 500
     finally:
         db.close()
 
@@ -694,13 +695,14 @@ def assign_driver(job_id):
         job.status = "assigned"
         job.driver_id = driver_id
         job.driver_name = driver.name
-        job.assigned_at = datetime.now()
+        job.assigned_at = datetime.now(timezone.utc)
         db.commit()
 
         return jsonify({"success": True, "job": job.to_dict()})
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Failed to assign driver"}), 500
     finally:
         db.close()
 
@@ -724,7 +726,8 @@ def unassign_driver(job_id):
         return jsonify({"success": True, "job": job.to_dict()})
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Failed to unassign driver"}), 500
     finally:
         db.close()
 
@@ -800,7 +803,6 @@ def add_driver():
         return jsonify({"success": True, "driver": result}), 201
     except Exception as e:
         db.rollback()
-        import traceback
         traceback.print_exc()
         return jsonify({"error": "Failed to add driver"}), 500
     finally:
@@ -833,7 +835,8 @@ def remove_driver(driver_id):
         return jsonify({"success": True})
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Failed to remove driver"}), 500
     finally:
         db.close()
 
@@ -913,7 +916,8 @@ def complete_my_stop(job_id, stop_id):
         return jsonify({"success": True, "stop": stop.to_dict(), "job_status": job.status})
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"error": "Failed to complete stop"}), 500
     finally:
         db.close()
 
@@ -1016,7 +1020,6 @@ def get_stats():
 @require_auth
 @require_admin
 def get_road_route():
-    import requests as http_requests
     data = request.get_json() or {}
     waypoints = data.get("waypoints", [])
 
@@ -1038,7 +1041,8 @@ def get_road_route():
             })
         return jsonify({"success": False, "error": "No route found"}), 404
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+        traceback.print_exc()
+        return jsonify({"success": False, "error": "Failed to fetch route"}), 500
 
 
 if __name__ == '__main__':

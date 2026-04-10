@@ -106,7 +106,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - `GET /api/my-jobs` — Get jobs assigned to the logged-in driver
 - `POST /api/my-jobs/:job_id/complete/:stop_id` — Mark a stop as completed
 
-### Legacy Driver API (unprotected, backward compat)
+### Legacy Driver API (require JWT, backward compat)
 - `GET /api/driver/:id/jobs` — Driver: get assigned jobs by driver ID
 - `POST /api/driver/:id/complete/:job_id/:stop_id` — Driver marks stop complete
 
@@ -153,7 +153,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - react-router-dom, lucide-react, papaparse, xlsx, leaflet, react-leaflet
 
 ### Backend (pip)
-- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary, requests, PyJWT, bcrypt, gunicorn, numpy
+- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary, requests, PyJWT, bcrypt, gunicorn
 
 ## Important Notes
 - Always cast numpy types to Python native types before DB insert
