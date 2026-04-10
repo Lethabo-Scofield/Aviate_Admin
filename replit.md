@@ -1,12 +1,12 @@
-# Aviate Dispatch System — Logistics SaaS Dashboard
+# Aviate Dispatch System — Logistics SaaS MVP
 
 ## Overview
-A production-style logistics SaaS dashboard with AI-powered route optimization and full decision transparency. Built as a modular, explainable dispatch system (not just a delivery tracker).
+A real logistics dispatch system where admins upload an Excel file of delivery addresses, the backend geocodes them (Nominatim), clusters stops into geographic jobs, optimizes routes using OR-Tools, and assigns drivers. Drivers receive their jobs via a REST API.
 
 ## Tech Stack
 - **Frontend**: React 19 + Vite, Tailwind CSS 4, React Router, Recharts, Leaflet (maps), Lucide icons
-- **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding), Pandas
-- **External APIs**: OpenRouteService (road routing), Nominatim/OpenStreetMap (geocoding)
+- **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding via Nominatim), Pandas
+- **Data**: In-memory store (no database) — resets on restart
 
 ## Design System
 - Primary: `#008080` (teal)
@@ -16,46 +16,54 @@ A production-style logistics SaaS dashboard with AI-powered route optimization a
 
 ## Project Structure
 ```
-├── backend/                    # Python Flask API (port 8000)
-│   ├── app.py
-│   ├── optimize_route.py
+├── backend/
+│   ├── app.py                 # Flask API (port 8000) — upload, geocode, cluster, optimize, assign
+│   ├── optimize_route.py      # OR-Tools route optimizer
 │   └── requirements.txt
 ├── src/
-│   ├── App.jsx                 # Root with BrowserRouter + WeightsProvider
+│   ├── App.jsx                # Root with BrowserRouter
 │   ├── main.jsx
-│   ├── index.css               # Tailwind + global styles
-│   ├── context/
-│   │   └── WeightsContext.jsx   # Shared scoring weights state
+│   ├── index.css              # Tailwind + global styles
 │   ├── services/
-│   │   └── scoringEngine.js    # 4-layer optimization engine
-│   ├── data/
-│   │   └── mockData.js         # Drivers, jobs, routes, analytics data
+│   │   └── api.js             # API client — all backend calls
 │   ├── components/
-│   │   ├── Layout.jsx          # Sidebar + Outlet wrapper
-│   │   ├── Sidebar.jsx         # Navigation sidebar
-│   │   ├── StatCard.jsx        # Metric display card
-│   │   ├── EfficiencyBar.jsx   # Visual efficiency progress bar
-│   │   ├── RouteBreakdownCard.jsx  # Route metrics card
-│   │   └── ExplainabilityPanel.jsx # AI decision transparency panel
+│   │   ├── Layout.jsx         # Sidebar + Outlet wrapper
+│   │   ├── Sidebar.jsx        # Navigation sidebar (8 pages)
+│   │   ├── StatCard.jsx       # Metric display card
+│   │   └── EfficiencyBar.jsx  # Visual efficiency progress bar
 │   └── pages/
-│       ├── Dashboard.jsx       # Overview metrics
-│       ├── DispatchCenter.jsx  # Job creation + auto-assign
-│       ├── LiveMap.jsx         # Real-time driver/route map
-│       ├── Jobs.jsx            # All deliveries table
-│       ├── Drivers.jsx         # Fleet management cards
-│       ├── Routes.jsx          # Optimization results + explainability
-│       ├── Analytics.jsx       # Charts + performance metrics
-│       ├── Settings.jsx        # Scoring weights + config
-│       └── NotFound.jsx        # 404 page
+│       ├── Dashboard.jsx      # Overview metrics + welcome state
+│       ├── DispatchCenter.jsx # Excel upload → geocode → optimize → jobs (3-step wizard)
+│       ├── LiveMap.jsx        # Map with job stops and routes
+│       ├── Jobs.jsx           # Jobs table with assign-driver modal
+│       ├── Drivers.jsx        # Fleet management — add/list drivers
+│       ├── Routes.jsx         # Optimized route details
+│       ├── Analytics.jsx      # Charts + performance metrics
+│       ├── Settings.jsx       # Cluster radius, driver count, API docs
+│       └── NotFound.jsx       # 404 page
 ```
 
-## Optimization Engine (4 Layers)
-1. **Candidate Filtering**: distance, vehicle type, availability, capacity, time window feasibility
-2. **Scoring Engine**: weighted formula with priority multiplier — `score = (dist×w1 + route_time×w2 + idle×w3 + lateness×w4) × priority_multiplier`
-3. **Route Sequencing**: metric calculation (distance, time, cost, efficiency)
-4. **Real-time Adjustment**: structure for detecting changes (traffic, cancellations)
+## API Endpoints
+- `POST /api/upload` — Upload Excel with delivery addresses, geocodes via Nominatim
+- `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools
+- `GET /api/jobs` — List all jobs
+- `POST /api/jobs/:id/assign` — Assign driver to job
+- `GET /api/drivers` — List all drivers
+- `POST /api/drivers` — Add a new driver
+- `GET /api/driver/:id/jobs` — Driver mobile API: get assigned jobs
+- `POST /api/driver/:id/complete/:job_id/:stop_id` — Driver marks stop complete
+- `GET /api/stats` — Dashboard statistics
 
-Weights are configurable via Settings page and shared through React Context.
+## Excel Format
+- **Required column**: `Full_Address` (or `address`)
+- **Optional columns**: Order_ID, Customer_Name, Demand, Time_Window_Start, Time_Window_End, Service_Time, Phone, Notes
+
+## Core Flow
+1. Admin uploads Excel file → backend geocodes each address via Nominatim (1.1s delay per address)
+2. Admin clicks Optimize → backend clusters stops by geographic radius (default 8km), runs OR-Tools per cluster
+3. Jobs are created from clusters with optimized stop order
+4. Admin assigns drivers to jobs
+5. Drivers fetch their jobs via REST API and mark stops complete
 
 ## Ports
 - **Frontend (Vite)**: port 5000 (webview)
@@ -66,8 +74,8 @@ Weights are configurable via Settings page and shared through React Context.
 - **Backend API**: `cd backend && python app.py` — Flask API (port 8000)
 
 ## Key Dependencies
-- react-router-dom (routing)
-- recharts (analytics charts)
-- leaflet / react-leaflet (maps)
-- lucide-react (icons)
-- papaparse / xlsx (file parsing)
+### Frontend (npm)
+- react-router-dom, recharts, leaflet, react-leaflet, lucide-react, papaparse, xlsx
+
+### Backend (pip)
+- flask, flask-cors, pandas, openpyxl, geopy, ortools
