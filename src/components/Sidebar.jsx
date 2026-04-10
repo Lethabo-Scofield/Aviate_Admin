@@ -96,10 +96,7 @@ export default function Sidebar() {
       >
         <div className="px-5 pt-6 pb-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="relative">
-              <img src="/logo.png" alt="Aviate" className="w-10 h-10 rounded-xl shadow-sm" />
-              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#34c759] border-2 border-white" />
-            </div>
+            <img src="/logo.png" alt="Aviate" className="w-10 h-10" />
             <div>
               <h1 className="text-[16px] font-bold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
               <div className="flex items-center gap-1 mt-0.5">
