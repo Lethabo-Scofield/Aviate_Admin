@@ -83,10 +83,10 @@ export default function DispatchCenter() {
         <p className="text-[14px] text-[#86868b] mt-1">Upload delivery addresses and optimize routes</p>
       </div>
 
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-2 sm:gap-3 mb-8 overflow-x-auto">
         {["Upload", "Optimize", "Done"].map((label, i) => (
-          <div key={label} className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
+          <div key={label} className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all ${
                 stepIndex > i ? "bg-[#34c759] text-white" :
                 stepIndex === i ? "bg-[#1d1d1f] text-white" :
@@ -98,7 +98,7 @@ export default function DispatchCenter() {
                 {label}
               </span>
             </div>
-            {i < 2 && <div className={`w-10 h-px ${stepIndex > i ? "bg-[#34c759]" : "bg-[#e5e5ea]"}`} />}
+            {i < 2 && <div className={`w-6 sm:w-10 h-px ${stepIndex > i ? "bg-[#34c759]" : "bg-[#e5e5ea]"}`} />}
           </div>
         ))}
       </div>
@@ -111,7 +111,7 @@ export default function DispatchCenter() {
       )}
 
       {step === "upload" && (
-        <div className="max-w-xl animate-slide-up">
+        <div className="max-w-xl mx-auto sm:mx-0 animate-slide-up">
           <div className="apple-card p-10">
             <div className="text-center mb-6">
               <div className="w-14 h-14 rounded-[14px] bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
@@ -155,8 +155,8 @@ export default function DispatchCenter() {
             </div>
           )}
 
-          <div className="grid grid-cols-5 gap-4 mb-4">
-            <div className="col-span-3 apple-card p-5">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+            <div className="md:col-span-3 apple-card p-5">
               <h3 className="text-[13px] font-semibold text-[#1d1d1f] mb-3">{stops.length} addresses ready</h3>
               <div className="max-h-64 overflow-y-auto space-y-1">
                 {stops.map((stop, idx) => (
@@ -172,7 +172,7 @@ export default function DispatchCenter() {
               </div>
             </div>
 
-            <div className="col-span-2 apple-card p-5 flex flex-col">
+            <div className="md:col-span-2 apple-card p-5 flex flex-col">
               <h3 className="text-[13px] font-semibold text-[#1d1d1f] mb-4">Settings</h3>
               <div className="mb-4">
                 <label className="text-[12px] text-[#86868b] font-medium mb-1.5 block">Cluster radius</label>
@@ -210,25 +210,25 @@ export default function DispatchCenter() {
 
       {step === "results" && (
         <div className="animate-slide-up">
-          <div className="apple-card p-5 flex items-center justify-between mb-5 border-l-4 border-l-[#34c759]">
+          <div className="apple-card p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 border-l-4 border-l-[#34c759]">
             <div className="flex items-center gap-3">
-              <CheckCircle size={20} className="text-[#34c759]" />
+              <CheckCircle size={20} className="text-[#34c759] shrink-0" />
               <div>
                 <p className="text-[14px] font-semibold text-[#1d1d1f]">{jobs.length} optimized jobs created</p>
                 <p className="text-[12px] text-[#86868b]">{stops.length} stops grouped by area with optimized sequences</p>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={() => navigate("/jobs")} className="apple-btn apple-btn-primary text-[13px] py-2 px-4">
+            <div className="flex gap-2 w-full sm:w-auto">
+              <button onClick={() => navigate("/jobs")} className="apple-btn apple-btn-primary text-[13px] py-2 px-4 flex-1 sm:flex-initial">
                 Assign Drivers
               </button>
-              <button onClick={handleReset} className="apple-btn apple-btn-secondary text-[13px] py-2 px-4">
+              <button onClick={handleReset} className="apple-btn apple-btn-secondary text-[13px] py-2 px-4 flex-1 sm:flex-initial">
                 New Upload
               </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {jobs.map((job, i) => (
               <div key={job.id} className="apple-card p-4 animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
                 <div className="flex items-center justify-between mb-2">

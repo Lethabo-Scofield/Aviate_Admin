@@ -31,7 +31,7 @@ export default function Dashboard() {
       <div className="space-y-4">
         <div className="skeleton h-8 w-48 mb-2" />
         <div className="skeleton h-4 w-72 mb-8" />
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map(i => <div key={i} className="apple-card p-6"><div className="skeleton h-4 w-20 mb-3" /><div className="skeleton h-8 w-16" /></div>)}
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
           <div className="apple-card p-6">
             <h3 className="text-[13px] font-semibold text-[#86868b] mb-4">Three steps to optimized routes</h3>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               {[
                 { step: "1", title: "Upload", desc: "Upload an Excel or CSV file with delivery addresses" },
                 { step: "2", title: "Optimize", desc: "System geocodes addresses, clusters stops, and finds the best routes" },
@@ -83,7 +83,7 @@ export default function Dashboard() {
         </div>
       ) : (
         <div className="space-y-5">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { label: "Jobs", value: stats.total_jobs, sub: `${stats.unassigned} unassigned`, icon: Package },
               { label: "Stops", value: stats.total_stops, sub: `${stats.total_distance_km} km total`, icon: MapPin },
@@ -104,7 +104,7 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="apple-card p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-[14px] font-semibold text-[#1d1d1f]">Recent Jobs</h2>
