@@ -1,8 +1,9 @@
 import os
 import uuid
 import json
-from datetime import datetime
-from flask import Flask, request, jsonify
+from datetime import datetime, timedelta
+from functools import wraps
+from flask import Flask, request, jsonify, g
 from flask_cors import CORS
 import pandas as pd
 from optimize_route import optimize_route_from_data, geocode_address, build_distance_matrix, DEPOT
@@ -10,10 +11,17 @@ from geopy.geocoders import Nominatim
 import time as time_module
 import numpy as np
 from math import radians, sin, cos, sqrt, atan2
-from models import init_db, SessionLocal, Driver, Stop, Job, engine
+import jwt
+import bcrypt
+from models import init_db, SessionLocal, Driver, Stop, Job, Company, User, engine
 
 app = Flask(__name__)
 CORS(app)
+
+JWT_SECRET = os.environ.get("JWT_SECRET")
+if not JWT_SECRET:
+    JWT_SECRET = os.urandom(32).hex()
+    print("WARNING: JWT_SECRET not set, using random secret. Tokens will not persist across restarts.")
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -23,11 +31,24 @@ init_db()
 from sqlalchemy import text, inspect
 with engine.connect() as conn:
     inspector = inspect(engine)
-    columns = [c["name"] for c in inspector.get_columns("jobs")]
-    if "route_geometry" not in columns:
-        conn.execute(text("ALTER TABLE jobs ADD COLUMN route_geometry TEXT"))
-        conn.commit()
-        print("Added route_geometry column to jobs table")
+    if "jobs" in inspector.get_table_names():
+        columns = [c["name"] for c in inspector.get_columns("jobs")]
+        if "route_geometry" not in columns:
+            conn.execute(text("ALTER TABLE jobs ADD COLUMN route_geometry TEXT"))
+            conn.commit()
+        if "company_id" not in columns:
+            conn.execute(text("ALTER TABLE jobs ADD COLUMN company_id VARCHAR REFERENCES companies(id)"))
+            conn.commit()
+    if "stops" in inspector.get_table_names():
+        columns = [c["name"] for c in inspector.get_columns("stops")]
+        if "company_id" not in columns:
+            conn.execute(text("ALTER TABLE stops ADD COLUMN company_id VARCHAR REFERENCES companies(id)"))
+            conn.commit()
+    if "drivers" in inspector.get_table_names():
+        columns = [c["name"] for c in inspector.get_columns("drivers")]
+        if "company_id" not in columns:
+            conn.execute(text("ALTER TABLE drivers ADD COLUMN company_id VARCHAR REFERENCES companies(id)"))
+            conn.commit()
 
 
 def get_db():
@@ -37,6 +58,140 @@ def get_db():
     except:
         db.close()
         raise
+
+
+def require_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ", 1)[1]
+
+        if not token:
+            return jsonify({"error": "Authentication required"}), 401
+
+        try:
+            payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+            g.user_id = payload["user_id"]
+            g.company_id = payload["company_id"]
+            g.user_email = payload.get("email", "")
+        except jwt.ExpiredSignatureError:
+            return jsonify({"error": "Token expired"}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({"error": "Invalid token"}), 401
+
+        return f(*args, **kwargs)
+    return decorated
+
+
+def generate_token(user):
+    payload = {
+        "user_id": user.id,
+        "company_id": user.company_id,
+        "email": user.email,
+        "exp": datetime.utcnow() + timedelta(days=30),
+        "iat": datetime.utcnow(),
+    }
+    return jwt.encode(payload, JWT_SECRET, algorithm="HS256")
+
+
+@app.route('/api/auth/register', methods=['POST'])
+def register():
+    data = request.get_json() or {}
+    email = (data.get("email") or "").strip().lower()
+    password = data.get("password", "")
+    name = (data.get("name") or "").strip()
+    company_name = (data.get("company_name") or "").strip()
+
+    if not email or not password or not name or not company_name:
+        return jsonify({"error": "All fields are required: name, email, password, company_name"}), 400
+
+    if len(password) < 6:
+        return jsonify({"error": "Password must be at least 6 characters"}), 400
+
+    db = get_db()
+    try:
+        existing = db.query(User).filter(User.email == email).first()
+        if existing:
+            return jsonify({"error": "An account with this email already exists"}), 409
+
+        domain = email.split("@")[1] if "@" in email else ""
+
+        company_id = f"CMP-{uuid.uuid4().hex[:8].upper()}"
+        company = Company(id=company_id, name=company_name, domain=domain)
+        db.add(company)
+
+        password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        user_id = f"USR-{uuid.uuid4().hex[:8].upper()}"
+        user = User(
+            id=user_id,
+            email=email,
+            password_hash=password_hash,
+            name=name,
+            role="admin",
+            company_id=company_id,
+        )
+        db.add(user)
+        db.commit()
+
+        db.refresh(user)
+        token = generate_token(user)
+        return jsonify({
+            "success": True,
+            "token": token,
+            "user": user.to_dict(),
+        }), 201
+
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
+
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    data = request.get_json() or {}
+    email = (data.get("email") or "").strip().lower()
+    password = data.get("password", "")
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    db = get_db()
+    try:
+        user = db.query(User).filter(User.email == email).first()
+        if not user:
+            return jsonify({"error": "Invalid email or password"}), 401
+
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password_hash.encode("utf-8")):
+            return jsonify({"error": "Invalid email or password"}), 401
+
+        token = generate_token(user)
+        return jsonify({
+            "success": True,
+            "token": token,
+            "user": user.to_dict(),
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
+
+
+@app.route('/api/auth/me', methods=['GET'])
+@require_auth
+def get_me():
+    db = get_db()
+    try:
+        user = db.query(User).filter(User.id == g.user_id).first()
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+        return jsonify({"user": user.to_dict()})
+    finally:
+        db.close()
 
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -50,15 +205,12 @@ def haversine(lat1, lon1, lat2, lon2):
 def cluster_stops(stops, radius_km=8):
     clusters = []
     used = set()
-
     sorted_stops = sorted(stops, key=lambda s: (s["lat"], s["lng"]))
-
     for i, stop in enumerate(sorted_stops):
         if i in used:
             continue
         cluster = [stop]
         used.add(i)
-
         for j, other in enumerate(sorted_stops):
             if j in used:
                 continue
@@ -66,9 +218,7 @@ def cluster_stops(stops, radius_km=8):
             if dist <= radius_km:
                 cluster.append(other)
                 used.add(j)
-
         clusters.append(cluster)
-
     return clusters
 
 
@@ -78,6 +228,7 @@ def root():
 
 
 @app.route('/api/upload', methods=['POST'])
+@require_auth
 def upload_excel():
     if 'file' not in request.files:
         return jsonify({"error": "No file provided"}), 400
@@ -158,15 +309,17 @@ def upload_excel():
             stops_data.append(stop_dict)
             time_module.sleep(1.1)
 
+        company_id = g.company_id
         db = get_db()
         try:
-            db.query(Stop).filter(Stop.job_id.is_(None)).delete()
+            db.query(Stop).filter(Stop.job_id.is_(None), Stop.company_id == company_id).delete()
             for s in stops_data:
                 db.add(Stop(
                     id=s["id"], order_id=s["order_id"], customer_name=s["customer_name"],
                     address=s["address"], lat=s["lat"], lng=s["lng"], demand=s["demand"],
                     service_time=s["service_time"], phone=s["phone"], notes=s["notes"],
                     time_window_start=s["time_window_start"], time_window_end=s["time_window_end"],
+                    company_id=company_id,
                 ))
             db.commit()
         except Exception as e:
@@ -194,6 +347,7 @@ def upload_excel():
 
 
 @app.route('/api/test-data', methods=['POST'])
+@require_auth
 def load_test_data():
     test_stops = [
         {"id": "test01", "order_id": "ORD-001", "customer_name": "Sipho Ndlovu", "address": "Vilakazi Street, Orlando West, Soweto", "lat": -26.2382, "lng": 27.9082, "demand": 2, "service_time": 15, "phone": "+27 72 100 0001", "notes": "Ring bell twice", "time_window_start": "", "time_window_end": ""},
@@ -218,18 +372,23 @@ def load_test_data():
         {"id": "test20", "order_id": "ORD-020", "customer_name": "Anele Zungu", "address": "Braamfontein, Juta Street", "lat": -26.1920, "lng": 28.0340, "demand": 2, "service_time": 15, "phone": "+27 72 100 0020", "notes": "", "time_window_start": "", "time_window_end": ""},
     ]
 
+    company_id = g.company_id
+    unique_prefix = uuid.uuid4().hex[:4]
+
     db = get_db()
     try:
-        db.query(Stop).filter(Stop.job_id.is_(None)).delete()
+        db.query(Stop).filter(Stop.job_id.is_(None), Stop.company_id == company_id).delete()
         for s in test_stops:
-            existing = db.query(Stop).filter(Stop.id == s["id"]).first()
+            stop_id = f"{s['id']}_{unique_prefix}"
+            existing = db.query(Stop).filter(Stop.id == stop_id).first()
             if existing:
                 db.delete(existing)
             db.add(Stop(
-                id=s["id"], order_id=s["order_id"], customer_name=s["customer_name"],
+                id=stop_id, order_id=s["order_id"], customer_name=s["customer_name"],
                 address=s["address"], lat=s["lat"], lng=s["lng"], demand=s["demand"],
                 service_time=s["service_time"], phone=s["phone"], notes=s["notes"],
                 time_window_start=s["time_window_start"], time_window_end=s["time_window_end"],
+                company_id=company_id,
             ))
         db.commit()
     except Exception as e:
@@ -249,13 +408,15 @@ def load_test_data():
 
 
 @app.route('/api/optimize', methods=['POST'])
+@require_auth
 def optimize():
     data = request.get_json() or {}
     cluster_radius = float(data.get("cluster_radius", 8))
+    company_id = g.company_id
 
     db = get_db()
     try:
-        old_jobs = db.query(Job).all()
+        old_jobs = db.query(Job).filter(Job.company_id == company_id).all()
         for oj in old_jobs:
             for s in oj.stops:
                 s.job_id = None
@@ -263,7 +424,7 @@ def optimize():
             db.delete(oj)
         db.flush()
 
-        unassigned_stops = db.query(Stop).all()
+        unassigned_stops = db.query(Stop).filter(Stop.company_id == company_id).all()
         stops_data = [s.to_dict() for s in unassigned_stops]
 
         incoming_stops = data.get("stops")
@@ -341,11 +502,12 @@ def optimize():
                 center_lat=float(center_lat),
                 center_lng=float(center_lng),
                 status="unassigned",
+                company_id=company_id,
             )
             db.add(job)
 
             for i, stop_data in enumerate(ordered_stops):
-                stop = db.query(Stop).filter(Stop.id == stop_data["id"]).first()
+                stop = db.query(Stop).filter(Stop.id == stop_data["id"], Stop.company_id == company_id).first()
                 if stop:
                     stop.job_id = job_id
                     stop.stop_number = i + 1
@@ -362,6 +524,7 @@ def optimize():
                         time_window_start=stop_data.get("time_window_start", ""),
                         time_window_end=stop_data.get("time_window_end", ""),
                         job_id=job_id, stop_number=i + 1,
+                        company_id=company_id,
                     ))
 
             jobs_created.append(job)
@@ -475,16 +638,18 @@ def _determine_area_name(lat, lng, stops):
 
 
 @app.route('/api/jobs', methods=['GET'])
+@require_auth
 def get_jobs():
     db = get_db()
     try:
-        jobs = db.query(Job).all()
+        jobs = db.query(Job).filter(Job.company_id == g.company_id).all()
         return jsonify({"jobs": [j.to_dict() for j in jobs]})
     finally:
         db.close()
 
 
 @app.route('/api/jobs/<job_id>/assign', methods=['POST'])
+@require_auth
 def assign_driver(job_id):
     data = request.get_json() or {}
     driver_id = data.get("driver_id")
@@ -494,11 +659,11 @@ def assign_driver(job_id):
 
     db = get_db()
     try:
-        driver = db.query(Driver).filter(Driver.id == driver_id).first()
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
         if not driver:
             return jsonify({"error": "Driver not found"}), 404
 
-        job = db.query(Job).filter(Job.id == job_id).first()
+        job = db.query(Job).filter(Job.id == job_id, Job.company_id == g.company_id).first()
         if not job:
             return jsonify({"error": "Job not found"}), 404
 
@@ -517,10 +682,11 @@ def assign_driver(job_id):
 
 
 @app.route('/api/jobs/<job_id>/unassign', methods=['POST'])
+@require_auth
 def unassign_driver(job_id):
     db = get_db()
     try:
-        job = db.query(Job).filter(Job.id == job_id).first()
+        job = db.query(Job).filter(Job.id == job_id, Job.company_id == g.company_id).first()
         if not job:
             return jsonify({"error": "Job not found"}), 404
 
@@ -539,16 +705,18 @@ def unassign_driver(job_id):
 
 
 @app.route('/api/drivers', methods=['GET'])
+@require_auth
 def get_drivers():
     db = get_db()
     try:
-        drivers = db.query(Driver).all()
+        drivers = db.query(Driver).filter(Driver.company_id == g.company_id).all()
         return jsonify({"drivers": [d.to_dict() for d in drivers]})
     finally:
         db.close()
 
 
 @app.route('/api/drivers', methods=['POST'])
+@require_auth
 def add_driver():
     data = request.get_json() or {}
     name = data.get("name")
@@ -565,6 +733,7 @@ def add_driver():
             name=name,
             email=email,
             vehicle_type=vehicle_type,
+            company_id=g.company_id,
         )
         db.add(driver)
         db.commit()
@@ -577,14 +746,15 @@ def add_driver():
 
 
 @app.route('/api/drivers/<driver_id>', methods=['DELETE'])
+@require_auth
 def remove_driver(driver_id):
     db = get_db()
     try:
-        driver = db.query(Driver).filter(Driver.id == driver_id).first()
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
         if not driver:
             return jsonify({"error": "Driver not found"}), 404
 
-        jobs = db.query(Job).filter(Job.driver_id == driver_id).all()
+        jobs = db.query(Job).filter(Job.driver_id == driver_id, Job.company_id == g.company_id).all()
         for job in jobs:
             job.status = "unassigned"
             job.driver_id = None
@@ -640,21 +810,23 @@ def complete_stop(driver_id, job_id, stop_id):
 
 
 @app.route('/api/stops', methods=['GET'])
+@require_auth
 def get_stops():
     db = get_db()
     try:
-        stops = db.query(Stop).all()
+        stops = db.query(Stop).filter(Stop.company_id == g.company_id).all()
         return jsonify({"stops": [s.to_dict() for s in stops]})
     finally:
         db.close()
 
 
 @app.route('/api/stats', methods=['GET'])
+@require_auth
 def get_stats():
     db = get_db()
     try:
-        jobs = db.query(Job).all()
-        drivers = db.query(Driver).all()
+        jobs = db.query(Job).filter(Job.company_id == g.company_id).all()
+        drivers = db.query(Driver).filter(Driver.company_id == g.company_id).all()
 
         total_jobs = len(jobs)
         unassigned = len([j for j in jobs if j.status == "unassigned"])
@@ -679,6 +851,7 @@ def get_stats():
 
 
 @app.route('/api/route', methods=['POST'])
+@require_auth
 def get_road_route():
     import requests as http_requests
     data = request.get_json() or {}

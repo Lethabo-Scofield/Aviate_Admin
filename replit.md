@@ -1,22 +1,34 @@
 # Aviate Dispatch System — Logistics SaaS MVP
 
 ## Overview
-A real logistics dispatch system where admins upload an Excel file of delivery addresses, the backend geocodes them (Nominatim), clusters stops into geographic jobs, optimizes routes using OR-Tools, and assigns drivers. Drivers receive their jobs via a REST API. Data persists to Neon PostgreSQL.
+A real logistics dispatch system where admins upload an Excel file of delivery addresses, the backend geocodes them (Nominatim), clusters stops into geographic jobs, optimizes routes using OR-Tools, and assigns drivers. Drivers receive their jobs via a REST API. Data persists to Neon PostgreSQL. Multi-tenant auth isolates data per company.
 
 ## Tech Stack
 - **Frontend**: React 19 + Vite, Tailwind CSS 4, React Router, Lucide icons
-- **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding via Nominatim), Pandas
+- **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding via Nominatim), Pandas, PyJWT + bcrypt (auth)
 - **Database**: Neon PostgreSQL via `NEON_DATABASE_URL` env var, SQLAlchemy ORM
+
+## Authentication & Multi-Tenancy
+- **JWT auth**: PyJWT with HS256, 30-day token expiry, secret from `JWT_SECRET` env var
+- **Password hashing**: bcrypt
+- **Token storage**: `localStorage` keys `aviate_token` and `aviate_user`
+- **Auth flow**: Register creates Company + User → returns JWT; Login validates → returns JWT
+- **Tenant isolation**: `require_auth` decorator extracts `company_id` from JWT into `g.company_id`; all queries filter by `company_id`
+- **Unprotected endpoints**: `/api/driver/:id/jobs` and `/api/driver/:id/complete/...` (driver mobile API)
+- **Frontend**: `AuthContext` provider, `ProtectedRoute` wrapper, auto-redirect to `/login` on 401
 
 ## Database
 - **Connection**: `NEON_DATABASE_URL` environment variable (shared secret)
 - **ORM**: SQLAlchemy with `psycopg2-binary` driver
 - **Models** (`backend/models.py`):
-  - `Driver` — id, name, email, vehicle_type, status, created_at
-  - `Stop` — id, order_id, customer_name, address, lat, lng, demand, service_time, phone, notes, time_window_start, time_window_end, job_id (FK→jobs), stop_number, completed, completed_at
-  - `Job` — id, area, total_stops, total_distance_km, estimated_time_min, estimated_cost, center_lat, center_lng, status, driver_id (FK→drivers), driver_name, route_geometry (OSRM polyline), assigned_at, completed_at
+  - `Company` — id, name, domain, created_at
+  - `User` — id, email, password_hash, name, role, company_id (FK→companies), created_at
+  - `Driver` — id, name, email, vehicle_type, status, company_id (FK→companies), created_at
+  - `Stop` — id, order_id, customer_name, address, lat, lng, demand, service_time, phone, notes, time_window_start, time_window_end, job_id (FK→jobs), stop_number, completed, completed_at, company_id (FK→companies)
+  - `Job` — id, area, total_stops, total_distance_km, estimated_time_min, estimated_cost, center_lat, center_lng, status, driver_id (FK→drivers), driver_name, route_geometry (OSRM polyline), assigned_at, completed_at, company_id (FK→companies)
 - **Session management**: `SessionLocal()` per request, manual open/close pattern
 - Tables auto-created on startup via `init_db()` / `Base.metadata.create_all()`
+- Startup migration adds missing columns (route_geometry, company_id) to existing tables
 
 ## Design System (Apple-Inspired)
 - Background: `#f5f5f7` (Apple light grey)
@@ -35,19 +47,22 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 ## Project Structure
 ```
 ├── backend/
-│   ├── app.py                 # Flask API (port 8000) — upload, geocode, cluster, optimize, assign
-│   ├── models.py              # SQLAlchemy ORM models (Driver, Stop, Job)
+│   ├── app.py                 # Flask API (port 8000) — auth, upload, geocode, cluster, optimize, assign
+│   ├── models.py              # SQLAlchemy ORM models (Company, User, Driver, Stop, Job)
 │   ├── optimize_route.py      # OR-Tools route optimizer
 │   └── requirements.txt
 ├── src/
-│   ├── App.jsx                # Root with BrowserRouter
+│   ├── App.jsx                # Root with BrowserRouter + AuthProvider
 │   ├── main.jsx
 │   ├── index.css              # Tailwind + global styles
+│   ├── contexts/
+│   │   └── AuthContext.jsx    # Auth state, login/register/logout, token management
 │   ├── services/
-│   │   └── api.js             # API client — all backend calls
+│   │   └── api.js             # API client — all backend calls with JWT headers
 │   ├── components/
 │   │   ├── Layout.jsx         # Sidebar + Outlet wrapper
-│   │   ├── Sidebar.jsx        # Navigation sidebar (4 pages)
+│   │   ├── Sidebar.jsx        # Navigation sidebar with user info + logout
+│   │   ├── ProtectedRoute.jsx # Auth guard — redirects to /login if unauthenticated
 │   │   └── Loader.jsx         # Spinner, skeleton loaders
 │   └── pages/
 │       ├── Dashboard.jsx      # Overview stats + onboarding (empty state → stats view)
@@ -55,35 +70,47 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 │       ├── Jobs.jsx           # Jobs list with inline driver assignment
 │       ├── MapView.jsx        # Leaflet map with color-coded jobs, route lines, legend, toggle
 │       ├── Drivers.jsx        # Fleet management — add/remove drivers
+│       ├── Login.jsx          # Login page
+│       ├── Register.jsx       # Registration page (creates company + user)
 │       └── NotFound.jsx       # 404 page
 ```
 
 ## API Endpoints
+
+### Auth (unprotected)
+- `POST /api/auth/register` — Create company + user, returns JWT
+- `POST /api/auth/login` — Authenticate user, returns JWT
+- `GET /api/auth/me` — Get current user info (requires JWT)
+
+### Protected (require JWT)
 - `POST /api/upload` — Upload Excel with delivery addresses, geocodes via Nominatim
-- `POST /api/test-data` — Load 15 pre-geocoded Johannesburg test stops (bypasses geocoding)
-- `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools, fetch + cache OSRM road geometries
-- `POST /api/route` — Proxy endpoint for OSRM road route fetching (fallback for missing geometries)
-- `GET /api/jobs` — List all jobs
-- `POST /api/jobs/:id/assign` — Assign driver to job (sends driver_id, backend derives name)
+- `POST /api/test-data` — Load 20 pre-geocoded Johannesburg test stops
+- `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools
+- `POST /api/route` — Proxy endpoint for OSRM road route fetching
+- `GET /api/jobs` — List jobs (tenant-scoped)
+- `POST /api/jobs/:id/assign` — Assign driver to job
 - `POST /api/jobs/:id/unassign` — Unassign driver from job
-- `GET /api/drivers` — List all drivers
+- `GET /api/drivers` — List drivers (tenant-scoped)
 - `POST /api/drivers` — Add a new driver
 - `DELETE /api/drivers/:id` — Remove a driver
-- `GET /api/driver/:id/jobs` — Driver mobile API: get assigned jobs
+- `GET /api/stats` — Dashboard statistics (tenant-scoped)
+- `GET /api/stops` — List stops (tenant-scoped)
+
+### Driver Mobile API (unprotected)
+- `GET /api/driver/:id/jobs` — Driver: get assigned jobs
 - `POST /api/driver/:id/complete/:job_id/:stop_id` — Driver marks stop complete
-- `GET /api/stats` — Dashboard statistics
-- `GET /api/stops` — List all unassigned geocoded stops
 
 ## Excel Format
 - **Required column**: `Full_Address` (or `address`)
 - **Optional columns**: Order_ID, Customer_Name, Demand, Time_Window_Start, Time_Window_End, Service_Time, Phone, Notes
 
 ## Core Flow
-1. Admin uploads Excel file → backend geocodes each address via Nominatim (1.1s delay per address)
-2. Admin clicks Optimize → backend clusters stops by geographic radius (default 8km), runs OR-Tools per cluster
-3. Jobs are created from clusters with optimized stop order
-4. Admin assigns drivers to jobs
-5. Drivers fetch their jobs via REST API and mark stops complete
+1. Admin registers company → logs in with JWT
+2. Admin uploads Excel file → backend geocodes each address via Nominatim (1.1s delay per address)
+3. Admin clicks Optimize → backend clusters stops by geographic radius (default 8km), runs OR-Tools per cluster
+4. Jobs are created from clusters with optimized stop order
+5. Admin assigns drivers to jobs
+6. Drivers fetch their jobs via REST API and mark stops complete
 
 ## Ports
 - **Frontend (Vite)**: port 5000 (webview)
@@ -98,4 +125,4 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - react-router-dom, lucide-react, papaparse, xlsx, leaflet, react-leaflet
 
 ### Backend (pip)
-- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary, requests
+- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary, requests, PyJWT, bcrypt

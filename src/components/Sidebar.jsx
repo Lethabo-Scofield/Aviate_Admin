@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Radio, Package, Map, Truck, Menu, X } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { LayoutDashboard, Radio, Package, Map, Truck, Menu, X, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const navItems = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
@@ -14,10 +15,17 @@ const navItems = [
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -50,7 +58,9 @@ export default function Sidebar() {
             <img src="/logo.png" alt="Aviate" className="w-9 h-9 rounded-[10px]" />
             <div>
               <h1 className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
-              <p className="text-[11px] text-[#86868b] font-medium">Route Optimization</p>
+              <p className="text-[11px] text-[#86868b] font-medium truncate max-w-[130px]">
+                {user?.company_name || "Route Optimization"}
+              </p>
             </div>
           </div>
           <button
@@ -81,12 +91,25 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        <div className="px-4 py-3 mx-3 mb-4 rounded-xl bg-[#f5f5f7]">
-          <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1">How it works</p>
-          <p className="text-[11px] text-[#aeaeb2] leading-relaxed">
-            Upload Excel → Optimize routes → Assign drivers
-          </p>
-        </div>
+        {user && (
+          <div className="px-3 mb-4">
+            <div className="px-3 py-3 rounded-xl bg-[#f5f5f7]">
+              <div className="flex items-center justify-between">
+                <div className="min-w-0">
+                  <p className="text-[12px] font-medium text-[#1d1d1f] truncate">{user.name}</p>
+                  <p className="text-[11px] text-[#aeaeb2] truncate">{user.email}</p>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center hover:bg-black/[0.06] transition-colors"
+                  title="Sign out"
+                >
+                  <LogOut size={14} className="text-[#86868b]" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </aside>
     </>
   );

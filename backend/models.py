@@ -12,6 +12,48 @@ SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
+class Company(Base):
+    __tablename__ = "companies"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    domain = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    users = relationship("User", backref="company", lazy="select")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "domain": self.domain,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key=True)
+    email = Column(String, nullable=False, unique=True)
+    password_hash = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    role = Column(String, default="admin")
+    company_id = Column(String, ForeignKey("companies.id"), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "name": self.name,
+            "role": self.role,
+            "company_id": self.company_id,
+            "company_name": self.company.name if self.company else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
 class Driver(Base):
     __tablename__ = "drivers"
 
@@ -20,6 +62,7 @@ class Driver(Base):
     email = Column(String, default="")
     vehicle_type = Column(String, default="van")
     status = Column(String, default="available")
+    company_id = Column(String, ForeignKey("companies.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     def to_dict(self):
@@ -52,6 +95,7 @@ class Stop(Base):
     stop_number = Column(Integer, default=0)
     completed = Column(Boolean, default=False)
     completed_at = Column(DateTime, nullable=True)
+    company_id = Column(String, ForeignKey("companies.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     def to_dict(self):
@@ -92,6 +136,7 @@ class Job(Base):
     assigned_at = Column(DateTime, nullable=True)
     completed_at = Column(DateTime, nullable=True)
     route_geometry = Column(Text, nullable=True)
+    company_id = Column(String, ForeignKey("companies.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     stops = relationship("Stop", backref="job", lazy="joined", order_by="Stop.stop_number")
