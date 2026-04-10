@@ -8,3 +8,4 @@ gunicorn
 numpy
 sqlalchemy
 psycopg2-binary
+requests

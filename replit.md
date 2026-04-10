@@ -14,7 +14,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - **Models** (`backend/models.py`):
   - `Driver` — id, name, email, vehicle_type, status, created_at
   - `Stop` — id, order_id, customer_name, address, lat, lng, demand, service_time, phone, notes, time_window_start, time_window_end, job_id (FK→jobs), stop_number, completed, completed_at
-  - `Job` — id, area, total_stops, total_distance_km, estimated_time_min, estimated_cost, center_lat, center_lng, status, driver_id (FK→drivers), driver_name, assigned_at, completed_at
+  - `Job` — id, area, total_stops, total_distance_km, estimated_time_min, estimated_cost, center_lat, center_lng, status, driver_id (FK→drivers), driver_name, route_geometry (OSRM polyline), assigned_at, completed_at
 - **Session management**: `SessionLocal()` per request, manual open/close pattern
 - Tables auto-created on startup via `init_db()` / `Base.metadata.create_all()`
 
@@ -61,7 +61,8 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 ## API Endpoints
 - `POST /api/upload` — Upload Excel with delivery addresses, geocodes via Nominatim
 - `POST /api/test-data` — Load 15 pre-geocoded Johannesburg test stops (bypasses geocoding)
-- `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools
+- `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools, fetch + cache OSRM road geometries
+- `POST /api/route` — Proxy endpoint for OSRM road route fetching (fallback for missing geometries)
 - `GET /api/jobs` — List all jobs
 - `POST /api/jobs/:id/assign` — Assign driver to job (sends driver_id, backend derives name)
 - `POST /api/jobs/:id/unassign` — Unassign driver from job
@@ -97,4 +98,4 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - react-router-dom, lucide-react, papaparse, xlsx, leaflet, react-leaflet
 
 ### Backend (pip)
-- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary
+- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary, requests

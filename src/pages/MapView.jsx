@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker, useMap } from "react-leaflet";
+import { useState, useEffect, useMemo } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
 import L from "leaflet";
 import { getJobs } from "../services/api";
 import { SkeletonList } from "../components/Loader";
-import { Map as MapIcon, Layers, Eye, EyeOff } from "lucide-react";
+import { Map as MapIcon, Layers, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
@@ -72,6 +72,62 @@ const depotIcon = L.divIcon({
 
 const DEPOT = { lat: -26.2041, lng: 28.0473 };
 
+function decodePolyline(encoded) {
+  const points = [];
+  let index = 0;
+  let lat = 0;
+  let lng = 0;
+
+  while (index < encoded.length) {
+    let b;
+    let shift = 0;
+    let result = 0;
+    do {
+      b = encoded.charCodeAt(index++) - 63;
+      result |= (b & 0x1f) << shift;
+      shift += 5;
+    } while (b >= 0x20);
+    const dlat = result & 1 ? ~(result >> 1) : result >> 1;
+    lat += dlat;
+
+    shift = 0;
+    result = 0;
+    do {
+      b = encoded.charCodeAt(index++) - 63;
+      result |= (b & 0x1f) << shift;
+      shift += 5;
+    } while (b >= 0x20);
+    const dlng = result & 1 ? ~(result >> 1) : result >> 1;
+    lng += dlng;
+
+    points.push([lat / 1e5, lng / 1e5]);
+  }
+  return points;
+}
+
+async function fetchOSRMRoute(waypoints) {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+    const res = await fetch("/api/route", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ waypoints }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    const data = await res.json();
+    if (data.success && data.geometry) {
+      return decodePolyline(data.geometry);
+    }
+  } catch (e) {
+    if (e.name !== "AbortError") {
+      console.warn("Route fetch failed, falling back to straight lines:", e);
+    }
+  }
+  return null;
+}
+
 function FitBounds({ bounds }) {
   const map = useMap();
   useEffect(() => {
@@ -87,20 +143,73 @@ export default function MapView() {
   const [loading, setLoading] = useState(true);
   const [hiddenJobs, setHiddenJobs] = useState(new Set());
   const [showRoutes, setShowRoutes] = useState(true);
+  const [routeGeometries, setRouteGeometries] = useState({});
+  const [routesLoading, setRoutesLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    let cancelled = false;
     const load = async () => {
       try {
         const res = await getJobs();
-        setJobs(res.jobs || []);
+        const loadedJobs = res.jobs || [];
+        if (cancelled) return;
+        setJobs(loadedJobs);
+
+        const geometries = {};
+        const missingRoutes = [];
+
+        for (const job of loadedJobs) {
+          if (job.route_geometry) {
+            geometries[job.id] = decodePolyline(job.route_geometry);
+          } else {
+            missingRoutes.push(job);
+          }
+        }
+
+        if (Object.keys(geometries).length > 0) {
+          setRouteGeometries({ ...geometries });
+        }
+
+        if (missingRoutes.length > 0) {
+          setRoutesLoading(true);
+          try {
+            const routePromises = missingRoutes.map(async (job) => {
+              const stops = job.stops || [];
+              const sorted = [...stops]
+                .sort((a, b) => (a.stop_number || 0) - (b.stop_number || 0))
+                .filter(hasValidCoords);
+              if (sorted.length === 0) return null;
+              const waypoints = [
+                [DEPOT.lat, DEPOT.lng],
+                ...sorted.map((s) => [s.lat, s.lng]),
+                [DEPOT.lat, DEPOT.lng],
+              ];
+              const route = await fetchOSRMRoute(waypoints);
+              if (route) return { id: job.id, route };
+              return null;
+            });
+            const results = await Promise.allSettled(routePromises);
+            if (!cancelled) {
+              for (const r of results) {
+                if (r.status === "fulfilled" && r.value) {
+                  geometries[r.value.id] = r.value.route;
+                }
+              }
+              setRouteGeometries({ ...geometries });
+            }
+          } finally {
+            if (!cancelled) setRoutesLoading(false);
+          }
+        }
       } catch (e) {
         console.error(e);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
     load();
+    return () => { cancelled = true; };
   }, []);
 
   const toggleJob = (jobId) => {
@@ -123,12 +232,17 @@ export default function MapView() {
   const bounds = useMemo(() => {
     const points = [[DEPOT.lat, DEPOT.lng]];
     visibleJobs.forEach((job) => {
-      (job.stops || []).forEach((s) => {
-        if (hasValidCoords(s)) points.push([s.lat, s.lng]);
-      });
+      const routeGeo = routeGeometries[job.id];
+      if (routeGeo) {
+        routeGeo.forEach((p) => points.push(p));
+      } else {
+        (job.stops || []).forEach((s) => {
+          if (hasValidCoords(s)) points.push([s.lat, s.lng]);
+        });
+      }
     });
     return points.length > 1 ? points : [[DEPOT.lat - 0.1, DEPOT.lng - 0.1], [DEPOT.lat + 0.1, DEPOT.lng + 0.1]];
-  }, [visibleJobs]);
+  }, [visibleJobs, routeGeometries]);
 
   if (loading) {
     return (
@@ -166,6 +280,7 @@ export default function MapView() {
           <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
           <p className="text-[14px] text-[#86868b] mt-1">
             {jobs.length} jobs | {totalStops} stops | {totalKm.toFixed(1)} km total
+            {routesLoading && <span className="text-[#008080] ml-2">Loading routes...</span>}
           </p>
         </div>
         <button
@@ -178,7 +293,13 @@ export default function MapView() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <div className="lg:col-span-3 apple-card overflow-hidden" style={{ height: "calc(100vh - 220px)", minHeight: "400px" }}>
+        <div className="lg:col-span-3 apple-card overflow-hidden relative" style={{ height: "calc(100vh - 220px)", minHeight: "400px" }}>
+          {routesLoading && (
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg flex items-center gap-2">
+              <Loader2 size={14} className="text-[#008080] animate-spin" />
+              <span className="text-[12px] font-medium text-[#1d1d1f]">Loading road routes...</span>
+            </div>
+          )}
           <MapContainer
             center={[DEPOT.lat, DEPOT.lng]}
             zoom={11}
@@ -207,7 +328,8 @@ export default function MapView() {
               const sortedStops = [...stops].sort((a, b) => (a.stop_number || 0) - (b.stop_number || 0));
               const validStops = sortedStops.filter(hasValidCoords);
 
-              const routePoints = [
+              const realRoute = routeGeometries[job.id];
+              const fallbackPoints = [
                 [DEPOT.lat, DEPOT.lng],
                 ...validStops.map((s) => [s.lat, s.lng]),
                 [DEPOT.lat, DEPOT.lng],
@@ -215,14 +337,16 @@ export default function MapView() {
 
               return (
                 <span key={job.id}>
-                  {showRoutes && routePoints.length > 2 && (
+                  {showRoutes && (
                     <Polyline
-                      positions={routePoints}
+                      positions={realRoute || fallbackPoints}
                       pathOptions={{
                         color: color,
-                        weight: 3,
-                        opacity: 0.7,
-                        dashArray: "8 4",
+                        weight: realRoute ? 4 : 3,
+                        opacity: realRoute ? 0.8 : 0.5,
+                        dashArray: realRoute ? null : "8 4",
+                        lineCap: "round",
+                        lineJoin: "round",
                       }}
                     />
                   )}
@@ -258,13 +382,6 @@ export default function MapView() {
                       </Popup>
                     </Marker>
                   ))}
-
-                  {showRoutes && (
-                    <CircleMarker
-                      center={[job.center_lat, job.center_lng]}
-                      radius={0}
-                    />
-                  )}
                 </span>
               );
             })}
@@ -284,6 +401,7 @@ export default function MapView() {
               {jobs.map((job) => {
                 const color = jobColorMap[job.id];
                 const isHidden = hiddenJobs.has(job.id);
+                const hasRealRoute = !!routeGeometries[job.id];
                 return (
                   <button
                     key={job.id}
@@ -300,6 +418,7 @@ export default function MapView() {
                       <p className="text-[12px] font-semibold text-[#1d1d1f] truncate">{job.area}</p>
                       <p className="text-[10px] text-[#aeaeb2]">
                         {job.total_stops} stops | {job.total_distance_km} km
+                        {hasRealRoute && <span className="text-[#008080]"> | road</span>}
                       </p>
                     </div>
                     {isHidden ? (

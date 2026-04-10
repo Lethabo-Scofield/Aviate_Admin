@@ -10,7 +10,7 @@ from geopy.geocoders import Nominatim
 import time as time_module
 import numpy as np
 from math import radians, sin, cos, sqrt, atan2
-from models import init_db, SessionLocal, Driver, Stop, Job
+from models import init_db, SessionLocal, Driver, Stop, Job, engine
 
 app = Flask(__name__)
 CORS(app)
@@ -19,6 +19,15 @@ UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 init_db()
+
+from sqlalchemy import text, inspect
+with engine.connect() as conn:
+    inspector = inspect(engine)
+    columns = [c["name"] for c in inspector.get_columns("jobs")]
+    if "route_geometry" not in columns:
+        conn.execute(text("ALTER TABLE jobs ADD COLUMN route_geometry TEXT"))
+        conn.commit()
+        print("Added route_geometry column to jobs table")
 
 
 def get_db():
@@ -354,6 +363,27 @@ def optimize():
 
         db.commit()
 
+        import requests as http_requests
+        for job in jobs_created:
+            try:
+                sorted_stops = sorted(job.stops, key=lambda s: s.stop_number or 0)
+                valid_stops = [s for s in sorted_stops if s.lat and s.lng]
+                if not valid_stops:
+                    continue
+                waypoints = [[DEPOT["lat"], DEPOT["lng"]]]
+                waypoints += [[float(s.lat), float(s.lng)] for s in valid_stops]
+                waypoints.append([DEPOT["lat"], DEPOT["lng"]])
+                coords = ";".join(f"{p[1]},{p[0]}" for p in waypoints)
+                url = f"https://router.project-osrm.org/route/v1/driving/{coords}?overview=full&geometries=polyline"
+                resp = http_requests.get(url, timeout=15)
+                osrm_data = resp.json()
+                if osrm_data.get("code") == "Ok" and osrm_data.get("routes"):
+                    job.route_geometry = osrm_data["routes"][0]["geometry"]
+            except Exception as route_err:
+                print(f"Route geometry fetch failed for {job.id}: {route_err}")
+
+        db.commit()
+
         jobs_created.sort(key=lambda j: j.total_stops, reverse=True)
         jobs_out = [j.to_dict() for j in jobs_created]
 
@@ -610,6 +640,33 @@ def get_stats():
         })
     finally:
         db.close()
+
+
+@app.route('/api/route', methods=['POST'])
+def get_road_route():
+    import requests as http_requests
+    data = request.get_json() or {}
+    waypoints = data.get("waypoints", [])
+
+    if len(waypoints) < 2:
+        return jsonify({"error": "Need at least 2 waypoints"}), 400
+
+    coords = ";".join(f"{p[1]},{p[0]}" for p in waypoints)
+    url = f"https://router.project-osrm.org/route/v1/driving/{coords}?overview=full&geometries=polyline"
+
+    try:
+        resp = http_requests.get(url, timeout=15)
+        osrm_data = resp.json()
+        if osrm_data.get("code") == "Ok" and osrm_data.get("routes"):
+            return jsonify({
+                "success": True,
+                "geometry": osrm_data["routes"][0]["geometry"],
+                "distance": osrm_data["routes"][0].get("distance", 0),
+                "duration": osrm_data["routes"][0].get("duration", 0),
+            })
+        return jsonify({"success": False, "error": "No route found"}), 404
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 
 if __name__ == '__main__':

@@ -91,6 +91,7 @@ class Job(Base):
     driver_name = Column(String, nullable=True)
     assigned_at = Column(DateTime, nullable=True)
     completed_at = Column(DateTime, nullable=True)
+    route_geometry = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     stops = relationship("Stop", backref="job", lazy="joined", order_by="Stop.stop_number")
@@ -109,6 +110,7 @@ class Job(Base):
             "status": self.status,
             "driver_id": self.driver_id,
             "driver_name": self.driver_name,
+            "route_geometry": self.route_geometry,
             "assigned_at": self.assigned_at.isoformat() if self.assigned_at else None,
             "completed_at": self.completed_at.isoformat() if self.completed_at else None,
             "created_at": self.created_at.isoformat() if self.created_at else None,
