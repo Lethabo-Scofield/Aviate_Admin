@@ -1,7 +1,7 @@
 import os
 import uuid
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from functools import wraps
 from flask import Flask, request, jsonify, g
 from flask_cors import CORS
@@ -16,7 +16,12 @@ import bcrypt
 from models import init_db, SessionLocal, Driver, Stop, Job, Company, User, engine
 
 app = Flask(__name__)
-CORS(app)
+
+ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*")
+if ALLOWED_ORIGINS == "*":
+    CORS(app)
+else:
+    CORS(app, origins=[o.strip() for o in ALLOWED_ORIGINS.split(",")])
 
 JWT_SECRET = os.environ.get("JWT_SECRET")
 if not JWT_SECRET:
@@ -31,24 +36,22 @@ init_db()
 from sqlalchemy import text, inspect
 with engine.connect() as conn:
     inspector = inspect(engine)
-    if "jobs" in inspector.get_table_names():
-        columns = [c["name"] for c in inspector.get_columns("jobs")]
-        if "route_geometry" not in columns:
-            conn.execute(text("ALTER TABLE jobs ADD COLUMN route_geometry TEXT"))
-            conn.commit()
-        if "company_id" not in columns:
-            conn.execute(text("ALTER TABLE jobs ADD COLUMN company_id VARCHAR REFERENCES companies(id)"))
-            conn.commit()
-    if "stops" in inspector.get_table_names():
-        columns = [c["name"] for c in inspector.get_columns("stops")]
-        if "company_id" not in columns:
-            conn.execute(text("ALTER TABLE stops ADD COLUMN company_id VARCHAR REFERENCES companies(id)"))
-            conn.commit()
-    if "drivers" in inspector.get_table_names():
-        columns = [c["name"] for c in inspector.get_columns("drivers")]
-        if "company_id" not in columns:
-            conn.execute(text("ALTER TABLE drivers ADD COLUMN company_id VARCHAR REFERENCES companies(id)"))
-            conn.commit()
+    table_names = inspector.get_table_names()
+
+    def _add_col_if_missing(table, col_name, col_def):
+        if table in table_names:
+            cols = [c["name"] for c in inspector.get_columns(table)]
+            if col_name not in cols:
+                conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {col_name} {col_def}"))
+                conn.commit()
+                print(f"  Added {col_name} to {table}")
+
+    _add_col_if_missing("jobs", "route_geometry", "TEXT")
+    _add_col_if_missing("jobs", "company_id", "VARCHAR REFERENCES companies(id)")
+    _add_col_if_missing("stops", "company_id", "VARCHAR REFERENCES companies(id)")
+    _add_col_if_missing("drivers", "company_id", "VARCHAR REFERENCES companies(id)")
+    _add_col_if_missing("drivers", "user_id", "VARCHAR")
+    _add_col_if_missing("users", "driver_id", "VARCHAR")
 
 
 def get_db():
@@ -76,6 +79,8 @@ def require_auth(f):
             g.user_id = payload["user_id"]
             g.company_id = payload["company_id"]
             g.user_email = payload.get("email", "")
+            g.user_role = payload.get("role", "admin")
+            g.driver_id = payload.get("driver_id")
         except jwt.ExpiredSignatureError:
             return jsonify({"error": "Token expired"}), 401
         except jwt.InvalidTokenError:
@@ -85,13 +90,25 @@ def require_auth(f):
     return decorated
 
 
+def require_admin(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if g.user_role != "admin":
+            return jsonify({"error": "Admin access required"}), 403
+        return f(*args, **kwargs)
+    return decorated
+
+
 def generate_token(user):
+    now = datetime.now(timezone.utc)
     payload = {
         "user_id": user.id,
         "company_id": user.company_id,
         "email": user.email,
-        "exp": datetime.utcnow() + timedelta(days=30),
-        "iat": datetime.utcnow(),
+        "role": user.role,
+        "driver_id": user.driver_id,
+        "exp": now + timedelta(days=30),
+        "iat": now,
     }
     return jwt.encode(payload, JWT_SECRET, algorithm="HS256")
 
@@ -229,6 +246,7 @@ def root():
 
 @app.route('/api/upload', methods=['POST'])
 @require_auth
+@require_admin
 def upload_excel():
     if 'file' not in request.files:
         return jsonify({"error": "No file provided"}), 400
@@ -348,6 +366,7 @@ def upload_excel():
 
 @app.route('/api/test-data', methods=['POST'])
 @require_auth
+@require_admin
 def load_test_data():
     test_stops = [
         {"id": "test01", "order_id": "ORD-001", "customer_name": "Sipho Ndlovu", "address": "Vilakazi Street, Orlando West, Soweto", "lat": -26.2382, "lng": 27.9082, "demand": 2, "service_time": 15, "phone": "+27 72 100 0001", "notes": "Ring bell twice", "time_window_start": "", "time_window_end": ""},
@@ -409,6 +428,7 @@ def load_test_data():
 
 @app.route('/api/optimize', methods=['POST'])
 @require_auth
+@require_admin
 def optimize():
     data = request.get_json() or {}
     cluster_radius = float(data.get("cluster_radius", 8))
@@ -639,6 +659,7 @@ def _determine_area_name(lat, lng, stops):
 
 @app.route('/api/jobs', methods=['GET'])
 @require_auth
+@require_admin
 def get_jobs():
     db = get_db()
     try:
@@ -650,6 +671,7 @@ def get_jobs():
 
 @app.route('/api/jobs/<job_id>/assign', methods=['POST'])
 @require_auth
+@require_admin
 def assign_driver(job_id):
     data = request.get_json() or {}
     driver_id = data.get("driver_id")
@@ -683,6 +705,7 @@ def assign_driver(job_id):
 
 @app.route('/api/jobs/<job_id>/unassign', methods=['POST'])
 @require_auth
+@require_admin
 def unassign_driver(job_id):
     db = get_db()
     try:
@@ -706,6 +729,7 @@ def unassign_driver(job_id):
 
 @app.route('/api/drivers', methods=['GET'])
 @require_auth
+@require_admin
 def get_drivers():
     db = get_db()
     try:
@@ -717,36 +741,73 @@ def get_drivers():
 
 @app.route('/api/drivers', methods=['POST'])
 @require_auth
+@require_admin
 def add_driver():
     data = request.get_json() or {}
     name = data.get("name")
-    email = data.get("email", "")
+    email = (data.get("email") or "").strip().lower()
     vehicle_type = data.get("vehicle_type", "van")
+    password = data.get("password", "")
 
     if not name:
         return jsonify({"error": "Driver name is required"}), 400
 
+    if not email:
+        return jsonify({"error": "Driver email is required for app login"}), 400
+
     db = get_db()
     try:
+        existing_user = db.query(User).filter(User.email == email).first()
+        if existing_user:
+            return jsonify({"error": f"A user with email {email} already exists"}), 409
+
+        driver_id = f"DRV-{uuid.uuid4().hex[:6].upper()}"
+
+        if not password:
+            password = uuid.uuid4().hex[:8]
+
+        password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        user_id = f"USR-{uuid.uuid4().hex[:8].upper()}"
+
         driver = Driver(
-            id=f"DRV-{uuid.uuid4().hex[:6].upper()}",
+            id=driver_id,
             name=name,
             email=email,
             vehicle_type=vehicle_type,
             company_id=g.company_id,
+            user_id=user_id,
         )
         db.add(driver)
+        db.flush()
+
+        user = User(
+            id=user_id,
+            email=email,
+            password_hash=password_hash,
+            name=name,
+            role="driver",
+            company_id=g.company_id,
+            driver_id=driver_id,
+        )
+        db.add(user)
         db.commit()
-        return jsonify({"success": True, "driver": driver.to_dict()}), 201
+
+        result = driver.to_dict()
+        result["generated_password"] = password
+
+        return jsonify({"success": True, "driver": result}), 201
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": "Failed to add driver"}), 500
     finally:
         db.close()
 
 
 @app.route('/api/drivers/<driver_id>', methods=['DELETE'])
 @require_auth
+@require_admin
 def remove_driver(driver_id):
     db = get_db()
     try:
@@ -760,6 +821,11 @@ def remove_driver(driver_id):
             job.driver_id = None
             job.driver_name = None
 
+        if driver.user_id:
+            user = db.query(User).filter(User.id == driver.user_id).first()
+            if user:
+                db.delete(user)
+
         db.delete(driver)
         db.commit()
         return jsonify({"success": True})
@@ -770,35 +836,76 @@ def remove_driver(driver_id):
         db.close()
 
 
-@app.route('/api/driver/<driver_id>/jobs', methods=['GET'])
-def get_driver_jobs(driver_id):
+@app.route('/api/my-jobs', methods=['GET'])
+@require_auth
+def get_my_jobs():
     db = get_db()
     try:
-        driver_jobs = db.query(Job).filter(Job.driver_id == driver_id).all()
-        return jsonify({"driver_id": driver_id, "jobs": [j.to_dict() for j in driver_jobs]})
+        driver = db.query(Driver).filter(
+            Driver.user_id == g.user_id,
+            Driver.company_id == g.company_id,
+        ).first()
+
+        if not driver:
+            driver = db.query(Driver).filter(
+                Driver.email == g.user_email,
+                Driver.company_id == g.company_id,
+            ).first()
+
+        if not driver:
+            return jsonify({"jobs": [], "driver": None})
+
+        my_jobs = db.query(Job).filter(
+            Job.driver_id == driver.id,
+            Job.company_id == g.company_id,
+        ).all()
+
+        return jsonify({
+            "driver": driver.to_dict(),
+            "jobs": [j.to_dict() for j in my_jobs],
+        })
     finally:
         db.close()
 
 
-@app.route('/api/driver/<driver_id>/complete/<job_id>/<stop_id>', methods=['POST'])
-def complete_stop(driver_id, job_id, stop_id):
+@app.route('/api/my-jobs/<job_id>/complete/<stop_id>', methods=['POST'])
+@require_auth
+def complete_my_stop(job_id, stop_id):
     db = get_db()
     try:
-        job = db.query(Job).filter(Job.id == job_id, Job.driver_id == driver_id).first()
+        driver = db.query(Driver).filter(
+            Driver.user_id == g.user_id,
+            Driver.company_id == g.company_id,
+        ).first()
+
+        if not driver:
+            driver = db.query(Driver).filter(
+                Driver.email == g.user_email,
+                Driver.company_id == g.company_id,
+            ).first()
+
+        if not driver:
+            return jsonify({"error": "No driver profile linked to your account"}), 403
+
+        job = db.query(Job).filter(
+            Job.id == job_id,
+            Job.driver_id == driver.id,
+            Job.company_id == g.company_id,
+        ).first()
         if not job:
-            return jsonify({"error": "Job not found"}), 404
+            return jsonify({"error": "Job not found or not assigned to you"}), 404
 
         stop = db.query(Stop).filter(Stop.id == stop_id, Stop.job_id == job_id).first()
         if not stop:
             return jsonify({"error": "Stop not found"}), 404
 
         stop.completed = True
-        stop.completed_at = datetime.now()
+        stop.completed_at = datetime.now(timezone.utc)
 
         all_stops = db.query(Stop).filter(Stop.job_id == job_id).all()
         if all(s.completed for s in all_stops):
             job.status = "completed"
-            job.completed_at = datetime.now()
+            job.completed_at = datetime.now(timezone.utc)
 
         db.commit()
         return jsonify({"success": True, "stop": stop.to_dict(), "job_status": job.status})
@@ -809,8 +916,60 @@ def complete_stop(driver_id, job_id, stop_id):
         db.close()
 
 
+@app.route('/api/driver/<driver_id>/jobs', methods=['GET'])
+@require_auth
+def get_driver_jobs(driver_id):
+    db = get_db()
+    try:
+        driver = db.query(Driver).filter(
+            Driver.id == driver_id,
+            Driver.company_id == g.company_id,
+        ).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
+        driver_jobs = db.query(Job).filter(Job.driver_id == driver_id, Job.company_id == g.company_id).all()
+        return jsonify({"driver_id": driver_id, "jobs": [j.to_dict() for j in driver_jobs]})
+    finally:
+        db.close()
+
+
+@app.route('/api/driver/<driver_id>/complete/<job_id>/<stop_id>', methods=['POST'])
+@require_auth
+def complete_stop(driver_id, job_id, stop_id):
+    db = get_db()
+    try:
+        job = db.query(Job).filter(
+            Job.id == job_id,
+            Job.driver_id == driver_id,
+            Job.company_id == g.company_id,
+        ).first()
+        if not job:
+            return jsonify({"error": "Job not found"}), 404
+
+        stop = db.query(Stop).filter(Stop.id == stop_id, Stop.job_id == job_id).first()
+        if not stop:
+            return jsonify({"error": "Stop not found"}), 404
+
+        stop.completed = True
+        stop.completed_at = datetime.now(timezone.utc)
+
+        all_stops = db.query(Stop).filter(Stop.job_id == job_id).all()
+        if all(s.completed for s in all_stops):
+            job.status = "completed"
+            job.completed_at = datetime.now(timezone.utc)
+
+        db.commit()
+        return jsonify({"success": True, "stop": stop.to_dict(), "job_status": job.status})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": "Failed to complete stop"}), 500
+    finally:
+        db.close()
+
+
 @app.route('/api/stops', methods=['GET'])
 @require_auth
+@require_admin
 def get_stops():
     db = get_db()
     try:
@@ -822,6 +981,7 @@ def get_stops():
 
 @app.route('/api/stats', methods=['GET'])
 @require_auth
+@require_admin
 def get_stats():
     db = get_db()
     try:
@@ -852,6 +1012,7 @@ def get_stats():
 
 @app.route('/api/route', methods=['POST'])
 @require_auth
+@require_admin
 def get_road_route():
     import requests as http_requests
     data = request.get_json() or {}

@@ -72,11 +72,11 @@ export async function getDrivers() {
   return handleResponse(res);
 }
 
-export async function addDriver(name, email, vehicleType) {
+export async function addDriver(name, email, vehicleType, password = "") {
   const res = await fetch(`${API_BASE}/drivers`, {
     method: 'POST',
     headers: getAuthHeaders('application/json'),
-    body: JSON.stringify({ name, email, vehicle_type: vehicleType }),
+    body: JSON.stringify({ name, email, vehicle_type: vehicleType, password }),
   });
   return handleResponse(res);
 }
@@ -84,6 +84,19 @@ export async function addDriver(name, email, vehicleType) {
 export async function removeDriver(driverId) {
   const res = await fetch(`${API_BASE}/drivers/${driverId}`, {
     method: 'DELETE',
+    headers: getAuthHeaders(),
+  });
+  return handleResponse(res);
+}
+
+export async function getMyJobs() {
+  const res = await fetch(`${API_BASE}/my-jobs`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function completeMyStop(jobId, stopId) {
+  const res = await fetch(`${API_BASE}/my-jobs/${jobId}/complete/${stopId}`, {
+    method: 'POST',
     headers: getAuthHeaders(),
   });
   return handleResponse(res);

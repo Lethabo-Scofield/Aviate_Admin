@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import create_engine, Column, String, Float, Integer, Boolean, DateTime, Text, ForeignKey, JSON
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
@@ -12,13 +12,17 @@ SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
+def utcnow():
+    return datetime.now(timezone.utc)
+
+
 class Company(Base):
     __tablename__ = "companies"
 
     id = Column(String, primary_key=True)
     name = Column(String, nullable=False)
     domain = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
 
     users = relationship("User", backref="company", lazy="select")
 
@@ -40,7 +44,8 @@ class User(Base):
     name = Column(String, nullable=False)
     role = Column(String, default="admin")
     company_id = Column(String, ForeignKey("companies.id"), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    driver_id = Column(String, ForeignKey("drivers.id"), nullable=True)
+    created_at = Column(DateTime, default=utcnow)
 
     def to_dict(self):
         return {
@@ -50,6 +55,7 @@ class User(Base):
             "role": self.role,
             "company_id": self.company_id,
             "company_name": self.company.name if self.company else None,
+            "driver_id": self.driver_id,
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
 
@@ -63,7 +69,8 @@ class Driver(Base):
     vehicle_type = Column(String, default="van")
     status = Column(String, default="available")
     company_id = Column(String, ForeignKey("companies.id"), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    user_id = Column(String, nullable=True)
+    created_at = Column(DateTime, default=utcnow)
 
     def to_dict(self):
         return {
@@ -72,6 +79,7 @@ class Driver(Base):
             "email": self.email,
             "vehicle_type": self.vehicle_type,
             "status": self.status,
+            "has_account": bool(self.user_id),
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
 
@@ -96,7 +104,7 @@ class Stop(Base):
     completed = Column(Boolean, default=False)
     completed_at = Column(DateTime, nullable=True)
     company_id = Column(String, ForeignKey("companies.id"), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
 
     def to_dict(self):
         return {
@@ -137,7 +145,7 @@ class Job(Base):
     completed_at = Column(DateTime, nullable=True)
     route_geometry = Column(Text, nullable=True)
     company_id = Column(String, ForeignKey("companies.id"), nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
 
     stops = relationship("Stop", backref="job", lazy="joined", order_by="Stop.stop_number")
 
