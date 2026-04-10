@@ -1,12 +1,22 @@
 # Aviate Dispatch System — Logistics SaaS MVP
 
 ## Overview
-A real logistics dispatch system where admins upload an Excel file of delivery addresses, the backend geocodes them (Nominatim), clusters stops into geographic jobs, optimizes routes using OR-Tools, and assigns drivers. Drivers receive their jobs via a REST API.
+A real logistics dispatch system where admins upload an Excel file of delivery addresses, the backend geocodes them (Nominatim), clusters stops into geographic jobs, optimizes routes using OR-Tools, and assigns drivers. Drivers receive their jobs via a REST API. Data persists to Neon PostgreSQL.
 
 ## Tech Stack
 - **Frontend**: React 19 + Vite, Tailwind CSS 4, React Router, Lucide icons
 - **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding via Nominatim), Pandas
-- **Data**: In-memory store (no database) — resets on restart
+- **Database**: Neon PostgreSQL via `NEON_DATABASE_URL` env var, SQLAlchemy ORM
+
+## Database
+- **Connection**: `NEON_DATABASE_URL` environment variable (shared secret)
+- **ORM**: SQLAlchemy with `psycopg2-binary` driver
+- **Models** (`backend/models.py`):
+  - `Driver` — id, name, email, vehicle_type, status, created_at
+  - `Stop` — id, order_id, customer_name, address, lat, lng, demand, service_time, phone, notes, time_window_start, time_window_end, job_id (FK→jobs), stop_number, completed, completed_at
+  - `Job` — id, area, total_stops, total_distance_km, estimated_time_min, estimated_cost, center_lat, center_lng, status, driver_id (FK→drivers), driver_name, assigned_at, completed_at
+- **Session management**: `SessionLocal()` per request, manual open/close pattern
+- Tables auto-created on startup via `init_db()` / `Base.metadata.create_all()`
 
 ## Design System (Apple-Inspired)
 - Background: `#f5f5f7` (Apple light grey)
@@ -26,6 +36,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 ```
 ├── backend/
 │   ├── app.py                 # Flask API (port 8000) — upload, geocode, cluster, optimize, assign
+│   ├── models.py              # SQLAlchemy ORM models (Driver, Stop, Job)
 │   ├── optimize_route.py      # OR-Tools route optimizer
 │   └── requirements.txt
 ├── src/
@@ -48,6 +59,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 
 ## API Endpoints
 - `POST /api/upload` — Upload Excel with delivery addresses, geocodes via Nominatim
+- `POST /api/test-data` — Load 15 pre-geocoded Johannesburg test stops (bypasses geocoding)
 - `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools
 - `GET /api/jobs` — List all jobs
 - `POST /api/jobs/:id/assign` — Assign driver to job (sends driver_id, backend derives name)
@@ -58,7 +70,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - `GET /api/driver/:id/jobs` — Driver mobile API: get assigned jobs
 - `POST /api/driver/:id/complete/:job_id/:stop_id` — Driver marks stop complete
 - `GET /api/stats` — Dashboard statistics
-- `GET /api/stops` — List all geocoded stops
+- `GET /api/stops` — List all unassigned geocoded stops
 
 ## Excel Format
 - **Required column**: `Full_Address` (or `address`)
@@ -84,4 +96,4 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - react-router-dom, lucide-react, papaparse, xlsx
 
 ### Backend (pip)
-- flask, flask-cors, pandas, openpyxl, geopy, ortools
+- flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary

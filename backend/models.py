@@ -1,0 +1,127 @@
+import os
+from datetime import datetime
+from sqlalchemy import create_engine, Column, String, Float, Integer, Boolean, DateTime, Text, ForeignKey, JSON
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+
+DATABASE_URL = os.environ.get("NEON_DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("NEON_DATABASE_URL environment variable is not set")
+
+engine = create_engine(DATABASE_URL, pool_pre_ping=True, pool_size=5, max_overflow=10)
+SessionLocal = sessionmaker(bind=engine)
+Base = declarative_base()
+
+
+class Driver(Base):
+    __tablename__ = "drivers"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    email = Column(String, default="")
+    vehicle_type = Column(String, default="van")
+    status = Column(String, default="available")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "vehicle_type": self.vehicle_type,
+            "status": self.status,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+class Stop(Base):
+    __tablename__ = "stops"
+
+    id = Column(String, primary_key=True)
+    order_id = Column(String)
+    customer_name = Column(String)
+    address = Column(String)
+    lat = Column(Float)
+    lng = Column(Float)
+    demand = Column(Integer, default=1)
+    service_time = Column(Integer, default=15)
+    phone = Column(String, default="")
+    notes = Column(Text, default="")
+    time_window_start = Column(String, default="")
+    time_window_end = Column(String, default="")
+    job_id = Column(String, ForeignKey("jobs.id"), nullable=True)
+    stop_number = Column(Integer, default=0)
+    completed = Column(Boolean, default=False)
+    completed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "order_id": self.order_id,
+            "customer_name": self.customer_name,
+            "address": self.address,
+            "lat": self.lat,
+            "lng": self.lng,
+            "demand": self.demand,
+            "service_time": self.service_time,
+            "phone": self.phone,
+            "notes": self.notes,
+            "time_window_start": self.time_window_start,
+            "time_window_end": self.time_window_end,
+            "job_id": self.job_id,
+            "stop_number": self.stop_number,
+            "completed": self.completed,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+        }
+
+
+class Job(Base):
+    __tablename__ = "jobs"
+
+    id = Column(String, primary_key=True)
+    area = Column(String)
+    total_stops = Column(Integer, default=0)
+    total_distance_km = Column(Float, default=0)
+    estimated_time_min = Column(Integer, default=0)
+    estimated_cost = Column(Float, default=0)
+    center_lat = Column(Float)
+    center_lng = Column(Float)
+    status = Column(String, default="unassigned")
+    driver_id = Column(String, ForeignKey("drivers.id"), nullable=True)
+    driver_name = Column(String, nullable=True)
+    assigned_at = Column(DateTime, nullable=True)
+    completed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    stops = relationship("Stop", backref="job", lazy="joined", order_by="Stop.stop_number")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "area": self.area,
+            "stops": [s.to_dict() for s in self.stops],
+            "total_stops": self.total_stops,
+            "total_distance_km": self.total_distance_km,
+            "estimated_time_min": self.estimated_time_min,
+            "estimated_cost": self.estimated_cost,
+            "center_lat": self.center_lat,
+            "center_lng": self.center_lng,
+            "status": self.status,
+            "driver_id": self.driver_id,
+            "driver_name": self.driver_name,
+            "assigned_at": self.assigned_at.isoformat() if self.assigned_at else None,
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+def init_db():
+    Base.metadata.create_all(engine)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

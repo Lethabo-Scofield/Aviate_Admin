@@ -6,3 +6,5 @@ flask-cors
 geopy
 gunicorn
 numpy
+sqlalchemy
+psycopg2-binary

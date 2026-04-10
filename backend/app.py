@@ -10,6 +10,7 @@ from geopy.geocoders import Nominatim
 import time as time_module
 import numpy as np
 from math import radians, sin, cos, sqrt, atan2
+from models import init_db, SessionLocal, Driver, Stop, Job
 
 app = Flask(__name__)
 CORS(app)
@@ -17,12 +18,16 @@ CORS(app)
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-store = {
-    "stops": [],
-    "jobs": [],
-    "drivers": [],
-    "assignments": {},
-}
+init_db()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        return db
+    except:
+        db.close()
+        raise
 
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -112,7 +117,7 @@ def upload_excel():
                     df[col] = ""
 
         geolocator = Nominatim(user_agent="aviate-dispatch-mvp", timeout=10)
-        stops = []
+        stops_data = []
         failed = []
 
         for idx, row in df.iterrows():
@@ -127,7 +132,7 @@ def upload_excel():
                 failed.append({"row": idx + 2, "address": addr, "reason": "Could not geocode"})
                 continue
 
-            stop = {
+            stop_dict = {
                 "id": str(uuid.uuid4().hex[:8]),
                 "order_id": str(row.get("Order_ID", f"ORD-{idx+1:03d}")),
                 "customer_name": str(row.get("Customer_Name", f"Customer {idx+1}")),
@@ -141,18 +146,33 @@ def upload_excel():
                 "phone": str(row.get("Phone", "")) if not pd.isna(row.get("Phone", "")) else "",
                 "notes": str(row.get("Notes", "")) if not pd.isna(row.get("Notes", "")) else "",
             }
-            stops.append(stop)
+            stops_data.append(stop_dict)
             time_module.sleep(1.1)
 
-        store["stops"] = stops
+        db = get_db()
+        try:
+            db.query(Stop).filter(Stop.job_id.is_(None)).delete()
+            for s in stops_data:
+                db.add(Stop(
+                    id=s["id"], order_id=s["order_id"], customer_name=s["customer_name"],
+                    address=s["address"], lat=s["lat"], lng=s["lng"], demand=s["demand"],
+                    service_time=s["service_time"], phone=s["phone"], notes=s["notes"],
+                    time_window_start=s["time_window_start"], time_window_end=s["time_window_end"],
+                ))
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            return jsonify({"error": str(e)}), 500
+        finally:
+            db.close()
 
         return jsonify({
             "success": True,
             "total_rows": len(df),
-            "geocoded": len(stops),
+            "geocoded": len(stops_data),
             "failed": len(failed),
             "failed_details": failed,
-            "stops": stops,
+            "stops": stops_data,
         })
 
     except Exception as e:
@@ -184,9 +204,25 @@ def load_test_data():
         {"id": "test15", "order_id": "ORD-015", "customer_name": "Nosipho Cele", "address": "Soweto, Orlando West, Johannesburg", "lat": -26.2368, "lng": 27.9086, "demand": 1, "service_time": 10, "phone": "+27 72 100 0015", "notes": "", "time_window_start": "", "time_window_end": ""},
     ]
 
-    store["stops"] = test_stops
-    store["jobs"] = []
-    store["assignments"] = {}
+    db = get_db()
+    try:
+        db.query(Stop).filter(Stop.job_id.is_(None)).delete()
+        for s in test_stops:
+            existing = db.query(Stop).filter(Stop.id == s["id"]).first()
+            if existing:
+                db.delete(existing)
+            db.add(Stop(
+                id=s["id"], order_id=s["order_id"], customer_name=s["customer_name"],
+                address=s["address"], lat=s["lat"], lng=s["lng"], demand=s["demand"],
+                service_time=s["service_time"], phone=s["phone"], notes=s["notes"],
+                time_window_start=s["time_window_start"], time_window_end=s["time_window_end"],
+            ))
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
     return jsonify({
         "success": True,
@@ -201,17 +237,32 @@ def load_test_data():
 @app.route('/api/optimize', methods=['POST'])
 def optimize():
     data = request.get_json() or {}
-    stops = data.get("stops") or store.get("stops", [])
-    num_drivers = int(data.get("num_drivers", 4))
     cluster_radius = float(data.get("cluster_radius", 8))
 
-    if not stops or len(stops) < 2:
-        return jsonify({"error": "Need at least 2 stops to optimize"}), 400
-
+    db = get_db()
     try:
-        clusters = cluster_stops(stops, radius_km=cluster_radius)
+        old_jobs = db.query(Job).all()
+        for oj in old_jobs:
+            for s in oj.stops:
+                s.job_id = None
+                s.stop_number = 0
+            db.delete(oj)
+        db.flush()
 
-        jobs = []
+        unassigned_stops = db.query(Stop).all()
+        stops_data = [s.to_dict() for s in unassigned_stops]
+
+        incoming_stops = data.get("stops")
+        if incoming_stops and len(incoming_stops) >= 2:
+            stops_data = incoming_stops
+
+        if not stops_data or len(stops_data) < 2:
+            db.rollback()
+            return jsonify({"error": "Need at least 2 stops to optimize"}), 400
+
+        clusters = cluster_stops(stops_data, radius_km=cluster_radius)
+
+        jobs_created = []
         for ci, cluster in enumerate(clusters):
             if len(cluster) == 0:
                 continue
@@ -262,45 +313,64 @@ def optimize():
                 ordered_stops = cluster
                 total_dist = sum(dist_matrix[0][i + 1] for i in range(len(cluster)))
 
-            for i, stop in enumerate(ordered_stops):
-                stop["stop_number"] = i + 1
-
             area_name = _determine_area_name(center_lat, center_lng, ordered_stops)
-
             est_time = int(total_dist / 35 * 60) + sum(s.get("service_time", 15) for s in ordered_stops)
 
-            job = {
-                "id": f"JOB-{uuid.uuid4().hex[:6].upper()}",
-                "area": area_name,
-                "stops": ordered_stops,
-                "total_stops": len(ordered_stops),
-                "total_distance_km": round(total_dist, 1),
-                "estimated_time_min": est_time,
-                "estimated_cost": round(total_dist * 12 + est_time * 2.5, 2),
-                "center_lat": center_lat,
-                "center_lng": center_lng,
-                "status": "unassigned",
-                "driver_id": None,
-                "driver_name": None,
-                "created_at": datetime.now().isoformat(),
-            }
-            jobs.append(job)
+            job_id = f"JOB-{uuid.uuid4().hex[:6].upper()}"
+            job = Job(
+                id=job_id,
+                area=area_name,
+                total_stops=int(len(ordered_stops)),
+                total_distance_km=float(round(total_dist, 1)),
+                estimated_time_min=int(est_time),
+                estimated_cost=float(round(total_dist * 12 + est_time * 2.5, 2)),
+                center_lat=float(center_lat),
+                center_lng=float(center_lng),
+                status="unassigned",
+            )
+            db.add(job)
 
-        jobs.sort(key=lambda j: j["total_stops"], reverse=True)
+            for i, stop_data in enumerate(ordered_stops):
+                stop = db.query(Stop).filter(Stop.id == stop_data["id"]).first()
+                if stop:
+                    stop.job_id = job_id
+                    stop.stop_number = i + 1
+                else:
+                    db.add(Stop(
+                        id=stop_data["id"], order_id=stop_data.get("order_id", ""),
+                        customer_name=stop_data.get("customer_name", ""),
+                        address=stop_data.get("address", ""),
+                        lat=stop_data["lat"], lng=stop_data["lng"],
+                        demand=stop_data.get("demand", 1),
+                        service_time=stop_data.get("service_time", 15),
+                        phone=stop_data.get("phone", ""),
+                        notes=stop_data.get("notes", ""),
+                        time_window_start=stop_data.get("time_window_start", ""),
+                        time_window_end=stop_data.get("time_window_end", ""),
+                        job_id=job_id, stop_number=i + 1,
+                    ))
 
-        store["jobs"] = jobs
+            jobs_created.append(job)
+
+        db.commit()
+
+        jobs_created.sort(key=lambda j: j.total_stops, reverse=True)
+        jobs_out = [j.to_dict() for j in jobs_created]
 
         return jsonify({
             "success": True,
-            "total_stops": len(stops),
-            "total_jobs": len(jobs),
-            "jobs": jobs,
+            "total_stops": len(stops_data),
+            "total_jobs": len(jobs_out),
+            "jobs": jobs_out,
         })
 
     except Exception as e:
+        db.rollback()
         import traceback
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
 
 def _determine_area_name(lat, lng, stops):
@@ -340,7 +410,12 @@ def _determine_area_name(lat, lng, stops):
 
 @app.route('/api/jobs', methods=['GET'])
 def get_jobs():
-    return jsonify({"jobs": store.get("jobs", [])})
+    db = get_db()
+    try:
+        jobs = db.query(Job).all()
+        return jsonify({"jobs": [j.to_dict() for j in jobs]})
+    finally:
+        db.close()
 
 
 @app.route('/api/jobs/<job_id>/assign', methods=['POST'])
@@ -351,56 +426,60 @@ def assign_driver(job_id):
     if not driver_id:
         return jsonify({"error": "driver_id is required"}), 400
 
-    driver = next((d for d in store.get("drivers", []) if d["id"] == driver_id), None)
-    if not driver:
-        return jsonify({"error": "Driver not found"}), 404
+    db = get_db()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
 
-    job = None
-    for j in store.get("jobs", []):
-        if j["id"] == job_id:
-            job = j
-            break
+        job = db.query(Job).filter(Job.id == job_id).first()
+        if not job:
+            return jsonify({"error": "Job not found"}), 404
 
-    if not job:
-        return jsonify({"error": "Job not found"}), 404
+        job.status = "assigned"
+        job.driver_id = driver_id
+        job.driver_name = driver.name
+        job.assigned_at = datetime.now()
+        db.commit()
 
-    job["status"] = "assigned"
-    job["driver_id"] = driver_id
-    job["driver_name"] = driver["name"]
-    job["assigned_at"] = datetime.now().isoformat()
-
-    if driver_id not in store["assignments"]:
-        store["assignments"][driver_id] = []
-    store["assignments"][driver_id].append(job_id)
-
-    return jsonify({"success": True, "job": job})
+        return jsonify({"success": True, "job": job.to_dict()})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
 
 @app.route('/api/jobs/<job_id>/unassign', methods=['POST'])
 def unassign_driver(job_id):
-    job = None
-    for j in store.get("jobs", []):
-        if j["id"] == job_id:
-            job = j
-            break
+    db = get_db()
+    try:
+        job = db.query(Job).filter(Job.id == job_id).first()
+        if not job:
+            return jsonify({"error": "Job not found"}), 404
 
-    if not job:
-        return jsonify({"error": "Job not found"}), 404
+        job.status = "unassigned"
+        job.driver_id = None
+        job.driver_name = None
+        job.assigned_at = None
+        db.commit()
 
-    old_driver = job.get("driver_id")
-    job["status"] = "unassigned"
-    job["driver_id"] = None
-    job["driver_name"] = None
-
-    if old_driver and old_driver in store["assignments"]:
-        store["assignments"][old_driver] = [jid for jid in store["assignments"][old_driver] if jid != job_id]
-
-    return jsonify({"success": True, "job": job})
+        return jsonify({"success": True, "job": job.to_dict()})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
 
 @app.route('/api/drivers', methods=['GET'])
 def get_drivers():
-    return jsonify({"drivers": store.get("drivers", [])})
+    db = get_db()
+    try:
+        drivers = db.query(Driver).all()
+        return jsonify({"drivers": [d.to_dict() for d in drivers]})
+    finally:
+        db.close()
 
 
 @app.route('/api/drivers', methods=['POST'])
@@ -413,88 +492,124 @@ def add_driver():
     if not name:
         return jsonify({"error": "Driver name is required"}), 400
 
-    driver = {
-        "id": f"DRV-{uuid.uuid4().hex[:6].upper()}",
-        "name": name,
-        "email": email,
-        "vehicle_type": vehicle_type,
-        "status": "available",
-        "created_at": datetime.now().isoformat(),
-    }
-    store["drivers"].append(driver)
-    return jsonify({"success": True, "driver": driver}), 201
+    db = get_db()
+    try:
+        driver = Driver(
+            id=f"DRV-{uuid.uuid4().hex[:6].upper()}",
+            name=name,
+            email=email,
+            vehicle_type=vehicle_type,
+        )
+        db.add(driver)
+        db.commit()
+        return jsonify({"success": True, "driver": driver.to_dict()}), 201
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
 
 @app.route('/api/drivers/<driver_id>', methods=['DELETE'])
 def remove_driver(driver_id):
-    drivers = store.get("drivers", [])
-    store["drivers"] = [d for d in drivers if d["id"] != driver_id]
+    db = get_db()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
 
-    for job in store.get("jobs", []):
-        if job.get("driver_id") == driver_id:
-            job["status"] = "unassigned"
-            job["driver_id"] = None
-            job["driver_name"] = None
+        jobs = db.query(Job).filter(Job.driver_id == driver_id).all()
+        for job in jobs:
+            job.status = "unassigned"
+            job.driver_id = None
+            job.driver_name = None
 
-    if driver_id in store["assignments"]:
-        del store["assignments"][driver_id]
-
-    return jsonify({"success": True})
+        db.delete(driver)
+        db.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
 
 @app.route('/api/driver/<driver_id>/jobs', methods=['GET'])
 def get_driver_jobs(driver_id):
-    driver_jobs = [j for j in store.get("jobs", []) if j.get("driver_id") == driver_id]
-    return jsonify({"driver_id": driver_id, "jobs": driver_jobs})
+    db = get_db()
+    try:
+        driver_jobs = db.query(Job).filter(Job.driver_id == driver_id).all()
+        return jsonify({"driver_id": driver_id, "jobs": [j.to_dict() for j in driver_jobs]})
+    finally:
+        db.close()
 
 
 @app.route('/api/driver/<driver_id>/complete/<job_id>/<stop_id>', methods=['POST'])
 def complete_stop(driver_id, job_id, stop_id):
-    for job in store.get("jobs", []):
-        if job["id"] == job_id and job.get("driver_id") == driver_id:
-            for stop in job["stops"]:
-                if stop["id"] == stop_id:
-                    stop["completed"] = True
-                    stop["completed_at"] = datetime.now().isoformat()
+    db = get_db()
+    try:
+        job = db.query(Job).filter(Job.id == job_id, Job.driver_id == driver_id).first()
+        if not job:
+            return jsonify({"error": "Job not found"}), 404
 
-                    all_done = all(s.get("completed") for s in job["stops"])
-                    if all_done:
-                        job["status"] = "completed"
-                        job["completed_at"] = datetime.now().isoformat()
+        stop = db.query(Stop).filter(Stop.id == stop_id, Stop.job_id == job_id).first()
+        if not stop:
+            return jsonify({"error": "Stop not found"}), 404
 
-                    return jsonify({"success": True, "stop": stop, "job_status": job["status"]})
+        stop.completed = True
+        stop.completed_at = datetime.now()
 
-    return jsonify({"error": "Stop not found"}), 404
+        all_stops = db.query(Stop).filter(Stop.job_id == job_id).all()
+        if all(s.completed for s in all_stops):
+            job.status = "completed"
+            job.completed_at = datetime.now()
+
+        db.commit()
+        return jsonify({"success": True, "stop": stop.to_dict(), "job_status": job.status})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.close()
 
 
 @app.route('/api/stops', methods=['GET'])
 def get_stops():
-    return jsonify({"stops": store.get("stops", [])})
+    db = get_db()
+    try:
+        stops = db.query(Stop).all()
+        return jsonify({"stops": [s.to_dict() for s in stops]})
+    finally:
+        db.close()
 
 
 @app.route('/api/stats', methods=['GET'])
 def get_stats():
-    jobs = store.get("jobs", [])
-    drivers = store.get("drivers", [])
+    db = get_db()
+    try:
+        jobs = db.query(Job).all()
+        drivers = db.query(Driver).all()
 
-    total_jobs = len(jobs)
-    unassigned = len([j for j in jobs if j["status"] == "unassigned"])
-    assigned = len([j for j in jobs if j["status"] == "assigned"])
-    completed = len([j for j in jobs if j["status"] == "completed"])
-    total_stops = sum(j["total_stops"] for j in jobs)
-    total_distance = sum(j["total_distance_km"] for j in jobs)
-    total_cost = sum(j["estimated_cost"] for j in jobs)
+        total_jobs = len(jobs)
+        unassigned = len([j for j in jobs if j.status == "unassigned"])
+        assigned = len([j for j in jobs if j.status == "assigned"])
+        completed = len([j for j in jobs if j.status == "completed"])
+        total_stops = sum(j.total_stops for j in jobs)
+        total_distance = sum(j.total_distance_km for j in jobs)
+        total_cost = sum(j.estimated_cost for j in jobs)
 
-    return jsonify({
-        "total_jobs": total_jobs,
-        "unassigned": unassigned,
-        "assigned": assigned,
-        "completed": completed,
-        "total_stops": total_stops,
-        "total_distance_km": round(total_distance, 1),
-        "total_estimated_cost": round(total_cost, 2),
-        "total_drivers": len(drivers),
-    })
+        return jsonify({
+            "total_jobs": total_jobs,
+            "unassigned": unassigned,
+            "assigned": assigned,
+            "completed": completed,
+            "total_stops": total_stops,
+            "total_distance_km": round(total_distance, 1),
+            "total_estimated_cost": round(total_cost, 2),
+            "total_drivers": len(drivers),
+        })
+    finally:
+        db.close()
 
 
 if __name__ == '__main__':
