@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Upload, Zap, CheckCircle, AlertTriangle, FileSpreadsheet, ArrowLeft, MapPin, FlaskConical } from "lucide-react";
+import { Upload, Zap, CheckCircle, AlertTriangle, FileSpreadsheet, ArrowLeft, MapPin, FlaskConical, ChevronDown, ChevronUp } from "lucide-react";
 import { Spinner } from "../components/Loader";
 import { uploadExcel, optimizeStops, getStops, getJobs, loadTestData } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ export default function DispatchCenter() {
   const [error, setError] = useState("");
   const [clusterRadius, setClusterRadius] = useState(8);
   const [loadingTest, setLoadingTest] = useState(false);
+  const [showExample, setShowExample] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -156,7 +157,62 @@ export default function DispatchCenter() {
               </label>
             </div>
 
-            <div className="flex items-center gap-3 mt-5">
+            <div className="mt-5 mb-1">
+              <button
+                onClick={() => setShowExample(!showExample)}
+                className="flex items-center gap-1.5 text-[12px] text-[#008080] font-medium hover:text-[#006666] transition-colors mx-auto"
+              >
+                <FileSpreadsheet size={13} />
+                {showExample ? "Hide" : "View"} example data format
+                {showExample ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+              </button>
+            </div>
+
+            {showExample && (
+              <div className="mt-3 animate-fade-in">
+                <div className="rounded-xl border border-[#e5e5ea] overflow-hidden">
+                  <div className="bg-[#f5f5f7] px-3 py-2 border-b border-[#e5e5ea]">
+                    <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Example Excel rows</p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-[11px]">
+                      <thead>
+                        <tr className="bg-[#fafafa] border-b border-[#f0f0f0]">
+                          {["Full_Address", "Customer_Name", "Order_ID", "Phone", "Notes"].map((h) => (
+                            <th key={h} className={`px-2.5 py-2 text-left font-semibold whitespace-nowrap ${h === "Full_Address" ? "text-[#008080]" : "text-[#86868b]"}`}>
+                              {h}{h === "Full_Address" && <span className="text-[#ff3b30] ml-0.5">*</span>}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="text-[#1d1d1f]">
+                        {[
+                          ["44 Stanley Ave, Milpark, Johannesburg", "Sipho Ndlovu", "ORD-001", "+27 72 100 0001", "Ring bell twice"],
+                          ["Sandton City Mall, Sandton, Johannesburg", "Thandi Mokoena", "ORD-002", "+27 72 100 0002", "Deliver to concierge"],
+                          ["Rosebank Mall, Rosebank, Johannesburg", "James van der Merwe", "ORD-003", "+27 72 100 0003", ""],
+                          ["7th Street, Melville, Johannesburg", "Lerato Dlamini", "ORD-004", "+27 72 100 0004", "Leave at gate"],
+                        ].map((row, i) => (
+                          <tr key={i} className="border-b border-[#f5f5f7] last:border-0 hover:bg-[#fafafa]">
+                            {row.map((cell, ci) => (
+                              <td key={ci} className={`px-2.5 py-1.5 whitespace-nowrap ${ci === 0 ? "font-medium" : ""}`}>
+                                {cell || <span className="text-[#c7c7cc]">—</span>}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="bg-[#f5f5f7] px-3 py-2 border-t border-[#e5e5ea]">
+                    <p className="text-[10px] text-[#aeaeb2]">
+                      <span className="text-[#ff3b30]">*</span> Required — all other columns are optional and auto-generated if missing
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-3 mt-4">
               <div className="h-px flex-1 bg-[#e5e5ea]" />
               <span className="text-[11px] text-[#aeaeb2] font-medium">or</span>
               <div className="h-px flex-1 bg-[#e5e5ea]" />
@@ -169,7 +225,7 @@ export default function DispatchCenter() {
             >
               {loadingTest ? <><Spinner size={14} /> Loading test data...</> : <><FlaskConical size={14} /> Load test data (Johannesburg)</>}
             </button>
-            <p className="text-[11px] text-[#aeaeb2] text-center mt-2">15 pre-geocoded delivery addresses across JHB</p>
+            <p className="text-[11px] text-[#aeaeb2] text-center mt-2">15 pre-geocoded delivery addresses across Johannesburg</p>
           </div>
         </div>
       )}
