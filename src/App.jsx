@@ -1,19 +1,34 @@
-import React, { useState } from "react";
-import AdminMVP from "./AdminMVP";
-import DriverApp from "./DriverApp";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { WeightsProvider } from "./context/WeightsContext";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import DispatchCenter from "./pages/DispatchCenter";
+import LiveMap from "./pages/LiveMap";
+import Jobs from "./pages/Jobs";
+import Drivers from "./pages/Drivers";
+import RoutesPage from "./pages/Routes";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
-  const [stops, setStops] = useState([]);
-  const [route, setRoute] = useState([]);
-  const [view, setView] = useState("admin"); // "admin" or "driver"
-
   return (
-    <div>
-      <button onClick={() => setView("admin")}>Admin View</button>
-      <button onClick={() => setView("driver")}>Driver View</button>
-
-      {view === "admin" && <AdminMVP setStops={setStops} setRoute={setRoute} />}
-      {view === "driver" && <DriverApp stops={stops} route={route} />}
-    </div>
+    <WeightsProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dispatch" element={<DispatchCenter />} />
+            <Route path="/map" element={<LiveMap />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/drivers" element={<Drivers />} />
+            <Route path="/routes" element={<RoutesPage />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </WeightsProvider>
   );
 }
