@@ -397,11 +397,11 @@ def load_test_data():
     db = get_db()
     try:
         db.query(Stop).filter(Stop.job_id.is_(None), Stop.company_id == company_id).delete()
+        db.query(Stop).filter(Stop.id.like("test%"), Stop.company_id == company_id).delete()
+        db.flush()
+
         for s in test_stops:
             stop_id = f"{s['id']}_{unique_prefix}"
-            existing = db.query(Stop).filter(Stop.id == stop_id).first()
-            if existing:
-                db.delete(existing)
             db.add(Stop(
                 id=stop_id, order_id=s["order_id"], customer_name=s["customer_name"],
                 address=s["address"], lat=s["lat"], lng=s["lng"], demand=s["demand"],
@@ -412,7 +412,9 @@ def load_test_data():
         db.commit()
     except Exception as e:
         db.rollback()
-        return jsonify({"error": str(e)}), 500
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": "Failed to load test data"}), 500
     finally:
         db.close()
 
