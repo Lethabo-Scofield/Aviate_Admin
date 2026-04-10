@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Upload, Zap, CheckCircle, AlertTriangle, FileSpreadsheet, ArrowLeft, MapPin } from "lucide-react";
+import { Upload, Zap, CheckCircle, AlertTriangle, FileSpreadsheet, ArrowLeft, MapPin, FlaskConical } from "lucide-react";
 import { Spinner } from "../components/Loader";
-import { uploadExcel, optimizeStops, getStops, getJobs } from "../services/api";
+import { uploadExcel, optimizeStops, getStops, getJobs, loadTestData } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 export default function DispatchCenter() {
@@ -13,6 +13,7 @@ export default function DispatchCenter() {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState("");
   const [clusterRadius, setClusterRadius] = useState(8);
+  const [loadingTest, setLoadingTest] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +64,21 @@ export default function DispatchCenter() {
       setError(err.message);
     } finally {
       setOptimizing(false);
+    }
+  };
+
+  const handleTestMode = async () => {
+    setLoadingTest(true);
+    setError("");
+    try {
+      const result = await loadTestData();
+      setUploadResult(result);
+      setStops(result.stops || []);
+      setStep("optimize");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoadingTest(false);
     }
   };
 
@@ -139,6 +155,21 @@ export default function DispatchCenter() {
                 )}
               </label>
             </div>
+
+            <div className="flex items-center gap-3 mt-5">
+              <div className="h-px flex-1 bg-[#e5e5ea]" />
+              <span className="text-[11px] text-[#aeaeb2] font-medium">or</span>
+              <div className="h-px flex-1 bg-[#e5e5ea]" />
+            </div>
+
+            <button
+              onClick={handleTestMode}
+              disabled={loadingTest || uploading}
+              className="apple-btn apple-btn-secondary w-full mt-4 text-[13px]"
+            >
+              {loadingTest ? <><Spinner size={14} /> Loading test data...</> : <><FlaskConical size={14} /> Load test data (Johannesburg)</>}
+            </button>
+            <p className="text-[11px] text-[#aeaeb2] text-center mt-2">15 pre-geocoded delivery addresses across JHB</p>
           </div>
         </div>
       )}

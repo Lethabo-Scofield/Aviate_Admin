@@ -75,6 +75,11 @@ export async function completeStop(driverId, jobId, stopId) {
   return handleResponse(res);
 }
 
+export async function loadTestData() {
+  const res = await fetch(`${API_BASE}/test-data`, { method: 'POST' });
+  return handleResponse(res);
+}
+
 export async function getStops() {
   const res = await fetch(`${API_BASE}/stops`);
   return handleResponse(res);

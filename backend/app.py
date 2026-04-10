@@ -164,6 +164,40 @@ def upload_excel():
             pass
 
 
+@app.route('/api/test-data', methods=['POST'])
+def load_test_data():
+    test_stops = [
+        {"id": "test01", "order_id": "ORD-001", "customer_name": "Sipho Ndlovu", "address": "44 Stanley Ave, Milpark, Johannesburg", "lat": -26.1810, "lng": 28.0173, "demand": 2, "service_time": 15, "phone": "+27 72 100 0001", "notes": "Ring bell twice", "time_window_start": "", "time_window_end": ""},
+        {"id": "test02", "order_id": "ORD-002", "customer_name": "Thandi Mokoena", "address": "Sandton City Mall, Sandton, Johannesburg", "lat": -26.1076, "lng": 28.0567, "demand": 1, "service_time": 10, "phone": "+27 72 100 0002", "notes": "Deliver to concierge", "time_window_start": "", "time_window_end": ""},
+        {"id": "test03", "order_id": "ORD-003", "customer_name": "James van der Merwe", "address": "Rosebank Mall, Rosebank, Johannesburg", "lat": -26.1460, "lng": 28.0436, "demand": 3, "service_time": 20, "phone": "+27 72 100 0003", "notes": "", "time_window_start": "", "time_window_end": ""},
+        {"id": "test04", "order_id": "ORD-004", "customer_name": "Lerato Dlamini", "address": "Melville, 7th Street, Johannesburg", "lat": -26.1768, "lng": 28.0067, "demand": 1, "service_time": 10, "phone": "+27 72 100 0004", "notes": "Leave at gate", "time_window_start": "", "time_window_end": ""},
+        {"id": "test05", "order_id": "ORD-005", "customer_name": "Pieter Botha", "address": "Braamfontein, Juta Street, Johannesburg", "lat": -26.1920, "lng": 28.0340, "demand": 2, "service_time": 15, "phone": "+27 72 100 0005", "notes": "", "time_window_start": "", "time_window_end": ""},
+        {"id": "test06", "order_id": "ORD-006", "customer_name": "Naledi Khumalo", "address": "Maboneng Precinct, Johannesburg", "lat": -26.2023, "lng": 28.0570, "demand": 1, "service_time": 10, "phone": "+27 72 100 0006", "notes": "Call on arrival", "time_window_start": "", "time_window_end": ""},
+        {"id": "test07", "order_id": "ORD-007", "customer_name": "David Naidoo", "address": "Fourways Mall, Fourways, Johannesburg", "lat": -26.0187, "lng": 28.0073, "demand": 4, "service_time": 25, "phone": "+27 72 100 0007", "notes": "Heavy items", "time_window_start": "", "time_window_end": ""},
+        {"id": "test08", "order_id": "ORD-008", "customer_name": "Ayanda Zulu", "address": "Greenside, Johannesburg", "lat": -26.1551, "lng": 28.0103, "demand": 1, "service_time": 10, "phone": "+27 72 100 0008", "notes": "", "time_window_start": "", "time_window_end": ""},
+        {"id": "test09", "order_id": "ORD-009", "customer_name": "Fatima Patel", "address": "Fordsburg, Johannesburg", "lat": -26.2050, "lng": 28.0260, "demand": 2, "service_time": 15, "phone": "+27 72 100 0009", "notes": "Fragile", "time_window_start": "", "time_window_end": ""},
+        {"id": "test10", "order_id": "ORD-010", "customer_name": "Bongani Sithole", "address": "Parktown North, Johannesburg", "lat": -26.1595, "lng": 28.0295, "demand": 1, "service_time": 10, "phone": "+27 72 100 0010", "notes": "", "time_window_start": "", "time_window_end": ""},
+        {"id": "test11", "order_id": "ORD-011", "customer_name": "Lindiwe Mthembu", "address": "Norwood, Johannesburg", "lat": -26.1540, "lng": 28.0705, "demand": 2, "service_time": 15, "phone": "+27 72 100 0011", "notes": "Second floor", "time_window_start": "", "time_window_end": ""},
+        {"id": "test12", "order_id": "ORD-012", "customer_name": "Willem Pretorius", "address": "Randburg, Johannesburg", "lat": -26.0945, "lng": 27.9945, "demand": 3, "service_time": 20, "phone": "+27 72 100 0012", "notes": "", "time_window_start": "", "time_window_end": ""},
+        {"id": "test13", "order_id": "ORD-013", "customer_name": "Zanele Mahlangu", "address": "Newtown, Johannesburg", "lat": -26.2010, "lng": 28.0340, "demand": 1, "service_time": 10, "phone": "+27 72 100 0013", "notes": "", "time_window_start": "", "time_window_end": ""},
+        {"id": "test14", "order_id": "ORD-014", "customer_name": "Raj Govender", "address": "Bedfordview, Johannesburg", "lat": -26.1816, "lng": 28.1282, "demand": 2, "service_time": 15, "phone": "+27 72 100 0014", "notes": "Gate code: 1234", "time_window_start": "", "time_window_end": ""},
+        {"id": "test15", "order_id": "ORD-015", "customer_name": "Nosipho Cele", "address": "Soweto, Orlando West, Johannesburg", "lat": -26.2368, "lng": 27.9086, "demand": 1, "service_time": 10, "phone": "+27 72 100 0015", "notes": "", "time_window_start": "", "time_window_end": ""},
+    ]
+
+    store["stops"] = test_stops
+    store["jobs"] = []
+    store["assignments"] = {}
+
+    return jsonify({
+        "success": True,
+        "total_rows": len(test_stops),
+        "geocoded": len(test_stops),
+        "failed": 0,
+        "failed_details": [],
+        "stops": test_stops,
+    })
+
+
 @app.route('/api/optimize', methods=['POST'])
 def optimize():
     data = request.get_json() or {}
