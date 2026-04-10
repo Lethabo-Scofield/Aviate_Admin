@@ -105,7 +105,7 @@ export default function DispatchCenter() {
             <div className="flex items-center gap-1.5 sm:gap-2">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all ${
                 stepIndex > i ? "bg-[#008080] text-white" :
-                stepIndex === i ? "bg-[#1d1d1f] text-white" :
+                stepIndex === i ? "bg-[#008080] text-white" :
                 "bg-[#e5e5ea] text-[#aeaeb2]"
               }`}>
                 {stepIndex > i ? "✓" : i + 1}

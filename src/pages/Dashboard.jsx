@@ -71,7 +71,7 @@ export default function Dashboard() {
                 { step: "3", title: "Dispatch", desc: "Assign optimized jobs to your drivers" },
               ].map(({ step, title, desc }) => (
                 <div key={step} className="flex gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#1d1d1f] text-white flex items-center justify-center text-[12px] font-bold shrink-0">{step}</div>
+                  <div className="w-8 h-8 rounded-full bg-[#008080] text-white flex items-center justify-center text-[12px] font-bold shrink-0">{step}</div>
                   <div>
                     <p className="text-[14px] font-semibold text-[#1d1d1f] mb-1">{title}</p>
                     <p className="text-[12px] text-[#aeaeb2] leading-relaxed">{desc}</p>

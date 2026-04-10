@@ -119,12 +119,12 @@ body {
 }
 
 .apple-btn-primary {
-  background: #1d1d1f;
+  background: #008080;
   color: #ffffff;
 }
 
 .apple-btn-primary:hover {
-  background: #333336;
+  background: #006e6e;
   transform: scale(1.02);
 }
 

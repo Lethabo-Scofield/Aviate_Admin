@@ -69,7 +69,7 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-[9px] rounded-[10px] text-[13px] font-medium transition-all duration-200 ${
                   isActive
-                    ? "bg-[#1d1d1f] text-white shadow-sm"
+                    ? "bg-[#008080] text-white shadow-sm"
                     : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
                 }`
               }
