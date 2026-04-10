@@ -1,0 +1,149 @@
+Build an upgraded logistics SaaS web application called Aviate Dispatch System.
+
+We already have a working route optimization engine. Your task is to improve the system by making it explainable, modular, and visually clear, while enhancing the UI/UX for a production-ready SaaS dashboard.
+
+1. UI / Design System
+
+Use the following design rules:
+
+Primary color: #008080 (teal)
+Secondary color: navy blue accents
+Background: pure white (#FFFFFF)
+Style: clean, modern SaaS dashboard (like Stripe / Uber Freight)
+Use cards, soft shadows, and clear spacing
+Minimalistic but data-rich layout
+Use icons where appropriate for clarity
+2. Core Goal of Upgrade
+
+Transform the route optimization output from a “black box result” into an explainable AI-style decision system.
+
+Every route must clearly show:
+
+Why a driver was selected
+Why others were rejected
+Full cost breakdown
+Efficiency score
+Alternative suggestions (if available)
+3. System Architecture (must implement or simulate)
+
+Break optimization into 4 layers:
+
+Layer 1: Candidate Filtering
+Filter drivers by:
+distance to pickup
+vehicle type match
+availability
+Layer 2: Scoring Engine
+
+Each driver-job pair must generate a score:
+
+score =
+(distance_to_pickup × w1)
+
+(extra_route_time × w2)
+(idle_time × w3)
+(lateness_risk × w4)
+
+Lower score = better match
+
+Layer 3: Route Sequencing
+Optimize stop order per driver
+Respect constraints:
+pickup before drop-off
+capacity limits
+time windows
+Layer 4: Real-time Adjustment
+Detect changes:
+traffic
+cancellations
+new jobs
+Recalculate only affected routes
+4. New Feature: Route Explainability Panel
+
+For every assigned job, create a UI panel:
+
+“Why this driver was chosen”
+
+Show:
+
+distance advantage
+route efficiency gain
+workload comparison
+final score
+“Rejected drivers”
+
+List top 3 alternatives with:
+
+reason they were not selected
+score difference
+5. New Feature: Route Breakdown Card
+
+Each route must display:
+
+Total distance
+Total estimated time
+Idle driving time
+Cost estimate
+Efficiency score (0–100)
+
+Add a visual progress bar for efficiency.
+
+6. Dashboard Pages (required)
+
+Create sidebar navigation:
+
+Dashboard (overview metrics)
+Dispatch Center (job assignment + optimization)
+Live Map (drivers + routes)
+Jobs (all deliveries)
+Drivers (fleet management)
+Routes (optimization results + explainability)
+Analytics (performance metrics)
+Settings
+7. Dispatch Center Requirements
+Create job form (pickup, drop-off, vehicle type)
+Auto-assign driver using scoring engine
+Show assignment reasoning in real time
+Allow manual override
+8. Live Map Requirements
+Show drivers in real time (mock data acceptable)
+Show active routes
+Show pickup/drop-off markers
+Show ETA labels
+9. Analytics Page
+
+Show:
+
+cost per delivery
+average delivery time
+driver utilization rate
+route efficiency score trends
+10. Data Structure (important)
+
+Each route object must include:
+
+driver_id
+job_id
+score breakdown
+explanation object:
+selected_reason
+rejected_candidates[]
+metrics:
+distance
+time
+cost
+efficiency_score
+11. Key Requirement
+
+The system must feel like:
+
+“A logistics operating system with AI decision transparency”
+
+Not just a delivery tracker.
+
+12. Output Expectation
+Fully working frontend dashboard
+Clean UI with teal + navy theme
+Mock backend or simple API layer is fine
+Focus on clarity, explainability, and structure
+Make optimization results readable for humans
