@@ -1,36 +1,59 @@
-export function Spinner({ size = 24, className = "" }) {
+export function LogoSpinner({ size = 32, className = "" }) {
   return (
     <div className={`flex items-center justify-center ${className}`}>
-      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className="animate-spin">
-        <circle cx="12" cy="12" r="10" stroke="#e5e5ea" strokeWidth="3" />
-        <path d="M12 2a10 10 0 0 1 10 10" stroke="#008080" strokeWidth="3" strokeLinecap="round" />
-      </svg>
+      <div className="relative" style={{ width: size, height: size }}>
+        <img
+          src="/logo.png"
+          alt=""
+          width={size}
+          height={size}
+          className="animate-logo-pulse"
+          style={{ filter: "drop-shadow(0 0 8px rgba(0,128,128,0.25))" }}
+        />
+      </div>
     </div>
   );
+}
+
+export function Spinner({ size = 24, className = "" }) {
+  return <LogoSpinner size={size} className={className} />;
 }
 
 export function LogoLoader({ size = 48, className = "" }) {
+  return <LogoSpinner size={size} className={className} />;
+}
+
+export function PageLoader({ message = "Loading..." }) {
   return (
-    <div className={`flex items-center justify-center ${className}`}>
-      <img
-        src="/logo.png"
-        alt="Aviate"
-        width={size}
-        height={size}
-        className="animate-pulse"
-      />
+    <div className="flex items-center justify-center h-[60vh]">
+      <div className="text-center">
+        <LogoSpinner size={48} />
+        <p className="text-sm text-[#86868b] mt-4 font-medium">{message}</p>
+      </div>
     </div>
   );
 }
 
-export function PageLoader() {
+export function FullScreenLoader({ message = "Loading..." }) {
   return (
-    <div className="flex items-center justify-center h-[60vh]">
-      <div className="text-center">
-        <LogoLoader size={48} />
-        <p className="text-sm text-[#86868b] mt-4 font-medium">Loading...</p>
+    <div className="min-h-screen bg-[#f5f5f7] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <LogoSpinner size={44} />
+        <p className="text-[13px] text-[#86868b] font-medium">{message}</p>
       </div>
     </div>
+  );
+}
+
+export function InlineSpinner({ size = 16 }) {
+  return (
+    <img
+      src="/logo.png"
+      alt=""
+      width={size}
+      height={size}
+      className="animate-logo-pulse"
+    />
   );
 }
 

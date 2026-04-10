@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-
 import L from "leaflet";
 import { getJobs } from "../services/api";
 import { SkeletonList } from "../components/Loader";
-import { Map as MapIcon, Layers, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Map as MapIcon, Layers, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
@@ -296,7 +296,7 @@ export default function MapView() {
         <div className="lg:col-span-3 apple-card overflow-hidden relative" style={{ height: "calc(100vh - 220px)", minHeight: "400px" }}>
           {routesLoading && (
             <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg flex items-center gap-2">
-              <Loader2 size={14} className="text-[#008080] animate-spin" />
+              <img src="/logo.png" alt="" className="w-4 h-4 animate-logo-pulse" />
               <span className="text-[12px] font-medium text-[#1d1d1f]">Loading road routes...</span>
             </div>
           )}

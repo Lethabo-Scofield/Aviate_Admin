@@ -84,7 +84,7 @@ export default function Login() {
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#008080] text-white text-[14px] font-medium hover:bg-[#006d6d] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
               {loading ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <img src="/logo.png" alt="" className="w-4 h-4 animate-logo-pulse brightness-0 invert" />
               ) : (
                 <LogIn size={16} />
               )}
