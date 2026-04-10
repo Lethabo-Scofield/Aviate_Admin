@@ -46,9 +46,7 @@ export default function Sidebar() {
       >
         <div className="px-5 pt-7 pb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-[10px] bg-[#1d1d1f] flex items-center justify-center font-bold text-sm text-white tracking-tight">
-              A
-            </div>
+            <img src="/logo.png" alt="Aviate" className="w-9 h-9 rounded-[10px]" />
             <div>
               <h1 className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
               <p className="text-[11px] text-[#86868b] font-medium">Route Optimization</p>

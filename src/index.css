@@ -98,8 +98,8 @@ body {
 }
 
 .apple-input:focus {
-  border-color: #007aff;
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12);
+  border-color: #008080;
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.12);
   background: #ffffff;
 }
 

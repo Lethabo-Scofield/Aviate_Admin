@@ -141,7 +141,7 @@ export default function Drivers() {
                 </div>
                 <div className="flex items-center gap-4">
                   {driverJobs.length > 0 ? (
-                    <span className="text-[12px] font-semibold text-[#007aff]">{driverJobs.length} jobs</span>
+                    <span className="text-[12px] font-semibold text-[#008080]">{driverJobs.length} jobs</span>
                   ) : (
                     <span className="text-[12px] text-[#aeaeb2]">No jobs</span>
                   )}

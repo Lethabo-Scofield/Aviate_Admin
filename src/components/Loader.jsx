@@ -3,8 +3,22 @@ export function Spinner({ size = 24, className = "" }) {
     <div className={`flex items-center justify-center ${className}`}>
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className="animate-spin">
         <circle cx="12" cy="12" r="10" stroke="#e5e5ea" strokeWidth="3" />
-        <path d="M12 2a10 10 0 0 1 10 10" stroke="#1d1d1f" strokeWidth="3" strokeLinecap="round" />
+        <path d="M12 2a10 10 0 0 1 10 10" stroke="#008080" strokeWidth="3" strokeLinecap="round" />
       </svg>
+    </div>
+  );
+}
+
+export function LogoLoader({ size = 48, className = "" }) {
+  return (
+    <div className={`flex items-center justify-center ${className}`}>
+      <img
+        src="/logo.png"
+        alt="Aviate"
+        width={size}
+        height={size}
+        className="animate-pulse"
+      />
     </div>
   );
 }
@@ -13,7 +27,7 @@ export function PageLoader() {
   return (
     <div className="flex items-center justify-center h-[60vh]">
       <div className="text-center">
-        <Spinner size={32} />
+        <LogoLoader size={48} />
         <p className="text-sm text-[#86868b] mt-4 font-medium">Loading...</p>
       </div>
     </div>

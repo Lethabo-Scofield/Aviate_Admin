@@ -12,12 +12,14 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - Background: `#f5f5f7` (Apple light grey)
 - Cards: white with subtle shadows (`apple-card` class)
 - Text primary: `#1d1d1f`, secondary: `#86868b`, tertiary: `#aeaeb2`
-- Accent blue: `#007aff`, green: `#34c759`, orange: `#ff9500`, red: `#ff3b30`
+- Primary accent: `#008080` (teal) — used sparingly for status badges, focus rings, step indicators, active counts
+- Secondary colors: green `#34c759`, orange `#ff9500`, red `#ff3b30`
 - Active nav/buttons: `#1d1d1f` (near-black)
+- Logo: `public/logo.png` — used in sidebar and as loading indicator (`LogoLoader` component)
 - Frosted glass sidebar with backdrop blur
-- Skeleton loaders, fade-in/slide-up animations
+- Skeleton loaders, logo pulse loader, fade-in/slide-up animations
 - Typography: SF Pro / system font stack, tight tracking
-- Inputs: `apple-input` class with blue focus rings
+- Inputs: `apple-input` class with teal focus rings
 - Buttons: `apple-btn apple-btn-primary` / `apple-btn-secondary`
 
 ## Project Structure

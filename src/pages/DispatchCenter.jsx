@@ -88,7 +88,7 @@ export default function DispatchCenter() {
           <div key={label} className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all ${
-                stepIndex > i ? "bg-[#34c759] text-white" :
+                stepIndex > i ? "bg-[#008080] text-white" :
                 stepIndex === i ? "bg-[#1d1d1f] text-white" :
                 "bg-[#e5e5ea] text-[#aeaeb2]"
               }`}>
@@ -98,7 +98,7 @@ export default function DispatchCenter() {
                 {label}
               </span>
             </div>
-            {i < 2 && <div className={`w-6 sm:w-10 h-px ${stepIndex > i ? "bg-[#34c759]" : "bg-[#e5e5ea]"}`} />}
+            {i < 2 && <div className={`w-6 sm:w-10 h-px ${stepIndex > i ? "bg-[#008080]" : "bg-[#e5e5ea]"}`} />}
           </div>
         ))}
       </div>
@@ -234,7 +234,7 @@ export default function DispatchCenter() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#f5f5f7] text-[#86868b] font-semibold">{job.id}</span>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                    job.status === "assigned" ? "bg-[#007aff]/10 text-[#007aff]" :
+                    job.status === "assigned" ? "bg-[#008080]/10 text-[#008080]" :
                     "bg-[#ff9500]/10 text-[#ff9500]"
                   }`}>{job.status}</span>
                 </div>

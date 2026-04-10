@@ -120,7 +120,7 @@ export default function Dashboard() {
                       <p className="text-[11px] text-[#aeaeb2]">{job.total_stops} stops | {job.total_distance_km} km</p>
                     </div>
                     <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold ${
-                      job.status === "assigned" ? "bg-[#007aff]/10 text-[#007aff]" :
+                      job.status === "assigned" ? "bg-[#008080]/10 text-[#008080]" :
                       job.status === "completed" ? "bg-[#34c759]/10 text-[#34c759]" :
                       "bg-[#ff9500]/10 text-[#ff9500]"
                     }`}>{job.status}</span>
