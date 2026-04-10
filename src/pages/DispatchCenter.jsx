@@ -187,10 +187,10 @@ export default function DispatchCenter() {
                       </thead>
                       <tbody className="text-[#1d1d1f]">
                         {[
-                          ["44 Stanley Ave, Milpark, Johannesburg", "Sipho Ndlovu", "ORD-001", "+27 72 100 0001", "Ring bell twice"],
-                          ["Sandton City Mall, Sandton, Johannesburg", "Thandi Mokoena", "ORD-002", "+27 72 100 0002", "Deliver to concierge"],
-                          ["Rosebank Mall, Rosebank, Johannesburg", "James van der Merwe", "ORD-003", "+27 72 100 0003", ""],
-                          ["7th Street, Melville, Johannesburg", "Lerato Dlamini", "ORD-004", "+27 72 100 0004", "Leave at gate"],
+                          ["Vilakazi Street, Orlando West, Soweto", "Sipho Ndlovu", "ORD-001", "+27 72 100 0001", "Ring bell twice"],
+                          ["Kotze Street, Hillbrow, Johannesburg", "James van der Merwe", "ORD-003", "+27 72 100 0003", ""],
+                          ["Sandton City Mall, Sandton", "Pieter Botha", "ORD-005", "+27 72 100 0005", "Deliver to concierge"],
+                          ["London Rd, Alexandra, Johannesburg", "Naledi Khumalo", "ORD-006", "+27 72 100 0006", ""],
                         ].map((row, i) => (
                           <tr key={i} className="border-b border-[#f5f5f7] last:border-0 hover:bg-[#fafafa]">
                             {row.map((cell, ci) => (
@@ -225,7 +225,7 @@ export default function DispatchCenter() {
             >
               {loadingTest ? <><Spinner size={14} /> Loading test data...</> : <><FlaskConical size={14} /> Load test data (Johannesburg)</>}
             </button>
-            <p className="text-[11px] text-[#aeaeb2] text-center mt-2">15 pre-geocoded delivery addresses across Johannesburg</p>
+            <p className="text-[11px] text-[#aeaeb2] text-center mt-2">20 pre-geocoded delivery addresses across Soweto, Hillbrow, Sandton, Alexandra & more</p>
           </div>
         </div>
       )}
