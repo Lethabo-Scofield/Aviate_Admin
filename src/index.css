@@ -31,10 +31,6 @@ body {
   scrollbar-color: #c7c7cc transparent;
 }
 
-.leaflet-container {
-  font-family: inherit;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }

@@ -4,7 +4,7 @@
 A real logistics dispatch system where admins upload an Excel file of delivery addresses, the backend geocodes them (Nominatim), clusters stops into geographic jobs, optimizes routes using OR-Tools, and assigns drivers. Drivers receive their jobs via a REST API.
 
 ## Tech Stack
-- **Frontend**: React 19 + Vite, Tailwind CSS 4, React Router, Recharts, Leaflet (maps), Lucide icons
+- **Frontend**: React 19 + Vite, Tailwind CSS 4, React Router, Lucide icons
 - **Backend**: Python Flask, Google OR-Tools (route optimization), GeoPy (geocoding via Nominatim), Pandas
 - **Data**: In-memory store (no database) — resets on restart
 
@@ -34,18 +34,13 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 │   │   └── api.js             # API client — all backend calls
 │   ├── components/
 │   │   ├── Layout.jsx         # Sidebar + Outlet wrapper
-│   │   ├── Sidebar.jsx        # Navigation sidebar (8 pages)
-│   │   ├── StatCard.jsx       # Metric display card
-│   │   └── EfficiencyBar.jsx  # Visual efficiency progress bar
+│   │   ├── Sidebar.jsx        # Navigation sidebar (4 pages)
+│   │   └── Loader.jsx         # Spinner, skeleton loaders
 │   └── pages/
-│       ├── Dashboard.jsx      # Overview metrics + welcome state
-│       ├── DispatchCenter.jsx # Excel upload → geocode → optimize → jobs (3-step wizard)
-│       ├── LiveMap.jsx        # Map with job stops and routes
-│       ├── Jobs.jsx           # Jobs table with assign-driver modal
-│       ├── Drivers.jsx        # Fleet management — add/list drivers
-│       ├── Routes.jsx         # Optimized route details
-│       ├── Analytics.jsx      # Charts + performance metrics
-│       ├── Settings.jsx       # Cluster radius, driver count, API docs
+│       ├── Dashboard.jsx      # Overview stats + onboarding (empty state → stats view)
+│       ├── DispatchCenter.jsx # 3-step wizard: Upload → Optimize → Results
+│       ├── Jobs.jsx           # Jobs list with inline driver assignment
+│       ├── Drivers.jsx        # Fleet management — add/remove drivers
 │       └── NotFound.jsx       # 404 page
 ```
 
@@ -53,12 +48,15 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - `POST /api/upload` — Upload Excel with delivery addresses, geocodes via Nominatim
 - `POST /api/optimize` — Cluster stops geographically, optimize route per cluster via OR-Tools
 - `GET /api/jobs` — List all jobs
-- `POST /api/jobs/:id/assign` — Assign driver to job
+- `POST /api/jobs/:id/assign` — Assign driver to job (sends driver_id, backend derives name)
+- `POST /api/jobs/:id/unassign` — Unassign driver from job
 - `GET /api/drivers` — List all drivers
 - `POST /api/drivers` — Add a new driver
+- `DELETE /api/drivers/:id` — Remove a driver
 - `GET /api/driver/:id/jobs` — Driver mobile API: get assigned jobs
 - `POST /api/driver/:id/complete/:job_id/:stop_id` — Driver marks stop complete
 - `GET /api/stats` — Dashboard statistics
+- `GET /api/stops` — List all geocoded stops
 
 ## Excel Format
 - **Required column**: `Full_Address` (or `address`)
@@ -81,7 +79,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 
 ## Key Dependencies
 ### Frontend (npm)
-- react-router-dom, recharts, leaflet, react-leaflet, lucide-react, papaparse, xlsx
+- react-router-dom, lucide-react, papaparse, xlsx
 
 ### Backend (pip)
 - flask, flask-cors, pandas, openpyxl, geopy, ortools
