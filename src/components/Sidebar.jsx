@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Radio, Package, Truck, Menu, X } from "lucide-react";
+import { LayoutDashboard, Radio, Package, Map, Truck, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -7,6 +7,7 @@ const navItems = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/dispatch", icon: Radio, label: "Dispatch" },
   { to: "/jobs", icon: Package, label: "Jobs" },
+  { to: "/map", icon: Map, label: "Map" },
   { to: "/drivers", icon: Truck, label: "Drivers" },
 ];
 

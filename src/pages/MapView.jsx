@@ -1,0 +1,358 @@
+import { useState, useEffect, useMemo, useRef } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker, useMap } from "react-leaflet";
+import L from "leaflet";
+import { getJobs } from "../services/api";
+import { SkeletonList } from "../components/Loader";
+import { Map as MapIcon, Layers, Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import "leaflet/dist/leaflet.css";
+
+const JOB_COLORS = [
+  "#34c759", "#ff9500", "#007aff", "#ff3b30", "#af52de",
+  "#5ac8fa", "#ff2d55", "#ffcc00", "#30b0c7", "#a2845e",
+  "#64d2ff", "#ff6482", "#ffd60a", "#32d74b", "#bf5af2",
+];
+
+const iconCache = new Map();
+
+function createNumberedIcon(number, color) {
+  const key = `${number}-${color}`;
+  if (iconCache.has(key)) return iconCache.get(key);
+  const icon = L.divIcon({
+    className: "custom-marker",
+    html: `<div style="
+      background: ${color};
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      border: 2.5px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    ">${number}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -16],
+  });
+  iconCache.set(key, icon);
+  return icon;
+}
+
+function hasValidCoords(s) {
+  return typeof s.lat === "number" && typeof s.lng === "number" && !isNaN(s.lat) && !isNaN(s.lng);
+}
+
+const depotIcon = L.divIcon({
+  className: "custom-marker",
+  html: `<div style="
+    background: #1d1d1f;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    border: 2.5px solid white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.5px;
+  ">HQ</div>`,
+  iconSize: [32, 32],
+  iconAnchor: [16, 16],
+  popupAnchor: [0, -18],
+});
+
+const DEPOT = { lat: -26.2041, lng: 28.0473 };
+
+function FitBounds({ bounds }) {
+  const map = useMap();
+  useEffect(() => {
+    if (bounds && bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+    }
+  }, [map, bounds]);
+  return null;
+}
+
+export default function MapView() {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hiddenJobs, setHiddenJobs] = useState(new Set());
+  const [showRoutes, setShowRoutes] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await getJobs();
+        setJobs(res.jobs || []);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  const toggleJob = (jobId) => {
+    setHiddenJobs((prev) => {
+      const next = new Set(prev);
+      if (next.has(jobId)) next.delete(jobId);
+      else next.add(jobId);
+      return next;
+    });
+  };
+
+  const jobColorMap = useMemo(() => {
+    const map = {};
+    jobs.forEach((j, idx) => { map[j.id] = JOB_COLORS[idx % JOB_COLORS.length]; });
+    return map;
+  }, [jobs]);
+
+  const visibleJobs = useMemo(() => jobs.filter((j) => !hiddenJobs.has(j.id)), [jobs, hiddenJobs]);
+
+  const bounds = useMemo(() => {
+    const points = [[DEPOT.lat, DEPOT.lng]];
+    visibleJobs.forEach((job) => {
+      (job.stops || []).forEach((s) => {
+        if (hasValidCoords(s)) points.push([s.lat, s.lng]);
+      });
+    });
+    return points.length > 1 ? points : [[DEPOT.lat - 0.1, DEPOT.lng - 0.1], [DEPOT.lat + 0.1, DEPOT.lng + 0.1]];
+  }, [visibleJobs]);
+
+  if (loading) {
+    return (
+      <div>
+        <div className="skeleton h-8 w-24 mb-2" />
+        <div className="skeleton h-4 w-40 mb-8" />
+        <SkeletonList count={3} />
+      </div>
+    );
+  }
+
+  if (jobs.length === 0) {
+    return (
+      <div className="animate-fade-in">
+        <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-1">Map</h1>
+        <p className="text-[14px] text-[#86868b] mt-1 mb-8">Visualize optimized delivery routes</p>
+        <div className="apple-card p-12 text-center">
+          <MapIcon size={32} className="text-[#c7c7cc] mx-auto mb-3" strokeWidth={1.5} />
+          <p className="text-[14px] text-[#86868b] mb-4">No jobs to display on the map</p>
+          <button onClick={() => navigate("/dispatch")} className="apple-btn apple-btn-primary text-[13px]">
+            Create jobs first
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const totalStops = jobs.reduce((sum, j) => sum + (j.stops?.length || 0), 0);
+  const totalKm = jobs.reduce((sum, j) => sum + (j.total_distance_km || 0), 0);
+
+  return (
+    <div className="animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+        <div>
+          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
+          <p className="text-[14px] text-[#86868b] mt-1">
+            {jobs.length} jobs | {totalStops} stops | {totalKm.toFixed(1)} km total
+          </p>
+        </div>
+        <button
+          onClick={() => setShowRoutes(!showRoutes)}
+          className="apple-btn apple-btn-secondary text-[12px] py-2 px-3 self-start"
+        >
+          <Layers size={14} />
+          {showRoutes ? "Hide routes" : "Show routes"}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="lg:col-span-3 apple-card overflow-hidden" style={{ height: "calc(100vh - 220px)", minHeight: "400px" }}>
+          <MapContainer
+            center={[DEPOT.lat, DEPOT.lng]}
+            zoom={11}
+            style={{ height: "100%", width: "100%" }}
+            zoomControl={true}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <FitBounds bounds={bounds} />
+
+            <Marker position={[DEPOT.lat, DEPOT.lng]} icon={depotIcon}>
+              <Popup>
+                <div style={{ fontFamily: "-apple-system, sans-serif", fontSize: "13px" }}>
+                  <strong>Depot / HQ</strong>
+                  <br />
+                  Johannesburg Central
+                </div>
+              </Popup>
+            </Marker>
+
+            {visibleJobs.map((job) => {
+              const color = jobColorMap[job.id];
+              const stops = job.stops || [];
+              const sortedStops = [...stops].sort((a, b) => (a.stop_number || 0) - (b.stop_number || 0));
+              const validStops = sortedStops.filter(hasValidCoords);
+
+              const routePoints = [
+                [DEPOT.lat, DEPOT.lng],
+                ...validStops.map((s) => [s.lat, s.lng]),
+                [DEPOT.lat, DEPOT.lng],
+              ];
+
+              return (
+                <span key={job.id}>
+                  {showRoutes && routePoints.length > 2 && (
+                    <Polyline
+                      positions={routePoints}
+                      pathOptions={{
+                        color: color,
+                        weight: 3,
+                        opacity: 0.7,
+                        dashArray: "8 4",
+                      }}
+                    />
+                  )}
+
+                  {validStops.map((stop) => (
+                    <Marker
+                      key={stop.id}
+                      position={[stop.lat, stop.lng]}
+                      icon={createNumberedIcon(stop.stop_number || 0, color)}
+                    >
+                      <Popup>
+                        <div style={{ fontFamily: "-apple-system, sans-serif", fontSize: "13px", minWidth: "160px" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
+                            <span style={{
+                              background: color, color: "white", borderRadius: "6px",
+                              padding: "1px 7px", fontSize: "10px", fontWeight: 700,
+                            }}>{job.area}</span>
+                          </div>
+                          <strong style={{ fontSize: "14px" }}>#{stop.stop_number} {stop.customer_name}</strong>
+                          <br />
+                          <span style={{ color: "#86868b", fontSize: "12px" }}>{stop.address}</span>
+                          {stop.notes && (
+                            <div style={{ marginTop: "4px", fontSize: "11px", color: "#6e6e73" }}>
+                              {stop.notes}
+                            </div>
+                          )}
+                          {stop.completed && (
+                            <div style={{ marginTop: "4px", color: "#34c759", fontSize: "11px", fontWeight: 600 }}>
+                              Completed
+                            </div>
+                          )}
+                        </div>
+                      </Popup>
+                    </Marker>
+                  ))}
+
+                  {showRoutes && (
+                    <CircleMarker
+                      center={[job.center_lat, job.center_lng]}
+                      radius={0}
+                    />
+                  )}
+                </span>
+              );
+            })}
+          </MapContainer>
+        </div>
+
+        <div className="lg:col-span-1 space-y-2 max-h-[calc(100vh-220px)] overflow-y-auto">
+          <div className="apple-card p-3">
+            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">Legend</p>
+            <div className="flex items-center gap-2 mb-2 pb-2 border-b border-[#f0f0f0]">
+              <div className="w-5 h-5 rounded-md bg-[#1d1d1f] flex items-center justify-center">
+                <span className="text-white text-[8px] font-bold">HQ</span>
+              </div>
+              <span className="text-[12px] text-[#1d1d1f] font-medium">Depot</span>
+            </div>
+            <div className="space-y-1.5">
+              {jobs.map((job) => {
+                const color = jobColorMap[job.id];
+                const isHidden = hiddenJobs.has(job.id);
+                return (
+                  <button
+                    key={job.id}
+                    onClick={() => toggleJob(job.id)}
+                    className={`w-full flex items-center gap-2.5 p-2 rounded-lg transition-all text-left ${
+                      isHidden ? "opacity-40" : "hover:bg-[#f5f5f7]"
+                    }`}
+                  >
+                    <div
+                      className="w-4 h-4 rounded-full shrink-0 border-2 border-white shadow-sm"
+                      style={{ background: color }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px] font-semibold text-[#1d1d1f] truncate">{job.area}</p>
+                      <p className="text-[10px] text-[#aeaeb2]">
+                        {job.total_stops} stops | {job.total_distance_km} km
+                      </p>
+                    </div>
+                    {isHidden ? (
+                      <EyeOff size={13} className="text-[#c7c7cc] shrink-0" />
+                    ) : (
+                      <Eye size={13} className="text-[#aeaeb2] shrink-0" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="apple-card p-3">
+            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">Summary</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { v: jobs.length, l: "Jobs" },
+                { v: totalStops, l: "Stops" },
+                { v: `${totalKm.toFixed(1)}`, l: "km total" },
+                { v: jobs.filter((j) => j.status === "assigned").length, l: "Assigned" },
+              ].map(({ v, l }) => (
+                <div key={l} className="bg-[#f5f5f7] rounded-lg p-2 text-center">
+                  <p className="text-[14px] font-semibold text-[#1d1d1f]">{v}</p>
+                  <p className="text-[10px] text-[#aeaeb2]">{l}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="apple-card p-3">
+            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">Driver Status</p>
+            <div className="space-y-1.5">
+              {jobs.map((job) => {
+                const color = jobColorMap[job.id];
+                return (
+                  <div key={job.id} className="flex items-center gap-2 p-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: color }} />
+                    <span className="text-[11px] text-[#1d1d1f] font-medium flex-1 truncate">{job.area}</span>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
+                      job.status === "completed" ? "bg-[#34c759]/10 text-[#34c759]" :
+                      job.status === "assigned" ? "bg-[#008080]/10 text-[#008080]" :
+                      "bg-[#ff9500]/10 text-[#ff9500]"
+                    }`}>
+                      {job.driver_name || job.status}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

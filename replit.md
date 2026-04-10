@@ -53,6 +53,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 │       ├── Dashboard.jsx      # Overview stats + onboarding (empty state → stats view)
 │       ├── DispatchCenter.jsx # 3-step wizard: Upload → Optimize → Results
 │       ├── Jobs.jsx           # Jobs list with inline driver assignment
+│       ├── MapView.jsx        # Leaflet map with color-coded jobs, route lines, legend, toggle
 │       ├── Drivers.jsx        # Fleet management — add/remove drivers
 │       └── NotFound.jsx       # 404 page
 ```
@@ -93,7 +94,7 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 
 ## Key Dependencies
 ### Frontend (npm)
-- react-router-dom, lucide-react, papaparse, xlsx
+- react-router-dom, lucide-react, papaparse, xlsx, leaflet, react-leaflet
 
 ### Backend (pip)
 - flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary
