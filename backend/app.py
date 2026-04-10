@@ -407,7 +407,7 @@ def get_drivers():
 def add_driver():
     data = request.get_json() or {}
     name = data.get("name")
-    phone = data.get("phone", "")
+    email = data.get("email", "")
     vehicle_type = data.get("vehicle_type", "van")
 
     if not name:
@@ -416,7 +416,7 @@ def add_driver():
     driver = {
         "id": f"DRV-{uuid.uuid4().hex[:6].upper()}",
         "name": name,
-        "phone": phone,
+        "email": email,
         "vehicle_type": vehicle_type,
         "status": "available",
         "created_at": datetime.now().isoformat(),

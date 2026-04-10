@@ -7,7 +7,7 @@ export default function Drivers() {
   const [drivers, setDrivers] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", vehicle_type: "van" });
+  const [form, setForm] = useState({ name: "", email: "", vehicle_type: "van" });
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
 
@@ -29,8 +29,8 @@ export default function Drivers() {
     if (!form.name.trim()) return;
     setAdding(true);
     try {
-      await addDriver(form.name, form.phone, form.vehicle_type);
-      setForm({ name: "", phone: "", vehicle_type: "van" });
+      await addDriver(form.name, form.email, form.vehicle_type);
+      setForm({ name: "", email: "", vehicle_type: "van" });
       setShowForm(false);
       loadData();
     } catch (e) {
@@ -88,9 +88,9 @@ export default function Drivers() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Phone</label>
-                <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="+27 82 123 4567" className="apple-input" />
+                <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Email</label>
+                <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  placeholder="driver@aviate.co.za" className="apple-input" />
               </div>
               <div>
                 <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Vehicle</label>
@@ -136,7 +136,7 @@ export default function Drivers() {
                   <p className="text-[14px] font-semibold text-[#1d1d1f]">{driver.name}</p>
                   <p className="text-[12px] text-[#aeaeb2]">
                     {driver.vehicle_type}
-                    {driver.phone && <> | {driver.phone}</>}
+                    {driver.email && <> | {driver.email}</>}
                   </p>
                 </div>
                 <div className="flex items-center gap-4">

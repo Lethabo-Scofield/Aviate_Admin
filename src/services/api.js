@@ -51,11 +51,11 @@ export async function getDrivers() {
   return handleResponse(res);
 }
 
-export async function addDriver(name, phone, vehicleType) {
+export async function addDriver(name, email, vehicleType) {
   const res = await fetch(`${API_BASE}/drivers`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, phone, vehicle_type: vehicleType }),
+    body: JSON.stringify({ name, email, vehicle_type: vehicleType }),
   });
   return handleResponse(res);
 }
