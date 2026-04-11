@@ -142,22 +142,56 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - `ALLOWED_ORIGINS` — Comma-separated allowed CORS origins (default: `*`, set for production)
 - `FLASK_DEBUG` — Set to `true` for Flask debug mode
 
+## Architecture — Split API Layer
+The app has two API servers:
+
+### Node.js API (port 3001) — Auth + CRUD
+Handles all authentication and data operations directly against Neon PostgreSQL. This server works independently of Flask, so login, registration, jobs, drivers, stats, and all CRUD operations work even when Flask is not running.
+
+**Files**: `server/index.js`, `server/db.js`, `server/auth.js`, `server/routes.js`
+
+**Endpoints handled by Node.js**:
+- All `/api/auth/*` (register, login, me)
+- `/api/jobs`, `/api/jobs/:id/assign`, `/api/jobs/:id/unassign`
+- `/api/drivers` (GET, POST, DELETE)
+- `/api/my-jobs`, `/api/my-jobs/:id/complete/:stopId`
+- `/api/driver/:id/jobs`, `/api/driver/:id/complete/:jobId/:stopId`
+- `/api/stops`, `/api/stats`
+- `/api/route` (OSRM proxy)
+
+### Flask Backend (port 8000) — Optimization Engine Only
+Handles compute-heavy operations that require Python libraries (OR-Tools, Pandas, GeoPy).
+
+**Endpoints handled by Flask**:
+- `POST /api/upload` — Excel upload + geocoding via Nominatim
+- `POST /api/optimize` — Route optimization via Google OR-Tools
+- `POST /api/test-data` — Load test data
+
+### Vite Proxy Config
+Vite proxies `/api/upload`, `/api/optimize`, `/api/test-data` → Flask (port 8000). All other `/api/*` → Node.js (port 3001).
+
 ## Ports
 - **Frontend (Vite)**: port 5000 (webview)
-- **Backend (Flask)**: port 8000 (console), proxied via Vite `/api`
+- **Node.js API**: port 3001 (console) — auth + CRUD
+- **Backend (Flask)**: port 8000 (console) — optimization engine
 
 ## Workflows
 - **Start application**: `npm run dev` — React/Vite frontend (port 5000)
-- **Backend API**: `cd backend && python app.py` — Flask API (port 8000)
+- **Node API**: `node server/index.js` — Node.js API server (port 3001)
+- **Backend API**: `cd backend && python app.py` — Flask optimization engine (port 8000)
 
 ## Key Dependencies
 ### Frontend (npm)
 - react-router-dom, lucide-react, papaparse, xlsx, leaflet, react-leaflet
 
+### Node.js API (npm)
+- express, pg, jsonwebtoken, bcryptjs, cors, uuid
+
 ### Backend (pip)
 - flask, flask-cors, pandas, openpyxl, geopy, ortools, sqlalchemy, psycopg2-binary, requests, PyJWT, bcrypt, gunicorn
 
 ## Important Notes
+- Auth works independently of Flask — login/register/data operations only need the Node.js API + Neon database
 - Always cast numpy types to Python native types before DB insert
 - Use `datetime.now(timezone.utc)` not `datetime.utcnow()` (deprecated)
 - OSRM routes stored as encoded polyline in `Job.route_geometry`, decoded with `decodePolyline()` in MapView
