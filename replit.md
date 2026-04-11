@@ -40,6 +40,8 @@ A real logistics dispatch system where admins upload an Excel file of delivery a
 - Secondary colors: green `#34c759`, orange `#ff9500`, red `#ff3b30`
 - Active nav/buttons: `#1d1d1f` (near-black)
 - Logo: `public/logo.png` — used in sidebar, driver header, and as loading indicator (`LogoLoader` component)
+- Favicon: `public/favicon.ico` (multi-size ICO), `public/favicon-32x32.png`, `public/apple-touch-icon.png` (180×180), `public/icon-192.png` (192×192)
+- SEO: Full meta tags in `index.html` — title, description, keywords, Open Graph, Twitter Card, canonical, theme-color (#008080)
 - Frosted glass sidebar with backdrop blur
 - Skeleton loaders, logo pulse loader, fade-in/slide-up animations
 - Typography: SF Pro / system font stack, tight tracking
