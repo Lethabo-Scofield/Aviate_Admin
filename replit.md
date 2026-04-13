@@ -47,6 +47,9 @@ Aviate is a multi-tenant logistics dispatch platform for managing delivery route
 │   └── data/               # Static data files
 │       ├── test_stops.json  # Test delivery stops (Johannesburg)
 │       └── areas.json       # Area name definitions for zone labeling
+├── docs/                   # Documentation
+│   ├── API.md              # Full API reference
+│   └── SYSTEM.md           # System architecture & schema docs
 ├── public/                 # Static frontend assets
 ├── package.json            # Frontend dependencies
 ├── vite.config.js          # Vite config with API proxy
