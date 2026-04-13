@@ -8,20 +8,8 @@ export default defineConfig({
     port: 5000,
     allowedHosts: true,
     proxy: {
-      '/api/upload': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-      },
-      '/api/optimize': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-      },
-      '/api/test-data': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-      },
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:8000',
         changeOrigin: true,
       },
     }

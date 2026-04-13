@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 function getAuthHeaders(contentType) {
   const headers = {};
@@ -103,12 +103,15 @@ export async function completeMyStop(jobId, stopId) {
 }
 
 export async function getDriverJobs(driverId) {
-  const res = await fetch(`${API_BASE}/driver/${driverId}/jobs`);
+  const res = await fetch(`${API_BASE}/driver/${driverId}/jobs`, { headers: getAuthHeaders() });
   return handleResponse(res);
 }
 
 export async function completeStop(driverId, jobId, stopId) {
-  const res = await fetch(`${API_BASE}/driver/${driverId}/complete/${jobId}/${stopId}`, { method: 'POST' });
+  const res = await fetch(`${API_BASE}/driver/${driverId}/complete/${jobId}/${stopId}`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+  });
   return handleResponse(res);
 }
 

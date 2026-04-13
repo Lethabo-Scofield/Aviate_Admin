@@ -1,8 +1,8 @@
+flask
+flask-cors
 pandas
 openpyxl
 ortools
-flask
-flask-cors
 geopy
 gunicorn
 numpy
