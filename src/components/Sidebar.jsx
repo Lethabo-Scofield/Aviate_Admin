@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   Radio,
@@ -7,7 +7,6 @@ import {
   Truck,
   Menu,
   X,
-  LogOut,
   ChevronRight,
   Building2,
 } from "lucide-react";
@@ -56,17 +55,11 @@ function UserInitials({ name }) {
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
 
   return (
     <>
@@ -164,20 +157,17 @@ export default function Sidebar() {
         {user && (
           <div className="px-3 pb-5 pt-2">
             <div className="h-px bg-black/[0.06] mb-4 mx-2" />
-            <div className="flex items-center gap-3 px-2">
+            <NavLink
+              to="/profile"
+              className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-black/[0.03] transition-colors group"
+            >
               <UserInitials name={user.name} />
               <div className="flex-1 min-w-0">
                 <p className="text-[12px] font-semibold text-[#1d1d1f] truncate leading-tight">{user.name}</p>
                 <p className="text-[11px] text-[#aeaeb2] truncate leading-tight mt-0.5">{user.email}</p>
               </div>
-              <button
-                onClick={handleLogout}
-                className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#f5f5f7] transition-colors group"
-                title="Sign out"
-              >
-                <LogOut size={14} className="text-[#c7c7cc] group-hover:text-[#86868b] transition-colors" />
-              </button>
-            </div>
+              <ChevronRight size={13} className="text-[#d1d1d6] opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+            </NavLink>
           </div>
         )}
       </aside>
