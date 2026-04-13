@@ -98,9 +98,9 @@ export default function DispatchCenter() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-8">
-        <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dispatch</h1>
-        <p className="text-[14px] text-[#86868b] mt-1">Upload delivery addresses and optimize routes</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dispatch</h1>
+        <p className="text-[13px] sm:text-[14px] text-[#86868b] mt-1">Upload delivery addresses and optimize routes</p>
       </div>
 
       <div className="flex items-center gap-2 sm:gap-3 mb-8 overflow-x-auto pb-1">

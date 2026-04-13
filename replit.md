@@ -83,16 +83,19 @@ Aviate is a multi-tenant logistics dispatch platform for managing delivery route
 
 ## Design System
 - **Aesthetic**: Apple-inspired minimal design — clean white backgrounds, grey/black typography, teal accent
-- **Primary color**: `#008080` (teal) — used for active nav states, status badges, accent buttons, progress indicators
-- **Primary button**: `#1d1d1f` (near-black) — main CTAs use dark buttons for contrast on white
+- **Accent color**: `#008080` (teal) — RESERVED for status badges, progress rings, step indicators only. NOT used for nav or buttons
+- **Primary button**: `#6e6e73` (grey) — main CTAs
+- **Active nav**: `#1d1d1f` (dark charcoal) — NOT teal
 - **Text hierarchy**: `#1d1d1f` (primary), `#6e6e73` / `#86868b` (secondary), `#aeaeb2` (tertiary), `#c7c7cc` (quaternary)
 - **Surfaces**: White (`#ffffff`) backgrounds, `#f5f5f7` for card interiors/stat tiles/hover states
 - **Cards**: `.apple-card` class — white with subtle shadow, 16px border-radius
 - **Inputs**: `.apple-input` class — `#f5f5f7` background, teal focus ring
 - **Buttons**: `.apple-btn` + `.apple-btn-primary` / `.apple-btn-secondary` / `.apple-btn-accent`
 - **Stat cards**: `.stat-card` class — `#f5f5f7` background tiles for metrics
-- **Typography**: SF Pro / system font stack, -apple-system first
-- **Responsive**: Mobile-first with `sm:`, `md:`, `lg:` breakpoints throughout
+- **Typography**: Inter (Google Fonts, 400/500/600/700) as primary, system font stack fallback
+- **Avatars**: `/default-avatar.png` placeholder image — no initials. Used in Sidebar, DriverLayout, Profile
+- **Vehicle icons**: Van=Container, Truck=Truck, Car=Car, Bike=Bike (all from lucide-react)
+- **Responsive**: Mobile-first with `sm:`, `md:`, `lg:` breakpoints. All page h1 headings use `text-[24px] sm:text-[28px]`. Map view legend scrolls only on desktop. Input font-size 16px on small screens (prevents iOS zoom). Stat card padding reduced on mobile
 
 ## Key Features
 - Multi-tenant (company-scoped data isolation)

@@ -37,18 +37,14 @@ const navSections = [
   },
 ];
 
-function UserInitials({ name }) {
-  const initials = (name || "?")
-    .split(" ")
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
+function UserAvatar({ size = 32 }) {
   return (
-    <div className="w-8 h-8 rounded-full bg-[#1d1d1f] flex items-center justify-center flex-shrink-0">
-      <span className="text-[11px] font-semibold text-white leading-none">{initials}</span>
-    </div>
+    <img
+      src="/default-avatar.png"
+      alt="Profile"
+      className="rounded-full object-cover flex-shrink-0"
+      style={{ width: size, height: size }}
+    />
   );
 }
 
@@ -161,7 +157,7 @@ export default function Sidebar() {
               to="/profile"
               className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-black/[0.03] transition-colors group"
             >
-              <UserInitials name={user.name} />
+              <UserAvatar size={32} />
               <div className="flex-1 min-w-0">
                 <p className="text-[12px] font-semibold text-[#1d1d1f] truncate leading-tight">{user.name}</p>
                 <p className="text-[11px] text-[#aeaeb2] truncate leading-tight mt-0.5">{user.email}</p>

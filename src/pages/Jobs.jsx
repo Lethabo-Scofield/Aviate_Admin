@@ -63,10 +63,10 @@ export default function Jobs() {
 
   return (
     <div className="animate-fade-in">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6 sm:mb-8">
         <div>
-          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Jobs</h1>
-          <p className="text-[14px] text-[#86868b] mt-1">
+          <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Jobs</h1>
+          <p className="text-[13px] sm:text-[14px] text-[#86868b] mt-1">
             {jobs.length} jobs | {unassigned.length} need drivers
           </p>
         </div>

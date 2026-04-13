@@ -88,7 +88,7 @@ export default function Drivers() {
     <div className="animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Drivers</h1>
+          <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Drivers</h1>
           <p className="text-[14px] text-[#86868b] mt-1">{drivers.length} drivers in your fleet</p>
         </div>
         <button onClick={() => { setShowForm(!showForm); setNewDriverCredentials(null); }} className="apple-btn apple-btn-primary w-full sm:w-auto">

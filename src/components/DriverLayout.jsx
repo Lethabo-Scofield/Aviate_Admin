@@ -14,11 +14,7 @@ export default function DriverLayout() {
             <span className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight">Aviate</span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#1d1d1f] flex items-center justify-center">
-              <span className="text-[11px] font-bold text-white">
-                {(user?.name || "D").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)}
-              </span>
-            </div>
+            <img src="/default-avatar.png" alt="Profile" className="w-8 h-8 rounded-full object-cover" />
             <button
               onClick={logout}
               className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#f5f5f7] transition-colors"

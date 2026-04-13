@@ -261,4 +261,17 @@ body {
     padding: 10px 16px;
     font-size: 13px;
   }
+  .stat-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .apple-card {
+    border-radius: 12px;
+  }
+  .apple-input {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
 }

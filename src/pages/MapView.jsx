@@ -260,7 +260,7 @@ export default function MapView() {
     return (
       <div>
         <div className="mb-8">
-          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
+          <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
         </div>
         <div className="apple-card p-10 text-center">
           <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
@@ -273,7 +273,7 @@ export default function MapView() {
   if (jobs.length === 0) {
     return (
       <div className="animate-fade-in">
-        <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-1">Map</h1>
+        <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-1">Map</h1>
         <p className="text-[14px] text-[#86868b] mt-1 mb-8">Visualize optimized delivery routes</p>
         <div className="apple-card p-12 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
@@ -295,8 +295,8 @@ export default function MapView() {
     <div className="animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <div>
-          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
-          <p className="text-[14px] text-[#86868b] mt-1">
+          <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
+          <p className="text-[13px] sm:text-[14px] text-[#86868b] mt-1">
             {jobs.length} jobs | {totalStops} stops | {totalKm.toFixed(1)} km total
             {routesLoading && <span className="text-[#86868b] ml-2">Loading routes...</span>}
           </p>
@@ -311,7 +311,7 @@ export default function MapView() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <div className="lg:col-span-3 apple-card overflow-hidden relative" style={{ height: "calc(100vh - 220px)", minHeight: "400px" }}>
+        <div className="lg:col-span-3 apple-card overflow-hidden relative" style={{ height: "calc(100vh - 220px)", minHeight: "300px" }}>
           {routesLoading && (
             <div className="absolute top-3 left-1/2 -translate-x-1/2 z-[1000] bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg flex items-center gap-2">
               <img src="/logo.png" alt="" className="w-4 h-4 animate-logo-pulse" />
@@ -406,7 +406,7 @@ export default function MapView() {
           </MapContainer>
         </div>
 
-        <div className="lg:col-span-1 space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto">
+        <div className="lg:col-span-1 space-y-3 lg:max-h-[calc(100vh-220px)] lg:overflow-y-auto">
           <div className="apple-card p-4">
             <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-3">Legend</p>
             <div className="flex items-center gap-2 mb-3 pb-3 border-b border-[#f0f0f0]">

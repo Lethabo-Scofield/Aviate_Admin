@@ -44,7 +44,7 @@ export default function Dashboard() {
     return (
       <div className="animate-fade-in">
         <div className="mb-8">
-          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dashboard</h1>
+          <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dashboard</h1>
         </div>
         <div className="apple-card p-10 text-center">
           <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
@@ -58,9 +58,9 @@ export default function Dashboard() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-8">
-        <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dashboard</h1>
-        <p className="text-[14px] text-[#86868b] mt-1">Overview of your dispatch operations</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dashboard</h1>
+        <p className="text-[13px] sm:text-[14px] text-[#86868b] mt-1">Overview of your dispatch operations</p>
       </div>
 
       {!hasData ? (
