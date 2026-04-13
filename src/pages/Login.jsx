@@ -80,7 +80,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="apple-btn apple-btn-primary w-full mt-2"
+            className="apple-btn apple-btn-primary w-full mt-1"
           >
             {loading ? (
               <img src="/logo.png" alt="" className="w-4 h-4 animate-logo-pulse brightness-0 invert" />
