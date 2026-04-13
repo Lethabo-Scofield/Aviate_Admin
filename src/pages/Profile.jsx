@@ -14,10 +14,11 @@ export default function Profile() {
 
   const initials = (user?.name || "?")
     .split(" ")
+    .filter((w) => w.length > 0)
     .map((w) => w[0])
     .slice(0, 2)
     .join("")
-    .toUpperCase();
+    .toUpperCase() || "?";
 
   return (
     <div className="animate-fade-in max-w-lg">

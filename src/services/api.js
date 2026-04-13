@@ -18,7 +18,7 @@ async function handleResponse(res) {
   if (res.status === 401) {
     localStorage.removeItem("aviate_token");
     localStorage.removeItem("aviate_user");
-    window.location.href = "/login";
+    window.location.replace("/login");
     throw new Error("Session expired");
   }
   if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);

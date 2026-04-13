@@ -42,15 +42,20 @@ export function AuthProvider({ children }) {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Invalid token");
+        if (res.status === 401 || res.status === 403) {
+          logout();
+          return null;
+        }
+        if (!res.ok) return null;
         return res.json();
       })
       .then((data) => {
-        setUser(data.user);
-        localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+        if (data && data.user) {
+          setUser(data.user);
+          localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+        }
       })
       .catch(() => {
-        logout();
       })
       .finally(() => setLoading(false));
   }, []);

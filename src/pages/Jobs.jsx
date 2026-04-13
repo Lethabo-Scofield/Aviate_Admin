@@ -10,6 +10,7 @@ export default function Jobs() {
   const [expandedJob, setExpandedJob] = useState(null);
   const [assigningJob, setAssigningJob] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const loadData = async () => {
@@ -17,8 +18,10 @@ export default function Jobs() {
       const [j, d] = await Promise.all([getJobs(), getDrivers()]);
       setJobs(j.jobs || []);
       setDrivers(d.drivers || []);
+      setError("");
     } catch (e) {
       console.error(e);
+      setError("Failed to load jobs. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -69,7 +72,12 @@ export default function Jobs() {
         </div>
       </div>
 
-      {jobs.length === 0 ? (
+      {error ? (
+        <div className="apple-card p-10 text-center">
+          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <button onClick={() => { setLoading(true); loadData(); }} className="apple-btn apple-btn-primary">Retry</button>
+        </div>
+      ) : jobs.length === 0 ? (
         <div className="apple-card p-12 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
             <Package size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />

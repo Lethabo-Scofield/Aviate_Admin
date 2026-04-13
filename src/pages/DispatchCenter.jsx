@@ -84,6 +84,9 @@ export default function DispatchCenter() {
   };
 
   const handleReset = () => {
+    if (stops.length > 0 || jobs.length > 0) {
+      if (!window.confirm("This will clear all uploaded data and optimized routes. Continue?")) return;
+    }
     setStep("upload");
     setStops([]);
     setJobs([]);

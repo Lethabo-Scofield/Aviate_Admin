@@ -10,14 +10,18 @@ export default function MyJobs() {
   const [loading, setLoading] = useState(true);
   const [completing, setCompleting] = useState(null);
   const [expandedJob, setExpandedJob] = useState(null);
+  const [error, setError] = useState("");
 
   const load = async () => {
     try {
       const result = await getMyJobs();
-      setData(result);
-      if (result.jobs.length === 1) setExpandedJob(result.jobs[0].id);
+      const safeResult = { driver: result?.driver || null, jobs: Array.isArray(result?.jobs) ? result.jobs : [] };
+      setData(safeResult);
+      if (safeResult.jobs.length === 1) setExpandedJob(safeResult.jobs[0].id);
+      setError("");
     } catch (e) {
       console.error(e);
+      setError("Could not load your jobs. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -66,7 +70,12 @@ export default function MyJobs() {
         </div>
       </div>
 
-      {data.jobs.length === 0 ? (
+      {error ? (
+        <div className="apple-card p-10 text-center">
+          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <button onClick={() => { setLoading(true); load(); }} className="apple-btn apple-btn-primary">Retry</button>
+        </div>
+      ) : data.jobs.length === 0 ? (
         <div className="apple-card p-12 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
             <Package size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />

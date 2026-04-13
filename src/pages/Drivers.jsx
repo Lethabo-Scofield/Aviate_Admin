@@ -19,14 +19,17 @@ export default function Drivers() {
   const [adding, setAdding] = useState(false);
   const [newDriverCredentials, setNewDriverCredentials] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
+  const [error, setError] = useState("");
 
   const loadData = async () => {
     try {
       const [d, j] = await Promise.all([getDrivers(), getJobs()]);
       setDrivers(d.drivers || []);
       setJobs(j.jobs || []);
+      setError("");
     } catch (e) {
       console.error(e);
+      setError("Failed to load drivers. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -217,7 +220,12 @@ export default function Drivers() {
         </div>
       )}
 
-      {drivers.length === 0 ? (
+      {error ? (
+        <div className="apple-card p-10 text-center">
+          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <button onClick={() => { setLoading(true); loadData(); }} className="apple-btn apple-btn-primary">Retry</button>
+        </div>
+      ) : drivers.length === 0 ? (
         <div className="apple-card p-12 text-center">
           <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
             <Truck size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />

@@ -8,6 +8,7 @@ export default function Dashboard() {
   const [jobs, setJobs] = useState([]);
   const [drivers, setDrivers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export default function Dashboard() {
         setDrivers(d.drivers || []);
       } catch (e) {
         console.error(e);
+        setError("Failed to load dashboard data. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -38,7 +40,21 @@ export default function Dashboard() {
     );
   }
 
-  const hasData = stats && stats.total_jobs > 0;
+  if (error) {
+    return (
+      <div className="animate-fade-in">
+        <div className="mb-8">
+          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Dashboard</h1>
+        </div>
+        <div className="apple-card p-10 text-center">
+          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <button onClick={() => window.location.reload()} className="apple-btn apple-btn-primary">Retry</button>
+        </div>
+      </div>
+    );
+  }
+
+  const hasData = stats && (stats.total_jobs || 0) > 0;
 
   return (
     <div className="animate-fade-in">
@@ -85,9 +101,9 @@ export default function Dashboard() {
         <div className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { label: "Jobs", value: stats.total_jobs, sub: `${stats.unassigned} unassigned`, icon: Package, accent: stats.unassigned > 0 },
-              { label: "Stops", value: stats.total_stops, sub: `${stats.total_distance_km} km total`, icon: MapPin },
-              { label: "Drivers", value: stats.total_drivers, sub: `${stats.assigned} assigned`, icon: Truck },
+              { label: "Jobs", value: stats.total_jobs || 0, sub: `${stats.unassigned || 0} unassigned`, icon: Package, accent: (stats.unassigned || 0) > 0 },
+              { label: "Stops", value: stats.total_stops || 0, sub: `${stats.total_distance_km || 0} km total`, icon: MapPin },
+              { label: "Drivers", value: stats.total_drivers || 0, sub: `${stats.assigned || 0} assigned`, icon: Truck },
             ].map(({ label, value, sub, icon: Icon, accent }) => (
               <div key={label} className="stat-card">
                 <div className="flex items-start justify-between">

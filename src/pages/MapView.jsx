@@ -141,6 +141,7 @@ function FitBounds({ bounds }) {
 export default function MapView() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [hiddenJobs, setHiddenJobs] = useState(new Set());
   const [showRoutes, setShowRoutes] = useState(true);
   const [routeGeometries, setRouteGeometries] = useState({});
@@ -204,6 +205,7 @@ export default function MapView() {
         }
       } catch (e) {
         console.error(e);
+        if (!cancelled) setError("Failed to load map data. Please try again.");
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -250,6 +252,20 @@ export default function MapView() {
         <div className="skeleton h-8 w-24 mb-2" />
         <div className="skeleton h-4 w-40 mb-8" />
         <SkeletonList count={3} />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        <div className="mb-8">
+          <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
+        </div>
+        <div className="apple-card p-10 text-center">
+          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <button onClick={() => window.location.reload()} className="apple-btn apple-btn-primary">Retry</button>
+        </div>
       </div>
     );
   }

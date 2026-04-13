@@ -313,7 +313,8 @@ def _create_jobs_from_clusters(db, clusters, company_id):
         db.add(job)
 
         for i, stop_data in enumerate(ordered_stops):
-            stop = db.query(Stop).filter(Stop.id == stop_data["id"], Stop.company_id == company_id).first()
+            with db.no_autoflush:
+                stop = db.query(Stop).filter(Stop.id == stop_data["id"], Stop.company_id == company_id).first()
             if stop:
                 stop.job_id = job_id
                 stop.stop_number = i + 1
