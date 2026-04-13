@@ -9,17 +9,25 @@ function getAuthHeaders(contentType) {
 }
 
 async function handleResponse(res) {
-  let data;
-  try {
-    data = await res.json();
-  } catch {
-    throw new Error(`Server error (${res.status})`);
-  }
   if (res.status === 401) {
     localStorage.removeItem("aviate_token");
     localStorage.removeItem("aviate_user");
     window.location.replace("/login");
     throw new Error("Session expired");
+  }
+
+  if (res.status === 204) return {};
+
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error(`Unexpected response format (${res.status})`);
+  }
+
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    throw new Error(`Invalid JSON response (${res.status})`);
   }
   if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
   return data;
