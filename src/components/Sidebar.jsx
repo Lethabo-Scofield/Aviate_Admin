@@ -47,7 +47,7 @@ function UserInitials({ name }) {
     .toUpperCase();
 
   return (
-    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#008080] to-[#006060] flex items-center justify-center flex-shrink-0 shadow-sm">
+    <div className="w-8 h-8 rounded-full bg-[#1d1d1f] flex items-center justify-center flex-shrink-0">
       <span className="text-[11px] font-semibold text-white leading-none">{initials}</span>
     </div>
   );
@@ -72,7 +72,7 @@ export default function Sidebar() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed top-4 left-4 z-50 w-10 h-10 rounded-xl bg-white/80 backdrop-blur-lg border border-black/[0.06] flex items-center justify-center lg:hidden shadow-sm active:scale-95 transition-transform"
+        className="fixed top-4 left-4 z-50 w-10 h-10 rounded-xl bg-white/90 backdrop-blur-lg border border-black/[0.06] flex items-center justify-center lg:hidden shadow-sm active:scale-95 transition-transform"
       >
         <Menu size={18} className="text-[#1d1d1f]" strokeWidth={1.8} />
       </button>
@@ -85,22 +85,17 @@ export default function Sidebar() {
       )}
 
       <aside
-        className={`w-[260px] fixed left-0 top-0 bottom-0 z-50 flex flex-col border-r border-black/[0.06] transition-transform duration-300 ease-out lg:translate-x-0 ${
+        className={`w-[260px] fixed left-0 top-0 bottom-0 z-50 flex flex-col bg-white border-r border-black/[0.06] transition-transform duration-300 ease-out lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
-        style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(245,245,247,0.92) 100%)",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
-        }}
       >
         <div className="px-5 pt-6 pb-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Aviate" className="w-10 h-10" />
+            <img src="/logo.png" alt="Aviate" className="w-9 h-9" />
             <div>
-              <h1 className="text-[16px] font-bold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
+              <h1 className="text-[15px] font-bold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
               <div className="flex items-center gap-1 mt-0.5">
-                <Building2 size={10} className="text-[#aeaeb2]" />
+                <Building2 size={10} className="text-[#c7c7cc]" />
                 <p className="text-[11px] text-[#86868b] font-medium truncate max-w-[140px]">
                   {user?.company_name || "Dispatch"}
                 </p>
@@ -109,20 +104,20 @@ export default function Sidebar() {
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/[0.06] transition-colors lg:hidden"
+            className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/[0.04] transition-colors lg:hidden"
           >
             <X size={16} className="text-[#86868b]" />
           </button>
         </div>
 
-        <div className="px-4 mb-2">
-          <div className="h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
+        <div className="px-5 mb-3">
+          <div className="h-px bg-black/[0.06]" />
         </div>
 
         <nav className="flex-1 px-3 overflow-y-auto">
           {navSections.map((section, si) => (
-            <div key={si} className={si > 0 ? "mt-5" : "mt-1"}>
-              <p className="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#aeaeb2]">
+            <div key={si} className={si > 0 ? "mt-6" : "mt-1"}>
+              <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#c7c7cc]">
                 {section.label}
               </p>
               <div className="space-y-0.5">
@@ -132,10 +127,10 @@ export default function Sidebar() {
                     to={to}
                     end={to === "/"}
                     className={({ isActive }) =>
-                      `group flex items-center gap-3 px-3 py-[10px] rounded-xl text-[13px] font-medium transition-all duration-200 ${
+                      `group flex items-center gap-3 px-3 py-[9px] rounded-xl text-[13px] font-medium transition-all duration-200 ${
                         isActive
-                          ? "bg-[#008080] text-white shadow-[0_1px_3px_rgba(0,128,128,0.3)]"
-                          : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.04]"
+                          ? "bg-[#008080] text-white shadow-[0_1px_3px_rgba(0,128,128,0.25)]"
+                          : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.03]"
                       }`
                     }
                   >
@@ -143,7 +138,7 @@ export default function Sidebar() {
                       <>
                         <div
                           className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
-                            isActive ? "bg-white/20" : "bg-black/[0.03] group-hover:bg-black/[0.06]"
+                            isActive ? "bg-white/20" : "bg-black/[0.03] group-hover:bg-black/[0.05]"
                           }`}
                         >
                           <Icon size={15} strokeWidth={1.8} />
@@ -153,8 +148,8 @@ export default function Sidebar() {
                           size={13}
                           className={`transition-all ${
                             isActive
-                              ? "opacity-60"
-                              : "opacity-0 -translate-x-1 group-hover:opacity-40 group-hover:translate-x-0"
+                              ? "opacity-50"
+                              : "opacity-0 -translate-x-1 group-hover:opacity-30 group-hover:translate-x-0"
                           }`}
                         />
                       </>
@@ -167,8 +162,8 @@ export default function Sidebar() {
         </nav>
 
         {user && (
-          <div className="px-3 pb-4 pt-2">
-            <div className="h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent mb-3" />
+          <div className="px-3 pb-5 pt-2">
+            <div className="h-px bg-black/[0.06] mb-4 mx-2" />
             <div className="flex items-center gap-3 px-2">
               <UserInitials name={user.name} />
               <div className="flex-1 min-w-0">
@@ -177,10 +172,10 @@ export default function Sidebar() {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-red-50 transition-colors group"
+                className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#f5f5f7] transition-colors group"
                 title="Sign out"
               >
-                <LogOut size={14} className="text-[#aeaeb2] group-hover:text-red-500 transition-colors" />
+                <LogOut size={14} className="text-[#c7c7cc] group-hover:text-[#86868b] transition-colors" />
               </button>
             </div>
           </div>

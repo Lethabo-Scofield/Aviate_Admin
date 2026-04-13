@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
 const JOB_COLORS = [
-  "#34c759", "#ff9500", "#007aff", "#ff3b30", "#af52de",
-  "#5ac8fa", "#ff2d55", "#ffcc00", "#30b0c7", "#a2845e",
-  "#64d2ff", "#ff6482", "#ffd60a", "#32d74b", "#bf5af2",
+  "#1d1d1f", "#008080", "#ff9500", "#007aff", "#ff3b30",
+  "#af52de", "#5ac8fa", "#ff2d55", "#34c759", "#a2845e",
+  "#30b0c7", "#ff6482", "#ffd60a", "#64d2ff", "#bf5af2",
 ];
 
 const iconCache = new Map();
@@ -32,7 +32,7 @@ function createNumberedIcon(number, color) {
       font-size: 12px;
       font-weight: 700;
       border: 2.5px solid white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     ">${number}</div>`,
     iconSize: [28, 28],
@@ -61,7 +61,7 @@ const depotIcon = L.divIcon({
     font-size: 11px;
     font-weight: 800;
     border: 2.5px solid white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     letter-spacing: -0.5px;
   ">HQ</div>`,
@@ -260,7 +260,9 @@ export default function MapView() {
         <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight mb-1">Map</h1>
         <p className="text-[14px] text-[#86868b] mt-1 mb-8">Visualize optimized delivery routes</p>
         <div className="apple-card p-12 text-center">
-          <MapIcon size={32} className="text-[#c7c7cc] mx-auto mb-3" strokeWidth={1.5} />
+          <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
+            <MapIcon size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />
+          </div>
           <p className="text-[14px] text-[#86868b] mb-4">No jobs to display on the map</p>
           <button onClick={() => navigate("/dispatch")} className="apple-btn apple-btn-primary text-[13px]">
             Create jobs first
@@ -280,7 +282,7 @@ export default function MapView() {
           <h1 className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">Map</h1>
           <p className="text-[14px] text-[#86868b] mt-1">
             {jobs.length} jobs | {totalStops} stops | {totalKm.toFixed(1)} km total
-            {routesLoading && <span className="text-[#008080] ml-2">Loading routes...</span>}
+            {routesLoading && <span className="text-[#86868b] ml-2">Loading routes...</span>}
           </p>
         </div>
         <button
@@ -388,16 +390,16 @@ export default function MapView() {
           </MapContainer>
         </div>
 
-        <div className="lg:col-span-1 space-y-2 max-h-[calc(100vh-220px)] overflow-y-auto">
-          <div className="apple-card p-3">
-            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">Legend</p>
-            <div className="flex items-center gap-2 mb-2 pb-2 border-b border-[#f0f0f0]">
+        <div className="lg:col-span-1 space-y-3 max-h-[calc(100vh-220px)] overflow-y-auto">
+          <div className="apple-card p-4">
+            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-3">Legend</p>
+            <div className="flex items-center gap-2 mb-3 pb-3 border-b border-[#f0f0f0]">
               <div className="w-5 h-5 rounded-md bg-[#1d1d1f] flex items-center justify-center">
                 <span className="text-white text-[8px] font-bold">HQ</span>
               </div>
               <span className="text-[12px] text-[#1d1d1f] font-medium">Depot</span>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               {jobs.map((job) => {
                 const color = jobColorMap[job.id];
                 const isHidden = hiddenJobs.has(job.id);
@@ -406,25 +408,25 @@ export default function MapView() {
                   <button
                     key={job.id}
                     onClick={() => toggleJob(job.id)}
-                    className={`w-full flex items-center gap-2.5 p-2 rounded-lg transition-all text-left ${
-                      isHidden ? "opacity-40" : "hover:bg-[#f5f5f7]"
+                    className={`w-full flex items-center gap-2.5 p-2 rounded-xl transition-all text-left ${
+                      isHidden ? "opacity-30" : "hover:bg-[#f5f5f7]"
                     }`}
                   >
                     <div
-                      className="w-4 h-4 rounded-full shrink-0 border-2 border-white shadow-sm"
+                      className="w-3.5 h-3.5 rounded-full shrink-0"
                       style={{ background: color }}
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-[12px] font-semibold text-[#1d1d1f] truncate">{job.area}</p>
                       <p className="text-[10px] text-[#aeaeb2]">
                         {job.total_stops} stops | {job.total_distance_km} km
-                        {hasRealRoute && <span className="text-[#008080]"> | road</span>}
+                        {hasRealRoute && <span className="text-[#86868b]"> | road</span>}
                       </p>
                     </div>
                     {isHidden ? (
-                      <EyeOff size={13} className="text-[#c7c7cc] shrink-0" />
+                      <EyeOff size={13} className="text-[#d1d1d6] shrink-0" />
                     ) : (
-                      <Eye size={13} className="text-[#aeaeb2] shrink-0" />
+                      <Eye size={13} className="text-[#c7c7cc] shrink-0" />
                     )}
                   </button>
                 );
@@ -432,8 +434,8 @@ export default function MapView() {
             </div>
           </div>
 
-          <div className="apple-card p-3">
-            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">Summary</p>
+          <div className="apple-card p-4">
+            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-3">Summary</p>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { v: jobs.length, l: "Jobs" },
@@ -441,7 +443,7 @@ export default function MapView() {
                 { v: `${totalKm.toFixed(1)}`, l: "km total" },
                 { v: jobs.filter((j) => j.status === "assigned").length, l: "Assigned" },
               ].map(({ v, l }) => (
-                <div key={l} className="bg-[#f5f5f7] rounded-lg p-2 text-center">
+                <div key={l} className="bg-[#f5f5f7] rounded-xl p-2.5 text-center">
                   <p className="text-[14px] font-semibold text-[#1d1d1f]">{v}</p>
                   <p className="text-[10px] text-[#aeaeb2]">{l}</p>
                 </div>
@@ -449,8 +451,8 @@ export default function MapView() {
             </div>
           </div>
 
-          <div className="apple-card p-3">
-            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">Driver Status</p>
+          <div className="apple-card p-4">
+            <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-3">Driver Status</p>
             <div className="space-y-1.5">
               {jobs.map((job) => {
                 const color = jobColorMap[job.id];

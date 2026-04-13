@@ -8,7 +8,7 @@ export function LogoSpinner({ size = 32, className = "" }) {
           width={size}
           height={size}
           className="animate-logo-pulse"
-          style={{ filter: "drop-shadow(0 0 8px rgba(0,128,128,0.25))" }}
+          style={{ filter: "drop-shadow(0 0 8px rgba(0,128,128,0.2))" }}
         />
       </div>
     </div>
@@ -36,7 +36,7 @@ export function PageLoader({ message = "Loading..." }) {
 
 export function FullScreenLoader({ message = "Loading..." }) {
   return (
-    <div className="min-h-screen bg-[#f5f5f7] flex items-center justify-center">
+    <div className="min-h-screen bg-white flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <LogoSpinner size={44} />
         <p className="text-[13px] text-[#86868b] font-medium">{message}</p>
@@ -82,7 +82,7 @@ export function SkeletonRow() {
 
 export function SkeletonGrid({ cols = 4, rows = 1 }) {
   return (
-    <div className={`grid gap-5`} style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+    <div className={`grid gap-4 grid-cols-1 ${cols >= 2 ? "sm:grid-cols-2" : ""} ${cols >= 3 ? "md:grid-cols-3" : ""} ${cols >= 4 ? "lg:grid-cols-4" : ""}`}>
       {Array.from({ length: cols * rows }).map((_, i) => (
         <SkeletonCard key={i} />
       ))}

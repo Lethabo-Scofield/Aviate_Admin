@@ -68,7 +68,7 @@ export default function MyJobs() {
 
       {data.jobs.length === 0 ? (
         <div className="apple-card p-12 text-center">
-          <div className="w-14 h-14 rounded-[14px] bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
+          <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
             <Package size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />
           </div>
           <p className="text-[15px] font-medium text-[#1d1d1f] mb-1">No jobs assigned yet</p>
@@ -88,8 +88,8 @@ export default function MyJobs() {
                   onClick={() => setExpandedJob(isExpanded ? null : job.id)}
                   className="w-full p-4 flex items-center gap-3 text-left"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#008080]/10 flex items-center justify-center shrink-0">
-                    <Navigation size={16} className="text-[#008080]" />
+                  <div className="w-10 h-10 rounded-xl bg-[#f5f5f7] flex items-center justify-center shrink-0">
+                    <Navigation size={16} className="text-[#86868b]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[14px] font-semibold text-[#1d1d1f] truncate">{job.area}</p>
@@ -116,7 +116,7 @@ export default function MyJobs() {
                         .map((stop, i) => (
                         <div
                           key={stop.id}
-                          className={`flex items-start gap-3 p-3 rounded-xl transition-colors ${stop.completed ? "bg-[#f5f5f7] opacity-60" : "bg-white"}`}
+                          className={`flex items-start gap-3 p-3 rounded-xl transition-colors ${stop.completed ? "bg-[#f5f5f7] opacity-50" : "bg-white"}`}
                         >
                           <div className="flex flex-col items-center shrink-0 pt-0.5">
                             <span className="w-6 h-6 rounded-full bg-[#008080]/10 flex items-center justify-center text-[10px] font-bold text-[#008080]">
@@ -131,9 +131,9 @@ export default function MyJobs() {
                               {stop.customer_name || "Customer"}
                             </p>
                             <p className="text-[11px] text-[#86868b] leading-relaxed mt-0.5">{stop.address}</p>
-                            <div className="flex gap-3 mt-1.5">
+                            <div className="flex flex-wrap gap-3 mt-1.5">
                               {stop.phone && (
-                                <a href={`tel:${stop.phone}`} className="flex items-center gap-1 text-[11px] text-[#008080]">
+                                <a href={`tel:${stop.phone}`} className="flex items-center gap-1 text-[11px] text-[#008080] font-medium">
                                   <Phone size={10} /> {stop.phone}
                                 </a>
                               )}
@@ -153,7 +153,7 @@ export default function MyJobs() {
                               <button
                                 onClick={() => handleComplete(job.id, stop.id)}
                                 disabled={completing === stop.id}
-                                className="w-8 h-8 rounded-full bg-[#008080] flex items-center justify-center hover:bg-[#006666] transition-colors disabled:opacity-50"
+                                className="w-8 h-8 rounded-full bg-[#008080] flex items-center justify-center hover:bg-[#006e6e] transition-colors disabled:opacity-50"
                               >
                                 {completing === stop.id ? (
                                   <Spinner size={12} />
@@ -176,7 +176,7 @@ export default function MyJobs() {
             <div className="pt-4">
               <p className="text-[12px] font-semibold text-[#86868b] uppercase tracking-wider mb-2 px-1">Completed</p>
               {completedJobs.map((job) => (
-                <div key={job.id} className="apple-card p-4 flex items-center gap-3 opacity-60 mb-2">
+                <div key={job.id} className="apple-card p-4 flex items-center gap-3 opacity-50 mb-2">
                   <div className="w-8 h-8 rounded-xl bg-[#34c759]/10 flex items-center justify-center shrink-0">
                     <CheckCircle2 size={14} className="text-[#34c759]" />
                   </div>

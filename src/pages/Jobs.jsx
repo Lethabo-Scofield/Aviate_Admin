@@ -71,7 +71,9 @@ export default function Jobs() {
 
       {jobs.length === 0 ? (
         <div className="apple-card p-12 text-center">
-          <Package size={32} className="text-[#c7c7cc] mx-auto mb-3" strokeWidth={1.5} />
+          <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
+            <Package size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />
+          </div>
           <p className="text-[14px] text-[#86868b] mb-4">No jobs yet</p>
           <button onClick={() => navigate("/dispatch")} className="apple-btn apple-btn-primary text-[13px]">
             Upload deliveries
@@ -144,7 +146,7 @@ function JobRow({ job, drivers, expanded, assigning, onToggle, onAssignToggle, o
         <div className="flex items-center gap-3">
           {job.driver_name ? (
             <div className="flex items-center gap-2">
-              <span className="text-[12px] text-[#6e6e73] font-medium">{job.driver_name}</span>
+              <span className="text-[12px] text-[#6e6e73] font-medium hidden sm:inline">{job.driver_name}</span>
               <button onClick={(e) => { e.stopPropagation(); onUnassign(); }}
                 className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#ff3b30]/10 transition-colors">
                 <X size={12} className="text-[#c7c7cc] hover:text-[#ff3b30]" />
@@ -153,7 +155,7 @@ function JobRow({ job, drivers, expanded, assigning, onToggle, onAssignToggle, o
           ) : (
             <button onClick={(e) => { e.stopPropagation(); onAssignToggle(); }}
               className="apple-btn apple-btn-primary text-[12px] py-1.5 px-3">
-              <UserPlus size={12} /> Assign
+              <UserPlus size={12} /> <span className="hidden sm:inline">Assign</span>
             </button>
           )}
           {expanded ? <ChevronUp size={15} className="text-[#c7c7cc]" /> : <ChevronDown size={15} className="text-[#c7c7cc]" />}
@@ -196,10 +198,10 @@ function JobRow({ job, drivers, expanded, assigning, onToggle, onAssignToggle, o
           <div className="space-y-1 max-h-48 overflow-y-auto">
             {job.stops.map((stop, idx) => (
               <div key={stop.id} className={`flex items-center gap-2.5 p-2 rounded-lg text-[12px] ${stop.completed ? "bg-[#34c759]/5" : "bg-[#f5f5f7]"}`}>
-                <span className="font-bold text-[#aeaeb2] w-4 text-right shrink-0">{idx + 1}</span>
+                <span className="font-bold text-[#c7c7cc] w-4 text-right shrink-0">{idx + 1}</span>
                 <div className="flex-1 min-w-0">
                   <span className="font-medium text-[#1d1d1f]">{stop.customer_name}</span>
-                  <span className="text-[#aeaeb2] ml-1.5 truncate">{stop.address}</span>
+                  <span className="text-[#aeaeb2] ml-1.5 truncate hidden sm:inline">{stop.address}</span>
                 </div>
                 {stop.completed && <span className="text-[9px] px-1.5 py-0.5 bg-[#34c759]/10 text-[#34c759] rounded-full font-semibold">Done</span>}
               </div>

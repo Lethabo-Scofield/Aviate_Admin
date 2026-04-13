@@ -5,8 +5,20 @@
     -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  --color-background: #f5f5f7;
+  --color-background: #ffffff;
   --color-foreground: #1d1d1f;
+
+  --color-primary: #008080;
+  --color-primary-hover: #006e6e;
+  --color-primary-light: rgba(0, 128, 128, 0.08);
+
+  --color-surface: #f5f5f7;
+  --color-border: rgba(0, 0, 0, 0.06);
+
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-tertiary: #86868b;
+  --color-text-quaternary: #aeaeb2;
 
   --radius-xl: 1rem;
   --radius-2xl: 1.25rem;
@@ -28,11 +40,29 @@ body {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #c7c7cc transparent;
+  scrollbar-color: #d1d1d6 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #d1d1d6;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #aeaeb2;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -57,49 +87,41 @@ body {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out both;
+  animation: fadeIn 0.35s ease-out both;
 }
 
 .animate-slide-up {
-  animation: slideUp 0.5s ease-out both;
+  animation: slideUp 0.4s ease-out both;
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 37%, #e8e8ed 63%);
+  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 37%, #f0f0f0 63%);
   background-size: 400px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
   border-radius: 8px;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-}
-
 .apple-card {
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.25s ease, transform 0.15s ease;
 }
 
 .apple-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .apple-input {
   width: 100%;
   padding: 10px 14px;
   background: #f5f5f7;
-  border: 1.5px solid #e5e5ea;
+  border: 1.5px solid transparent;
   border-radius: 10px;
   font-size: 14px;
   color: #1d1d1f;
@@ -109,8 +131,12 @@ body {
 
 .apple-input:focus {
   border-color: #008080;
-  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.12);
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.1);
   background: #ffffff;
+}
+
+.apple-input::placeholder {
+  color: #aeaeb2;
 }
 
 .apple-btn {
@@ -129,23 +155,40 @@ body {
 }
 
 .apple-btn-primary {
-  background: #008080;
+  background: #1d1d1f;
   color: #ffffff;
 }
 
 .apple-btn-primary:hover {
-  background: #006e6e;
-  transform: scale(1.02);
+  background: #333336;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .apple-btn-primary:active {
-  transform: scale(0.98);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.apple-btn-accent {
+  background: #008080;
+  color: #ffffff;
+}
+
+.apple-btn-accent:hover {
+  background: #006e6e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.25);
+}
+
+.apple-btn-accent:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .apple-btn-secondary {
   background: #f5f5f7;
   color: #1d1d1f;
-  border: 1.5px solid #e5e5ea;
 }
 
 .apple-btn-secondary:hover {
@@ -155,7 +198,19 @@ body {
 .apple-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  transform: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.stat-card {
+  background: #f5f5f7;
+  border-radius: 16px;
+  padding: 20px;
+  transition: background 0.2s ease;
+}
+
+.stat-card:hover {
+  background: #efeff1;
 }
 
 .custom-marker {
@@ -165,13 +220,14 @@ body {
 
 .leaflet-popup-content-wrapper {
   border-radius: 14px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12) !important;
   padding: 0 !important;
+  border: none !important;
 }
 
 .leaflet-popup-content {
-  margin: 12px 14px !important;
-  line-height: 1.4 !important;
+  margin: 12px 16px !important;
+  line-height: 1.5 !important;
 }
 
 .leaflet-popup-tip {
@@ -180,19 +236,29 @@ body {
 
 .leaflet-control-zoom a {
   border-radius: 10px !important;
-  width: 32px !important;
-  height: 32px !important;
-  line-height: 32px !important;
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
   font-size: 16px !important;
   color: #1d1d1f !important;
   border: none !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(10px) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(12px) !important;
 }
 
 .leaflet-control-zoom {
   border: none !important;
   border-radius: 12px !important;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (max-width: 640px) {
+  .apple-card {
+    border-radius: 14px;
+  }
+  .apple-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
 }

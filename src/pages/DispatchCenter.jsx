@@ -100,18 +100,18 @@ export default function DispatchCenter() {
         <p className="text-[14px] text-[#86868b] mt-1">Upload delivery addresses and optimize routes</p>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-3 mb-8 overflow-x-auto">
+      <div className="flex items-center gap-2 sm:gap-3 mb-8 overflow-x-auto pb-1">
         {["Upload", "Optimize", "Done"].map((label, i) => (
           <div key={label} className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all ${
                 stepIndex > i ? "bg-[#008080] text-white" :
                 stepIndex === i ? "bg-[#008080] text-white" :
-                "bg-[#e5e5ea] text-[#aeaeb2]"
+                "bg-[#f0f0f0] text-[#c7c7cc]"
               }`}>
                 {stepIndex > i ? "✓" : i + 1}
               </div>
-              <span className={`text-[13px] font-medium ${stepIndex === i ? "text-[#1d1d1f]" : "text-[#aeaeb2]"}`}>
+              <span className={`text-[13px] font-medium ${stepIndex === i ? "text-[#008080]" : "text-[#c7c7cc]"}`}>
                 {label}
               </span>
             </div>
@@ -129,16 +129,16 @@ export default function DispatchCenter() {
 
       {step === "upload" && (
         <div className="max-w-xl mx-auto sm:mx-0 animate-slide-up">
-          <div className="apple-card p-10">
+          <div className="apple-card p-8 sm:p-10">
             <div className="text-center mb-6">
-              <div className="w-14 h-14 rounded-[14px] bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
                 <FileSpreadsheet size={24} className="text-[#86868b]" strokeWidth={1.5} />
               </div>
               <h2 className="text-[17px] font-semibold text-[#1d1d1f] mb-1">Upload Delivery Addresses</h2>
               <p className="text-[13px] text-[#86868b]">Excel or CSV with a <span className="font-semibold text-[#1d1d1f]">Full_Address</span> column</p>
             </div>
 
-            <div className="border-2 border-dashed border-[#d2d2d7] rounded-2xl p-8 text-center hover:border-[#86868b] transition-all group cursor-pointer">
+            <div className="border-2 border-dashed border-[#e5e5ea] rounded-2xl p-8 text-center hover:border-[#c7c7cc] transition-all group cursor-pointer">
               <input type="file" accept=".xlsx,.xls,.csv" onChange={handleUpload} disabled={uploading} className="hidden" id="file-upload" />
               <label htmlFor="file-upload" className="cursor-pointer block">
                 {uploading ? (
@@ -149,7 +149,7 @@ export default function DispatchCenter() {
                   </div>
                 ) : (
                   <div>
-                    <Upload size={24} className="text-[#c7c7cc] mx-auto mb-3 group-hover:text-[#86868b] transition-colors" strokeWidth={1.5} />
+                    <Upload size={24} className="text-[#d1d1d6] mx-auto mb-3 group-hover:text-[#86868b] transition-colors" strokeWidth={1.5} />
                     <p className="text-[14px] text-[#1d1d1f] font-medium">Click to upload</p>
                     <p className="text-[12px] text-[#aeaeb2] mt-1">.xlsx, .xls, or .csv</p>
                   </div>
@@ -160,7 +160,7 @@ export default function DispatchCenter() {
             <div className="mt-5 mb-1">
               <button
                 onClick={() => setShowExample(!showExample)}
-                className="flex items-center gap-1.5 text-[12px] text-[#008080] font-medium hover:text-[#006666] transition-colors mx-auto"
+                className="flex items-center gap-1.5 text-[12px] text-[#86868b] font-medium hover:text-[#1d1d1f] transition-colors mx-auto"
               >
                 <FileSpreadsheet size={13} />
                 {showExample ? "Hide" : "View"} example data format
@@ -179,7 +179,7 @@ export default function DispatchCenter() {
                       <thead>
                         <tr className="bg-[#fafafa] border-b border-[#f0f0f0]">
                           {["Full_Address", "Customer_Name", "Order_ID", "Phone", "Notes"].map((h) => (
-                            <th key={h} className={`px-2.5 py-2 text-left font-semibold whitespace-nowrap ${h === "Full_Address" ? "text-[#008080]" : "text-[#86868b]"}`}>
+                            <th key={h} className={`px-2.5 py-2 text-left font-semibold whitespace-nowrap ${h === "Full_Address" ? "text-[#1d1d1f]" : "text-[#86868b]"}`}>
                               {h}{h === "Full_Address" && <span className="text-[#ff3b30] ml-0.5">*</span>}
                             </th>
                           ))}
@@ -195,7 +195,7 @@ export default function DispatchCenter() {
                           <tr key={i} className="border-b border-[#f5f5f7] last:border-0 hover:bg-[#fafafa]">
                             {row.map((cell, ci) => (
                               <td key={ci} className={`px-2.5 py-1.5 whitespace-nowrap ${ci === 0 ? "font-medium" : ""}`}>
-                                {cell || <span className="text-[#c7c7cc]">—</span>}
+                                {cell || <span className="text-[#d1d1d6]">—</span>}
                               </td>
                             ))}
                           </tr>
@@ -214,7 +214,7 @@ export default function DispatchCenter() {
 
             <div className="flex items-center gap-3 mt-4">
               <div className="h-px flex-1 bg-[#e5e5ea]" />
-              <span className="text-[11px] text-[#aeaeb2] font-medium">or</span>
+              <span className="text-[11px] text-[#c7c7cc] font-medium">or</span>
               <div className="h-px flex-1 bg-[#e5e5ea]" />
             </div>
 
@@ -248,8 +248,8 @@ export default function DispatchCenter() {
               <div className="max-h-64 overflow-y-auto space-y-1">
                 {stops.map((stop, idx) => (
                   <div key={stop.id} className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-[#f5f5f7] transition-colors">
-                    <span className="text-[11px] font-bold text-[#aeaeb2] w-5 text-right shrink-0">{idx + 1}</span>
-                    <MapPin size={12} className="text-[#c7c7cc] shrink-0" />
+                    <span className="text-[11px] font-bold text-[#c7c7cc] w-5 text-right shrink-0">{idx + 1}</span>
+                    <MapPin size={12} className="text-[#d1d1d6] shrink-0" />
                     <div className="min-w-0">
                       <p className="text-[12px] font-medium text-[#1d1d1f] truncate">{stop.customer_name}</p>
                       <p className="text-[11px] text-[#aeaeb2] truncate">{stop.address}</p>
@@ -318,21 +318,21 @@ export default function DispatchCenter() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {jobs.map((job, i) => (
               <div key={job.id} className="apple-card p-4 animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-3">
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#f5f5f7] text-[#86868b] font-semibold">{job.id}</span>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
                     job.status === "assigned" ? "bg-[#008080]/10 text-[#008080]" :
                     "bg-[#ff9500]/10 text-[#ff9500]"
                   }`}>{job.status}</span>
                 </div>
-                <h3 className="text-[15px] font-semibold text-[#1d1d1f] mb-2">{job.area}</h3>
+                <h3 className="text-[15px] font-semibold text-[#1d1d1f] mb-3">{job.area}</h3>
                 <div className="grid grid-cols-2 gap-2 text-center">
-                  <div className="bg-[#f5f5f7] rounded-lg p-2">
-                    <p className="text-[14px] font-semibold text-[#1d1d1f]">{job.total_stops}</p>
+                  <div className="bg-[#f5f5f7] rounded-xl p-2.5">
+                    <p className="text-[15px] font-semibold text-[#1d1d1f]">{job.total_stops}</p>
                     <p className="text-[10px] text-[#aeaeb2]">stops</p>
                   </div>
-                  <div className="bg-[#f5f5f7] rounded-lg p-2">
-                    <p className="text-[14px] font-semibold text-[#1d1d1f]">{job.total_distance_km} km</p>
+                  <div className="bg-[#f5f5f7] rounded-xl p-2.5">
+                    <p className="text-[15px] font-semibold text-[#1d1d1f]">{job.total_distance_km} km</p>
                     <p className="text-[10px] text-[#aeaeb2]">distance</p>
                   </div>
                 </div>

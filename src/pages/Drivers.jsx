@@ -146,9 +146,9 @@ export default function Drivers() {
             </button>
           </div>
 
-          <div className="flex items-start gap-2 px-3 py-2.5 rounded-lg bg-[#008080]/[0.06] mb-4">
-            <Shield size={14} className="text-[#008080] shrink-0 mt-0.5" />
-            <p className="text-[11px] text-[#008080] leading-relaxed">
+          <div className="flex items-start gap-2 px-3 py-2.5 rounded-lg bg-[#f5f5f7] mb-4">
+            <Shield size={14} className="text-[#86868b] shrink-0 mt-0.5" />
+            <p className="text-[11px] text-[#86868b] leading-relaxed">
               A login account is automatically created so the driver can sign in and view assigned jobs on their device.
             </p>
           </div>
@@ -164,7 +164,7 @@ export default function Drivers() {
               <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="sipho@gmail.com" className="apple-input" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Password (optional)</label>
                 <input type="text" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}
@@ -193,7 +193,7 @@ export default function Drivers() {
 
       {drivers.length === 0 ? (
         <div className="apple-card p-12 text-center">
-          <div className="w-14 h-14 rounded-[14px] bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
+          <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4">
             <Truck size={24} className="text-[#c7c7cc]" strokeWidth={1.5} />
           </div>
           <p className="text-[14px] text-[#86868b] mb-1">No drivers yet</p>
@@ -220,18 +220,18 @@ export default function Drivers() {
                   </div>
                   <p className="text-[12px] text-[#aeaeb2]">
                     {driver.vehicle_type}
-                    {driver.email && <> &middot; {driver.email}</>}
+                    {driver.email && <span className="hidden sm:inline"> &middot; {driver.email}</span>}
                   </p>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   {driverJobs.length > 0 ? (
-                    <span className="text-[12px] font-semibold text-[#008080]">{driverJobs.length} job{driverJobs.length !== 1 ? "s" : ""}</span>
+                    <span className="text-[12px] font-semibold text-[#1d1d1f]">{driverJobs.length} job{driverJobs.length !== 1 ? "s" : ""}</span>
                   ) : (
-                    <span className="text-[12px] text-[#aeaeb2]">No jobs</span>
+                    <span className="text-[12px] text-[#aeaeb2] hidden sm:inline">No jobs</span>
                   )}
                   <button onClick={() => handleRemove(driver.id)}
                     className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#ff3b30]/10 transition-colors">
-                    <Trash2 size={14} className="text-[#c7c7cc]" />
+                    <Trash2 size={14} className="text-[#d1d1d6]" />
                   </button>
                 </div>
               </div>

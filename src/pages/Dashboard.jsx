@@ -49,9 +49,9 @@ export default function Dashboard() {
 
       {!hasData ? (
         <div className="space-y-5">
-          <div className="apple-card p-12 text-center animate-slide-up">
-            <div className="w-16 h-16 rounded-[16px] bg-[#f5f5f7] flex items-center justify-center mx-auto mb-5">
-              <Package size={32} className="text-[#86868b]" strokeWidth={1.5} />
+          <div className="apple-card p-10 sm:p-14 text-center animate-slide-up">
+            <div className="w-16 h-16 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mx-auto mb-5">
+              <Package size={28} className="text-[#86868b]" strokeWidth={1.5} />
             </div>
             <h2 className="text-[20px] font-semibold text-[#1d1d1f] mb-2 tracking-tight">Get started</h2>
             <p className="text-[14px] text-[#86868b] mb-8 max-w-sm mx-auto leading-relaxed">
@@ -63,8 +63,8 @@ export default function Dashboard() {
           </div>
 
           <div className="apple-card p-6">
-            <h3 className="text-[13px] font-semibold text-[#86868b] mb-4">Three steps to optimized routes</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <h3 className="text-[12px] font-semibold text-[#86868b] uppercase tracking-wider mb-5">Three steps to optimized routes</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
               {[
                 { step: "1", title: "Upload", desc: "Upload an Excel or CSV file with delivery addresses" },
                 { step: "2", title: "Optimize", desc: "System geocodes addresses, clusters stops, and finds the best routes" },
@@ -85,18 +85,18 @@ export default function Dashboard() {
         <div className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { label: "Jobs", value: stats.total_jobs, sub: `${stats.unassigned} unassigned`, icon: Package },
+              { label: "Jobs", value: stats.total_jobs, sub: `${stats.unassigned} unassigned`, icon: Package, accent: stats.unassigned > 0 },
               { label: "Stops", value: stats.total_stops, sub: `${stats.total_distance_km} km total`, icon: MapPin },
               { label: "Drivers", value: stats.total_drivers, sub: `${stats.assigned} assigned`, icon: Truck },
-            ].map(({ label, value, sub, icon: Icon }) => (
-              <div key={label} className="apple-card p-5">
+            ].map(({ label, value, sub, icon: Icon, accent }) => (
+              <div key={label} className="stat-card">
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="text-[12px] text-[#86868b] font-medium uppercase tracking-wide mb-2">{label}</p>
-                    <p className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight leading-none">{value}</p>
-                    <p className="text-[12px] text-[#aeaeb2] mt-2">{sub}</p>
+                    <p className="text-[32px] font-semibold text-[#1d1d1f] tracking-tight leading-none">{value}</p>
+                    <p className={`text-[12px] mt-2 ${accent ? "text-[#ff9500] font-medium" : "text-[#aeaeb2]"}`}>{sub}</p>
                   </div>
-                  <div className="w-10 h-10 rounded-xl bg-[#f5f5f7] flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
                     <Icon size={18} className="text-[#86868b]" strokeWidth={1.8} />
                   </div>
                 </div>
@@ -108,11 +108,11 @@ export default function Dashboard() {
             <div className="apple-card p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-[14px] font-semibold text-[#1d1d1f]">Recent Jobs</h2>
-                <button onClick={() => navigate("/jobs")} className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] transition-colors">
+                <button onClick={() => navigate("/jobs")} className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] transition-colors font-medium">
                   View all
                 </button>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {jobs.slice(0, 5).map((job) => (
                   <div key={job.id} className="flex items-center justify-between p-2.5 rounded-xl hover:bg-[#f5f5f7] transition-colors">
                     <div>
@@ -132,19 +132,19 @@ export default function Dashboard() {
             <div className="apple-card p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-[14px] font-semibold text-[#1d1d1f]">Drivers</h2>
-                <button onClick={() => navigate("/drivers")} className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] transition-colors">
+                <button onClick={() => navigate("/drivers")} className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] transition-colors font-medium">
                   Manage
                 </button>
               </div>
               {drivers.length === 0 ? (
-                <div className="text-center py-6">
-                  <p className="text-[13px] text-[#aeaeb2] mb-2">No drivers added yet</p>
+                <div className="text-center py-8">
+                  <p className="text-[13px] text-[#aeaeb2] mb-3">No drivers added yet</p>
                   <button onClick={() => navigate("/drivers")} className="text-[13px] text-[#1d1d1f] font-semibold hover:underline">
                     Add drivers
                   </button>
                 </div>
               ) : (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {drivers.map((d) => {
                     const count = jobs.filter(j => j.driver_id === d.id).length;
                     return (
