@@ -236,7 +236,7 @@ export default function DispatchCenter() {
       {step === "optimize" && (
         <div className="max-w-2xl animate-slide-up">
           {uploadResult && (
-            <div className="apple-card p-4 flex items-center gap-3 mb-5 border-l-4 border-l-[#34c759]">
+            <div className="apple-card p-4 flex items-center gap-3 mb-5">
               <CheckCircle size={18} className="text-[#34c759] shrink-0" />
               <p className="text-[13px] text-[#1d1d1f]">
                 <span className="font-semibold">{uploadResult.geocoded}</span> of {uploadResult.total_rows} addresses geocoded
@@ -300,7 +300,7 @@ export default function DispatchCenter() {
 
       {step === "results" && (
         <div className="animate-slide-up">
-          <div className="apple-card p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 border-l-4 border-l-[#34c759]">
+          <div className="apple-card p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5">
             <div className="flex items-center gap-3">
               <CheckCircle size={20} className="text-[#34c759] shrink-0" />
               <div>

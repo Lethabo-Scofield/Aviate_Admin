@@ -97,7 +97,7 @@ export default function Drivers() {
       </div>
 
       {newDriverCredentials && (
-        <div className="apple-card p-6 mb-6 max-w-lg animate-slide-up border-l-4 border-l-[#34c759]">
+        <div className="apple-card p-6 mb-6 max-w-lg animate-slide-up">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-[#34c759]/10 flex items-center justify-center shrink-0">
               <KeyRound size={18} className="text-[#34c759]" />
