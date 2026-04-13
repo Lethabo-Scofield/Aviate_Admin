@@ -85,7 +85,7 @@ Aviate is a multi-tenant logistics dispatch platform for managing delivery route
 - **Aesthetic**: Apple-inspired minimal design — clean white backgrounds, grey/black typography, teal accent
 - **Accent color**: `#008080` (teal) — RESERVED for status badges, progress rings, step indicators only. NOT used for nav or buttons
 - **Primary button**: `#6e6e73` (grey) — main CTAs
-- **Active nav**: `#1d1d1f` (dark charcoal) — NOT teal
+- **Active nav**: `#e8e8ed` bg with `#3a3a3c` text — subtle grey, NOT dark/bold, NOT teal
 - **Text hierarchy**: `#1d1d1f` (primary), `#6e6e73` / `#86868b` (secondary), `#aeaeb2` (tertiary), `#c7c7cc` (quaternary)
 - **Surfaces**: White (`#ffffff`) backgrounds, `#f5f5f7` for card interiors/stat tiles/hover states
 - **Cards**: `.apple-card` class — white with subtle shadow, 16px border-radius

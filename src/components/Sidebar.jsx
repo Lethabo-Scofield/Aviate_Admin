@@ -118,8 +118,8 @@ export default function Sidebar() {
                     className={({ isActive }) =>
                       `group flex items-center gap-3 px-3 py-[9px] rounded-xl text-[13px] font-medium transition-all duration-200 ${
                         isActive
-                          ? "bg-[#1d1d1f] text-white shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
-                          : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.03]"
+                          ? "bg-[#e8e8ed] text-[#3a3a3c]"
+                          : "text-[#86868b] hover:text-[#3a3a3c] hover:bg-black/[0.03]"
                       }`
                     }
                   >
@@ -127,7 +127,7 @@ export default function Sidebar() {
                       <>
                         <div
                           className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
-                            isActive ? "bg-white/15" : "bg-black/[0.03] group-hover:bg-black/[0.05]"
+                            isActive ? "bg-black/[0.05]" : "bg-black/[0.03] group-hover:bg-black/[0.05]"
                           }`}
                         >
                           <Icon size={15} strokeWidth={1.8} />
@@ -137,7 +137,7 @@ export default function Sidebar() {
                           size={13}
                           className={`transition-all ${
                             isActive
-                              ? "opacity-40"
+                              ? "opacity-30"
                               : "opacity-0 -translate-x-1 group-hover:opacity-30 group-hover:translate-x-0"
                           }`}
                         />
