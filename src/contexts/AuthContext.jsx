@@ -47,7 +47,9 @@ export function AuthProvider({ children }) {
           return null;
         }
         if (!res.ok) return null;
-        return res.json();
+        return res.text().then((text) => {
+          try { return JSON.parse(text); } catch { return null; }
+        });
       })
       .then((data) => {
         if (data && data.user) {
@@ -60,13 +62,23 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
+  const parseJSON = async (res) => {
+    const text = await res.text();
+    if (!text) throw new Error("Empty response from server");
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error("Unexpected server response");
+    }
+  };
+
   const login = async (email, password) => {
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    const data = await res.json();
+    const data = await parseJSON(res);
     if (!res.ok) throw new Error(data.error || "Login failed");
     saveAuth(data.token, data.user);
     return data.user;
@@ -78,7 +90,7 @@ export function AuthProvider({ children }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password, company_name: companyName }),
     });
-    const data = await res.json();
+    const data = await parseJSON(res);
     if (!res.ok) throw new Error(data.error || "Registration failed");
     saveAuth(data.token, data.user);
     return data.user;
