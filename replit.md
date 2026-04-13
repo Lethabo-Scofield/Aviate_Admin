@@ -103,4 +103,14 @@ Aviate is a multi-tenant logistics dispatch platform for managing delivery route
 - Route optimization via OR-Tools TSP solver
 - OSRM road geometry for map visualization
 - Driver management with auto-generated login credentials
+- Driver detail panel: view info, login credentials, block/unblock, delivery history
+- Block/unblock drivers (enforced at both login and per-request middleware)
+- Password reset for drivers with viewable credentials
+- Completed deliveries tracking per driver with progress indicators
 - Real-time stop completion tracking
+
+## Driver Management API
+- `GET /api/drivers/<id>` — Driver detail with stats, credentials, job history
+- `POST /api/drivers/<id>/block` — Toggle block/unblock a driver
+- `POST /api/drivers/<id>/reset-password` — Generate new password for a driver
+- `GET /api/drivers/<id>/deliveries` — Driver's delivery history with completion %

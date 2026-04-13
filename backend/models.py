@@ -68,6 +68,8 @@ class Driver(Base):
     email = Column(String, default="")
     vehicle_type = Column(String, default="van")
     status = Column(String, default="available")
+    blocked = Column(Boolean, default=False)
+    last_generated_password = Column(String, nullable=True)
     company_id = Column(String, ForeignKey("companies.id"), nullable=True)
     user_id = Column(String, nullable=True)
     created_at = Column(DateTime, default=utcnow)
@@ -79,6 +81,7 @@ class Driver(Base):
             "email": self.email,
             "vehicle_type": self.vehicle_type,
             "status": self.status,
+            "blocked": self.blocked or False,
             "has_account": bool(self.user_id),
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }

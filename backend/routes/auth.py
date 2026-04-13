@@ -6,7 +6,7 @@ from flask import request, jsonify, g
 
 from routes import auth_bp
 from middleware import require_auth
-from models import User, Company
+from models import User, Company, Driver
 from utils import generate_token, get_db_session
 
 
@@ -78,6 +78,11 @@ def login():
 
         if not bcrypt.checkpw(password.encode("utf-8"), user.password_hash.encode("utf-8")):
             return jsonify({"error": "Invalid email or password"}), 401
+
+        if user.role == "driver" and user.driver_id:
+            driver = db.query(Driver).filter(Driver.id == user.driver_id).first()
+            if driver and driver.blocked:
+                return jsonify({"error": "Your account has been blocked. Contact your dispatcher."}), 403
 
         token = generate_token(user)
         return jsonify({"success": True, "token": token, "user": user.to_dict()})

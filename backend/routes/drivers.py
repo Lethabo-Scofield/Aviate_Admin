@@ -6,7 +6,7 @@ from flask import request, jsonify, g
 
 from routes import drivers_bp
 from middleware import require_auth, require_admin
-from models import Driver, User, Job
+from models import Driver, User, Job, Stop
 from utils import get_db_session
 
 
@@ -59,6 +59,7 @@ def add_driver():
             vehicle_type=vehicle_type,
             company_id=g.company_id,
             user_id=user_id,
+            last_generated_password=password,
         )
         db.add(driver)
         db.flush()
@@ -83,6 +84,124 @@ def add_driver():
         db.rollback()
         traceback.print_exc()
         return jsonify({"error": "Failed to add driver"}), 500
+    finally:
+        db.close()
+
+
+@drivers_bp.route("/api/drivers/<driver_id>", methods=["GET"])
+@require_auth
+@require_admin
+def get_driver_detail(driver_id):
+    db = get_db_session()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
+
+        driver_jobs = db.query(Job).filter(Job.driver_id == driver_id, Job.company_id == g.company_id).all()
+
+        completed_jobs = [j for j in driver_jobs if j.status == "completed"]
+        active_jobs = [j for j in driver_jobs if j.status in ("assigned",)]
+
+        total_stops_completed = 0
+        total_stops_assigned = 0
+        for job in driver_jobs:
+            stops = db.query(Stop).filter(Stop.job_id == job.id).all()
+            total_stops_completed += sum(1 for s in stops if s.completed)
+            total_stops_assigned += len(stops)
+
+        result = driver.to_dict()
+        result["last_generated_password"] = driver.last_generated_password
+        result["total_jobs"] = len(driver_jobs)
+        result["completed_jobs"] = len(completed_jobs)
+        result["active_jobs"] = len(active_jobs)
+        result["total_stops_completed"] = total_stops_completed
+        result["total_stops_assigned"] = total_stops_assigned
+        result["jobs"] = [j.to_dict() for j in driver_jobs]
+
+        return jsonify({"driver": result})
+    finally:
+        db.close()
+
+
+@drivers_bp.route("/api/drivers/<driver_id>/block", methods=["POST"])
+@require_auth
+@require_admin
+def toggle_block_driver(driver_id):
+    db = get_db_session()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
+
+        driver.blocked = not (driver.blocked or False)
+        db.commit()
+
+        return jsonify({"success": True, "blocked": driver.blocked, "driver": driver.to_dict()})
+    except Exception:
+        db.rollback()
+        traceback.print_exc()
+        return jsonify({"error": "Failed to update driver"}), 500
+    finally:
+        db.close()
+
+
+@drivers_bp.route("/api/drivers/<driver_id>/reset-password", methods=["POST"])
+@require_auth
+@require_admin
+def reset_driver_password(driver_id):
+    db = get_db_session()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
+
+        if not driver.user_id:
+            return jsonify({"error": "Driver has no login account"}), 400
+
+        user = db.query(User).filter(User.id == driver.user_id, User.company_id == g.company_id).first()
+        if not user:
+            return jsonify({"error": "Driver account not found"}), 404
+
+        new_password = uuid.uuid4().hex[:8]
+        password_hash = bcrypt.hashpw(new_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        user.password_hash = password_hash
+        driver.last_generated_password = new_password
+        db.commit()
+
+        return jsonify({"success": True, "new_password": new_password})
+    except Exception:
+        db.rollback()
+        traceback.print_exc()
+        return jsonify({"error": "Failed to reset password"}), 500
+    finally:
+        db.close()
+
+
+@drivers_bp.route("/api/drivers/<driver_id>/deliveries", methods=["GET"])
+@require_auth
+@require_admin
+def get_driver_deliveries(driver_id):
+    db = get_db_session()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
+
+        driver_jobs = db.query(Job).filter(Job.driver_id == driver_id, Job.company_id == g.company_id).all()
+
+        deliveries = []
+        for job in driver_jobs:
+            stops = db.query(Stop).filter(Stop.job_id == job.id).all()
+            completed_stops = [s for s in stops if s.completed]
+            deliveries.append({
+                "job": job.to_dict(),
+                "total_stops": len(stops),
+                "completed_stops": len(completed_stops),
+                "completion_pct": round(len(completed_stops) / len(stops) * 100) if stops else 0,
+            })
+
+        return jsonify({"driver_id": driver_id, "deliveries": deliveries})
     finally:
         db.close()
 

@@ -97,6 +97,32 @@ export async function removeDriver(driverId) {
   return handleResponse(res);
 }
 
+export async function getDriverDetail(driverId) {
+  const res = await fetch(`${API_BASE}/drivers/${driverId}`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function toggleBlockDriver(driverId) {
+  const res = await fetch(`${API_BASE}/drivers/${driverId}/block`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+  });
+  return handleResponse(res);
+}
+
+export async function resetDriverPassword(driverId) {
+  const res = await fetch(`${API_BASE}/drivers/${driverId}/reset-password`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+  });
+  return handleResponse(res);
+}
+
+export async function getDriverDeliveries(driverId) {
+  const res = await fetch(`${API_BASE}/drivers/${driverId}/deliveries`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
 export async function getMyJobs() {
   const res = await fetch(`${API_BASE}/my-jobs`, { headers: getAuthHeaders() });
   return handleResponse(res);

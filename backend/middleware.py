@@ -27,6 +27,17 @@ def require_auth(f):
         except jwt.InvalidTokenError:
             return jsonify({"error": "Invalid token"}), 401
 
+        if g.user_role == "driver" and g.driver_id:
+            from models import Driver
+            from utils import get_db_session
+            db = get_db_session()
+            try:
+                driver = db.query(Driver).filter(Driver.id == g.driver_id).first()
+                if driver and driver.blocked:
+                    return jsonify({"error": "Your account has been blocked. Contact your dispatcher."}), 403
+            finally:
+                db.close()
+
         return f(*args, **kwargs)
     return decorated
 
