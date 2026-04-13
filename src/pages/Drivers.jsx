@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
-import { Truck, Plus, Trash2, X, Copy, Check, KeyRound, Shield } from "lucide-react";
+import { Truck, Plus, Trash2, X, Copy, Check, KeyRound, Shield, Car, Bike, Container } from "lucide-react";
 import { Spinner, SkeletonList } from "../components/Loader";
 import { getDrivers, addDriver, removeDriver, getJobs } from "../services/api";
+
+const VEHICLE_ICONS = { van: Container, truck: Truck, car: Car, bike: Bike };
+
+function VehicleIcon({ type, size = 17, className = "text-[#86868b]" }) {
+  const Icon = VEHICLE_ICONS[type] || Truck;
+  return <Icon size={size} className={className} strokeWidth={1.8} />;
+}
 
 export default function Drivers() {
   const [drivers, setDrivers] = useState([]);
@@ -164,21 +171,40 @@ export default function Drivers() {
               <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="sipho@gmail.com" className="apple-input" />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Password (optional)</label>
-                <input type="text" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  placeholder="Auto-generated" className="apple-input" />
-              </div>
-              <div>
-                <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Vehicle</label>
-                <select value={form.vehicle_type} onChange={(e) => setForm({ ...form, vehicle_type: e.target.value })}
-                  className="apple-input">
-                  <option value="van">Van</option>
-                  <option value="truck">Truck</option>
-                  <option value="bike">Bike</option>
-                  <option value="car">Car</option>
-                </select>
+            <div>
+              <label className="text-[12px] text-[#86868b] font-medium mb-1 block">Password (optional)</label>
+              <input type="text" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })}
+                placeholder="Auto-generated" className="apple-input" />
+            </div>
+            <div>
+              <label className="text-[12px] text-[#86868b] font-medium mb-1.5 block">Vehicle type</label>
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { value: "van", label: "Van", icon: Container },
+                  { value: "truck", label: "Truck", icon: Truck },
+                  { value: "car", label: "Car", icon: Car },
+                  { value: "bike", label: "Bike", icon: Bike },
+                ].map(({ value, label, icon: VIcon }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setForm({ ...form, vehicle_type: value })}
+                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all ${
+                      form.vehicle_type === value
+                        ? "border-[#008080] bg-[#008080]/[0.04]"
+                        : "border-transparent bg-[#f5f5f7] hover:bg-[#ebebed]"
+                    }`}
+                  >
+                    <VIcon
+                      size={22}
+                      strokeWidth={1.6}
+                      className={form.vehicle_type === value ? "text-[#008080]" : "text-[#86868b]"}
+                    />
+                    <span className={`text-[11px] font-medium ${
+                      form.vehicle_type === value ? "text-[#008080]" : "text-[#86868b]"
+                    }`}>{label}</span>
+                  </button>
+                ))}
               </div>
             </div>
             <div className="flex gap-2 pt-1">
@@ -209,7 +235,7 @@ export default function Drivers() {
             return (
               <div key={driver.id} className="apple-card p-4 flex items-center gap-4 animate-fade-in" style={{ animationDelay: `${i * 40}ms` }}>
                 <div className="w-10 h-10 rounded-xl bg-[#f5f5f7] flex items-center justify-center shrink-0">
-                  <Truck size={17} className="text-[#86868b]" strokeWidth={1.8} />
+                  <VehicleIcon type={driver.vehicle_type} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
