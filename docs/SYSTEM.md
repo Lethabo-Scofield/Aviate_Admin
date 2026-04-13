@@ -1,8 +1,8 @@
-# Aviate Dispatch — System Documentation
+# Aiviate Dispatch — System Documentation
 
 ## Overview
 
-Aviate is a multi-tenant logistics dispatch SaaS platform for managing delivery routes, drivers, and stops. It provides route optimization, driver management, real-time delivery tracking, and interactive map visualization.
+Aiviate is a multi-tenant logistics dispatch SaaS platform for managing delivery routes, drivers, and stops. It provides route optimization, driver management, real-time delivery tracking, and interactive map visualization.
 
 ---
 

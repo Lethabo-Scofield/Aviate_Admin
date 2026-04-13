@@ -1,4 +1,4 @@
-# Aviate Dispatch System
+# Aiviate Dispatch System
 
 A multi-tenant logistics dispatch SaaS for managing delivery routes in Johannesburg.
 

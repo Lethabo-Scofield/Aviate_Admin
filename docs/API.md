@@ -1,4 +1,4 @@
-# Aviate Dispatch API Reference
+# Aiviate Dispatch API Reference
 
 Base URL: `/api`
 

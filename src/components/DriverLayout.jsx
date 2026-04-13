@@ -10,8 +10,8 @@ export default function DriverLayout() {
       <header className="bg-white/90 backdrop-blur-xl border-b border-black/[0.04] sticky top-0 z-50">
         <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="Aviate" className="w-7 h-7" />
-            <span className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight">Aviate</span>
+            <img src="/logo.png" alt="Aiviate" className="w-7 h-7" />
+            <span className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight">Aiviate</span>
           </div>
           <div className="flex items-center gap-3">
             <img src="/default-avatar.png" alt="Profile" className="w-8 h-8 rounded-full object-cover" />

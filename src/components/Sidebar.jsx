@@ -80,9 +80,9 @@ export default function Sidebar() {
       >
         <div className="px-5 pt-6 pb-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Aviate" className="w-9 h-9" />
+            <img src="/logo.png" alt="Aiviate" className="w-9 h-9" />
             <div>
-              <h1 className="text-[15px] font-bold text-[#1d1d1f] tracking-tight leading-tight">Aviate</h1>
+              <h1 className="text-[15px] font-bold text-[#1d1d1f] tracking-tight leading-tight">Aiviate</h1>
               <div className="flex items-center gap-1 mt-0.5">
                 <Building2 size={10} className="text-[#c7c7cc]" />
                 <p className="text-[11px] text-[#86868b] font-medium truncate max-w-[140px]">

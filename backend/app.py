@@ -29,7 +29,7 @@ def create_app():
 
     @app.route("/")
     def root():
-        return jsonify({"status": "ok", "service": "Aviate Dispatch API"})
+        return jsonify({"status": "ok", "service": "Aiviate Dispatch API"})
 
     return app
 
@@ -60,7 +60,7 @@ def _run_migrations():
 app = create_app()
 
 if __name__ == "__main__":
-    print("Aviate Dispatch API starting on port 8000")
+    print("Aiviate Dispatch API starting on port 8000")
     app.run(
         debug=os.environ.get("FLASK_DEBUG", "false").lower() == "true",
         host="0.0.0.0",

@@ -222,7 +222,7 @@ def _normalize_columns(df):
 
 
 def _geocode_stops(df):
-    geolocator = Nominatim(user_agent="aviate-dispatch-mvp", timeout=10)
+    geolocator = Nominatim(user_agent="aiviate-dispatch-mvp", timeout=10)
     stops_data = []
     failed = []
 

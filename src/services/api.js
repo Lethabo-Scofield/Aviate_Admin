@@ -2,7 +2,7 @@ const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 function getAuthHeaders(contentType) {
   const headers = {};
-  const token = localStorage.getItem("aviate_token");
+  const token = localStorage.getItem("aiviate_token");
   if (token) headers["Authorization"] = `Bearer ${token}`;
   if (contentType) headers["Content-Type"] = contentType;
   return headers;
@@ -10,8 +10,8 @@ function getAuthHeaders(contentType) {
 
 async function handleResponse(res) {
   if (res.status === 401) {
-    localStorage.removeItem("aviate_token");
-    localStorage.removeItem("aviate_user");
+    localStorage.removeItem("aiviate_token");
+    localStorage.removeItem("aiviate_user");
     window.location.replace("/login");
     throw new Error("Session expired");
   }
