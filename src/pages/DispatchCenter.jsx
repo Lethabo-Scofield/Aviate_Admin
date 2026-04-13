@@ -114,7 +114,7 @@ export default function DispatchCenter() {
               }`}>
                 {stepIndex > i ? "✓" : i + 1}
               </div>
-              <span className={`text-[13px] font-medium ${stepIndex === i ? "text-[#008080]" : "text-[#c7c7cc]"}`}>
+              <span className={`text-[13px] font-medium ${stepIndex >= i ? "text-[#3a3a3c]" : "text-[#c7c7cc]"}`}>
                 {label}
               </span>
             </div>
