@@ -6,3 +6,9 @@ id = "0tRmY-5nYeuwCbQmeHdZc"
 uri = "file://SYSTEM_DOCUMENTATION.md"
 type = "text"
 title = "Aviate Dispatch System — Full Documentation"
+
+[[outputs]]
+id = "zfX5ywp1uXKPqRJQtUtNp"
+uri = "file://docs/feature-specs.md"
+type = "text"
+title = "Aiviate Feature Specifications — Driver App & Email System"
