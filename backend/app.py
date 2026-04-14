@@ -12,10 +12,11 @@ from routes import auth_bp, jobs_bp, drivers_bp, stops_bp, optimization_bp, stat
 def create_app():
     app = Flask(__name__)
 
-    if ALLOWED_ORIGINS == "*":
-        CORS(app)
-    else:
-        CORS(app, origins=[o.strip() for o in ALLOWED_ORIGINS.split(",")])
+    cors_origins = "*" if ALLOWED_ORIGINS == "*" else [o.strip() for o in ALLOWED_ORIGINS.split(",")]
+    CORS(app,
+         origins=cors_origins,
+         allow_headers=["Content-Type", "Authorization"],
+         methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])
 
     init_db()
     _run_migrations()

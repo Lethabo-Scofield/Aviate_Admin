@@ -64,8 +64,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   const parseJSON = async (res) => {
+    if (res.status === 0 || res.type === "opaque") {
+      throw new Error("Unable to reach the server. Please check your connection.");
+    }
     const text = await res.text();
-    if (!text) throw new Error("Empty response from server");
+    if (!text) throw new Error("Empty response from server. The backend may be starting up — please try again.");
     try {
       return JSON.parse(text);
     } catch {
@@ -74,11 +77,16 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const res = await fetch(`${API_BASE}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    let res;
+    try {
+      res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+    } catch {
+      throw new Error("Cannot connect to server. Please check that the backend is running.");
+    }
     const data = await parseJSON(res);
     if (!res.ok) throw new Error(data.error || "Login failed");
     saveAuth(data.token, data.user);
@@ -86,11 +94,16 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (name, email, password, companyName) => {
-    const res = await fetch(`${API_BASE}/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, company_name: companyName }),
-    });
+    let res;
+    try {
+      res = await fetch(`${API_BASE}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, company_name: companyName }),
+      });
+    } catch {
+      throw new Error("Cannot connect to server. Please check that the backend is running.");
+    }
     const data = await parseJSON(res);
     if (!res.ok) throw new Error(data.error || "Registration failed");
     saveAuth(data.token, data.user);
