@@ -27,8 +27,8 @@ def create_app():
     app.register_blueprint(optimization_bp)
     app.register_blueprint(stats_bp)
 
-    @app.route("/")
-    def root():
+    @app.route("/api/health")
+    def health():
         return jsonify({"status": "ok", "service": "Aiviate Dispatch API"})
 
     return app
@@ -57,9 +57,8 @@ def _run_migrations():
         add_col_if_missing("users", "driver_id", "VARCHAR")
 
 
-app = create_app()
-
 if __name__ == "__main__":
+    app = create_app()
     print("Aiviate Dispatch API starting on port 8000")
     app.run(
         debug=os.environ.get("FLASK_DEBUG", "false").lower() == "true",
