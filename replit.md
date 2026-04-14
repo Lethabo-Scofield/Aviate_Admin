@@ -8,8 +8,20 @@ A multi-tenant logistics SaaS application for managing delivery routes, drivers,
 - **Backend** (`/backend`): Python Flask REST API, served on port 8000
 - **Database**: PostgreSQL via Neon (external)
 
-## Running the App
+## Deployment
 
+### Vercel (Production)
+The app deploys as a single Vercel project — frontend as static files and backend as a Python serverless function.
+
+- `vercel.json` — routing and build config
+- `api/index.py` — Vercel serverless entry point, wraps the Flask app
+- `requirements.txt` — Python dependencies for Vercel runtime
+- `/api/*` requests are routed to the Python serverless function
+- All other requests serve the React SPA
+
+Environment variables to set on Vercel: `NEON_DATABASE_URL`, `JWT_SECRET`
+
+### Local Development
 Two workflows run in parallel:
 - **Start application** — Vite dev server (port 5000), proxies `/api` requests to the backend
 - **Backend API** — Flask server (port 8000)
@@ -18,11 +30,11 @@ Two workflows run in parallel:
 
 - `backend/app.py` — Flask app factory, registers all blueprints, runs DB migrations
 - `backend/config.py` — Reads `NEON_DATABASE_URL`, `JWT_SECRET`, `ALLOWED_ORIGINS` from env
-- `backend/models.py` — SQLAlchemy models: Companies, Users, Drivers, Jobs, Stops
+- `backend/models.py` — SQLAlchemy models (NullPool for serverless compatibility): Companies, Users, Drivers, Jobs, Stops
 - `backend/routes/` — API blueprints: auth, jobs, drivers, stops, optimization, stats
 - `backend/optimize_route.py` — TSP route optimization using Google OR-Tools
 - `src/App.jsx` — React router: public (Login/Register) and protected routes
-- `src/services/api.js` — Centralized API client with JWT auth headers
+- `src/services/api.js` — Centralized API client with JWT auth headers, supports `VITE_API_URL` env var
 - `src/contexts/AuthContext.jsx` — Auth state and session persistence
 - `vite.config.js` — Vite config with proxy to backend and `allowedHosts: true`
 
@@ -37,4 +49,4 @@ Two workflows run in parallel:
 ## Dependencies
 
 - **Frontend**: React 19, Vite, Tailwind CSS, Leaflet/React-Leaflet, react-router-dom, papaparse, xlsx, lucide-react
-- **Backend**: Flask, Flask-CORS, SQLAlchemy, psycopg2-binary, ortools, numpy, pandas, geopy, PyJWT, bcrypt, gunicorn
+- **Backend**: Flask, Flask-CORS, SQLAlchemy, psycopg2-binary, ortools, numpy, pandas, geopy, PyJWT, bcrypt

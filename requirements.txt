@@ -1,0 +1,12 @@
+flask
+flask-cors
+pandas
+openpyxl
+ortools
+geopy
+numpy
+sqlalchemy
+psycopg2-binary
+requests
+PyJWT
+bcrypt

@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 NEON_DATABASE_URL = os.environ.get("NEON_DATABASE_URL")
 if not NEON_DATABASE_URL:
@@ -11,5 +12,5 @@ if not JWT_SECRET:
 
 ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*")
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
+UPLOAD_FOLDER = os.path.join(tempfile.gettempdir(), "aiviate_uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
