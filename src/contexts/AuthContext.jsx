@@ -4,6 +4,7 @@ const AuthContext = createContext(null);
 
 const TOKEN_KEY = "aiviate_token";
 const USER_KEY = "aiviate_user";
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -38,7 +39,7 @@ export function AuthProvider({ children }) {
       setLoading(false);
       return;
     }
-    fetch("/api/auth/me", {
+    fetch(`${API_BASE}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -73,7 +74,7 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(`${API_BASE}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -85,7 +86,7 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (name, email, password, companyName) => {
-    const res = await fetch("/api/auth/register", {
+    const res = await fetch(`${API_BASE}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password, company_name: companyName }),
