@@ -1,0 +1,9 @@
+node_modules
+.pythonlibs
+__pycache__
+.local
+.git
+.cache
+.config
+.upm
+*.pyc
