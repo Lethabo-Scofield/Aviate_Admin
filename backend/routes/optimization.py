@@ -1,9 +1,10 @@
 import os
+import csv
 import uuid
 import traceback
 import time as time_module
 
-import pandas as pd
+import openpyxl
 import requests as http_requests
 from flask import request, jsonify, g
 from geopy.geocoders import Nominatim
@@ -11,9 +12,116 @@ from geopy.geocoders import Nominatim
 from routes import optimization_bp
 from middleware import require_auth, require_admin
 from models import Stop, Job
-from optimize_route import geocode_address, build_distance_matrix, DEPOT
+from optimize_route import geocode_address, build_distance_matrix, solve_tsp, DEPOT
 from utils import cluster_stops, determine_area_name, load_test_stops, get_db_session
 from config import UPLOAD_FOLDER
+
+
+def _read_csv(filepath):
+    rows = []
+    with open(filepath, "r", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            rows.append(dict(row))
+    return rows
+
+
+def _read_excel(filepath):
+    wb = openpyxl.load_workbook(filepath, read_only=True, data_only=True)
+    ws = wb.active
+    rows_iter = ws.iter_rows(values_only=True)
+    headers = [str(h).strip() if h else f"col_{i}" for i, h in enumerate(next(rows_iter))]
+    rows = []
+    for row_vals in rows_iter:
+        row_dict = {}
+        for i, val in enumerate(row_vals):
+            if i < len(headers):
+                row_dict[headers[i]] = val if val is not None else ""
+        rows.append(row_dict)
+    wb.close()
+    return rows
+
+
+def _normalize_rows(rows):
+    if not rows:
+        raise ValueError("File is empty")
+
+    first_row_keys = list(rows[0].keys())
+    has_full_address = "Full_Address" in first_row_keys
+    has_address = any(k.lower() == "address" for k in first_row_keys)
+
+    if not has_full_address and not has_address:
+        raise ValueError(f"File must contain a 'Full_Address' or 'address' column. Found: {first_row_keys}")
+
+    if not has_full_address and has_address:
+        addr_col = next(k for k in first_row_keys if k.lower() == "address")
+        for row in rows:
+            row["Full_Address"] = row.pop(addr_col, "")
+
+    for i, row in enumerate(rows):
+        row.setdefault("Order_ID", f"ORD-{i+1:03d}")
+        row.setdefault("Customer_Name", f"Customer {i+1}")
+        row.setdefault("Demand", 1)
+        row.setdefault("Service_Time", 15)
+        row.setdefault("Phone", "")
+        row.setdefault("Notes", "")
+        row.setdefault("Time_Window_Start", "")
+        row.setdefault("Time_Window_End", "")
+
+    return rows
+
+
+def _safe_int(val, default):
+    if val is None or val == "":
+        return default
+    try:
+        return int(float(val))
+    except (ValueError, TypeError):
+        return default
+
+
+def _safe_str(val):
+    if val is None:
+        return ""
+    s = str(val).strip()
+    return "" if s.lower() == "nan" else s
+
+
+def _geocode_rows(rows):
+    geolocator = Nominatim(user_agent="aiviate-dispatch-mvp", timeout=10)
+    stops_data = []
+    failed = []
+
+    for idx, row in enumerate(rows):
+        addr = _safe_str(row.get("Full_Address", ""))
+        if not addr:
+            failed.append({"row": idx + 2, "address": addr, "reason": "Empty address"})
+            continue
+
+        lat, lng = geocode_address(addr, geolocator)
+
+        if lat == DEPOT["lat"] and lng == DEPOT["lng"]:
+            failed.append({"row": idx + 2, "address": addr, "reason": "Could not geocode"})
+            continue
+
+        stop_dict = {
+            "id": str(uuid.uuid4().hex[:8]),
+            "order_id": _safe_str(row.get("Order_ID", f"ORD-{idx+1:03d}")),
+            "customer_name": _safe_str(row.get("Customer_Name", f"Customer {idx+1}")),
+            "address": addr,
+            "lat": lat,
+            "lng": lng,
+            "demand": _safe_int(row.get("Demand"), 1),
+            "time_window_start": _safe_str(row.get("Time_Window_Start", "")),
+            "time_window_end": _safe_str(row.get("Time_Window_End", "")),
+            "service_time": _safe_int(row.get("Service_Time"), 15),
+            "phone": _safe_str(row.get("Phone", "")),
+            "notes": _safe_str(row.get("Notes", "")),
+        }
+        stops_data.append(stop_dict)
+        time_module.sleep(1.1)
+
+    return stops_data, failed
 
 
 @optimization_bp.route("/api/upload", methods=["POST"])
@@ -36,12 +144,12 @@ def upload_excel():
 
     try:
         if ext == "csv":
-            df = pd.read_csv(filepath)
+            rows = _read_csv(filepath)
         else:
-            df = pd.read_excel(filepath)
+            rows = _read_excel(filepath)
 
-        df = _normalize_columns(df)
-        stops_data, failed = _geocode_stops(df)
+        rows = _normalize_rows(rows)
+        stops_data, failed = _geocode_rows(rows)
 
         company_id = g.company_id
         db = get_db_session()
@@ -65,7 +173,7 @@ def upload_excel():
 
         return jsonify({
             "success": True,
-            "total_rows": len(df),
+            "total_rows": len(rows),
             "geocoded": len(stops_data),
             "failed": len(failed),
             "failed_details": failed,
@@ -195,69 +303,6 @@ def get_road_route():
         return jsonify({"success": False, "error": "Failed to fetch route"}), 500
 
 
-def _normalize_columns(df):
-    required_cols = ["Full_Address"]
-    if not all(col in df.columns for col in required_cols):
-        alt_check = "address" in [c.lower() for c in df.columns]
-        if not alt_check:
-            raise ValueError(f"Excel must contain a 'Full_Address' or 'address' column. Found: {df.columns.tolist()}")
-        addr_col = [c for c in df.columns if c.lower() == "address"][0]
-        df = df.rename(columns={addr_col: "Full_Address"})
-
-    defaults = {
-        "Order_ID": [f"ORD-{i+1:03d}" for i in range(len(df))],
-        "Customer_Name": [f"Customer {i+1}" for i in range(len(df))],
-        "Demand": 1,
-        "Service_Time": 15,
-        "Phone": "",
-        "Notes": "",
-        "Time_Window_Start": "",
-        "Time_Window_End": "",
-    }
-    for col, default in defaults.items():
-        if col not in df.columns:
-            df[col] = default
-
-    return df
-
-
-def _geocode_stops(df):
-    geolocator = Nominatim(user_agent="aiviate-dispatch-mvp", timeout=10)
-    stops_data = []
-    failed = []
-
-    for idx, row in df.iterrows():
-        addr = str(row["Full_Address"]).strip()
-        if not addr or addr == "nan":
-            failed.append({"row": idx + 2, "address": addr, "reason": "Empty address"})
-            continue
-
-        lat, lng = geocode_address(addr, geolocator)
-
-        if lat == DEPOT["lat"] and lng == DEPOT["lng"]:
-            failed.append({"row": idx + 2, "address": addr, "reason": "Could not geocode"})
-            continue
-
-        stop_dict = {
-            "id": str(uuid.uuid4().hex[:8]),
-            "order_id": str(row.get("Order_ID", f"ORD-{idx+1:03d}")),
-            "customer_name": str(row.get("Customer_Name", f"Customer {idx+1}")),
-            "address": addr,
-            "lat": lat,
-            "lng": lng,
-            "demand": int(row.get("Demand", 1)) if not pd.isna(row.get("Demand", 1)) else 1,
-            "time_window_start": str(row.get("Time_Window_Start", "")) if not pd.isna(row.get("Time_Window_Start", "")) else "",
-            "time_window_end": str(row.get("Time_Window_End", "")) if not pd.isna(row.get("Time_Window_End", "")) else "",
-            "service_time": int(row.get("Service_Time", 15)) if not pd.isna(row.get("Service_Time", 15)) else 15,
-            "phone": str(row.get("Phone", "")) if not pd.isna(row.get("Phone", "")) else "",
-            "notes": str(row.get("Notes", "")) if not pd.isna(row.get("Notes", "")) else "",
-        }
-        stops_data.append(stop_dict)
-        time_module.sleep(1.1)
-
-    return stops_data, failed
-
-
 def _clear_existing_jobs(db, company_id):
     old_jobs = db.query(Job).filter(Job.company_id == company_id).all()
     for oj in old_jobs:
@@ -292,7 +337,7 @@ def _create_jobs_from_clusters(db, clusters, company_id):
         locations = [(DEPOT["lat"], DEPOT["lng"])] + [(s["lat"], s["lng"]) for s in cluster]
         dist_matrix = build_distance_matrix(locations)
 
-        ordered_stops, total_dist = _solve_tsp(cluster, locations, dist_matrix)
+        ordered_stops, total_dist = _solve_tsp_local(cluster, locations, dist_matrix)
 
         area_name = determine_area_name(center_lat, center_lng)
         est_time = int(total_dist / 35 * 60) + sum(s.get("service_time", 15) for s in ordered_stops)
@@ -339,44 +384,14 @@ def _create_jobs_from_clusters(db, clusters, company_id):
     return jobs_created
 
 
-def _solve_tsp(cluster, locations, dist_matrix):
-    if len(cluster) > 2:
-        from ortools.constraint_solver import pywrapcp, routing_enums_pb2
+def _solve_tsp_local(cluster, locations, dist_matrix):
+    route, total_dist = solve_tsp(dist_matrix, start=0)
 
-        manager = pywrapcp.RoutingIndexManager(len(locations), 1, 0)
-        routing = pywrapcp.RoutingModel(manager)
+    ordered_stops = []
+    for node in route:
+        if node > 0:
+            ordered_stops.append(cluster[node - 1])
 
-        def distance_callback(from_index, to_index):
-            from_node = manager.IndexToNode(from_index)
-            to_node = manager.IndexToNode(to_index)
-            return int(dist_matrix[from_node][to_node] * 1000)
-
-        transit_cb = routing.RegisterTransitCallback(distance_callback)
-        routing.SetArcCostEvaluatorOfAllVehicles(transit_cb)
-
-        search_params = pywrapcp.DefaultRoutingSearchParameters()
-        search_params.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
-        search_params.time_limit.seconds = 10
-
-        solution = routing.SolveWithParameters(search_params)
-
-        if solution:
-            ordered_stops = []
-            index = routing.Start(0)
-            total_dist = 0
-            while not routing.IsEnd(index):
-                node = manager.IndexToNode(index)
-                if node > 0:
-                    ordered_stops.append(cluster[node - 1])
-                prev_index = index
-                index = solution.Value(routing.NextVar(index))
-                from_node = manager.IndexToNode(prev_index)
-                to_node = manager.IndexToNode(index) if not routing.IsEnd(index) else 0
-                total_dist += dist_matrix[from_node][to_node]
-            return ordered_stops, total_dist
-
-    ordered_stops = cluster
-    total_dist = sum(dist_matrix[0][i + 1] for i in range(len(cluster)))
     return ordered_stops, total_dist
 
 

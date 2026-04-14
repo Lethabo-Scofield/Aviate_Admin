@@ -1,9 +1,5 @@
-import pandas as pd
+from math import radians, sin, cos, sqrt, atan2
 from geopy.geocoders import Nominatim
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
-import numpy as np
-import time
 
 DEPOT = {"name": "Main Warehouse", "lat": -26.1234, "lng": 28.0456}
 
@@ -29,23 +25,81 @@ def geocode_address(address, geolocator):
     return DEPOT["lat"], DEPOT["lng"]
 
 
-def build_distance_matrix(locations):
-    def haversine(lat1, lon1, lat2, lon2):
-        from math import radians, sin, cos, sqrt, atan2
-        R = 6371
-        dlat = radians(lat2 - lat1)
-        dlon = radians(lon2 - lon1)
-        a = sin(dlat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon / 2) ** 2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        return R * c
+def _haversine(lat1, lon1, lat2, lon2):
+    R = 6371
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
 
+
+def build_distance_matrix(locations):
     n = len(locations)
-    matrix = np.zeros((n, n))
+    matrix = [[0.0] * n for _ in range(n)]
     for i in range(n):
-        for j in range(n):
-            if i != j:
-                matrix[i][j] = haversine(locations[i][0], locations[i][1], locations[j][0], locations[j][1])
+        for j in range(i + 1, n):
+            d = _haversine(locations[i][0], locations[i][1], locations[j][0], locations[j][1])
+            matrix[i][j] = d
+            matrix[j][i] = d
     return matrix
+
+
+def _nearest_neighbor_tsp(dist_matrix, start=0):
+    n = len(dist_matrix)
+    visited = [False] * n
+    visited[start] = True
+    route = [start]
+    total = 0.0
+    current = start
+
+    for _ in range(n - 1):
+        best_next = -1
+        best_dist = float("inf")
+        for j in range(n):
+            if not visited[j] and dist_matrix[current][j] < best_dist:
+                best_dist = dist_matrix[current][j]
+                best_next = j
+        if best_next == -1:
+            break
+        visited[best_next] = True
+        route.append(best_next)
+        total += best_dist
+        current = best_next
+
+    total += dist_matrix[current][start]
+    return route, total
+
+
+def _two_opt_improve(route, dist_matrix, max_iterations=1000):
+    n = len(route)
+    improved = True
+    iterations = 0
+
+    while improved and iterations < max_iterations:
+        improved = False
+        iterations += 1
+        for i in range(1, n - 1):
+            for j in range(i + 1, n):
+                d_old = dist_matrix[route[i - 1]][route[i]] + dist_matrix[route[j]][route[(j + 1) % n]]
+                d_new = dist_matrix[route[i - 1]][route[j]] + dist_matrix[route[i]][route[(j + 1) % n]]
+                if d_new < d_old:
+                    route[i:j + 1] = reversed(route[i:j + 1])
+                    improved = True
+
+    total = sum(dist_matrix[route[k]][route[(k + 1) % n]] for k in range(n))
+    return route, total
+
+
+def solve_tsp(dist_matrix, start=0):
+    if len(dist_matrix) <= 2:
+        route = list(range(len(dist_matrix)))
+        total = sum(dist_matrix[route[k]][route[(k + 1) % len(route)]] for k in range(len(route)))
+        return route, total
+
+    route, _ = _nearest_neighbor_tsp(dist_matrix, start)
+    route, total = _two_opt_improve(route, dist_matrix)
+    return route, total
 
 
 def optimize_route_from_data(stops, num_vehicles=1):
@@ -55,32 +109,11 @@ def optimize_route_from_data(stops, num_vehicles=1):
     locations = [(DEPOT["lat"], DEPOT["lng"])] + [(s["lat"], s["lng"]) for s in stops]
     dist_matrix = build_distance_matrix(locations)
 
-    manager = pywrapcp.RoutingIndexManager(len(locations), num_vehicles, 0)
-    routing = pywrapcp.RoutingModel(manager)
-
-    def distance_callback(from_index, to_index):
-        from_node = manager.IndexToNode(from_index)
-        to_node = manager.IndexToNode(to_index)
-        return int(dist_matrix[from_node][to_node] * 1000)
-
-    transit_cb = routing.RegisterTransitCallback(distance_callback)
-    routing.SetArcCostEvaluatorOfAllVehicles(transit_cb)
-
-    search_params = pywrapcp.DefaultRoutingSearchParameters()
-    search_params.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
-    search_params.time_limit.seconds = 10
-
-    solution = routing.SolveWithParameters(search_params)
-
-    if not solution:
-        return stops
+    route, _ = solve_tsp(dist_matrix, start=0)
 
     ordered = []
-    index = routing.Start(0)
-    while not routing.IsEnd(index):
-        node = manager.IndexToNode(index)
+    for node in route:
         if node > 0:
             ordered.append(stops[node - 1])
-        index = solution.Value(routing.NextVar(index))
 
     return ordered
