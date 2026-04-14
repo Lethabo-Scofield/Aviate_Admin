@@ -4,7 +4,7 @@ openpyxl
 geopy
 gunicorn
 sqlalchemy
-psycopg2-binary
+pg8000
 requests
 PyJWT
 bcrypt

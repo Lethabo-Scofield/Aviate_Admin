@@ -4,11 +4,30 @@ from sqlalchemy import create_engine, Column, String, Float, Integer, Boolean, D
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from sqlalchemy.pool import NullPool
 
+import ssl as _ssl
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
+
 DATABASE_URL = os.environ.get("NEON_DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("NEON_DATABASE_URL environment variable is not set")
 
-engine = create_engine(DATABASE_URL, poolclass=NullPool, pool_pre_ping=True)
+_parsed = urlparse(DATABASE_URL)
+_params = parse_qs(_parsed.query)
+_use_ssl = _params.pop("sslmode", [None])[0] in ("require", "verify-ca", "verify-full", None)
+_new_query = urlencode({k: v[0] for k, v in _params.items()})
+DATABASE_URL = urlunparse(_parsed._replace(
+    scheme="postgresql+pg8000",
+    query=_new_query,
+))
+
+_connect_args = {}
+if _use_ssl:
+    _ssl_ctx = _ssl.create_default_context()
+    _ssl_ctx.check_hostname = False
+    _ssl_ctx.verify_mode = _ssl.CERT_NONE
+    _connect_args["ssl_context"] = _ssl_ctx
+
+engine = create_engine(DATABASE_URL, poolclass=NullPool, pool_pre_ping=True, connect_args=_connect_args)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
