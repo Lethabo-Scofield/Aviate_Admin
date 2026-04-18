@@ -2,6 +2,7 @@ import uuid
 import traceback
 
 import bcrypt
+from services.email_service import send_email
 from flask import request, jsonify, g
 
 from routes import drivers_bp
@@ -79,6 +80,35 @@ def add_driver():
         result = driver.to_dict()
         result["generated_password"] = password
 
+        # Send beautiful welcome email with emojis
+        try:
+            subject = "🎉 Welcome to Aviate! Your Driver Account 🚚"
+            html = f"""
+                <div style='font-family: Arial, sans-serif; max-width: 480px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 24px; background: #f9f9f9;'>
+                    <h2 style='color: #2b7cff;'>Welcome, {name}! 👋</h2>
+                    <p style='font-size: 1.1em;'>
+                        Your driver account has been <b>successfully created</b>.<br>
+                        You can now log in to the <b>Aviate</b> app and start your journey with us!
+                    </p>
+                    <div style='background: #fff; border-radius: 6px; padding: 16px; margin: 18px 0; border: 1px solid #e0e0e0;'>
+                        <b>🚀 Login Details:</b><br>
+                        <b>Email:</b> {email}<br>
+                        <b>Password:</b> {password}
+                    </div>
+                    <p style='color: #555;'>
+                        Please <b>change your password</b> after logging in for the first time.<br>
+                        If you have any questions, reply to this email or contact your dispatcher.
+                    </p>
+                    <p style='margin-top: 24px; color: #2b7cff;'>
+                        Welcome aboard!<br>
+                        <b>The Aviate Team ✈️</b>
+                    </p>
+                </div>
+            """
+            send_email(email, subject, html)
+        except Exception as e:
+            print(f"Failed to send welcome email: {e}")
+
         return jsonify({"success": True, "driver": result}), 201
     except Exception:
         db.rollback()
@@ -137,11 +167,75 @@ def toggle_block_driver(driver_id):
         driver.blocked = not (driver.blocked or False)
         db.commit()
 
+        # Send block/unblock email with improved formatting and emojis
+        try:
+            if driver.blocked:
+                subject = "🚫 Aviate Account Blocked"
+                html = f"""
+                    <div style='font-family: Arial, sans-serif; max-width: 480px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 24px; background: #fff8f8;'>
+                        <h2 style='color: #d32f2f;'>Account Blocked 🚫</h2>
+                        <p>Dear {driver.name},</p>
+                        <p>Your driver account has been <b>blocked</b> and you no longer have access to the Aviate platform.<br>
+                        Please contact your administrator for more information.</p>
+                        <p style='color: #d32f2f; margin-top: 24px;'>Aviate Security Team 🔒</p>
+                    </div>
+                """
+            else:
+                subject = "✅ Aviate Account Unblocked"
+                html = f"""
+                    <div style='font-family: Arial, sans-serif; max-width: 480px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 24px; background: #f6fff6;'>
+                        <h2 style='color: #388e3c;'>Account Unblocked ✅</h2>
+                        <p>Dear {driver.name},</p>
+                        <p>Your driver account has been <b>unblocked</b> and your access to the Aviate platform has been restored.<br>
+                        You may now log in again and continue your work.</p>
+                        <p style='color: #388e3c; margin-top: 24px;'>Aviate Support Team 🛫</p>
+                    </div>
+                """
+            send_email(driver.email, subject, html)
+        except Exception as e:
+            print(f"Failed to send block/unblock email: {e}")
         return jsonify({"success": True, "blocked": driver.blocked, "driver": driver.to_dict()})
     except Exception:
         db.rollback()
         traceback.print_exc()
         return jsonify({"error": "Failed to update driver"}), 500
+    finally:
+        db.close()
+
+# Send notification email when driver is deleted
+@drivers_bp.route("/api/drivers/<driver_id>", methods=["DELETE"])
+@require_auth
+@require_admin
+def delete_driver(driver_id):
+    db = get_db_session()
+    try:
+        driver = db.query(Driver).filter(Driver.id == driver_id, Driver.company_id == g.company_id).first()
+        if not driver:
+            return jsonify({"error": "Driver not found"}), 404
+        email = driver.email
+        name = driver.name
+        db.delete(driver)
+        db.commit()
+        # Send account deletion email
+        try:
+            subject = "Account Deleted from Aviate"
+            html = f"""
+                <div style='font-family: Arial, sans-serif; max-width: 480px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 24px; background: #fff8f8;'>
+                    <h2 style='color: #d32f2f;'>Account Deleted</h2>
+                    <p>Dear {name},</p>
+                    <p>Your driver account has been <b>deleted</b> from the Aviate platform.<br>
+                    If you believe this was a mistake, please contact your administrator.</p>
+                    <p style='color: #d32f2f; margin-top: 24px;'>Aviate Team</p>
+                </div>
+            """
+            send_email(email, subject, html)
+        except Exception as e:
+            print(f"Failed to send deletion email: {e}")
+        return jsonify({"success": True, "message": "Driver deleted"})
+    except Exception:
+        db.rollback()
+        traceback.print_exc()
+        return jsonify({"error": "Failed to delete driver"}), 500
     finally:
         db.close()
 

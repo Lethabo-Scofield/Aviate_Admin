@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+load_dotenv()
 import os
 
 from flask import Flask, jsonify
@@ -27,6 +29,12 @@ def create_app():
     app.register_blueprint(stops_bp)
     app.register_blueprint(optimization_bp)
     app.register_blueprint(stats_bp)
+    # Register test email blueprint
+    try:
+        from routes.test_email import test_email_bp
+        app.register_blueprint(test_email_bp)
+    except Exception as e:
+        print(f"[DEBUG] Could not register test_email_bp: {e}")
 
     @app.route("/api/health")
     def health():
