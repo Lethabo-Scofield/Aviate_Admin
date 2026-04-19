@@ -87,9 +87,9 @@ def login():
         token = generate_token(user)
         return jsonify({"success": True, "token": token, "user": user.to_dict()})
 
-    except Exception as e:
+    except Exception:
         traceback.print_exc()
-        return jsonify({"error": "Login failed", "detail": f"{type(e).__name__}: {e}"}), 500
+        return jsonify({"error": "Login failed"}), 500
     finally:
         db.close()
 

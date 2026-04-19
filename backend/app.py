@@ -18,20 +18,8 @@ def create_app():
          allow_headers=["Content-Type", "Authorization"],
          methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])
 
-    if os.environ.get("RUN_DB_INIT", "true").lower() == "true":
-        try:
-            init_db()
-            _run_migrations()
-        except Exception as e:
-            import traceback as _tb
-            print(f"WARNING: DB init/migrations skipped due to error: {e}")
-            _tb.print_exc()
-
-    @app.errorhandler(Exception)
-    def _unhandled(e):
-        import traceback as _tb
-        _tb.print_exc()
-        return jsonify({"error": "Internal server error", "detail": str(e)}), 500
+    init_db()
+    _run_migrations()
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(jobs_bp)
