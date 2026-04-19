@@ -18,8 +18,11 @@ def create_app():
          allow_headers=["Content-Type", "Authorization"],
          methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])
 
-    init_db()
-    _run_migrations()
+    try:
+        init_db()
+        _run_migrations()
+    except Exception as e:
+        print(f"WARNING: DB init/migrations skipped at cold start: {type(e).__name__}: {e}")
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(jobs_bp)
