@@ -14,6 +14,7 @@ if not DATABASE_URL:
 _parsed = urlparse(DATABASE_URL)
 _params = parse_qs(_parsed.query)
 _use_ssl = _params.pop("sslmode", [None])[0] in ("require", "verify-ca", "verify-full", None)
+_params.pop("channel_binding", None)
 _new_query = urlencode({k: v[0] for k, v in _params.items()})
 DATABASE_URL = urlunparse(_parsed._replace(
     scheme="postgresql+pg8000",
