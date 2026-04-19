@@ -1,5 +1,6 @@
 flask
 flask-cors
+flask-sqlalchemy
 openpyxl
 geopy
 sqlalchemy
@@ -8,12 +9,3 @@ requests
 PyJWT
 bcrypt
 email_validator
-flask
-flask-sqlalchemy
-gunicorn
-psycopg2-binary
-email_validator
-flask
-flask-sqlalchemy
-gunicorn
-psycopg2-binary
