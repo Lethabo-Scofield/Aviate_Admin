@@ -58,9 +58,21 @@ See `.env.example`. Only `EXPO_PUBLIC_*` vars reach the client bundle.
 | Var | Purpose |
 |---|---|
 | `EXPO_PUBLIC_API_URL` | Base URL of the operational API, incl. `/api` |
+| `EXPO_PUBLIC_DEFAULT_DRIVER_EMAIL` | Optional login email prefill for internal/demo builds |
+| `EXPO_PUBLIC_DEFAULT_DRIVER_PASSWORD` | Optional password prefill for local-only testing; do not set for production builds |
 | `EXPO_PUBLIC_APP_SCHEME` | Deep-link scheme (must match `app.json` `expo.scheme`) |
 | `EXPO_PUBLIC_FEATURE_SAFETY_DEVICE` | Gate the safety-device integration (default off) |
 | `EXPO_PUBLIC_FEATURE_PUSH` | Gate push notifications (default off) |
+
+For the current internal Sipho test flow, `eas.json` prefills:
+
+```
+EXPO_PUBLIC_DEFAULT_DRIVER_EMAIL=sipho@gmail.com
+```
+
+Do not commit or ship `EXPO_PUBLIC_DEFAULT_DRIVER_PASSWORD` in production. If
+you need a private internal APK with the password prefilled, set it only in the
+local shell or in the private EAS build environment for that one build.
 
 ## Backend endpoints used
 

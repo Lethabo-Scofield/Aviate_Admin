@@ -7,6 +7,10 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://aiviate.olyxee.com/api",
+        "EXPO_PUBLIC_DEFAULT_DRIVER_EMAIL": "sipho@gmail.com"
+      },
       "android": {
         "buildType": "apk"
       }
@@ -15,7 +19,8 @@
       "distribution": "internal",
       "channel": "preview",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://aiviate.olyxee.com/api"
+        "EXPO_PUBLIC_API_URL": "https://aiviate.olyxee.com/api",
+        "EXPO_PUBLIC_DEFAULT_DRIVER_EMAIL": "sipho@gmail.com"
       },
       "android": {
         "buildType": "apk"
@@ -23,6 +28,10 @@
     },
     "production": {
       "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://aiviate.olyxee.com/api",
+        "EXPO_PUBLIC_DEFAULT_DRIVER_EMAIL": "sipho@gmail.com"
+      },
       "android": {
         "buildType": "app-bundle"
       },
