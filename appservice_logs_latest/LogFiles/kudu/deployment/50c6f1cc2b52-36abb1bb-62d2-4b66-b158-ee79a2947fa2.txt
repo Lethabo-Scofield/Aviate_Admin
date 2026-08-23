@@ -1,0 +1,145 @@
+2026-08-06T21:40:42  Fetching changes.
+2026-08-06T21:40:42    Starting  LocalZipHandler
+2026-08-06T21:40:42    Cleaning up temp folders from previous zip deployments and extracting pushed zip file /tmp/zipdeploy/c659cb5b-b359-4b27-9256-b6090e3119d3.zip (0.23 MB) to /tmp/zipdeploy/extracted
+2026-08-06T21:40:46  Updating submodules.
+2026-08-06T21:40:46  Preparing deployment for commit id '84079f5d-7'.
+2026-08-06T21:40:46  PreDeployment: context.CleanOutputPath False
+2026-08-06T21:40:46  PreDeployment: context.OutputPath /home/site/wwwroot
+2026-08-06T21:40:47  Repository path is /tmp/zipdeploy/extracted
+2026-08-06T21:40:47  Running oryx build...
+2026-08-06T21:40:47    Command: oryx build /tmp/zipdeploy/extracted -o /home/site/wwwroot --platform python --platform-version 3.11 -p virtualenv_name=antenv --log-file /tmp/build-debug.log  -i /tmp/8def4035febce8f --compress-destination-dir | tee /tmp/oryx-build.log
+2026-08-06T21:40:49    Operation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx
+2026-08-06T21:40:49    You can report issues at https://github.com/Microsoft/Oryx/issues
+2026-08-06T21:40:49    
+2026-08-06T21:40:49    Oryx Version: 0.2.20260513.1+5c94136d0d5c06204a00d688dc7aea902452e52c, Commit: 5c94136d0d5c06204a00d688dc7aea902452e52c, ReleaseTagName: 20260513.1
+2026-08-06T21:40:49    
+2026-08-06T21:40:49    Build Operation ID: 058c36c22585e89c
+2026-08-06T21:40:49    Repository Commit : 84079f5d-7c78-4311-8cb2-c7d730409916
+2026-08-06T21:40:50    OS Type           : bullseye
+2026-08-06T21:40:50    Image Type        : githubactions
+2026-08-06T21:40:50    
+2026-08-06T21:40:50    Primary SDK Storage URL: https://oryx-cdn.microsoft.io
+2026-08-06T21:40:50    Backup SDK Storage URL: 
+2026-08-06T21:40:50    ACR SDK Registry URL: (not set)
+2026-08-06T21:40:50    SDK provider status:
+2026-08-06T21:40:50      External ACR SDK provider: Enabled
+2026-08-06T21:40:50      External SDK provider: Enabled
+2026-08-06T21:40:50      Direct ACR SDK provider: Disabled
+2026-08-06T21:40:50      Blob SDK provider: Enabled
+2026-08-06T21:40:50    External ACR SDK provider is enabled. Only using user-specified platform: python
+2026-08-06T21:40:50    Detecting platforms...
+2026-08-06T21:41:00    External ACR provider resolved version '3.11.15' for python.
+2026-08-06T21:41:00    Version resolved using external ACR SDK provider.
+2026-08-06T21:41:00    Detected following platforms:
+2026-08-06T21:41:00      python: 3.11.15
+2026-08-06T21:41:01    Requesting SDK from ACR via external provider: python 3.11.15 (bullseye)
+2026-08-06T21:41:04    Successfully pulled SDK from ACR via external provider: python 3.11.15
+2026-08-06T21:41:04    SDK for 'python' version '3.11.15' fetched via external ACR provider.
+2026-08-06T21:41:04    Version '3.11.15' of platform 'python' is not installed. Generating script to install it...
+2026-08-06T21:41:05    
+2026-08-06T21:41:06    Using intermediate directory '/tmp/8def4035febce8f'.
+2026-08-06T21:41:06    
+2026-08-06T21:41:06    Copying files to the intermediate directory...
+2026-08-06T21:41:06    Copying files to intermediate directory done in 0 sec(s).
+2026-08-06T21:41:06    
+2026-08-06T21:41:06    Source directory     : /tmp/8def4035febce8f
+2026-08-06T21:41:06    Destination directory: /home/site/wwwroot
+2026-08-06T21:41:06    
+2026-08-06T21:41:06    Installing platform...
+2026-08-06T21:41:06    
+2026-08-06T21:41:06    Downloading and extracting 'python' version '3.11.15' to '/tmp/oryx/platforms/python/3.11.15'...
+2026-08-06T21:41:06    Detected image debian flavor: bullseye.
+2026-08-06T21:41:06    SDK binary download was skipped. Looking for cached tarball...
+2026-08-06T21:41:06    Found tarball at /var/OryxAcrSdks/python/python-bullseye-3.11.15.tar.gz
+2026-08-06T21:41:30    Successfully extracted python version 3.11.15 from cached tarball.
+2026-08-06T21:41:30    
+2026-08-06T21:41:30    image detector file exists, platform is python..
+2026-08-06T21:41:30    OS detector file exists, OS is bullseye..
+2026-08-06T21:41:30    Platform installation done in 24 sec(s).
+2026-08-06T21:41:30    Running build script snippets...
+2026-08-06T21:41:30    Python Version: /tmp/oryx/platforms/python/3.11.15/bin/python3.11
+2026-08-06T21:41:30    Creating directory for command manifest file if it does not exist
+2026-08-06T21:41:30    Removing existing manifest file
+2026-08-06T21:41:31    Python Virtual Environment: antenv
+2026-08-06T21:41:31    Creating virtual environment...
+2026-08-06T21:41:31    Executing: /tmp/oryx/platforms/python/3.11.15/bin/python3.11 -m venv antenv --copies --system-site-packages
+2026-08-06T21:41:52    Activating virtual environment...
+2026-08-06T21:41:52    Fast build is enabled
+2026-08-06T21:41:52    Installing uv...
+2026-08-06T21:41:56    Collecting uv
+2026-08-06T21:41:56      Downloading uv-0.12.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+2026-08-06T21:41:56    Downloading uv-0.12.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (22.3 MB)
+2026-08-06T21:41:58       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 6.8 MB/s eta 0:00:00
+2026-08-06T21:41:58    Installing collected packages: uv
+2026-08-06T21:42:01    Successfully installed uv-0.12.2
+2026-08-06T21:42:01    
+2026-08-06T21:42:01    [notice] A new release of pip is available: 24.0 -> 26.2.1
+2026-08-06T21:42:01    [notice] To update, run: pip install --upgrade pip
+2026-08-06T21:42:04    Running uv pip install...
+2026-08-06T21:42:35    Using Python 3.11.15 environment at: antenv
+2026-08-06T21:42:35    Resolved 29 packages in 1.95s
+2026-08-06T21:42:35    Downloading sqlalchemy (3.2MiB)
+2026-08-06T21:42:35     Downloaded sqlalchemy
+2026-08-06T21:42:35    Prepared 29 packages in 1.64s
+2026-08-06T21:42:35    Installed 29 packages in 185ms
+2026-08-06T21:42:35    Bytecode compiled 905 files in 25.72s
+2026-08-06T21:42:35     + asn1crypto==1.5.1
+2026-08-06T21:42:35     + bcrypt==5.0.0
+2026-08-06T21:42:35     + blinker==1.9.0
+2026-08-06T21:42:35     + certifi==2026.7.22
+2026-08-06T21:42:35     + charset-normalizer==3.4.9
+2026-08-06T21:42:35     + click==8.4.2
+2026-08-06T21:42:35     + et-xmlfile==2.0.0
+2026-08-06T21:42:35     + flask==3.1.3
+2026-08-06T21:42:35     + flask-cors==6.0.5
+2026-08-06T21:42:35     + geographiclib==2.1
+2026-08-06T21:42:35     + geopy==2.5.0
+2026-08-06T21:42:36     + greenlet==3.5.4
+2026-08-06T21:42:36     + gunicorn==26.0.0
+2026-08-06T21:42:36     + idna==3.18
+2026-08-06T21:42:36     + itsdangerous==2.2.0
+2026-08-06T21:42:36     + jinja2==3.1.6
+2026-08-06T21:42:36     + markupsafe==3.0.3
+2026-08-06T21:42:36     + openpyxl==3.1.5
+2026-08-06T21:42:36     + packaging==26.3
+2026-08-06T21:42:36     + pg8000==1.31.5
+2026-08-06T21:42:36     + pyjwt==2.13.0
+2026-08-06T21:42:36     + python-dateutil==2.9.0.post0
+2026-08-06T21:42:36     + requests==2.34.2
+2026-08-06T21:42:36     + scramp==1.4.16
+2026-08-06T21:42:36     + six==1.17.0
+2026-08-06T21:42:36     + sqlalchemy==2.0.51
+2026-08-06T21:42:36     + typing-extensions==4.16.0
+2026-08-06T21:42:36     + urllib3==2.7.0
+2026-08-06T21:42:36     + werkzeug==3.1.8
+2026-08-06T21:42:37    uv pip install done in 44 sec(s).
+2026-08-06T21:42:37    Not a vso image, so not writing build commands
+2026-08-06T21:42:37    
+2026-08-06T21:42:37    Copying 'requirements.txt' to destination directory...
+2026-08-06T21:42:37    Done copying requirements.txt to destination directory.
+2026-08-06T21:42:37    Build script snippets done in 65 sec(s).
+2026-08-06T21:42:37    Preparing output...
+2026-08-06T21:42:37    Compressing source directory directly to destination (optimized path)...
+2026-08-06T21:42:38    Using zstd for compression
+2026-08-06T21:42:45    Copied the compressed output to '/home/site/wwwroot'
+2026-08-06T21:42:45    Direct compression with zstd done in 10 sec(s).
+2026-08-06T21:42:45    
+2026-08-06T21:42:45    Removing existing manifest file
+2026-08-06T21:42:45    Creating a manifest file...
+2026-08-06T21:42:45    Manifest file created.
+2026-08-06T21:42:45    Copying .ostype to manifest output directory.
+2026-08-06T21:42:45    
+2026-08-06T21:42:45    Total execution done in 100 sec(s).
+2026-08-06T21:42:47  Running post deployment command(s)...
+2026-08-06T21:42:47  
+2026-08-06T21:42:47  Generating summary of Oryx build
+2026-08-06T21:42:47  Parsing the build logs
+2026-08-06T21:42:48  Found 0 issue(s)
+2026-08-06T21:42:48  
+2026-08-06T21:42:48  Build Summary :
+2026-08-06T21:42:48  ===============
+2026-08-06T21:42:48  Errors (0)
+2026-08-06T21:42:48  Warnings (0)
+2026-08-06T21:42:48  
+2026-08-06T21:42:49  Triggering container recycle for OneDeploy by adding/updating restartTrigger.txt to the site root path
+2026-08-06T21:42:49  Deployment successful. deployer = OneDeploy deploymentPath = OneDeploy

@@ -1,0 +1,101 @@
+========== New Cold Start Attempt (2026-08-20T19:05:42.7444603+00:00) ==========
+2026-08-20T19:05:42.7444603+00:00 ContainerStatus: State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-20T19:05:45.2489830+00:00 ContainerStatus: State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-20T19:05:45.2500442+00:00 ContainerStatus: Container start method called.
+2026-08-20T19:05:45.2523790+00:00 ContainerStatus: State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.4:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-20T19:05:45.2594553+00:00 ContainerStatus: Establishing network.
+2026-08-20T19:05:45.2602630+00:00 ContainerStatus: Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-20T19:05:45.8295507+00:00 ContainerStatus: Image appsvc/python:3.11_20260710.8.tuxprod is pulled from registry 10.1.0.4:13209
+2026-08-20T19:05:45.8296597+00:00 ContainerStatus: Container is starting.
+2026-08-20T19:05:45.8297313+00:00 ContainerStatus: State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-20T19:05:45.8297891+00:00 ContainerStatus: Establishing user namespace if not established already.
+2026-08-20T19:05:45.8298453+00:00 ContainerStatus: Establishing network if not established already.
+2026-08-20T19:05:45.8299472+00:00 ContainerStatus: Mounting volumes.
+2026-08-20T19:05:45.8301147+00:00 ContainerStatus: Nested mountpoint 
+2026-08-20T19:05:45.8690587+00:00 ContainerStatus: Nested mountpoint volatile/logs
+2026-08-20T19:05:45.9009055+00:00 ContainerStatus: Nested mountpoint 
+2026-08-20T19:05:45.9088930+00:00 ContainerStatus: Nested mountpoint 
+2026-08-20T19:05:46.0051307+00:00 ContainerStatus: Nested mountpoint 
+2026-08-20T19:05:46.1457504+00:00 ContainerStatus: Nested mountpoint 
+2026-08-20T19:05:46.5816065+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-20T19:05:46.5905401+00:00 ContainerStatus: Creating container.
+2026-08-20T19:05:46.5909516+00:00 ContainerStatus: Creating pipes for streaming container io.
+2026-08-20T19:05:46.5918114+00:00 ContainerStatus: Creating stdout named pipe at /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6307405+00:00 ContainerStatus: Successfully created stdout named pipe at: /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6310402+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af for reading in non-blocking mode.
+2026-08-20T19:05:46.6374151+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6376773+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6386525+00:00 ContainerStatus: Creating stderr named pipe at /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6389393+00:00 ContainerStatus: Successfully created stderr named pipe at: /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6393940+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca for reading in non-blocking mode.
+2026-08-20T19:05:46.6396069+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6396918+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6398209+00:00 ContainerStatus: Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-20T19:05:48.7438027+00:00 ContainerStatus: Starting container: ea4e5219f3b5_aviate-api.
+2026-08-20T19:05:48.9161335+00:00 ContainerStatus: Starting watchers and probes.
+2026-08-20T19:05:48.9187201+00:00 ContainerStatus: Starting metrics collection.
+2026-08-20T19:05:48.9189287+00:00 ContainerStatus: Container is running.
+2026-08-20T19:05:48.9196340+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-20T19:05:49.2137566+00:00 ContainerStatus: Container start method finished after 3963 ms.
+2026-08-20T19:05:49.2148709+00:00 ContainerStatus: State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-20T19:05:49.2149527+00:00 ContainerStatus: State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-20T19:05:49.9465493+00:00 ContainerStream:    _____                               
+2026-08-20T19:05:49.9877503+00:00 ContainerStream:   /  _  \ __________ _________   ____  
+2026-08-20T19:05:49.9877847+00:00 ContainerStream:  /  /_\  \\___   /  |  \_  __ \_/ __ \ 
+2026-08-20T19:05:49.9877909+00:00 ContainerStream: /    |    \/    /|  |  /|  | \/\  ___/ 
+2026-08-20T19:05:49.9878084+00:00 ContainerStream: \____|__  /_____ \____/ |__|    \___  >
+2026-08-20T19:05:49.9878328+00:00 ContainerStream:         \/      \/                  \/ 
+2026-08-20T19:05:49.9878470+00:00 ContainerStream: A P P   S E R V I C E   O N   L I N U X
+2026-08-20T19:05:49.9878574+00:00 ContainerStream: 
+2026-08-20T19:05:49.9878644+00:00 ContainerStream: Documentation     : https://aka.ms/webapp-linux
+2026-08-20T19:05:49.9878890+00:00 ContainerStream: Python quickstart : https://aka.ms/python-qs
+2026-08-20T19:05:49.9878942+00:00 ContainerStream: Python version    : 3.11.15
+2026-08-20T19:05:49.9879021+00:00 ContainerStream: Instance name     : lw0sdlwk0009AI
+2026-08-20T19:05:49.9879092+00:00 ContainerStream: Instance id       : f8f9256783c926223799dc593171fa3ef38a62fe018e98b19a09df27f9df439e
+2026-08-20T19:05:49.9879123+00:00 ContainerStream: 
+2026-08-20T19:05:49.9879233+00:00 ContainerStream: App port          : 8000
+2026-08-20T19:05:49.9965284+00:00 ContainerStream: Port selected by  : Default for this image
+2026-08-20T19:05:49.9965450+00:00 ContainerStream: (Learn more about the PORT appsetting https://aka.ms/webapp-python-settings)
+2026-08-20T19:05:49.9965495+00:00 ContainerStream: 
+2026-08-20T19:05:49.9965543+00:00 ContainerStream: Note: Any data outside '/home' is not persisted
+2026-08-20T19:05:49.9965577+00:00 ContainerStream: 
+2026-08-20T19:05:49.9965694+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-20T19:05:49.9965789+00:00 ContainerStream:  Run 'apphelp' for available commands and aliases.
+2026-08-20T19:05:49.9966305+00:00 ContainerStream:  Run 'install-nettools' to install networking utilities.
+2026-08-20T19:05:49.9966502+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-20T19:05:55.4353207+00:00 ContainerStream: Starting OpenBSD Secure Shell server: sshd.
+2026-08-20T19:05:55.4776488+00:00 ContainerStream: WEBSITES_INCLUDE_CLOUD_CERTS is not set to true.
+2026-08-20T19:05:55.6141945+00:00 ContainerStream: Updating certificates in /etc/ssl/certs...
+2026-08-20T19:06:41.5463669+00:00 ContainerStream: rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+2026-08-20T19:06:41.9947448+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_RSA_Root_CA_2022.pem
+2026-08-20T19:06:42.0155703+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_ECC_Root_CA_2022.pem
+2026-08-20T19:06:42.3112332+00:00 ContainerStream: 4 added, 0 removed; done.
+2026-08-20T19:06:42.3112997+00:00 ContainerStream: Running hooks in /etc/ca-certificates/update.d...
+2026-08-20T19:06:42.3735884+00:00 ContainerStream: done.
+2026-08-20T19:06:42.4207865+00:00 ContainerStream: CA certificates copied and updated successfully.
+2026-08-20T19:06:43.1437614+00:00 ContainerStream: Site's appCommandLine: gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+2026-08-20T19:06:44.5477665+00:00 ContainerStream: Starting periodic command scheduler: cron.
+2026-08-20T19:06:44.5986429+00:00 ContainerStream: Launching oryx with: create-script -appPath /home/site/wwwroot -output /opt/startup/startup.sh -virtualEnvName antenv -defaultApp /opt/defaultsite -userStartupCommand 'gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120'
+2026-08-20T19:06:45.9145402+00:00 ContainerStream: Found build manifest file at '/home/site/wwwroot/oryx-manifest.toml'. Deserializing it...
+2026-08-20T19:06:45.9612144+00:00 ContainerStream: Build Operation ID: 56c6d8461b5bcc1d
+2026-08-20T19:06:46.0414949+00:00 ContainerStream: Output is compressed. Extracting it...
+2026-08-20T19:06:46.0418751+00:00 ContainerStream: Oryx Version: 0.2.20260710.1, Commit: 079b5b6294eb97d462d8f96bfa3243e9b85251da, ReleaseTagName: 20260710.1
+2026-08-20T19:06:46.0595133+00:00 ContainerStream: Found zstd-compressed tarball.
+2026-08-20T19:06:46.0596163+00:00 ContainerStream: Extracting '/home/site/wwwroot/output.tar.zst' to directory '/tmp/8def4106a694675'...
+2026-08-20T19:06:46.0596378+00:00 ContainerStream: Using zstd for decompression of file: /home/site/wwwroot/output.tar.zst
+2026-08-20T19:07:09.8990384+00:00 ContainerStream: zstd tar Successfully extracted '/home/site/wwwroot/output.tar.zst' to '/tmp/8def4106a694675'
+2026-08-20T19:07:09.8990821+00:00 ContainerStream: App path is set to '/tmp/8def4106a694675'
+2026-08-20T19:07:10.0143899+00:00 ContainerStream: Writing output script to '/opt/startup/startup.sh'
+2026-08-20T19:07:11.0703760+00:00 ContainerStream: Using packages from virtual environment antenv located at /tmp/8def4106a694675/antenv.
+2026-08-20T19:07:11.0705043+00:00 ContainerStream: Updated PYTHONPATH to '/home/site/wwwroot:/opt/startup/app_logs:/tmp/8def4106a694675/antenv/lib/python3.11/site-packages'
+2026-08-20T19:07:12.8549513+00:00 ContainerStream: [2026-08-20 19:07:12 +0000] [1885] [INFO] Starting gunicorn 26.0.0
+2026-08-20T19:07:12.8561189+00:00 ContainerStream: [2026-08-20 19:07:12 +0000] [1885] [INFO] Listening at: http://0.0.0.0:8000 (1885)
+2026-08-20T19:07:12.8618433+00:00 ContainerStream: [2026-08-20 19:07:12 +0000] [1885] [INFO] Using worker: sync
+2026-08-20T19:07:12.8728947+00:00 ContainerStream: [2026-08-20 19:07:12 +0000] [1886] [INFO] Booting worker with pid: 1886
+2026-08-20T19:07:13.2966528+00:00 ContainerStream: [2026-08-20 19:07:13 +0000] [1885] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+2026-08-20T19:07:29.6796558+00:00 ContainerStatus: Site startup probe succeeded after 100.4637685 seconds.
+2026-08-20T19:07:29.9471674+00:00 ContainerStatus: State: Starting, Action: WarmUpProbeSucceeded, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site startup probe succeeded after 100.4637685 seconds., DetailsLevel: INFO
+2026-08-20T19:07:30.6450981+00:00 ContainerStatus: Site is running with deployment version: 325cb01d-f0a9-48b0-911f-a16e35444947
+2026-08-20T19:07:30.6452855+00:00 ContainerStatus: Site started.
+2026-08-20T19:07:30.6455114+00:00 ContainerStatus: State: Started, Action: None, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 08/20/2026 19:07:30 (UTC), DetailsLevel: INFO
+2026-08-20T19:07:30.6847032+00:00 ContainerStatus: Site is running with patch version PYTHON-3.11.15

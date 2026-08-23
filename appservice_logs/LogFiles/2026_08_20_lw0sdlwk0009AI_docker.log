@@ -1,0 +1,46 @@
+2026-08-20T19:05:42.7444603Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-20T19:05:45.2489830Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-20T19:05:45.2500442Z Container start method called.
+2026-08-20T19:05:45.2523790Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.4:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-20T19:05:45.2594553Z Establishing network.
+2026-08-20T19:05:45.2602630Z Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-20T19:05:45.8295507Z Image appsvc/python:3.11_20260710.8.tuxprod is pulled from registry 10.1.0.4:13209
+2026-08-20T19:05:45.8296597Z Container is starting.
+2026-08-20T19:05:45.8297313Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-20T19:05:45.8297891Z Establishing user namespace if not established already.
+2026-08-20T19:05:45.8298453Z Establishing network if not established already.
+2026-08-20T19:05:45.8299472Z Mounting volumes.
+2026-08-20T19:05:45.8301147Z Nested mountpoint 
+2026-08-20T19:05:45.8690587Z Nested mountpoint volatile/logs
+2026-08-20T19:05:45.9009055Z Nested mountpoint 
+2026-08-20T19:05:45.9088930Z Nested mountpoint 
+2026-08-20T19:05:46.0051307Z Nested mountpoint 
+2026-08-20T19:05:46.1457504Z Nested mountpoint 
+2026-08-20T19:05:46.5816065Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-20T19:05:46.5905401Z Creating container.
+2026-08-20T19:05:46.5909516Z Creating pipes for streaming container io.
+2026-08-20T19:05:46.5918114Z Creating stdout named pipe at /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6307405Z Successfully created stdout named pipe at: /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6310402Z Opening named pipe /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af for reading in non-blocking mode.
+2026-08-20T19:05:46.6374151Z Successfully opened named pipe: /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6376773Z Successfully removed non-blocking flag from /podr/container/pipe/ea4e5219f3b5_aviate-api/stdout_d96707226de24d3691f6374fa16d57af.
+2026-08-20T19:05:46.6386525Z Creating stderr named pipe at /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6389393Z Successfully created stderr named pipe at: /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6393940Z Opening named pipe /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca for reading in non-blocking mode.
+2026-08-20T19:05:46.6396069Z Successfully opened named pipe: /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6396918Z Successfully removed non-blocking flag from /podr/container/pipe/ea4e5219f3b5_aviate-api/stderr_168d72b2cd6841a8994f6df167327dca.
+2026-08-20T19:05:46.6398209Z Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-20T19:05:48.7438027Z Starting container: ea4e5219f3b5_aviate-api.
+2026-08-20T19:05:48.9161335Z Starting watchers and probes.
+2026-08-20T19:05:48.9187201Z Starting metrics collection.
+2026-08-20T19:05:48.9189287Z Container is running.
+2026-08-20T19:05:48.9196340Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-20T19:05:49.2137566Z Container start method finished after 3963 ms.
+2026-08-20T19:05:49.2148709Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-20T19:05:49.2149527Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-20T19:07:29.6796558Z Site startup probe succeeded after 100.4637685 seconds.
+2026-08-20T19:07:29.9471674Z State: Starting, Action: WarmUpProbeSucceeded, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site startup probe succeeded after 100.4637685 seconds., DetailsLevel: INFO
+2026-08-20T19:07:30.6450981Z Site is running with deployment version: 325cb01d-f0a9-48b0-911f-a16e35444947
+2026-08-20T19:07:30.6452855Z Site started.
+2026-08-20T19:07:30.6455114Z State: Started, Action: None, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 08/20/2026 19:07:30 (UTC), DetailsLevel: INFO
+2026-08-20T19:07:30.6847032Z Site is running with patch version PYTHON-3.11.15

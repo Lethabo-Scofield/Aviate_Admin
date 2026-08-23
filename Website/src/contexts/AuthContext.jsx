@@ -5,7 +5,18 @@ const AuthContext = createContext(null);
 const TOKEN_KEY = "aiviate_token";
 const USER_KEY = "aiviate_user";
 const LOCAL_DEMO_TOKEN = "local-demo-token";
-const API_BASE = import.meta.env.VITE_API_URL || "/api";
+const isLocalDevHost = (hostname) =>
+  hostname === "localhost" ||
+  hostname === "127.0.0.1" ||
+  hostname === "::1" ||
+  hostname.startsWith("10.") ||
+  hostname.startsWith("192.168.") ||
+  hostname.endsWith(".local");
+const RUNTIME_API_FALLBACK =
+  typeof window !== "undefined" && !isLocalDevHost(window.location.hostname)
+    ? "https://aviate-api.azurewebsites.net/api"
+    : "/api";
+const API_BASE = import.meta.env.VITE_API_URL || RUNTIME_API_FALLBACK;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -68,7 +79,15 @@ export function AuthProvider({ children }) {
       throw new Error("Unable to reach the server. Please check your connection.");
     }
     const text = await res.text();
-    if (!text) throw new Error("Empty response from server. The backend may be starting up — please try again.");
+    if (!text) {
+      if (!res.ok) {
+        if (res.status === 401) {
+          return { error: "Invalid email or password" };
+        }
+        return { error: `Request failed (${res.status})` };
+      }
+      throw new Error("Empty response from server. The backend may be starting up — please try again.");
+    }
     try {
       return JSON.parse(text);
     } catch {

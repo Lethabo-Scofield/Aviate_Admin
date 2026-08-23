@@ -1,0 +1,245 @@
+2026-08-23T17:57:56.0034762Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-23T17:57:58.8985963Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-23T17:57:58.9154998Z Container start method called.
+2026-08-23T17:57:58.9156595Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T17:57:58.9230704Z Establishing network.
+2026-08-23T17:57:58.9241006Z Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T17:57:59.3787290Z Container is starting.
+2026-08-23T17:57:59.3820203Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T17:57:59.3822633Z Establishing user namespace if not established already.
+2026-08-23T17:57:59.3856601Z Establishing network if not established already.
+2026-08-23T17:57:59.3857873Z Mounting volumes.
+2026-08-23T17:57:59.3955158Z Nested mountpoint 
+2026-08-23T17:57:59.4476996Z Nested mountpoint volatile/logs
+2026-08-23T17:57:59.5466697Z Nested mountpoint 
+2026-08-23T17:57:59.5791930Z Nested mountpoint 
+2026-08-23T17:57:59.6062238Z Nested mountpoint 
+2026-08-23T17:57:59.7027900Z Nested mountpoint 
+2026-08-23T17:58:00.2614713Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T17:58:00.2616855Z Creating container.
+2026-08-23T17:58:00.2798930Z Creating pipes for streaming container io.
+2026-08-23T17:58:00.2817260Z Creating stdout named pipe at /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.2989021Z Successfully created stdout named pipe at: /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.2996540Z Opening named pipe /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4 for reading in non-blocking mode.
+2026-08-23T17:58:00.2997922Z Successfully opened named pipe: /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.3104624Z Successfully removed non-blocking flag from /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.3285109Z Creating stderr named pipe at /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3286297Z Successfully created stderr named pipe at: /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3286801Z Opening named pipe /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba for reading in non-blocking mode.
+2026-08-23T17:58:00.3287956Z Successfully opened named pipe: /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3288466Z Successfully removed non-blocking flag from /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3303867Z Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T17:58:01.5549259Z Starting container: 3dc0fb537901_aviate-api.
+2026-08-23T17:58:01.7420675Z Starting watchers and probes.
+2026-08-23T17:58:01.7625171Z Starting metrics collection.
+2026-08-23T17:58:01.7698993Z Container is running.
+2026-08-23T17:58:01.7721691Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T17:58:02.1251292Z Container start method finished after 3209 ms.
+2026-08-23T17:58:02.1253373Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T17:58:02.1771475Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T17:58:53.1783126Z Container has finished running with exit code: 3.
+2026-08-23T17:58:53.2050572Z Container is terminating. Grace period: 5 seconds.
+2026-08-23T17:58:53.2490625Z Stop and delete container. Retry count = 0
+2026-08-23T17:58:53.2555833Z Stopping container: 3dc0fb537901_aviate-api.
+2026-08-23T17:58:53.5432747Z Deleting container: 3dc0fb537901_aviate-api. Retry count = 0
+2026-08-23T17:58:54.4142822Z Container spec TerminationMessagePolicy  path 
+2026-08-23T17:58:54.4324895Z Container is terminated. Total time elapsed: 1221 ms.
+2026-08-23T17:58:54.4340678Z Site container: aviate-api terminated during site startup.
+2026-08-23T17:58:54.4437262Z State: Stopping, Action: CancellingStartup, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.5525718Z Site startup probe failed after 52.1847387 seconds.
+2026-08-23T17:58:54.7864906Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.8160243Z Failed to start site. Revert by stopping site.
+2026-08-23T17:58:54.8543030Z State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.8762061Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.8786039Z Site: aviate-api stopped.
+2026-08-23T17:59:17.0498511Z State: Stopping, Action: StoppingSite, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 08/20/2026 19:07:30 (UTC), DetailsLevel: INFO
+2026-08-23T17:59:17.0589202Z State: Stopping, Action: StoppingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 08/20/2026 19:07:30 (UTC), DetailsLevel: INFO
+2026-08-23T17:59:17.0598548Z Container is terminating. Grace period: 5 seconds.
+2026-08-23T17:59:17.1480870Z Stop and delete container. Retry count = 0
+2026-08-23T17:59:17.1490643Z Stopping container: ea4e5219f3b5_aviate-api.
+2026-08-23T17:59:22.4145341Z Deleting container: ea4e5219f3b5_aviate-api. Retry count = 0
+2026-08-23T17:59:23.3593619Z Container spec TerminationMessagePolicy  path 
+2026-08-23T17:59:23.3668654Z Container is terminated. Total time elapsed: 6305 ms.
+2026-08-23T17:59:23.3679337Z Site: aviate-api stopped.
+2026-08-23T17:58:54.9190195Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:55.7549115Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:56.0527213Z State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T17:58:56.4935280Z State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T18:04:20.5923195Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T18:04:22.8277216Z State: Starting, Action: StartingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T18:04:22.8281187Z Container start method called.
+2026-08-23T18:04:22.8341640Z State: Starting, Action: PullingImage, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T18:04:22.8343214Z Establishing network.
+2026-08-23T18:04:22.8344616Z Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T18:04:23.3531230Z Container is starting.
+2026-08-23T18:04:23.3532585Z State: Starting, Action: MountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T18:04:23.3534480Z Establishing user namespace if not established already.
+2026-08-23T18:04:23.3535149Z Establishing network if not established already.
+2026-08-23T18:04:23.3536070Z Mounting volumes.
+2026-08-23T18:04:23.3537575Z Nested mountpoint 
+2026-08-23T18:04:23.4591579Z Nested mountpoint volatile/logs
+2026-08-23T18:04:23.4910000Z Nested mountpoint 
+2026-08-23T18:04:23.5193578Z Nested mountpoint 
+2026-08-23T18:04:23.5308047Z Nested mountpoint 
+2026-08-23T18:04:23.6200250Z Nested mountpoint 
+2026-08-23T18:04:24.5647321Z State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T18:04:24.5649160Z Creating container.
+2026-08-23T18:04:24.5655021Z Creating pipes for streaming container io.
+2026-08-23T18:04:24.5656327Z Creating stdout named pipe at /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.5679168Z Successfully created stdout named pipe at: /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.6427489Z Opening named pipe /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a for reading in non-blocking mode.
+2026-08-23T18:04:24.6433520Z Successfully opened named pipe: /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.6435602Z Successfully removed non-blocking flag from /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.6556036Z Creating stderr named pipe at /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6562034Z Successfully created stderr named pipe at: /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6563256Z Opening named pipe /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c for reading in non-blocking mode.
+2026-08-23T18:04:24.6648976Z Successfully opened named pipe: /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6737927Z Successfully removed non-blocking flag from /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6745575Z Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T18:04:26.3305202Z Starting container: 96a807e404ef_aviate-api.
+2026-08-23T18:04:26.6564357Z Starting watchers and probes.
+2026-08-23T18:04:26.6568374Z Starting metrics collection.
+2026-08-23T18:04:26.6569269Z Container is running.
+2026-08-23T18:04:26.6570542Z State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:04:27.1671769Z Container start method finished after 4278 ms.
+2026-08-23T18:04:27.3162494Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:04:27.3624951Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T18:05:07.2518427Z Container has finished running with exit code: 3.
+2026-08-23T18:05:07.2537331Z Container is terminating. Grace period: 5 seconds.
+2026-08-23T18:05:07.2727199Z Stop and delete container. Retry count = 0
+2026-08-23T18:05:07.2728180Z Stopping container: 96a807e404ef_aviate-api.
+2026-08-23T18:05:07.4402225Z Deleting container: 96a807e404ef_aviate-api. Retry count = 0
+2026-08-23T18:05:08.1007944Z Container spec TerminationMessagePolicy  path 
+2026-08-23T18:05:08.1022207Z Container is terminated. Total time elapsed: 831 ms.
+2026-08-23T18:05:08.1028128Z Site container: aviate-api terminated during site startup.
+2026-08-23T18:05:08.1407047Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.2023954Z Site startup probe failed after 40.8381004 seconds.
+2026-08-23T18:05:08.4518233Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.4710981Z Failed to start site. Revert by stopping site.
+2026-08-23T18:05:08.4732084Z State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.4993857Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.4994162Z Site: aviate-api stopped.
+2026-08-23T18:05:08.5188431Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:09.1931742Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:09.5272856Z Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:06:09
+2026-08-23T18:05:09.5275228Z State: Blocked, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:06:09, DetailsLevel: WARN
+2026-08-23T18:05:09.5650865Z State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:05:10.4344662Z State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:06:09.5328388Z Site: aviate-api is unblocked.
+2026-08-23T18:06:55.4253634Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:06:57.0085679Z State: Starting, Action: StartingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:06:57.0086672Z Container start method called.
+2026-08-23T18:06:57.0087104Z State: Starting, Action: PullingImage, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T18:06:57.0087911Z Establishing network.
+2026-08-23T18:06:57.0089012Z Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T18:06:57.3828691Z Container is starting.
+2026-08-23T18:06:57.3830007Z State: Starting, Action: MountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T18:06:57.3831106Z Establishing user namespace if not established already.
+2026-08-23T18:06:57.3831677Z Establishing network if not established already.
+2026-08-23T18:06:57.3832335Z Mounting volumes.
+2026-08-23T18:06:57.3834499Z Nested mountpoint 
+2026-08-23T18:06:57.4411666Z Nested mountpoint volatile/logs
+2026-08-23T18:06:57.5108329Z Nested mountpoint 
+2026-08-23T18:06:57.5114503Z Nested mountpoint 
+2026-08-23T18:06:57.5206520Z Nested mountpoint 
+2026-08-23T18:06:57.5325536Z Nested mountpoint 
+2026-08-23T18:06:58.2630801Z State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T18:06:58.3970878Z Creating container.
+2026-08-23T18:06:58.3985182Z Creating pipes for streaming container io.
+2026-08-23T18:06:58.3989166Z Creating stdout named pipe at /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.3998416Z Successfully created stdout named pipe at: /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.4000077Z Opening named pipe /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15 for reading in non-blocking mode.
+2026-08-23T18:06:58.4000899Z Successfully opened named pipe: /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.4001403Z Successfully removed non-blocking flag from /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.4254725Z Creating stderr named pipe at /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4272863Z Successfully created stderr named pipe at: /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4279160Z Opening named pipe /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad for reading in non-blocking mode.
+2026-08-23T18:06:58.4363364Z Successfully opened named pipe: /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4364411Z Successfully removed non-blocking flag from /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4365744Z Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T18:06:58.9892330Z Starting container: de105cb10f51_aviate-api.
+2026-08-23T18:06:59.0721664Z Starting watchers and probes.
+2026-08-23T18:06:59.0798662Z Starting metrics collection.
+2026-08-23T18:06:59.0810514Z Container is running.
+2026-08-23T18:06:59.0815681Z State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:06:59.3476818Z Container start method finished after 2338 ms.
+2026-08-23T18:06:59.3478794Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:06:59.3479154Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T18:07:53.4718215Z Container has finished running with exit code: 3.
+2026-08-23T18:07:53.4727099Z Container is terminating. Grace period: 5 seconds.
+2026-08-23T18:07:53.4814485Z Stop and delete container. Retry count = 0
+2026-08-23T18:07:53.4884781Z Stopping container: de105cb10f51_aviate-api.
+2026-08-23T18:07:53.6194951Z Deleting container: de105cb10f51_aviate-api. Retry count = 0
+2026-08-23T18:07:54.4293239Z Container spec TerminationMessagePolicy  path 
+2026-08-23T18:07:54.4362061Z Container is terminated. Total time elapsed: 956 ms.
+2026-08-23T18:07:54.4363894Z Site container: aviate-api terminated during site startup.
+2026-08-23T18:07:54.4618148Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.5180973Z Site startup probe failed after 55.169693 seconds.
+2026-08-23T18:07:54.6884307Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.7062897Z Failed to start site. Revert by stopping site.
+2026-08-23T18:07:54.7066860Z State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.7070566Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.7070889Z Site: aviate-api stopped.
+2026-08-23T18:07:54.7567348Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:55.2655640Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:55.6499986Z Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:08:55
+2026-08-23T18:07:55.6501212Z State: Blocked, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:07:55.6519133Z State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:07:55 (UTC), DetailsLevel: WARN
+2026-08-23T18:07:56.4094547Z State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:07:55 (UTC), DetailsLevel: WARN
+2026-08-23T18:08:41.7837424Z State: Blocked, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:08:41.7838379Z Start site prohibitted because the site is being blocked.
+2026-08-23T18:08:55.6483787Z Site: aviate-api is unblocked.
+2026-08-23T18:12:22.8752116Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:12:26.0361234Z State: Starting, Action: StartingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:12:26.0365316Z Container start method called.
+2026-08-23T18:12:26.0467670Z State: Starting, Action: PullingImage, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T18:12:26.0470281Z Establishing network.
+2026-08-23T18:12:26.0491886Z Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T18:12:26.8799718Z Container is starting.
+2026-08-23T18:12:26.8801468Z State: Starting, Action: MountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T18:12:26.8802904Z Establishing user namespace if not established already.
+2026-08-23T18:12:26.8803577Z Establishing network if not established already.
+2026-08-23T18:12:26.8804960Z Mounting volumes.
+2026-08-23T18:12:26.8885101Z Nested mountpoint 
+2026-08-23T18:12:26.9273368Z Nested mountpoint volatile/logs
+2026-08-23T18:12:26.9566477Z Nested mountpoint 
+2026-08-23T18:12:26.9599489Z Nested mountpoint 
+2026-08-23T18:12:27.0392564Z Nested mountpoint 
+2026-08-23T18:12:27.1381179Z Nested mountpoint 
+2026-08-23T18:12:28.1458748Z State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T18:12:28.1460663Z Creating container.
+2026-08-23T18:12:28.1623940Z Creating pipes for streaming container io.
+2026-08-23T18:12:28.1626666Z Creating stdout named pipe at /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.1651967Z Successfully created stdout named pipe at: /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.1653566Z Opening named pipe /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f for reading in non-blocking mode.
+2026-08-23T18:12:28.1654749Z Successfully opened named pipe: /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.1655701Z Successfully removed non-blocking flag from /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.2238829Z Creating stderr named pipe at /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2240766Z Successfully created stderr named pipe at: /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2241738Z Opening named pipe /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b for reading in non-blocking mode.
+2026-08-23T18:12:28.2242828Z Successfully opened named pipe: /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2243701Z Successfully removed non-blocking flag from /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2514262Z Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T18:12:29.1701958Z Starting container: 64b8ac8a7371_aviate-api.
+2026-08-23T18:12:29.2729190Z Starting watchers and probes.
+2026-08-23T18:12:29.2820715Z Starting metrics collection.
+2026-08-23T18:12:29.2843037Z Container is running.
+2026-08-23T18:12:29.2855933Z State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:12:29.5602074Z Container start method finished after 3523 ms.
+2026-08-23T18:12:29.5604377Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:12:29.5605013Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T18:13:09.4786739Z Container has finished running with exit code: 3.
+2026-08-23T18:13:09.4794468Z Container is terminating. Grace period: 5 seconds.
+2026-08-23T18:13:09.5079336Z Stop and delete container. Retry count = 0
+2026-08-23T18:13:09.5083852Z Stopping container: 64b8ac8a7371_aviate-api.
+2026-08-23T18:13:09.6181434Z Deleting container: 64b8ac8a7371_aviate-api. Retry count = 0
+2026-08-23T18:13:10.9808987Z Container spec TerminationMessagePolicy  path 
+2026-08-23T18:13:10.9999115Z Container is terminated. Total time elapsed: 1519 ms.
+2026-08-23T18:13:11.0007951Z Site container: aviate-api terminated during site startup.
+2026-08-23T18:13:11.0198535Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.1465722Z Site startup probe failed after 41.4836647 seconds.
+2026-08-23T18:13:11.4913242Z State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:13:11, LastErrorDetails: Container exited with exit code 3 during startup after 41.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.5400300Z Failed to start site. Revert by stopping site.
+2026-08-23T18:13:11.5406115Z State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:13:11, LastErrorDetails: Container exited with exit code 3 during startup after 41.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.5412618Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:13:11, LastErrorDetails: Container exited with exit code 3 during startup after 41.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.5412822Z Site: aviate-api stopped.

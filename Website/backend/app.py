@@ -1,4 +1,11 @@
 import os
+import sys
+
+# Ensure local modules (routes, models, config) resolve from this deployment
+# package first on App Service, not from stale paths in /home/site/wwwroot.
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+if APP_DIR not in sys.path:
+    sys.path.insert(0, APP_DIR)
 
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -10,8 +17,12 @@ from routes import (
     auth_bp, jobs_bp, drivers_bp, stops_bp, optimization_bp, stats_bp,
     safety_bp, devices_bp, alerts_bp, liveops_bp, intelligence_bp, agents_bp,
     autopilot_bp, engine_bp, orders_bp, support_bp,
-    public_bp,
 )
+
+try:
+    from routes import public_bp
+except ImportError:
+    public_bp = None
 
 
 def create_app():
@@ -52,7 +63,8 @@ def create_app():
     app.register_blueprint(engine_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(support_bp)
-    app.register_blueprint(public_bp)
+    if public_bp is not None:
+        app.register_blueprint(public_bp)
 
     @app.route("/api/health")
     def health():

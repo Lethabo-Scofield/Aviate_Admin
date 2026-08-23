@@ -1,0 +1,1112 @@
+2026-08-06T21:23:36  Fetching changes.
+2026-08-06T21:23:36    Starting  LocalZipHandler
+2026-08-06T21:23:36    Cleaning up temp folders from previous zip deployments and extracting pushed zip file /tmp/zipdeploy/78f2ea5c-0045-4979-a3f4-06e72ac5d97d.zip (0.11 MB) to /tmp/zipdeploy/extracted
+2026-08-06T21:23:40  Updating submodules.
+2026-08-06T21:23:40  Preparing deployment for commit id 'ef60c0fe-7'.
+2026-08-06T21:23:41  PreDeployment: context.CleanOutputPath False
+2026-08-06T21:23:41  PreDeployment: context.OutputPath /home/site/wwwroot
+2026-08-06T21:23:41  Running build. Project type: OneDeploy
+2026-08-06T21:23:41  Copying the manifest
+2026-08-06T21:23:42  Running deployment command...
+2026-08-06T21:23:42    Command: /opt/Kudu/Scripts/parallel_rsync.sh /tmp/zipdeploy/extracted /home/site/wwwroot 8 /tmp/ False False  
+2026-08-06T21:23:43    Run rsync from: /tmp/zipdeploy/extracted/ to: /home/site/wwwroot/ in 8 parallel threads
+2026-08-06T21:23:43    Delete options: clean=False, use manifest=False, directory to ignore=
+2026-08-06T21:23:43    Prev manifest = /opt/Kudu/Scripts/firstDeploymentManifest and next /home/site/deployments/ef60c0fe-7773-4079-a730-5b2f4a00137d/manifest
+2026-08-06T21:23:43    Cleaning up /tmp//filelist.txt and /tmp//splits
+2026-08-06T21:23:43    Creating a list of all files at /tmp//filelist.txt
+2026-08-06T21:23:43    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+2026-08-06T21:23:43    No directory to exclude.
+2026-08-06T21:23:43    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+2026-08-06T21:23:43    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+2026-08-06T21:23:44    Created batches from the list of files. Processing 9 files in each thread
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.ab from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.aa from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.ad from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.af from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.ae from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.ah from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+2026-08-06T21:23:44    Running rsync for filelist /tmp//splits/split.ag from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+2026-08-06T21:23:44    
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+2026-08-06T21:23:44    
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+2026-08-06T21:23:44    Number of files: 9 (reg: 9)
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+2026-08-06T21:23:44    Number of created files: 0
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+2026-08-06T21:23:44    Number of regular files transferred: 0
+2026-08-06T21:23:44    Total file size: 76.33K bytes
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:44    Total transferred file size: 0 bytes
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+2026-08-06T21:23:44    Literal data: 0 bytes
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+2026-08-06T21:23:44    Matched data: 0 bytes
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+2026-08-06T21:23:44    File list size: 0
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+2026-08-06T21:23:44    File list generation time: 0.001 seconds
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+2026-08-06T21:23:44    File list transfer time: 0.000 seconds
+2026-08-06T21:23:44    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:44    Total bytes sent: 335
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+2026-08-06T21:23:45    Total bytes received: 12
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+2026-08-06T21:23:45    
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+2026-08-06T21:23:45    sent 335 bytes  received 12 bytes  694.00 bytes/sec
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:45    total size is 76.33K  speedup is 219.97
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+2026-08-06T21:23:45    Attempt 1: Rsync for filelist /tmp//splits/split.af completed with exit code 23
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+2026-08-06T21:23:45    Number of files: 9 (reg: 9)
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+2026-08-06T21:23:45    Number of created files: 0
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+2026-08-06T21:23:45    Number of deleted files: 0
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+2026-08-06T21:23:45    Number of regular files transferred: 0
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+2026-08-06T21:23:45    Total file size: 23.77K bytes
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+2026-08-06T21:23:45    Total transferred file size: 0 bytes
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+2026-08-06T21:23:45    Literal data: 0 bytes
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:45    Matched data: 0 bytes
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+2026-08-06T21:23:45    File list size: 0
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+2026-08-06T21:23:45    File list generation time: 0.001 seconds
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+2026-08-06T21:23:45    File list transfer time: 0.000 seconds
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+2026-08-06T21:23:45    Total bytes sent: 354
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+2026-08-06T21:23:45    Total bytes received: 12
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+2026-08-06T21:23:45    
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+2026-08-06T21:23:45    sent 354 bytes  received 12 bytes  732.00 bytes/sec
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+2026-08-06T21:23:45    total size is 23.77K  speedup is 64.94
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+2026-08-06T21:23:45    Attempt 1: Rsync for filelist /tmp//splits/split.ag completed with exit code 23
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+2026-08-06T21:23:45    
+2026-08-06T21:23:45    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+2026-08-06T21:23:45    Number of files: 9 (reg: 9)
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+2026-08-06T21:23:46    Number of created files: 1 (reg: 1)
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+2026-08-06T21:23:46    Number of deleted files: 0
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+2026-08-06T21:23:46    Number of regular files transferred: 1
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+2026-08-06T21:23:46    Total file size: 75.49K bytes
+tor: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+2026-08-06T21:23:46    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:46    Total transferred file size: 15.18K bytes
+2026-08-06T21:23:46    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:46    Literal data: 15.18K bytes
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+2026-08-06T21:23:46    Matched data: 0 bytes
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:46    File list size: 0
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+2026-08-06T21:23:46    File list generation time: 0.088 seconds
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+2026-08-06T21:23:46    File list transfer time: 0.000 seconds
+2026-08-06T21:23:46    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+2026-08-06T21:23:47    Total bytes sent: 3.70K
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+2026-08-06T21:23:47    Total bytes received: 31
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+2026-08-06T21:23:47    sent 3.70K bytes  received 31 bytes  2.49K bytes/sec
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+2026-08-06T21:23:47    Attempt 1: Rsync for filelist /tmp//splits/split.ac completed with exit code 23
+2026-08-06T21:23:47    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:47    
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:47    Number of files: 9 (reg: 9)
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+2026-08-06T21:23:47    Number of created files: 1 (reg: 1)
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+2026-08-06T21:23:47    Number of deleted files: 0
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+2026-08-06T21:23:47    Number of regular files transferred: 1
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+2026-08-06T21:23:47    Total file size: 52.55K bytes
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+2026-08-06T21:23:47    Total transferred file size: 2.15K bytes
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+2026-08-06T21:23:47    Literal data: 2.15K bytes
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+2026-08-06T21:23:47    Matched data: 0 bytes
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:47    File list size: 0
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+2026-08-06T21:23:47    File list generation time: 0.009 seconds
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+2026-08-06T21:23:47    File list transfer time: 0.000 seconds
+2026-08-06T21:23:47    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+2026-08-06T21:23:48    Total bytes sent: 1.32K
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+2026-08-06T21:23:48    Total bytes received: 31
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+2026-08-06T21:23:48    
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+2026-08-06T21:23:48    sent 1.32K bytes  received 31 bytes  903.33 bytes/sec
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+2026-08-06T21:23:48    total size is 52.55K  speedup is 38.78
+2026-08-06T21:23:48    Attempt 1: Rsync for filelist /tmp//splits/split.ad completed with exit code 23
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+2026-08-06T21:23:48    
+2026-08-06T21:23:48    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:48    Number of files: 9 (reg: 9)
+2026-08-06T21:23:48    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:48    Number of created files: 0
+2026-08-06T21:23:48    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:48    Number of deleted files: 0
+2026-08-06T21:23:48    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:48    Number of regular files transferred: 0
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+2026-08-06T21:23:48    Total file size: 76.33K bytes
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+2026-08-06T21:23:48    Literal data: 0 bytes
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+2026-08-06T21:23:48    Matched data: 0 bytes
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+2026-08-06T21:23:48    File list size: 0
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:48    File list generation time: 0.018 seconds
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+2026-08-06T21:23:48    File list transfer time: 0.000 seconds
+2026-08-06T21:23:48    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+2026-08-06T21:23:49    Total bytes sent: 335
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    Total bytes received: 12
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+2026-08-06T21:23:49    sent 335 bytes  received 12 bytes  694.00 bytes/sec
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+2026-08-06T21:23:49    total size is 76.33K  speedup is 219.97
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    Attempt 2: Rsync for filelist /tmp//splits/split.af completed with exit code 23
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:49    Number of files: 9 (reg: 9)
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+2026-08-06T21:23:49    Number of created files: 0
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+2026-08-06T21:23:49    Number of deleted files: 0
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+2026-08-06T21:23:49    Number of regular files transferred: 0
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+2026-08-06T21:23:49    Total file size: 23.77K bytes
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+2026-08-06T21:23:49    Total transferred file size: 0 bytes
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    Literal data: 0 bytes
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    Matched data: 0 bytes
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+2026-08-06T21:23:49    File list size: 0
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+2026-08-06T21:23:49    File list generation time: 0.038 seconds
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+2026-08-06T21:23:49    File list transfer time: 0.000 seconds
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+2026-08-06T21:23:49    Total bytes sent: 354
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+2026-08-06T21:23:49    Total bytes received: 12
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+2026-08-06T21:23:49    
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    sent 354 bytes  received 12 bytes  732.00 bytes/sec
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+2026-08-06T21:23:49    total size is 23.77K  speedup is 64.94
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+2026-08-06T21:23:49    
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+2026-08-06T21:23:49    Number of files: 9 (reg: 9)
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+2026-08-06T21:23:49    Number of created files: 0
+2026-08-06T21:23:49    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+2026-08-06T21:23:49    Number of deleted files: 0
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    Number of regular files transferred: 0
+2026-08-06T21:23:49    rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+2026-08-06T21:23:49    Total file size: 75.49K bytes
+2026-08-06T21:23:49    Total transferred file size: 0 bytes
+2026-08-06T21:23:49    Literal data: 0 bytes
+2026-08-06T21:23:49    Matched data: 0 bytes
+2026-08-06T21:23:49    File list size: 0
+2026-08-06T21:23:49    File list generation time: 0.001 seconds
+2026-08-06T21:23:49    File list transfer time: 0.000 seconds
+2026-08-06T21:23:49    Total bytes sent: 323
+2026-08-06T21:23:49    Total bytes received: 15
+2026-08-06T21:23:49    
+2026-08-06T21:23:49    sent 323 bytes  received 15 bytes  676.00 bytes/sec
+2026-08-06T21:23:49    total size is 75.49K  speedup is 223.34
+2026-08-06T21:23:50    Attempt 2: Rsync for filelist /tmp//splits/split.ac completed with exit code 23
+2026-08-06T21:23:50    Attempt 2: Rsync for filelist /tmp//splits/split.ag completed with exit code 23
+2026-08-06T21:23:50    
+2026-08-06T21:23:50    Number of files: 3 (reg: 3)
+2026-08-06T21:23:50    Number of created files: 1 (reg: 1)
+2026-08-06T21:23:50    Number of deleted files: 0
+2026-08-06T21:23:50    Number of regular files transferred: 1
+2026-08-06T21:23:50    Total file size: 11.57K bytes
+2026-08-06T21:23:50    Total transferred file size: 3.71K bytes
+2026-08-06T21:23:50    Literal data: 3.71K bytes
+2026-08-06T21:23:50    Matched data: 0 bytes
+2026-08-06T21:23:50    File list size: 0
+2026-08-06T21:23:50    File list generation time: 0.001 seconds
+2026-08-06T21:23:50    File list transfer time: 0.000 seconds
+2026-08-06T21:23:50    Total bytes sent: 1.67K
+2026-08-06T21:23:50    Total bytes received: 35
+2026-08-06T21:23:50    
+2026-08-06T21:23:50    sent 1.67K bytes  received 35 bytes  3.42K bytes/sec
+2026-08-06T21:23:50    total size is 11.57K  speedup is 6.77
+2026-08-06T21:23:50    Attempt 1: Rsync for filelist /tmp//splits/split.ah completed with exit code 23
+2026-08-06T21:23:50    
+2026-08-06T21:23:50    Number of files: 9 (reg: 9)
+2026-08-06T21:23:50    Number of created files: 0
+2026-08-06T21:23:50    Number of deleted files: 0
+2026-08-06T21:23:50    Number of regular files transferred: 0
+2026-08-06T21:23:50    Total file size: 52.55K bytes
+2026-08-06T21:23:50    Total transferred file size: 0 bytes
+2026-08-06T21:23:50    Literal data: 0 bytes
+2026-08-06T21:23:50    Matched data: 0 bytes
+2026-08-06T21:23:50    File list size: 0
+2026-08-06T21:23:50    File list generation time: 0.010 seconds
+2026-08-06T21:23:50    File list transfer time: 0.000 seconds
+2026-08-06T21:23:50    Total bytes sent: 359
+2026-08-06T21:23:50    Total bytes received: 15
+2026-08-06T21:23:50    
+2026-08-06T21:23:50    sent 359 bytes  received 15 bytes  748.00 bytes/sec
+2026-08-06T21:23:50    total size is 52.55K  speedup is 140.50
+2026-08-06T21:23:50    Attempt 2: Rsync for filelist /tmp//splits/split.ad completed with exit code 23
+2026-08-06T21:23:50    
+2026-08-06T21:23:50    Number of files: 3 (reg: 3)
+2026-08-06T21:23:50    Number of created files: 0
+2026-08-06T21:23:51    Number of deleted files: 0
+2026-08-06T21:23:51    Number of regular files transferred: 0
+2026-08-06T21:23:51    Total file size: 11.57K bytes
+2026-08-06T21:23:51    Total transferred file size: 0 bytes
+2026-08-06T21:23:51    Literal data: 0 bytes
+2026-08-06T21:23:51    Matched data: 0 bytes
+2026-08-06T21:23:51    File list size: 0
+2026-08-06T21:23:51    File list generation time: 0.008 seconds
+2026-08-06T21:23:51    File list transfer time: 0.000 seconds
+2026-08-06T21:23:51    Total bytes sent: 166
+2026-08-06T21:23:51    Total bytes received: 19
+2026-08-06T21:23:51    
+2026-08-06T21:23:51    sent 166 bytes  received 19 bytes  370.00 bytes/sec
+2026-08-06T21:23:51    total size is 11.57K  speedup is 62.55
+2026-08-06T21:23:51    Attempt 2: Rsync for filelist /tmp//splits/split.ah completed with exit code 23
+2026-08-06T21:23:51    
+2026-08-06T21:23:51    Number of files: 9 (reg: 9)
+2026-08-06T21:23:51    Number of created files: 3 (reg: 3)
+2026-08-06T21:23:51    Number of deleted files: 0
+2026-08-06T21:23:51    Number of regular files transferred: 3
+2026-08-06T21:23:51    Total file size: 48.28K bytes
+2026-08-06T21:23:51    Total transferred file size: 6.44K bytes
+2026-08-06T21:23:51    Literal data: 6.44K bytes
+2026-08-06T21:23:51    Matched data: 0 bytes
+2026-08-06T21:23:51    File list size: 0
+2026-08-06T21:23:51    File list generation time: 0.001 seconds
+2026-08-06T21:23:51    File list transfer time: 0.000 seconds
+2026-08-06T21:23:52    Total bytes sent: 2.75K
+2026-08-06T21:23:52    Total bytes received: 69
+2026-08-06T21:23:52    
+2026-08-06T21:23:52    sent 2.75K bytes  received 69 bytes  1.13K bytes/sec
+2026-08-06T21:23:52    total size is 48.28K  speedup is 17.10
+2026-08-06T21:23:52    Attempt 1: Rsync for filelist /tmp//splits/split.ab completed with exit code 23
+2026-08-06T21:23:52    
+2026-08-06T21:23:52    
+2026-08-06T21:23:52    Number of files: 9 (reg: 9)
+2026-08-06T21:23:52    Number of created files: 0
+2026-08-06T21:23:52    Number of deleted files: 0
+2026-08-06T21:23:52    Number of regular files transferred: 0
+2026-08-06T21:23:52    Total file size: 48.28K bytes
+2026-08-06T21:23:52    Total transferred file size: 0 bytes
+2026-08-06T21:23:52    Literal data: 0 bytes
+2026-08-06T21:23:52    Matched data: 0 bytes
+2026-08-06T21:23:52    File list size: 0
+2026-08-06T21:23:52    File list generation time: 0.007 seconds
+2026-08-06T21:23:52    File list transfer time: 0.000 seconds
+2026-08-06T21:23:52    Total bytes sent: 362
+2026-08-06T21:23:52    Total bytes received: 21
+2026-08-06T21:23:52    
+2026-08-06T21:23:52    sent 362 bytes  received 21 bytes  766.00 bytes/sec
+2026-08-06T21:23:52    total size is 48.28K  speedup is 126.06
+2026-08-06T21:23:52    Number of files: 9 (reg: 9)
+2026-08-06T21:23:52    Number of created files: 3 (reg: 3)
+2026-08-06T21:23:52    Number of deleted files: 0
+2026-08-06T21:23:52    Number of regular files transferred: 3
+2026-08-06T21:23:52    Total file size: 36.11K bytes
+2026-08-06T21:23:52    Total transferred file size: 4.42K bytes
+2026-08-06T21:23:52    Literal data: 4.42K bytes
+2026-08-06T21:23:52    Matched data: 0 bytes
+2026-08-06T21:23:52    File list size: 0
+2026-08-06T21:23:52    File list generation time: 0.022 seconds
+2026-08-06T21:23:52    File list transfer time: 0.000 seconds
+2026-08-06T21:23:52    Total bytes sent: 2.02K
+2026-08-06T21:23:52    Total bytes received: 73
+2026-08-06T21:23:52    
+2026-08-06T21:23:52    sent 2.02K bytes  received 73 bytes  1.40K bytes/sec
+2026-08-06T21:23:52    total size is 36.11K  speedup is 17.21
+2026-08-06T21:23:52    Attempt 1: Rsync for filelist /tmp//splits/split.ae completed with exit code 23
+2026-08-06T21:23:52    Attempt 2: Rsync for filelist /tmp//splits/split.ab completed with exit code 23
+2026-08-06T21:23:52    
+2026-08-06T21:23:52    Number of files: 9 (reg: 9)
+2026-08-06T21:23:52    Number of created files: 4 (reg: 4)
+2026-08-06T21:23:52    Number of deleted files: 0
+2026-08-06T21:23:52    Number of regular files transferred: 4
+2026-08-06T21:23:52    Total file size: 22.59K bytes
+2026-08-06T21:23:52    Total transferred file size: 9.46K bytes
+2026-08-06T21:23:52    Literal data: 9.46K bytes
+2026-08-06T21:23:52    Matched data: 0 bytes
+2026-08-06T21:23:52    File list size: 0
+2026-08-06T21:23:52    File list generation time: 0.223 seconds
+2026-08-06T21:23:52    File list transfer time: 0.000 seconds
+2026-08-06T21:23:52    Total bytes sent: 3.81K
+2026-08-06T21:23:52    Total bytes received: 92
+2026-08-06T21:23:52    
+2026-08-06T21:23:53    sent 3.81K bytes  received 92 bytes  1.56K bytes/sec
+2026-08-06T21:23:53    total size is 22.59K  speedup is 5.78
+2026-08-06T21:23:53    Attempt 1: Rsync for filelist /tmp//splits/split.aa completed with exit code 23
+2026-08-06T21:23:53    
+2026-08-06T21:23:53    Number of files: 9 (reg: 9)
+2026-08-06T21:23:53    Number of created files: 0
+2026-08-06T21:23:53    Number of deleted files: 0
+2026-08-06T21:23:53    Number of regular files transferred: 0
+2026-08-06T21:23:53    Total file size: 36.11K bytes
+2026-08-06T21:23:53    Total transferred file size: 0 bytes
+2026-08-06T21:23:53    Literal data: 0 bytes
+2026-08-06T21:23:53    Matched data: 0 bytes
+2026-08-06T21:23:53    File list size: 0
+2026-08-06T21:23:53    File list generation time: 0.001 seconds
+2026-08-06T21:23:53    File list transfer time: 0.000 seconds
+2026-08-06T21:23:53    Total bytes sent: 338
+2026-08-06T21:23:53    Total bytes received: 25
+2026-08-06T21:23:53    
+2026-08-06T21:23:53    sent 338 bytes  received 25 bytes  726.00 bytes/sec
+2026-08-06T21:23:53    total size is 36.11K  speedup is 99.47
+2026-08-06T21:23:53    Attempt 2: Rsync for filelist /tmp//splits/split.ae completed with exit code 23
+2026-08-06T21:23:53    
+2026-08-06T21:23:53    Number of files: 9 (reg: 9)
+2026-08-06T21:23:53    Number of created files: 0
+2026-08-06T21:23:53    Number of deleted files: 0
+2026-08-06T21:23:53    Number of regular files transferred: 0
+2026-08-06T21:23:53    Total file size: 22.59K bytes
+2026-08-06T21:23:53    Total transferred file size: 0 bytes
+2026-08-06T21:23:53    Literal data: 0 bytes
+2026-08-06T21:23:53    Matched data: 0 bytes
+2026-08-06T21:23:53    File list size: 0
+2026-08-06T21:23:53    File list generation time: 0.001 seconds
+2026-08-06T21:23:53    File list transfer time: 0.000 seconds
+2026-08-06T21:23:53    Total bytes sent: 304
+2026-08-06T21:23:53    Total bytes received: 28
+2026-08-06T21:23:53    
+2026-08-06T21:23:53    sent 304 bytes  received 28 bytes  664.00 bytes/sec
+2026-08-06T21:23:53    total size is 22.59K  speedup is 68.03
+2026-08-06T21:23:53    Attempt 2: Rsync for filelist /tmp//splits/split.aa completed with exit code 23
+2026-08-06T21:23:53    An error has occurred during web site deployment.
+2026-08-06T21:23:53    Rsync failed in 2 seconds
+2026-08-06T21:23:53    rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+/opt/Kudu/Scripts/starter.sh /opt/Kudu/Scripts/parallel_rsync.sh /tmp/zipdeploy/extracted /home/site/wwwroot 8 /tmp/ False False  
+2026-08-06T21:23:53  
+2026-08-06T21:23:54  WARNING!! Exception in parallel rsync: ExitCode: 123  Output: Run rsync from: /tmp/zipdeploy/extracted/ to: /home/site/wwwroot/ in 8 parallel threads
+Delete options: clean=False  use manifest=False  directory to ignore=
+Prev manifest = /opt/Kudu/Scripts/firstDeploymentManifest and next /home/site/deployments/ef60c0fe-7773-4079-a730-5b2f4a00137d/manifest
+Cleaning up /tmp//filelist.txt and /tmp//splits
+Creating a list of all files at /tmp//filelist.txt
+No directory to exclude.
+Created /tmp//filelist.txt. Total number of files to be synced = 66.
+Created batches from the list of files. Processing 9 files in each thread
+Running rsync for filelist /tmp//splits/split.ab from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.aa from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.ac from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.ad from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.af from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.ae from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.ah from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+Running rsync for filelist /tmp//splits/split.ag from /tmp/zipdeploy/extracted/ to /home/site/wwwroot/
+
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 76.33K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 335
+Total bytes received: 12
+
+sent 335 bytes  received 12 bytes  694.00 bytes/sec
+total size is 76.33K  speedup is 219.97
+Attempt 1: Rsync for filelist /tmp//splits/split.af completed with exit code 23
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 23.77K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 354
+Total bytes received: 12
+
+sent 354 bytes  received 12 bytes  732.00 bytes/sec
+total size is 23.77K  speedup is 64.94
+Attempt 1: Rsync for filelist /tmp//splits/split.ag completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 1 (reg: 1)
+Number of deleted files: 0
+Number of regular files transferred: 1
+Total file size: 75.49K bytes
+Total transferred file size: 15.18K bytes
+Literal data: 15.18K bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.088 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 3.70K
+Total bytes received: 31
+
+sent 3.70K bytes  received 31 bytes  2.49K bytes/sec
+total size is 75.49K  speedup is 20.24
+Attempt 1: Rsync for filelist /tmp//splits/split.ac completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 1 (reg: 1)
+Number of deleted files: 0
+Number of regular files transferred: 1
+Total file size: 52.55K bytes
+Total transferred file size: 2.15K bytes
+Literal data: 2.15K bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.009 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 1.32K
+Total bytes received: 31
+
+sent 1.32K bytes  received 31 bytes  903.33 bytes/sec
+total size is 52.55K  speedup is 38.78
+Attempt 1: Rsync for filelist /tmp//splits/split.ad completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 76.33K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.018 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 335
+Total bytes received: 12
+
+sent 335 bytes  received 12 bytes  694.00 bytes/sec
+total size is 76.33K  speedup is 219.97
+Attempt 2: Rsync for filelist /tmp//splits/split.af completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 23.77K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.038 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 354
+Total bytes received: 12
+
+sent 354 bytes  received 12 bytes  732.00 bytes/sec
+total size is 23.77K  speedup is 64.94
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 75.49K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 323
+Total bytes received: 15
+
+sent 323 bytes  received 15 bytes  676.00 bytes/sec
+total size is 75.49K  speedup is 223.34
+Attempt 2: Rsync for filelist /tmp//splits/split.ac completed with exit code 23
+Attempt 2: Rsync for filelist /tmp//splits/split.ag completed with exit code 23
+
+Number of files: 3 (reg: 3)
+Number of created files: 1 (reg: 1)
+Number of deleted files: 0
+Number of regular files transferred: 1
+Total file size: 11.57K bytes
+Total transferred file size: 3.71K bytes
+Literal data: 3.71K bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 1.67K
+Total bytes received: 35
+
+sent 1.67K bytes  received 35 bytes  3.42K bytes/sec
+total size is 11.57K  speedup is 6.77
+Attempt 1: Rsync for filelist /tmp//splits/split.ah completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 52.55K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.010 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 359
+Total bytes received: 15
+
+sent 359 bytes  received 15 bytes  748.00 bytes/sec
+total size is 52.55K  speedup is 140.50
+Attempt 2: Rsync for filelist /tmp//splits/split.ad completed with exit code 23
+
+Number of files: 3 (reg: 3)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 11.57K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.008 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 166
+Total bytes received: 19
+
+sent 166 bytes  received 19 bytes  370.00 bytes/sec
+total size is 11.57K  speedup is 62.55
+Attempt 2: Rsync for filelist /tmp//splits/split.ah completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 3 (reg: 3)
+Number of deleted files: 0
+Number of regular files transferred: 3
+Total file size: 48.28K bytes
+Total transferred file size: 6.44K bytes
+Literal data: 6.44K bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 2.75K
+Total bytes received: 69
+
+sent 2.75K bytes  received 69 bytes  1.13K bytes/sec
+total size is 48.28K  speedup is 17.10
+Attempt 1: Rsync for filelist /tmp//splits/split.ab completed with exit code 23
+
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 48.28K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.007 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 362
+Total bytes received: 21
+
+sent 362 bytes  received 21 bytes  766.00 bytes/sec
+total size is 48.28K  speedup is 126.06
+Number of files: 9 (reg: 9)
+Number of created files: 3 (reg: 3)
+Number of deleted files: 0
+Number of regular files transferred: 3
+Total file size: 36.11K bytes
+Total transferred file size: 4.42K bytes
+Literal data: 4.42K bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.022 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 2.02K
+Total bytes received: 73
+
+sent 2.02K bytes  received 73 bytes  1.40K bytes/sec
+total size is 36.11K  speedup is 17.21
+Attempt 1: Rsync for filelist /tmp//splits/split.ae completed with exit code 23
+Attempt 2: Rsync for filelist /tmp//splits/split.ab completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 4 (reg: 4)
+Number of deleted files: 0
+Number of regular files transferred: 4
+Total file size: 22.59K bytes
+Total transferred file size: 9.46K bytes
+Literal data: 9.46K bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.223 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 3.81K
+Total bytes received: 92
+
+sent 3.81K bytes  received 92 bytes  1.56K bytes/sec
+total size is 22.59K  speedup is 5.78
+Attempt 1: Rsync for filelist /tmp//splits/split.aa completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 36.11K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 338
+Total bytes received: 25
+
+sent 338 bytes  received 25 bytes  726.00 bytes/sec
+total size is 36.11K  speedup is 99.47
+Attempt 2: Rsync for filelist /tmp//splits/split.ae completed with exit code 23
+
+Number of files: 9 (reg: 9)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 22.59K bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 304
+Total bytes received: 28
+
+sent 304 bytes  received 28 bytes  664.00 bytes/sec
+total size is 22.59K  speedup is 68.03
+Attempt 2: Rsync for filelist /tmp//splits/split.aa completed with exit code 23
+An error has occurred during web site deployment.
+Rsync failed in 2 seconds  Error: rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]  Kudu.Core.Infrastructure.CommandLineException: rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+/opt/Kudu/Scripts/starter.sh /opt/Kudu/Scripts/parallel_rsync.sh /tmp/zipdeploy/extracted /home/site/wwwroot 8 /tmp/ False False  
+   at Kudu.Core.Infrastructure.Executable.ExecuteInternal(ITracer tracer  Func`2 onWriteOutput  Func`2 onWriteError  CancellationToken token  Encoding encoding  String arguments  Object[] args) in /tmp/KuduLite/Kudu.Core/Infrastructure/Executable.cs:line 239
+   at Kudu.Core.Infrastructure.Executable.ExecuteWithProgressWriter(ILogger logger  ITracer tracer  CancellationToken token  String arguments  Object[] args) in /tmp/KuduLite/Kudu.Core/Infrastructure/Executable.cs:line 118
+   at Kudu.Core.Deployment.Generator.ExternalCommandBuilder.RunCommand(DeploymentContext context  String command  Boolean ignoreManifest  CancellationToken token  String message  ILogger internalLogger) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/ExternalCommandBuilder.cs:line 145
+   at Kudu.Core.Deployment.Generator.OneDeployBuilder.Build(DeploymentContext context  CancellationToken token) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/OneDeployBuilder.cs:line 97
+2026-08-06T21:23:54  Incrementally deploying to /home/site/wwwroot
+2026-08-06T21:23:54  Deployment Failed. deployer = OneDeploy deploymentPath = OneDeploy

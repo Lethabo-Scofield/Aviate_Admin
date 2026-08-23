@@ -1,0 +1,192 @@
+2026-08-06T21:23:53                  Error occurred, type: error, text: rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\models.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\eta_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/data\areas.json": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\auth.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\demo.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\intelligence.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\__init__.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\engine_client.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_communication.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\agents.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\alerts.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\devices.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\orders.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\support.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\wsgi.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\context.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\anomaly_detector.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\audit_logger.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\driver_notifier.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\eta_predictor.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\natural_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\stubs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\orchestrator.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\auto_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\command_parser.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\delay_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\route_optimizer.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\orders.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\autopilot.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stops.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\liveops.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\safety.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/__pycache__\app.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\delay_prediction.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\rerouting.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\recommendation_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__pycache__\support.cpython-313.pyc": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\drivers.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\customer_availability.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/intelligence\workflow_engine.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\__init__.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\stats.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/tests\test_intelligence.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\approval_risk.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\base.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\driver_assignment.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/agents\route_optimization.py": Invalid argument (22)
+rsync: [generator] recv_generator: failed to stat "/home/site/wwwroot/routes\jobs.py": Invalid argument (22)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1333) [sender=3.2.3]
+/opt/Kudu/Scripts/starter.sh /opt/Kudu/Scripts/parallel_rsync.sh /tmp/zipdeploy/extracted /home/site/wwwroot 8 /tmp/ False False  , stackTrace:    at Kudu.Core.Infrastructure.Executable.ExecuteInternal(ITracer tracer, Func`2 onWriteOutput, Func`2 onWriteError, CancellationToken token, Encoding encoding, String arguments, Object[] args) in /tmp/KuduLite/Kudu.Core/Infrastructure/Executable.cs:line 239
+   at Kudu.Core.Infrastructure.Executable.ExecuteWithProgressWriter(ILogger logger, ITracer tracer, CancellationToken token, String arguments, Object[] args) in /tmp/KuduLite/Kudu.Core/Infrastructure/Executable.cs:line 118
+   at Kudu.Core.Deployment.Generator.ExternalCommandBuilder.RunCommand(DeploymentContext context, String command, Boolean ignoreManifest, CancellationToken token, String message, ILogger internalLogger) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/ExternalCommandBuilder.cs:line 145
+2026-08-06T21:23:54                  Error occurred, type: error, text: Invalid argument : '/home/site/wwwroot/routes\jobs.py', stackTrace:    at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at Kudu.Core.Infrastructure.FileSystemHelpers.CopyDirectoryRecursive(String sourceDirPath, String destinationDirPath, Boolean overwrite) in /tmp/KuduLite/Kudu.Core/Infrastructure/FileSystemHelpers.cs:line 239
+   at Kudu.Core.Deployment.Generator.OneDeployBuilder.Build(DeploymentContext context, CancellationToken token) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/OneDeployBuilder.cs:line 108
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 771
+2026-08-06T21:23:54              Error occurred, type: error, text: Invalid argument : '/home/site/wwwroot/routes\jobs.py', stackTrace:    at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at Kudu.Core.Infrastructure.FileSystemHelpers.CopyDirectoryRecursive(String sourceDirPath, String destinationDirPath, Boolean overwrite) in /tmp/KuduLite/Kudu.Core/Infrastructure/FileSystemHelpers.cs:line 239
+   at Kudu.Core.Deployment.Generator.OneDeployBuilder.Build(DeploymentContext context, CancellationToken token) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/OneDeployBuilder.cs:line 108
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 771
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 840
+2026-08-06T21:23:55              Error occurred, type: error, text: Invalid argument : '/home/site/wwwroot/routes\jobs.py', stackTrace:    at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at Kudu.Core.Infrastructure.FileSystemHelpers.CopyDirectoryRecursive(String sourceDirPath, String destinationDirPath, Boolean overwrite) in /tmp/KuduLite/Kudu.Core/Infrastructure/FileSystemHelpers.cs:line 239
+   at Kudu.Core.Deployment.Generator.OneDeployBuilder.Build(DeploymentContext context, CancellationToken token) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/OneDeployBuilder.cs:line 108
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 771
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 840
+   at Kudu.Core.Deployment.DeploymentManager.DeployAsync(IRepository repository, ChangeSet changeSet, String deployer, Boolean clean, DeploymentInfoBase deploymentInfo, Boolean needFileUpdate, Boolean fullBuildByDefault) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 266
+2026-08-06T21:23:55            Error occurred, type: error, text: Invalid argument : '/home/site/wwwroot/routes\jobs.py', stackTrace:    at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at Kudu.Core.Infrastructure.FileSystemHelpers.CopyDirectoryRecursive(String sourceDirPath, String destinationDirPath, Boolean overwrite) in /tmp/KuduLite/Kudu.Core/Infrastructure/FileSystemHelpers.cs:line 239
+   at Kudu.Core.Deployment.Generator.OneDeployBuilder.Build(DeploymentContext context, CancellationToken token) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/OneDeployBuilder.cs:line 108
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 771
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 840
+   at Kudu.Core.Deployment.DeploymentManager.DeployAsync(IRepository repository, ChangeSet changeSet, String deployer, Boolean clean, DeploymentInfoBase deploymentInfo, Boolean needFileUpdate, Boolean fullBuildByDefault) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 266
+2026-08-06T21:23:56        Error occurred, type: error, text: Deployment failed, stackTrace:    at Kudu.Core.Deployment.DeploymentManager.DeployAsync(IRepository repository, ChangeSet changeSet, String deployer, Boolean clean, DeploymentInfoBase deploymentInfo, Boolean needFileUpdate, Boolean fullBuildByDefault) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 307
+   at Kudu.Core.Deployment.FetchDeploymentManager.PerformDeployment(DeploymentInfoBase deploymentInfo, IDisposable tempDeployment, ChangeSet tempChangeSet, DeployStatusApiResult updateStatusObj) in /tmp/KuduLite/Kudu.Core/Deployment/FetchDeploymentManager.cs:line 230
+   at Kudu.Core.Deployment.FetchDeploymentManager.<>c__DisplayClass17_0.<<FetchDeploy>b__0>d.MoveNext() in /tmp/KuduLite/Kudu.Core/Deployment/FetchDeploymentManager.cs:line 131
+--- End of stack trace from previous location ---
+   at Kudu.Core.Deployment.FetchDeploymentManager.FetchDeploy(DeploymentInfoBase deployInfo, Boolean asyncRequested, Uri requestUri, String targetBranch) in /tmp/KuduLite/Kudu.Core/Deployment/FetchDeploymentManager.cs:line 124
+   at Kudu.Services.Deployment.PushDeploymentController.PushDeployAsync(ArtifactDeploymentInfo deploymentInfo, Boolean isAsync, HttpContext context, JObject requestJson) in /tmp/KuduLite/Kudu.Services/Deployment/PushDeploymentController.cs:line 804
+   at Kudu.Services.Deployment.PushDeploymentController.OneDeploy(String type, Boolean async, String path, Nullable`1 restart, Nullable`1 clean, Boolean ignoreStack, Boolean trackDeploymentProgress, Boolean trackStatus, Boolean reset) in /tmp/KuduLite/Kudu.Services/Deployment/PushDeploymentController.cs:line 624
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Kudu.Services.Web.Startup.<>c.<<Configure>b__11_8>d.MoveNext() in /tmp/KuduLite/Kudu.Services.Web/Startup.cs:line 480
+--- End of stack trace from previous location ---
+   at Kudu.Services.Web.Startup.<>c.<<Configure>b__11_7>d.MoveNext() in /tmp/KuduLite/Kudu.Services.Web/Startup.cs:line 442
+--- End of stack trace from previous location ---
+   at Kudu.Services.Web.Tracing.TraceMiddleware.Invoke(HttpContext context) in /tmp/KuduLite/Kudu.Services.Web/Tracing/TraceMiddleware.cs:line 101, innerText: Invalid argument : '/home/site/wwwroot/routes\jobs.py', innerStackTrace:    at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at Kudu.Core.Infrastructure.FileSystemHelpers.CopyDirectoryRecursive(String sourceDirPath, String destinationDirPath, Boolean overwrite) in /tmp/KuduLite/Kudu.Core/Infrastructure/FileSystemHelpers.cs:line 239
+   at Kudu.Core.Deployment.Generator.OneDeployBuilder.Build(DeploymentContext context, CancellationToken token) in /tmp/KuduLite/Kudu.Core/Deployment/Generator/OneDeployBuilder.cs:line 108
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 771
+   at Kudu.Core.Deployment.DeploymentManager.Build(ChangeSet changeSet, ITracer tracer, IDisposable deployStep, IRepository repository, DeploymentInfoBase deploymentInfo, DeploymentAnalytics deploymentAnalytics, Boolean fullBuildByDefault, CancellationToken cancellationToken) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 840
+   at Kudu.Core.Deployment.DeploymentManager.DeployAsync(IRepository repository, ChangeSet changeSet, String deployer, Boolean clean, DeploymentInfoBase deploymentInfo, Boolean needFileUpdate, Boolean fullBuildByDefault) in /tmp/KuduLite/Kudu.Core/Deployment/DeploymentManager.cs:line 266
+2026-08-06T21:23:56          Outgoing response, type: response, statusCode: 400, statusText: BadRequest

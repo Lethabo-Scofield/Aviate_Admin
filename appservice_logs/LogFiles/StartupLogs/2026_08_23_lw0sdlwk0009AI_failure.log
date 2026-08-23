@@ -1,0 +1,625 @@
+========== New Cold Start Attempt (2026-08-23T17:57:56.0034762+00:00) ==========
+2026-08-23T17:57:56.0034762+00:00 ContainerStatus: State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-23T17:57:58.8985963+00:00 ContainerStatus: State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-08-23T17:57:58.9154998+00:00 ContainerStatus: Container start method called.
+2026-08-23T17:57:58.9156595+00:00 ContainerStatus: State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T17:57:58.9230704+00:00 ContainerStatus: Establishing network.
+2026-08-23T17:57:58.9241006+00:00 ContainerStatus: Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T17:57:59.3787290+00:00 ContainerStatus: Container is starting.
+2026-08-23T17:57:59.3820203+00:00 ContainerStatus: State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T17:57:59.3822633+00:00 ContainerStatus: Establishing user namespace if not established already.
+2026-08-23T17:57:59.3856601+00:00 ContainerStatus: Establishing network if not established already.
+2026-08-23T17:57:59.3857873+00:00 ContainerStatus: Mounting volumes.
+2026-08-23T17:57:59.3955158+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T17:57:59.4476996+00:00 ContainerStatus: Nested mountpoint volatile/logs
+2026-08-23T17:57:59.5466697+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T17:57:59.5791930+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T17:57:59.6062238+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T17:57:59.7027900+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T17:58:00.2614713+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T17:58:00.2616855+00:00 ContainerStatus: Creating container.
+2026-08-23T17:58:00.2798930+00:00 ContainerStatus: Creating pipes for streaming container io.
+2026-08-23T17:58:00.2817260+00:00 ContainerStatus: Creating stdout named pipe at /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.2989021+00:00 ContainerStatus: Successfully created stdout named pipe at: /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.2996540+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4 for reading in non-blocking mode.
+2026-08-23T17:58:00.2997922+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.3104624+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/3dc0fb537901_aviate-api/stdout_1db9f7addb9e4e9eae28bab2894330d4.
+2026-08-23T17:58:00.3285109+00:00 ContainerStatus: Creating stderr named pipe at /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3286297+00:00 ContainerStatus: Successfully created stderr named pipe at: /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3286801+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba for reading in non-blocking mode.
+2026-08-23T17:58:00.3287956+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3288466+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/3dc0fb537901_aviate-api/stderr_51fc75463c1541d1ace51c9d54f409ba.
+2026-08-23T17:58:00.3303867+00:00 ContainerStatus: Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T17:58:01.5549259+00:00 ContainerStatus: Starting container: 3dc0fb537901_aviate-api.
+2026-08-23T17:58:01.7420675+00:00 ContainerStatus: Starting watchers and probes.
+2026-08-23T17:58:01.7625171+00:00 ContainerStatus: Starting metrics collection.
+2026-08-23T17:58:01.7698993+00:00 ContainerStatus: Container is running.
+2026-08-23T17:58:01.7721691+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T17:58:02.1251292+00:00 ContainerStatus: Container start method finished after 3209 ms.
+2026-08-23T17:58:02.1253373+00:00 ContainerStatus: State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T17:58:02.1771475+00:00 ContainerStatus: State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T17:58:02.8906934+00:00 ContainerStream:    _____                               
+2026-08-23T17:58:02.9618969+00:00 ContainerStream:   /  _  \ __________ _________   ____  
+2026-08-23T17:58:02.9619326+00:00 ContainerStream:  /  /_\  \\___   /  |  \_  __ \_/ __ \ 
+2026-08-23T17:58:02.9619359+00:00 ContainerStream: /    |    \/    /|  |  /|  | \/\  ___/ 
+2026-08-23T17:58:02.9619385+00:00 ContainerStream: \____|__  /_____ \____/ |__|    \___  >
+2026-08-23T17:58:02.9619410+00:00 ContainerStream:         \/      \/                  \/ 
+2026-08-23T17:58:02.9619450+00:00 ContainerStream: A P P   S E R V I C E   O N   L I N U X
+2026-08-23T17:58:02.9619473+00:00 ContainerStream: 
+2026-08-23T17:58:02.9619511+00:00 ContainerStream: Documentation     : https://aka.ms/webapp-linux
+2026-08-23T17:58:02.9619561+00:00 ContainerStream: Python quickstart : https://aka.ms/python-qs
+2026-08-23T17:58:02.9619595+00:00 ContainerStream: Python version    : 3.11.15
+2026-08-23T17:58:02.9619621+00:00 ContainerStream: Instance name     : lw0sdlwk0009AI
+2026-08-23T17:58:02.9619666+00:00 ContainerStream: Instance id       : f8f9256783c926223799dc593171fa3ef38a62fe018e98b19a09df27f9df439e
+2026-08-23T17:58:02.9619690+00:00 ContainerStream: 
+2026-08-23T17:58:02.9619714+00:00 ContainerStream: App port          : 8000
+2026-08-23T17:58:02.9619739+00:00 ContainerStream: Port selected by  : Default for this image
+2026-08-23T17:58:02.9619792+00:00 ContainerStream: (Learn more about the PORT appsetting https://aka.ms/webapp-python-settings)
+2026-08-23T17:58:02.9619816+00:00 ContainerStream: 
+2026-08-23T17:58:02.9619880+00:00 ContainerStream: Note: Any data outside '/home' is not persisted
+2026-08-23T17:58:02.9619904+00:00 ContainerStream: 
+2026-08-23T17:58:02.9619949+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T17:58:02.9619983+00:00 ContainerStream:  Run 'apphelp' for available commands and aliases.
+2026-08-23T17:58:02.9620009+00:00 ContainerStream:  Run 'install-nettools' to install networking utilities.
+2026-08-23T17:58:02.9620066+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T17:58:07.9601448+00:00 ContainerStream: Starting OpenBSD Secure Shell server: sshd.
+2026-08-23T17:58:07.9885799+00:00 ContainerStream: WEBSITES_INCLUDE_CLOUD_CERTS is not set to true.
+2026-08-23T17:58:08.0501048+00:00 ContainerStream: Updating certificates in /etc/ssl/certs...
+2026-08-23T17:58:31.2441455+00:00 ContainerStream: rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+2026-08-23T17:58:31.5704977+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_RSA_Root_CA_2022.pem
+2026-08-23T17:58:31.6117065+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_ECC_Root_CA_2022.pem
+2026-08-23T17:58:31.7007201+00:00 ContainerStream: 4 added, 0 removed; done.
+2026-08-23T17:58:31.7019652+00:00 ContainerStream: Running hooks in /etc/ca-certificates/update.d...
+2026-08-23T17:58:31.7391245+00:00 ContainerStream: done.
+2026-08-23T17:58:31.7882779+00:00 ContainerStream: CA certificates copied and updated successfully.
+2026-08-23T17:58:32.2396888+00:00 ContainerStream: Site's appCommandLine: gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+2026-08-23T17:58:33.3835938+00:00 ContainerStream: Starting periodic command scheduler: cron.
+2026-08-23T17:58:33.4778620+00:00 ContainerStream: Launching oryx with: create-script -appPath /home/site/wwwroot -output /opt/startup/startup.sh -virtualEnvName antenv -defaultApp /opt/defaultsite -userStartupCommand 'gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120'
+2026-08-23T17:58:34.4862805+00:00 ContainerStream: Found build manifest file at '/home/site/wwwroot/oryx-manifest.toml'. Deserializing it...
+2026-08-23T17:58:34.5352888+00:00 ContainerStream: Build Operation ID: f84461f252b94968
+2026-08-23T17:58:34.5469816+00:00 ContainerStream: Oryx Version: 0.2.20260710.1, Commit: 079b5b6294eb97d462d8f96bfa3243e9b85251da, ReleaseTagName: 20260710.1
+2026-08-23T17:58:34.5656660+00:00 ContainerStream: Output is compressed. Extracting it...
+2026-08-23T17:58:34.5656796+00:00 ContainerStream: Found zstd-compressed tarball.
+2026-08-23T17:58:34.5656835+00:00 ContainerStream: Extracting '/home/site/wwwroot/output.tar.zst' to directory '/tmp/8df013fcf36568e'...
+2026-08-23T17:58:34.5656937+00:00 ContainerStream: Using zstd for decompression of file: /home/site/wwwroot/output.tar.zst
+2026-08-23T17:58:45.9466535+00:00 ContainerStream: zstd tar Successfully extracted '/home/site/wwwroot/output.tar.zst' to '/tmp/8df013fcf36568e'
+2026-08-23T17:58:45.9481423+00:00 ContainerStream: App path is set to '/tmp/8df013fcf36568e'
+2026-08-23T17:58:45.9676618+00:00 ContainerStream: Writing output script to '/opt/startup/startup.sh'
+2026-08-23T17:58:46.2149821+00:00 ContainerStream: Using packages from virtual environment antenv located at /tmp/8df013fcf36568e/antenv.
+2026-08-23T17:58:46.2167724+00:00 ContainerStream: Updated PYTHONPATH to '/home/site/wwwroot:/opt/startup/app_logs:/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages'
+2026-08-23T17:58:47.1190115+00:00 ContainerStream: [2026-08-23 17:58:47 +0000] [1884] [INFO] Starting gunicorn 26.1.0
+2026-08-23T17:58:47.1208111+00:00 ContainerStream: [2026-08-23 17:58:47 +0000] [1884] [INFO] Listening at: http://0.0.0.0:8000 (1884)
+2026-08-23T17:58:47.1278749+00:00 ContainerStream: [2026-08-23 17:58:47 +0000] [1884] [INFO] Using worker: sync
+2026-08-23T17:58:47.1484723+00:00 ContainerStream: [2026-08-23 17:58:47 +0000] [1885] [INFO] Booting worker with pid: 1885
+2026-08-23T17:58:47.5080084+00:00 ContainerStream: [2026-08-23 17:58:47 +0000] [1884] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+2026-08-23T17:58:52.2936313+00:00 ContainerStream: [2026-08-23 17:58:52 +0000] [1885] [ERROR] Exception in worker process
+2026-08-23T17:58:52.2936750+00:00 ContainerStream: Traceback (most recent call last):
+2026-08-23T17:58:52.2936797+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/arbiter.py", line 753, in spawn_worker
+2026-08-23T17:58:52.2936822+00:00 ContainerStream:     worker.init_process()
+2026-08-23T17:58:52.2937074+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+2026-08-23T17:58:52.2937100+00:00 ContainerStream:     self.load_wsgi()
+2026-08-23T17:58:52.2937124+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+2026-08-23T17:58:52.2937145+00:00 ContainerStream:     self.wsgi = self.app.wsgi()
+2026-08-23T17:58:52.2937168+00:00 ContainerStream:                 ^^^^^^^^^^^^^^^
+2026-08-23T17:58:52.2937192+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+2026-08-23T17:58:52.2937213+00:00 ContainerStream:     self.callable = self.load()
+2026-08-23T17:58:52.2937259+00:00 ContainerStream:                     ^^^^^^^^^^^
+2026-08-23T17:58:52.2937286+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+2026-08-23T17:58:52.2937306+00:00 ContainerStream:     return self.load_wsgiapp()
+2026-08-23T17:58:52.2937327+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^
+2026-08-23T17:58:52.2937352+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+2026-08-23T17:58:52.2937375+00:00 ContainerStream:     return util.import_app(self.app_uri)
+2026-08-23T17:58:52.2937397+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T17:58:52.2937447+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/util.py", line 420, in import_app
+2026-08-23T17:58:52.2937469+00:00 ContainerStream:     mod = importlib.import_module(module)
+2026-08-23T17:58:52.2937492+00:00 ContainerStream:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T17:58:52.2937516+00:00 ContainerStream:   File "/opt/python/3.11.15/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-08-23T17:58:52.2937539+00:00 ContainerStream:     return _bootstrap._gcd_import(name[level:], package, level)
+2026-08-23T17:58:52.2937562+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T17:58:52.2937610+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-08-23T17:58:52.2937634+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-08-23T17:58:52.2937657+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-08-23T17:58:52.2937680+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-08-23T17:58:52.2937703+00:00 ContainerStream:   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-08-23T17:58:52.2937726+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-08-23T17:58:52.2938997+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/wsgi.py", line 1, in <module>
+2026-08-23T17:58:52.2939115+00:00 ContainerStream:     from app import app
+2026-08-23T17:58:52.2939155+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/app.py", line 9, in <module>
+2026-08-23T17:58:52.2939187+00:00 ContainerStream:     from routes import (
+2026-08-23T17:58:52.2939211+00:00 ContainerStream: ImportError: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T17:58:52.2939234+00:00 ContainerStream: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T17:58:52.2939327+00:00 ContainerStream: [2026-08-23 17:58:52 +0000] [1885] [INFO] Worker exiting (pid: 1885)
+2026-08-23T17:58:52.9326339+00:00 ContainerStream: [2026-08-23 17:58:52 +0000] [1884] [ERROR] Worker (pid:1885) exited with code 3.
+2026-08-23T17:58:52.9477961+00:00 ContainerStream: [2026-08-23 17:58:52 +0000] [1884] [ERROR] Shutting down: Master
+2026-08-23T17:58:52.9478219+00:00 ContainerStream: [2026-08-23 17:58:52 +0000] [1884] [ERROR] Reason: Worker failed to boot.
+2026-08-23T17:58:53.1783126+00:00 ContainerStatus: Container has finished running with exit code: 3.
+2026-08-23T17:58:53.2050572+00:00 ContainerStatus: Container is terminating. Grace period: 5 seconds.
+2026-08-23T17:58:53.2490625+00:00 ContainerStatus: Stop and delete container. Retry count = 0
+2026-08-23T17:58:53.2555833+00:00 ContainerStatus: Stopping container: 3dc0fb537901_aviate-api.
+2026-08-23T17:58:53.5432747+00:00 ContainerStatus: Deleting container: 3dc0fb537901_aviate-api. Retry count = 0
+2026-08-23T17:58:54.4142822+00:00 ContainerStatus: Container spec TerminationMessagePolicy  path 
+2026-08-23T17:58:54.4324895+00:00 ContainerStatus: Container is terminated. Total time elapsed: 1221 ms.
+2026-08-23T17:58:54.4340678+00:00 ContainerStatus: Site container: aviate-api terminated during site startup.
+2026-08-23T17:58:54.4437262+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.5525718+00:00 ContainerStatus: Site startup probe failed after 52.1847387 seconds.
+2026-08-23T17:58:54.7864906+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.8160243+00:00 ContainerStatus: Failed to start site. Revert by stopping site.
+2026-08-23T17:58:54.8543030+00:00 ContainerStatus: State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.8762061+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:54.8786039+00:00 ContainerStatus: Site: aviate-api stopped.
+========== New Cold Start Attempt (2026-08-23T17:58:54.9190195+00:00) ==========
+2026-08-23T17:58:54.9190195+00:00 ContainerStatus: State: Stopping, Action: UnmountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:55.7549115+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T17:58:56.0527213+00:00 ContainerStatus: State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T17:58:56.4935280+00:00 ContainerStatus: State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T17:59:17.0498511+00:00 ContainerStatus: State: Stopping, Action: StoppingSite, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 08/20/2026 19:07:30 (UTC), DetailsLevel: INFO
+2026-08-23T17:59:17.0589202+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 08/20/2026 19:07:30 (UTC), DetailsLevel: INFO
+2026-08-23T17:59:17.0598548+00:00 ContainerStatus: Container is terminating. Grace period: 5 seconds.
+2026-08-23T17:59:17.1480870+00:00 ContainerStatus: Stop and delete container. Retry count = 0
+2026-08-23T17:59:17.1490643+00:00 ContainerStatus: Stopping container: ea4e5219f3b5_aviate-api.
+2026-08-23T17:59:22.4145341+00:00 ContainerStatus: Deleting container: ea4e5219f3b5_aviate-api. Retry count = 0
+2026-08-23T17:59:23.3593619+00:00 ContainerStatus: Container spec TerminationMessagePolicy  path 
+2026-08-23T17:59:23.3668654+00:00 ContainerStatus: Container is terminated. Total time elapsed: 6305 ms.
+2026-08-23T17:59:23.3679337+00:00 ContainerStatus: Site: aviate-api stopped.
+2026-08-23T18:04:20.5923195+00:00 ContainerStatus: State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T18:04:22.8277216+00:00 ContainerStatus: State: Starting, Action: StartingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 17:58:56 (UTC), DetailsLevel: ERR
+2026-08-23T18:04:22.8281187+00:00 ContainerStatus: Container start method called.
+2026-08-23T18:04:22.8341640+00:00 ContainerStatus: State: Starting, Action: PullingImage, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T18:04:22.8343214+00:00 ContainerStatus: Establishing network.
+2026-08-23T18:04:22.8344616+00:00 ContainerStatus: Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T18:04:23.3531230+00:00 ContainerStatus: Container is starting.
+2026-08-23T18:04:23.3532585+00:00 ContainerStatus: State: Starting, Action: MountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T18:04:23.3534480+00:00 ContainerStatus: Establishing user namespace if not established already.
+2026-08-23T18:04:23.3535149+00:00 ContainerStatus: Establishing network if not established already.
+2026-08-23T18:04:23.3536070+00:00 ContainerStatus: Mounting volumes.
+2026-08-23T18:04:23.3537575+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:04:23.4591579+00:00 ContainerStatus: Nested mountpoint volatile/logs
+2026-08-23T18:04:23.4910000+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:04:23.5193578+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:04:23.5308047+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:04:23.6200250+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:04:24.5647321+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T18:04:24.5649160+00:00 ContainerStatus: Creating container.
+2026-08-23T18:04:24.5655021+00:00 ContainerStatus: Creating pipes for streaming container io.
+2026-08-23T18:04:24.5656327+00:00 ContainerStatus: Creating stdout named pipe at /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.5679168+00:00 ContainerStatus: Successfully created stdout named pipe at: /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.6427489+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a for reading in non-blocking mode.
+2026-08-23T18:04:24.6433520+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.6435602+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/96a807e404ef_aviate-api/stdout_06c889bc8ff94f898aa6cb10068a935a.
+2026-08-23T18:04:24.6556036+00:00 ContainerStatus: Creating stderr named pipe at /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6562034+00:00 ContainerStatus: Successfully created stderr named pipe at: /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6563256+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c for reading in non-blocking mode.
+2026-08-23T18:04:24.6648976+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6737927+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/96a807e404ef_aviate-api/stderr_f3d8fd2350ea4647b3920897c808f93c.
+2026-08-23T18:04:24.6745575+00:00 ContainerStatus: Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T18:04:26.3305202+00:00 ContainerStatus: Starting container: 96a807e404ef_aviate-api.
+2026-08-23T18:04:26.6564357+00:00 ContainerStatus: Starting watchers and probes.
+2026-08-23T18:04:26.6568374+00:00 ContainerStatus: Starting metrics collection.
+2026-08-23T18:04:26.6569269+00:00 ContainerStatus: Container is running.
+2026-08-23T18:04:26.6570542+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:04:27.1671769+00:00 ContainerStatus: Container start method finished after 4278 ms.
+2026-08-23T18:04:27.3162494+00:00 ContainerStatus: State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:04:27.3624951+00:00 ContainerStatus: State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T18:04:27.4433685+00:00 ContainerStream:    _____                               
+2026-08-23T18:04:27.4434222+00:00 ContainerStream:   /  _  \ __________ _________   ____  
+2026-08-23T18:04:27.4434254+00:00 ContainerStream:  /  /_\  \\___   /  |  \_  __ \_/ __ \ 
+2026-08-23T18:04:27.4434272+00:00 ContainerStream: /    |    \/    /|  |  /|  | \/\  ___/ 
+2026-08-23T18:04:27.4434296+00:00 ContainerStream: \____|__  /_____ \____/ |__|    \___  >
+2026-08-23T18:04:27.4434474+00:00 ContainerStream:         \/      \/                  \/ 
+2026-08-23T18:04:27.4434496+00:00 ContainerStream: A P P   S E R V I C E   O N   L I N U X
+2026-08-23T18:04:27.4434513+00:00 ContainerStream: 
+2026-08-23T18:04:27.4434532+00:00 ContainerStream: Documentation     : https://aka.ms/webapp-linux
+2026-08-23T18:04:27.4434552+00:00 ContainerStream: Python quickstart : https://aka.ms/python-qs
+2026-08-23T18:04:27.4434570+00:00 ContainerStream: Python version    : 3.11.15
+2026-08-23T18:04:27.4434592+00:00 ContainerStream: Instance name     : lw0sdlwk0009AI
+2026-08-23T18:04:27.4434692+00:00 ContainerStream: Instance id       : f8f9256783c926223799dc593171fa3ef38a62fe018e98b19a09df27f9df439e
+2026-08-23T18:04:27.4434712+00:00 ContainerStream: 
+2026-08-23T18:04:27.4434820+00:00 ContainerStream: App port          : 8000
+2026-08-23T18:04:27.4434845+00:00 ContainerStream: Port selected by  : Default for this image
+2026-08-23T18:04:27.4434866+00:00 ContainerStream: (Learn more about the PORT appsetting https://aka.ms/webapp-python-settings)
+2026-08-23T18:04:27.4434883+00:00 ContainerStream: 
+2026-08-23T18:04:27.4434903+00:00 ContainerStream: Note: Any data outside '/home' is not persisted
+2026-08-23T18:04:27.4434919+00:00 ContainerStream: 
+2026-08-23T18:04:27.4434957+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T18:04:27.4434977+00:00 ContainerStream:  Run 'apphelp' for available commands and aliases.
+2026-08-23T18:04:27.4434998+00:00 ContainerStream:  Run 'install-nettools' to install networking utilities.
+2026-08-23T18:04:27.4435027+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T18:04:28.6088476+00:00 ContainerStream: Starting OpenBSD Secure Shell server: sshd.
+2026-08-23T18:04:28.6372689+00:00 ContainerStream: WEBSITES_INCLUDE_CLOUD_CERTS is not set to true.
+2026-08-23T18:04:28.7362381+00:00 ContainerStream: Updating certificates in /etc/ssl/certs...
+2026-08-23T18:04:48.3146555+00:00 ContainerStream: rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+2026-08-23T18:04:48.4838279+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_RSA_Root_CA_2022.pem
+2026-08-23T18:04:48.5164403+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_ECC_Root_CA_2022.pem
+2026-08-23T18:04:48.6344660+00:00 ContainerStream: 4 added, 0 removed; done.
+2026-08-23T18:04:48.6345049+00:00 ContainerStream: Running hooks in /etc/ca-certificates/update.d...
+2026-08-23T18:04:48.6452578+00:00 ContainerStream: done.
+2026-08-23T18:04:48.6842139+00:00 ContainerStream: CA certificates copied and updated successfully.
+2026-08-23T18:04:48.9633560+00:00 ContainerStream: Site's appCommandLine: gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+2026-08-23T18:04:49.7517295+00:00 ContainerStream: Starting periodic command scheduler: cron.
+2026-08-23T18:04:49.7529779+00:00 ContainerStream: Launching oryx with: create-script -appPath /home/site/wwwroot -output /opt/startup/startup.sh -virtualEnvName antenv -defaultApp /opt/defaultsite -userStartupCommand 'gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120'
+2026-08-23T18:04:49.9594385+00:00 ContainerStream: Found build manifest file at '/home/site/wwwroot/oryx-manifest.toml'. Deserializing it...
+2026-08-23T18:04:49.9685394+00:00 ContainerStream: Build Operation ID: f84461f252b94968
+2026-08-23T18:04:49.9705378+00:00 ContainerStream: Oryx Version: 0.2.20260710.1, Commit: 079b5b6294eb97d462d8f96bfa3243e9b85251da, ReleaseTagName: 20260710.1
+2026-08-23T18:04:49.9708837+00:00 ContainerStream: Output is compressed. Extracting it...
+2026-08-23T18:04:49.9868996+00:00 ContainerStream: Found zstd-compressed tarball.
+2026-08-23T18:04:49.9880032+00:00 ContainerStream: Extracting '/home/site/wwwroot/output.tar.zst' to directory '/tmp/8df013fcf36568e'...
+2026-08-23T18:04:49.9885296+00:00 ContainerStream: Using zstd for decompression of file: /home/site/wwwroot/output.tar.zst
+2026-08-23T18:04:57.7332178+00:00 ContainerStream: zstd tar Successfully extracted '/home/site/wwwroot/output.tar.zst' to '/tmp/8df013fcf36568e'
+2026-08-23T18:04:57.7337482+00:00 ContainerStream: App path is set to '/tmp/8df013fcf36568e'
+2026-08-23T18:04:59.2402347+00:00 ContainerStream: Writing output script to '/opt/startup/startup.sh'
+2026-08-23T18:04:59.5025413+00:00 ContainerStream: Using packages from virtual environment antenv located at /tmp/8df013fcf36568e/antenv.
+2026-08-23T18:04:59.5033711+00:00 ContainerStream: Updated PYTHONPATH to '/home/site/wwwroot:/opt/startup/app_logs:/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages'
+2026-08-23T18:05:00.4267922+00:00 ContainerStream: [2026-08-23 18:05:00 +0000] [1882] [INFO] Starting gunicorn 26.1.0
+2026-08-23T18:05:00.4336141+00:00 ContainerStream: [2026-08-23 18:05:00 +0000] [1882] [INFO] Listening at: http://0.0.0.0:8000 (1882)
+2026-08-23T18:05:00.4340893+00:00 ContainerStream: [2026-08-23 18:05:00 +0000] [1882] [INFO] Using worker: sync
+2026-08-23T18:05:00.4548524+00:00 ContainerStream: [2026-08-23 18:05:00 +0000] [1883] [INFO] Booting worker with pid: 1883
+2026-08-23T18:05:00.9201034+00:00 ContainerStream: [2026-08-23 18:05:00 +0000] [1882] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+2026-08-23T18:05:06.2619488+00:00 ContainerStream: [2026-08-23 18:05:06 +0000] [1883] [ERROR] Exception in worker process
+2026-08-23T18:05:06.2619867+00:00 ContainerStream: Traceback (most recent call last):
+2026-08-23T18:05:06.2620188+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/arbiter.py", line 753, in spawn_worker
+2026-08-23T18:05:06.2620214+00:00 ContainerStream:     worker.init_process()
+2026-08-23T18:05:06.2620240+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+2026-08-23T18:05:06.2620260+00:00 ContainerStream:     self.load_wsgi()
+2026-08-23T18:05:06.2620285+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+2026-08-23T18:05:06.2620305+00:00 ContainerStream:     self.wsgi = self.app.wsgi()
+2026-08-23T18:05:06.2620325+00:00 ContainerStream:                 ^^^^^^^^^^^^^^^
+2026-08-23T18:05:06.2620349+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+2026-08-23T18:05:06.2620573+00:00 ContainerStream:     self.callable = self.load()
+2026-08-23T18:05:06.2620594+00:00 ContainerStream:                     ^^^^^^^^^^^
+2026-08-23T18:05:06.2620618+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+2026-08-23T18:05:06.2620638+00:00 ContainerStream:     return self.load_wsgiapp()
+2026-08-23T18:05:06.2620656+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:05:06.2620703+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+2026-08-23T18:05:06.2620724+00:00 ContainerStream:     return util.import_app(self.app_uri)
+2026-08-23T18:05:06.2620744+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:05:06.2620767+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/util.py", line 420, in import_app
+2026-08-23T18:05:06.2620787+00:00 ContainerStream:     mod = importlib.import_module(module)
+2026-08-23T18:05:06.2620806+00:00 ContainerStream:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:05:06.2620829+00:00 ContainerStream:   File "/opt/python/3.11.15/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-08-23T18:05:06.2620850+00:00 ContainerStream:     return _bootstrap._gcd_import(name[level:], package, level)
+2026-08-23T18:05:06.2620870+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:05:06.2620892+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-08-23T18:05:06.2620914+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-08-23T18:05:06.2620935+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-08-23T18:05:06.2620987+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-08-23T18:05:06.2621008+00:00 ContainerStream:   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-08-23T18:05:06.2621030+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-08-23T18:05:06.2621051+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/wsgi.py", line 1, in <module>
+2026-08-23T18:05:06.2621069+00:00 ContainerStream:     from app import app
+2026-08-23T18:05:06.2621090+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/app.py", line 9, in <module>
+2026-08-23T18:05:06.2621108+00:00 ContainerStream:     from routes import (
+2026-08-23T18:05:06.2621131+00:00 ContainerStream: ImportError: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T18:05:06.2665047+00:00 ContainerStream: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T18:05:06.2665372+00:00 ContainerStream: [2026-08-23 18:05:06 +0000] [1883] [INFO] Worker exiting (pid: 1883)
+2026-08-23T18:05:06.8562035+00:00 ContainerStream: [2026-08-23 18:05:06 +0000] [1882] [ERROR] Worker (pid:1883) exited with code 3.
+2026-08-23T18:05:06.8861220+00:00 ContainerStream: [2026-08-23 18:05:06 +0000] [1882] [ERROR] Shutting down: Master
+2026-08-23T18:05:06.8861712+00:00 ContainerStream: [2026-08-23 18:05:06 +0000] [1882] [ERROR] Reason: Worker failed to boot.
+2026-08-23T18:05:07.2518427+00:00 ContainerStatus: Container has finished running with exit code: 3.
+2026-08-23T18:05:07.2537331+00:00 ContainerStatus: Container is terminating. Grace period: 5 seconds.
+2026-08-23T18:05:07.2727199+00:00 ContainerStatus: Stop and delete container. Retry count = 0
+2026-08-23T18:05:07.2728180+00:00 ContainerStatus: Stopping container: 96a807e404ef_aviate-api.
+2026-08-23T18:05:07.4402225+00:00 ContainerStatus: Deleting container: 96a807e404ef_aviate-api. Retry count = 0
+2026-08-23T18:05:08.1007944+00:00 ContainerStatus: Container spec TerminationMessagePolicy  path 
+2026-08-23T18:05:08.1022207+00:00 ContainerStatus: Container is terminated. Total time elapsed: 831 ms.
+2026-08-23T18:05:08.1028128+00:00 ContainerStatus: Site container: aviate-api terminated during site startup.
+2026-08-23T18:05:08.1407047+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 17:58:54, LastErrorDetails: Container exited with exit code 3 during startup after 52.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.2023954+00:00 ContainerStatus: Site startup probe failed after 40.8381004 seconds.
+2026-08-23T18:05:08.4518233+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.4710981+00:00 ContainerStatus: Failed to start site. Revert by stopping site.
+2026-08-23T18:05:08.4732084+00:00 ContainerStatus: State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.4993857+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:08.4994162+00:00 ContainerStatus: Site: aviate-api stopped.
+========== New Cold Start Attempt (2026-08-23T18:05:08.5188431+00:00) ==========
+2026-08-23T18:05:08.5188431+00:00 ContainerStatus: State: Stopping, Action: UnmountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:09.1931742+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:05:09.5272856+00:00 ContainerStatus: Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:06:09
+2026-08-23T18:05:09.5275228+00:00 ContainerStatus: State: Blocked, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:06:09, DetailsLevel: WARN
+2026-08-23T18:05:09.5650865+00:00 ContainerStatus: State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:05:10.4344662+00:00 ContainerStatus: State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:06:09.5328388+00:00 ContainerStatus: Site: aviate-api is unblocked.
+2026-08-23T18:06:55.4253634+00:00 ContainerStatus: State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:06:57.0085679+00:00 ContainerStatus: State: Starting, Action: StartingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:05:09 (UTC), DetailsLevel: WARN
+2026-08-23T18:06:57.0086672+00:00 ContainerStatus: Container start method called.
+2026-08-23T18:06:57.0087104+00:00 ContainerStatus: State: Starting, Action: PullingImage, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T18:06:57.0087911+00:00 ContainerStatus: Establishing network.
+2026-08-23T18:06:57.0089012+00:00 ContainerStatus: Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T18:06:57.3828691+00:00 ContainerStatus: Container is starting.
+2026-08-23T18:06:57.3830007+00:00 ContainerStatus: State: Starting, Action: MountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T18:06:57.3831106+00:00 ContainerStatus: Establishing user namespace if not established already.
+2026-08-23T18:06:57.3831677+00:00 ContainerStatus: Establishing network if not established already.
+2026-08-23T18:06:57.3832335+00:00 ContainerStatus: Mounting volumes.
+2026-08-23T18:06:57.3834499+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:06:57.4411666+00:00 ContainerStatus: Nested mountpoint volatile/logs
+2026-08-23T18:06:57.5108329+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:06:57.5114503+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:06:57.5206520+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:06:57.5325536+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:06:58.2630801+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T18:06:58.3970878+00:00 ContainerStatus: Creating container.
+2026-08-23T18:06:58.3985182+00:00 ContainerStatus: Creating pipes for streaming container io.
+2026-08-23T18:06:58.3989166+00:00 ContainerStatus: Creating stdout named pipe at /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.3998416+00:00 ContainerStatus: Successfully created stdout named pipe at: /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.4000077+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15 for reading in non-blocking mode.
+2026-08-23T18:06:58.4000899+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.4001403+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/de105cb10f51_aviate-api/stdout_1af713210bc14001aeb3c8211feb6d15.
+2026-08-23T18:06:58.4254725+00:00 ContainerStatus: Creating stderr named pipe at /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4272863+00:00 ContainerStatus: Successfully created stderr named pipe at: /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4279160+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad for reading in non-blocking mode.
+2026-08-23T18:06:58.4363364+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4364411+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/de105cb10f51_aviate-api/stderr_909d8d585db148979d534692c20d35ad.
+2026-08-23T18:06:58.4365744+00:00 ContainerStatus: Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T18:06:58.9892330+00:00 ContainerStatus: Starting container: de105cb10f51_aviate-api.
+2026-08-23T18:06:59.0721664+00:00 ContainerStatus: Starting watchers and probes.
+2026-08-23T18:06:59.0798662+00:00 ContainerStatus: Starting metrics collection.
+2026-08-23T18:06:59.0810514+00:00 ContainerStatus: Container is running.
+2026-08-23T18:06:59.0815681+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:06:59.3476818+00:00 ContainerStatus: Container start method finished after 2338 ms.
+2026-08-23T18:06:59.3478794+00:00 ContainerStatus: State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:06:59.3479154+00:00 ContainerStatus: State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T18:06:59.8418019+00:00 ContainerStream:    _____                               
+2026-08-23T18:06:59.8418270+00:00 ContainerStream:   /  _  \ __________ _________   ____  
+2026-08-23T18:06:59.8418297+00:00 ContainerStream:  /  /_\  \\___   /  |  \_  __ \_/ __ \ 
+2026-08-23T18:06:59.8418554+00:00 ContainerStream: /    |    \/    /|  |  /|  | \/\  ___/ 
+2026-08-23T18:06:59.8418573+00:00 ContainerStream: \____|__  /_____ \____/ |__|    \___  >
+2026-08-23T18:06:59.8418591+00:00 ContainerStream:         \/      \/                  \/ 
+2026-08-23T18:06:59.8418608+00:00 ContainerStream: A P P   S E R V I C E   O N   L I N U X
+2026-08-23T18:06:59.8418624+00:00 ContainerStream: 
+2026-08-23T18:06:59.8418643+00:00 ContainerStream: Documentation     : https://aka.ms/webapp-linux
+2026-08-23T18:06:59.8418661+00:00 ContainerStream: Python quickstart : https://aka.ms/python-qs
+2026-08-23T18:06:59.8418678+00:00 ContainerStream: Python version    : 3.11.15
+2026-08-23T18:06:59.8418914+00:00 ContainerStream: Instance name     : lw0sdlwk0009AI
+2026-08-23T18:06:59.8418936+00:00 ContainerStream: Instance id       : f8f9256783c926223799dc593171fa3ef38a62fe018e98b19a09df27f9df439e
+2026-08-23T18:06:59.8418951+00:00 ContainerStream: 
+2026-08-23T18:06:59.8418968+00:00 ContainerStream: App port          : 8000
+2026-08-23T18:06:59.8418985+00:00 ContainerStream: Port selected by  : Default for this image
+2026-08-23T18:06:59.8419030+00:00 ContainerStream: (Learn more about the PORT appsetting https://aka.ms/webapp-python-settings)
+2026-08-23T18:06:59.8419046+00:00 ContainerStream: 
+2026-08-23T18:06:59.8419063+00:00 ContainerStream: Note: Any data outside '/home' is not persisted
+2026-08-23T18:06:59.8419078+00:00 ContainerStream: 
+2026-08-23T18:06:59.8419113+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T18:06:59.8419131+00:00 ContainerStream:  Run 'apphelp' for available commands and aliases.
+2026-08-23T18:06:59.8419149+00:00 ContainerStream:  Run 'install-nettools' to install networking utilities.
+2026-08-23T18:06:59.8419175+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T18:07:02.3294766+00:00 ContainerStream: Starting OpenBSD Secure Shell server: sshd.
+2026-08-23T18:07:02.3565698+00:00 ContainerStream: WEBSITES_INCLUDE_CLOUD_CERTS is not set to true.
+2026-08-23T18:07:02.4842947+00:00 ContainerStream: Updating certificates in /etc/ssl/certs...
+2026-08-23T18:07:28.1266558+00:00 ContainerStream: rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+2026-08-23T18:07:28.3340005+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_RSA_Root_CA_2022.pem
+2026-08-23T18:07:28.3434065+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_ECC_Root_CA_2022.pem
+2026-08-23T18:07:28.4926648+00:00 ContainerStream: 4 added, 0 removed; done.
+2026-08-23T18:07:28.4927027+00:00 ContainerStream: Running hooks in /etc/ca-certificates/update.d...
+2026-08-23T18:07:28.5408352+00:00 ContainerStream: done.
+2026-08-23T18:07:28.5909677+00:00 ContainerStream: CA certificates copied and updated successfully.
+2026-08-23T18:07:28.9056777+00:00 ContainerStream: Site's appCommandLine: gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+2026-08-23T18:07:30.6072146+00:00 ContainerStream: Starting periodic command scheduler: cron.
+2026-08-23T18:07:30.6102087+00:00 ContainerStream: Launching oryx with: create-script -appPath /home/site/wwwroot -output /opt/startup/startup.sh -virtualEnvName antenv -defaultApp /opt/defaultsite -userStartupCommand 'gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120'
+2026-08-23T18:07:31.1666153+00:00 ContainerStream: Found build manifest file at '/home/site/wwwroot/oryx-manifest.toml'. Deserializing it...
+2026-08-23T18:07:31.3089707+00:00 ContainerStream: Build Operation ID: f84461f252b94968
+2026-08-23T18:07:31.3183431+00:00 ContainerStream: Oryx Version: 0.2.20260710.1, Commit: 079b5b6294eb97d462d8f96bfa3243e9b85251da, ReleaseTagName: 20260710.1
+2026-08-23T18:07:31.3183889+00:00 ContainerStream: Output is compressed. Extracting it...
+2026-08-23T18:07:31.3286378+00:00 ContainerStream: Found zstd-compressed tarball.
+2026-08-23T18:07:31.3286553+00:00 ContainerStream: Extracting '/home/site/wwwroot/output.tar.zst' to directory '/tmp/8df013fcf36568e'...
+2026-08-23T18:07:31.3286590+00:00 ContainerStream: Using zstd for decompression of file: /home/site/wwwroot/output.tar.zst
+2026-08-23T18:07:48.0109647+00:00 ContainerStream: zstd tar Successfully extracted '/home/site/wwwroot/output.tar.zst' to '/tmp/8df013fcf36568e'
+2026-08-23T18:07:48.0110266+00:00 ContainerStream: App path is set to '/tmp/8df013fcf36568e'
+2026-08-23T18:07:48.0544708+00:00 ContainerStream: Writing output script to '/opt/startup/startup.sh'
+2026-08-23T18:07:48.4755844+00:00 ContainerStream: Using packages from virtual environment antenv located at /tmp/8df013fcf36568e/antenv.
+2026-08-23T18:07:48.4756950+00:00 ContainerStream: Updated PYTHONPATH to '/home/site/wwwroot:/opt/startup/app_logs:/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages'
+2026-08-23T18:07:49.3317985+00:00 ContainerStream: [2026-08-23 18:07:49 +0000] [1884] [INFO] Starting gunicorn 26.1.0
+2026-08-23T18:07:49.3318575+00:00 ContainerStream: [2026-08-23 18:07:49 +0000] [1884] [INFO] Listening at: http://0.0.0.0:8000 (1884)
+2026-08-23T18:07:49.3331587+00:00 ContainerStream: [2026-08-23 18:07:49 +0000] [1884] [INFO] Using worker: sync
+2026-08-23T18:07:49.3507343+00:00 ContainerStream: [2026-08-23 18:07:49 +0000] [1885] [INFO] Booting worker with pid: 1885
+2026-08-23T18:07:49.6761832+00:00 ContainerStream: [2026-08-23 18:07:49 +0000] [1884] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+2026-08-23T18:07:52.5586365+00:00 ContainerStream: [2026-08-23 18:07:52 +0000] [1885] [ERROR] Exception in worker process
+2026-08-23T18:07:52.5589755+00:00 ContainerStream: Traceback (most recent call last):
+2026-08-23T18:07:52.5589803+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/arbiter.py", line 753, in spawn_worker
+2026-08-23T18:07:52.5589827+00:00 ContainerStream:     worker.init_process()
+2026-08-23T18:07:52.5589850+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+2026-08-23T18:07:52.5589868+00:00 ContainerStream:     self.load_wsgi()
+2026-08-23T18:07:52.5589890+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+2026-08-23T18:07:52.5589908+00:00 ContainerStream:     self.wsgi = self.app.wsgi()
+2026-08-23T18:07:52.5589925+00:00 ContainerStream:                 ^^^^^^^^^^^^^^^
+2026-08-23T18:07:52.5590058+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+2026-08-23T18:07:52.5590079+00:00 ContainerStream:     self.callable = self.load()
+2026-08-23T18:07:52.5590271+00:00 ContainerStream:                     ^^^^^^^^^^^
+2026-08-23T18:07:52.5590293+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+2026-08-23T18:07:52.5590311+00:00 ContainerStream:     return self.load_wsgiapp()
+2026-08-23T18:07:52.5590328+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:07:52.5590350+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+2026-08-23T18:07:52.5590368+00:00 ContainerStream:     return util.import_app(self.app_uri)
+2026-08-23T18:07:52.5590386+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:07:52.5590408+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/util.py", line 420, in import_app
+2026-08-23T18:07:52.5590426+00:00 ContainerStream:     mod = importlib.import_module(module)
+2026-08-23T18:07:52.5590444+00:00 ContainerStream:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:07:52.5590465+00:00 ContainerStream:   File "/opt/python/3.11.15/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-08-23T18:07:52.5590515+00:00 ContainerStream:     return _bootstrap._gcd_import(name[level:], package, level)
+2026-08-23T18:07:52.5590535+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:07:52.5590553+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-08-23T18:07:52.5590573+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-08-23T18:07:52.5590593+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-08-23T18:07:52.5590612+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-08-23T18:07:52.5590632+00:00 ContainerStream:   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-08-23T18:07:52.5590653+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-08-23T18:07:52.5590671+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/wsgi.py", line 1, in <module>
+2026-08-23T18:07:52.5590688+00:00 ContainerStream:     from app import app
+2026-08-23T18:07:52.5590707+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/app.py", line 9, in <module>
+2026-08-23T18:07:52.5590724+00:00 ContainerStream:     from routes import (
+2026-08-23T18:07:52.5590770+00:00 ContainerStream: ImportError: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T18:07:52.5590791+00:00 ContainerStream: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T18:07:52.5590810+00:00 ContainerStream: [2026-08-23 18:07:52 +0000] [1885] [INFO] Worker exiting (pid: 1885)
+2026-08-23T18:07:53.1995190+00:00 ContainerStream: [2026-08-23 18:07:53 +0000] [1884] [ERROR] Worker (pid:1885) exited with code 3.
+2026-08-23T18:07:53.2017187+00:00 ContainerStream: [2026-08-23 18:07:53 +0000] [1884] [ERROR] Shutting down: Master
+2026-08-23T18:07:53.2023061+00:00 ContainerStream: [2026-08-23 18:07:53 +0000] [1884] [ERROR] Reason: Worker failed to boot.
+2026-08-23T18:07:53.4718215+00:00 ContainerStatus: Container has finished running with exit code: 3.
+2026-08-23T18:07:53.4727099+00:00 ContainerStatus: Container is terminating. Grace period: 5 seconds.
+2026-08-23T18:07:53.4814485+00:00 ContainerStatus: Stop and delete container. Retry count = 0
+2026-08-23T18:07:53.4884781+00:00 ContainerStatus: Stopping container: de105cb10f51_aviate-api.
+2026-08-23T18:07:53.6194951+00:00 ContainerStatus: Deleting container: de105cb10f51_aviate-api. Retry count = 0
+2026-08-23T18:07:54.4293239+00:00 ContainerStatus: Container spec TerminationMessagePolicy  path 
+2026-08-23T18:07:54.4362061+00:00 ContainerStatus: Container is terminated. Total time elapsed: 956 ms.
+2026-08-23T18:07:54.4363894+00:00 ContainerStatus: Site container: aviate-api terminated during site startup.
+2026-08-23T18:07:54.4618148+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:05:08, LastErrorDetails: Container exited with exit code 3 during startup after 41.5s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.5180973+00:00 ContainerStatus: Site startup probe failed after 55.169693 seconds.
+2026-08-23T18:07:54.6884307+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.7062897+00:00 ContainerStatus: Failed to start site. Revert by stopping site.
+2026-08-23T18:07:54.7066860+00:00 ContainerStatus: State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.7070566+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:54.7070889+00:00 ContainerStatus: Site: aviate-api stopped.
+========== New Cold Start Attempt (2026-08-23T18:07:54.7567348+00:00) ==========
+2026-08-23T18:07:54.7567348+00:00 ContainerStatus: State: Stopping, Action: UnmountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:55.2655640+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:07:55.6499986+00:00 ContainerStatus: Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:08:55
+2026-08-23T18:07:55.6501212+00:00 ContainerStatus: State: Blocked, Action: StoppingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site: aviate-api will be blocked for 1 minutes till 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:07:55.6519133+00:00 ContainerStatus: State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:07:55 (UTC), DetailsLevel: WARN
+2026-08-23T18:07:56.4094547+00:00 ContainerStatus: State: Stopped, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site stopped at 08/23/2026 18:07:55 (UTC), DetailsLevel: WARN
+2026-08-23T18:08:41.7837424+00:00 ContainerStatus: State: Blocked, Action: None, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:08:41.7838379+00:00 ContainerStatus: Start site prohibitted because the site is being blocked.
+2026-08-23T18:08:55.6483787+00:00 ContainerStatus: Site: aviate-api is unblocked.
+2026-08-23T18:12:22.8752116+00:00 ContainerStatus: State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:12:26.0361234+00:00 ContainerStatus: State: Starting, Action: StartingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 08/23/2026 18:08:55, DetailsLevel: WARN
+2026-08-23T18:12:26.0365316+00:00 ContainerStatus: Container start method called.
+2026-08-23T18:12:26.0467670+00:00 ContainerStatus: State: Starting, Action: PullingImage, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod for aviate-api., DetailsLevel: INFO
+2026-08-23T18:12:26.0470281+00:00 ContainerStatus: Establishing network.
+2026-08-23T18:12:26.0491886+00:00 ContainerStatus: Pulling image: appsvc/python:3.11_20260710.8.tuxprod.
+2026-08-23T18:12:26.8799718+00:00 ContainerStatus: Container is starting.
+2026-08-23T18:12:26.8801468+00:00 ContainerStatus: State: Starting, Action: MountingVolumes, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Mounting volumes for aviate-api., DetailsLevel: INFO
+2026-08-23T18:12:26.8802904+00:00 ContainerStatus: Establishing user namespace if not established already.
+2026-08-23T18:12:26.8803577+00:00 ContainerStatus: Establishing network if not established already.
+2026-08-23T18:12:26.8804960+00:00 ContainerStatus: Mounting volumes.
+2026-08-23T18:12:26.8885101+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:12:26.9273368+00:00 ContainerStatus: Nested mountpoint volatile/logs
+2026-08-23T18:12:26.9566477+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:12:26.9599489+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:12:27.0392564+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:12:27.1381179+00:00 ContainerStatus: Nested mountpoint 
+2026-08-23T18:12:28.1458748+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for aviate-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-08-23T18:12:28.1460663+00:00 ContainerStatus: Creating container.
+2026-08-23T18:12:28.1623940+00:00 ContainerStatus: Creating pipes for streaming container io.
+2026-08-23T18:12:28.1626666+00:00 ContainerStatus: Creating stdout named pipe at /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.1651967+00:00 ContainerStatus: Successfully created stdout named pipe at: /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.1653566+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f for reading in non-blocking mode.
+2026-08-23T18:12:28.1654749+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.1655701+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/64b8ac8a7371_aviate-api/stdout_165ddbda92754eb9bdc65ef67b88549f.
+2026-08-23T18:12:28.2238829+00:00 ContainerStatus: Creating stderr named pipe at /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2240766+00:00 ContainerStatus: Successfully created stderr named pipe at: /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2241738+00:00 ContainerStatus: Opening named pipe /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b for reading in non-blocking mode.
+2026-08-23T18:12:28.2242828+00:00 ContainerStatus: Successfully opened named pipe: /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2243701+00:00 ContainerStatus: Successfully removed non-blocking flag from /podr/container/pipe/64b8ac8a7371_aviate-api/stderr_8a555309f7ce4202af3ed03ec8a0b22b.
+2026-08-23T18:12:28.2514262+00:00 ContainerStatus: Creating container with image: appsvc/python:3.11_20260710.8.tuxprod from registry: 10.1.0.7:13209 and fully qualified image name: 10.1.0.7:13209/appsvc/python:3.11_20260710.8.tuxprod
+2026-08-23T18:12:29.1701958+00:00 ContainerStatus: Starting container: 64b8ac8a7371_aviate-api.
+2026-08-23T18:12:29.2729190+00:00 ContainerStatus: Starting watchers and probes.
+2026-08-23T18:12:29.2820715+00:00 ContainerStatus: Starting metrics collection.
+2026-08-23T18:12:29.2843037+00:00 ContainerStatus: Container is running.
+2026-08-23T18:12:29.2855933+00:00 ContainerStatus: State: Starting, Action: CreatingContainer, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:12:29.5602074+00:00 ContainerStatus: Container start method finished after 3523 ms.
+2026-08-23T18:12:29.5604377+00:00 ContainerStatus: State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Container aviate-api successfully created and is running., DetailsLevel: INFO
+2026-08-23T18:12:29.5605013+00:00 ContainerStatus: State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-08-23T18:12:29.8294726+00:00 ContainerStream:    _____                               
+2026-08-23T18:12:29.8295435+00:00 ContainerStream:   /  _  \ __________ _________   ____  
+2026-08-23T18:12:29.8295475+00:00 ContainerStream:  /  /_\  \\___   /  |  \_  __ \_/ __ \ 
+2026-08-23T18:12:29.8295498+00:00 ContainerStream: /    |    \/    /|  |  /|  | \/\  ___/ 
+2026-08-23T18:12:29.8295516+00:00 ContainerStream: \____|__  /_____ \____/ |__|    \___  >
+2026-08-23T18:12:29.8295536+00:00 ContainerStream:         \/      \/                  \/ 
+2026-08-23T18:12:29.8295554+00:00 ContainerStream: A P P   S E R V I C E   O N   L I N U X
+2026-08-23T18:12:29.8295572+00:00 ContainerStream: 
+2026-08-23T18:12:29.8295597+00:00 ContainerStream: Documentation     : https://aka.ms/webapp-linux
+2026-08-23T18:12:29.8295721+00:00 ContainerStream: Python quickstart : https://aka.ms/python-qs
+2026-08-23T18:12:29.8295741+00:00 ContainerStream: Python version    : 3.11.15
+2026-08-23T18:12:29.8295760+00:00 ContainerStream: Instance name     : lw0sdlwk0009AI
+2026-08-23T18:12:29.8295786+00:00 ContainerStream: Instance id       : f8f9256783c926223799dc593171fa3ef38a62fe018e98b19a09df27f9df439e
+2026-08-23T18:12:29.8295807+00:00 ContainerStream: 
+2026-08-23T18:12:29.8295825+00:00 ContainerStream: App port          : 8000
+2026-08-23T18:12:29.8295845+00:00 ContainerStream: Port selected by  : Default for this image
+2026-08-23T18:12:29.8295866+00:00 ContainerStream: (Learn more about the PORT appsetting https://aka.ms/webapp-python-settings)
+2026-08-23T18:12:29.8295882+00:00 ContainerStream: 
+2026-08-23T18:12:29.8295903+00:00 ContainerStream: Note: Any data outside '/home' is not persisted
+2026-08-23T18:12:29.8295919+00:00 ContainerStream: 
+2026-08-23T18:12:29.8295956+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T18:12:29.8295977+00:00 ContainerStream:  Run 'apphelp' for available commands and aliases.
+2026-08-23T18:12:29.8296017+00:00 ContainerStream:  Run 'install-nettools' to install networking utilities.
+2026-08-23T18:12:29.8296047+00:00 ContainerStream: ────────────────────────────────────────────────────────────────
+2026-08-23T18:12:31.8723543+00:00 ContainerStream: Starting OpenBSD Secure Shell server: sshd.
+2026-08-23T18:12:31.8922667+00:00 ContainerStream: WEBSITES_INCLUDE_CLOUD_CERTS is not set to true.
+2026-08-23T18:12:31.9603132+00:00 ContainerStream: Updating certificates in /etc/ssl/certs...
+2026-08-23T18:12:50.7482331+00:00 ContainerStream: rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+2026-08-23T18:12:50.9641004+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_RSA_Root_CA_2022.pem
+2026-08-23T18:12:50.9811522+00:00 ContainerStream: rehash: warning: skipping duplicate certificate in azl_SSL.com_TLS_ECC_Root_CA_2022.pem
+2026-08-23T18:12:51.0694474+00:00 ContainerStream: 4 added, 0 removed; done.
+2026-08-23T18:12:51.0700078+00:00 ContainerStream: Running hooks in /etc/ca-certificates/update.d...
+2026-08-23T18:12:51.1359749+00:00 ContainerStream: done.
+2026-08-23T18:12:51.1585685+00:00 ContainerStream: CA certificates copied and updated successfully.
+2026-08-23T18:12:51.3922217+00:00 ContainerStream: Site's appCommandLine: gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+2026-08-23T18:12:52.3648957+00:00 ContainerStream: Starting periodic command scheduler: cron.
+2026-08-23T18:12:52.3649366+00:00 ContainerStream: Launching oryx with: create-script -appPath /home/site/wwwroot -output /opt/startup/startup.sh -virtualEnvName antenv -defaultApp /opt/defaultsite -userStartupCommand 'gunicorn --chdir /home/site/wwwroot wsgi:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120'
+2026-08-23T18:12:52.9444448+00:00 ContainerStream: Found build manifest file at '/home/site/wwwroot/oryx-manifest.toml'. Deserializing it...
+2026-08-23T18:12:52.9563291+00:00 ContainerStream: Build Operation ID: f84461f252b94968
+2026-08-23T18:12:52.9639464+00:00 ContainerStream: Oryx Version: 0.2.20260710.1, Commit: 079b5b6294eb97d462d8f96bfa3243e9b85251da, ReleaseTagName: 20260710.1
+2026-08-23T18:12:52.9640231+00:00 ContainerStream: Output is compressed. Extracting it...
+2026-08-23T18:12:52.9660878+00:00 ContainerStream: Found zstd-compressed tarball.
+2026-08-23T18:12:52.9660979+00:00 ContainerStream: Extracting '/home/site/wwwroot/output.tar.zst' to directory '/tmp/8df013fcf36568e'...
+2026-08-23T18:12:52.9661011+00:00 ContainerStream: Using zstd for decompression of file: /home/site/wwwroot/output.tar.zst
+2026-08-23T18:13:01.2496591+00:00 ContainerStream: zstd tar Successfully extracted '/home/site/wwwroot/output.tar.zst' to '/tmp/8df013fcf36568e'
+2026-08-23T18:13:01.2507049+00:00 ContainerStream: App path is set to '/tmp/8df013fcf36568e'
+2026-08-23T18:13:02.8173756+00:00 ContainerStream: Writing output script to '/opt/startup/startup.sh'
+2026-08-23T18:13:03.0350668+00:00 ContainerStream: Using packages from virtual environment antenv located at /tmp/8df013fcf36568e/antenv.
+2026-08-23T18:13:03.0361804+00:00 ContainerStream: Updated PYTHONPATH to '/home/site/wwwroot:/opt/startup/app_logs:/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages'
+2026-08-23T18:13:03.9324467+00:00 ContainerStream: [2026-08-23 18:13:03 +0000] [1881] [INFO] Starting gunicorn 26.1.0
+2026-08-23T18:13:03.9340875+00:00 ContainerStream: [2026-08-23 18:13:03 +0000] [1881] [INFO] Listening at: http://0.0.0.0:8000 (1881)
+2026-08-23T18:13:03.9502372+00:00 ContainerStream: [2026-08-23 18:13:03 +0000] [1881] [INFO] Using worker: sync
+2026-08-23T18:13:03.9530640+00:00 ContainerStream: [2026-08-23 18:13:03 +0000] [1882] [INFO] Booting worker with pid: 1882
+2026-08-23T18:13:04.2682609+00:00 ContainerStream: [2026-08-23 18:13:04 +0000] [1881] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+2026-08-23T18:13:07.7950833+00:00 ContainerStream: [2026-08-23 18:13:07 +0000] [1882] [ERROR] Exception in worker process
+2026-08-23T18:13:07.7951662+00:00 ContainerStream: Traceback (most recent call last):
+2026-08-23T18:13:07.7951864+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/arbiter.py", line 753, in spawn_worker
+2026-08-23T18:13:07.7951885+00:00 ContainerStream:     worker.init_process()
+2026-08-23T18:13:07.7951916+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+2026-08-23T18:13:07.7952030+00:00 ContainerStream:     self.load_wsgi()
+2026-08-23T18:13:07.7952054+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+2026-08-23T18:13:07.7952074+00:00 ContainerStream:     self.wsgi = self.app.wsgi()
+2026-08-23T18:13:07.7952091+00:00 ContainerStream:                 ^^^^^^^^^^^^^^^
+2026-08-23T18:13:07.7952114+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+2026-08-23T18:13:07.7952131+00:00 ContainerStream:     self.callable = self.load()
+2026-08-23T18:13:07.7952148+00:00 ContainerStream:                     ^^^^^^^^^^^
+2026-08-23T18:13:07.7952171+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+2026-08-23T18:13:07.7952188+00:00 ContainerStream:     return self.load_wsgiapp()
+2026-08-23T18:13:07.7952206+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:13:07.7952229+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+2026-08-23T18:13:07.7952248+00:00 ContainerStream:     return util.import_app(self.app_uri)
+2026-08-23T18:13:07.7952267+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:13:07.7952310+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/antenv/lib/python3.11/site-packages/gunicorn/util.py", line 420, in import_app
+2026-08-23T18:13:07.7952329+00:00 ContainerStream:     mod = importlib.import_module(module)
+2026-08-23T18:13:07.7952347+00:00 ContainerStream:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:13:07.7952367+00:00 ContainerStream:   File "/opt/python/3.11.15/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-08-23T18:13:07.7952387+00:00 ContainerStream:     return _bootstrap._gcd_import(name[level:], package, level)
+2026-08-23T18:13:07.7952406+00:00 ContainerStream:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-08-23T18:13:07.7952426+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-08-23T18:13:07.7952446+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-08-23T18:13:07.7952467+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-08-23T18:13:07.7952486+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-08-23T18:13:07.7952507+00:00 ContainerStream:   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-08-23T18:13:07.7952527+00:00 ContainerStream:   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-08-23T18:13:07.7952573+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/wsgi.py", line 1, in <module>
+2026-08-23T18:13:07.7952591+00:00 ContainerStream:     from app import app
+2026-08-23T18:13:07.7952610+00:00 ContainerStream:   File "/tmp/8df013fcf36568e/app.py", line 9, in <module>
+2026-08-23T18:13:07.7952628+00:00 ContainerStream:     from routes import (
+2026-08-23T18:13:07.7952649+00:00 ContainerStream: ImportError: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T18:13:07.8020329+00:00 ContainerStream: cannot import name 'public_bp' from 'routes' (/home/site/wwwroot/routes/__init__.py)
+2026-08-23T18:13:07.8020620+00:00 ContainerStream: [2026-08-23 18:13:07 +0000] [1882] [INFO] Worker exiting (pid: 1882)
+2026-08-23T18:13:09.0067666+00:00 ContainerStream: [2026-08-23 18:13:09 +0000] [1881] [ERROR] Worker (pid:1882) exited with code 3.
+2026-08-23T18:13:09.0242576+00:00 ContainerStream: [2026-08-23 18:13:09 +0000] [1881] [ERROR] Shutting down: Master
+2026-08-23T18:13:09.0242764+00:00 ContainerStream: [2026-08-23 18:13:09 +0000] [1881] [ERROR] Reason: Worker failed to boot.
+2026-08-23T18:13:09.4786739+00:00 ContainerStatus: Container has finished running with exit code: 3.
+2026-08-23T18:13:09.4794468+00:00 ContainerStatus: Container is terminating. Grace period: 5 seconds.
+2026-08-23T18:13:09.5079336+00:00 ContainerStatus: Stop and delete container. Retry count = 0
+2026-08-23T18:13:09.5083852+00:00 ContainerStatus: Stopping container: 64b8ac8a7371_aviate-api.
+2026-08-23T18:13:09.6181434+00:00 ContainerStatus: Deleting container: 64b8ac8a7371_aviate-api. Retry count = 0
+2026-08-23T18:13:10.9808987+00:00 ContainerStatus: Container spec TerminationMessagePolicy  path 
+2026-08-23T18:13:10.9999115+00:00 ContainerStatus: Container is terminated. Total time elapsed: 1519 ms.
+2026-08-23T18:13:11.0007951+00:00 ContainerStatus: Site container: aviate-api terminated during site startup.
+2026-08-23T18:13:11.0198535+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:07:54, LastErrorDetails: Container exited with exit code 3 during startup after 55.4s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.1465722+00:00 ContainerStatus: Site startup probe failed after 41.4836647 seconds.
+2026-08-23T18:13:11.4913242+00:00 ContainerStatus: State: Stopping, Action: CancellingStartup, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:13:11, LastErrorDetails: Container exited with exit code 3 during startup after 41.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.5400300+00:00 ContainerStatus: Failed to start site. Revert by stopping site.
+2026-08-23T18:13:11.5406115+00:00 ContainerStatus: State: Stopping, Action: StoppingSite, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:13:11, LastErrorDetails: Container exited with exit code 3 during startup after 41.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.5412618+00:00 ContainerStatus: State: Stopping, Action: StoppingSiteContainers, LastError: ContainerStartupFailure, LastErrorTimestamp: 08/23/2026 18:13:11, LastErrorDetails: Container exited with exit code 3 during startup after 41.7s. Please inspect your container logs for more details., Details: Site container: aviate-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-08-23T18:13:11.5412822+00:00 ContainerStatus: Site: aviate-api stopped.

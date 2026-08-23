@@ -1,0 +1,141 @@
+2026-08-23T17:56:06.6454330Z,Updating submodules.,ada4f52e-f70b-4077-9a6b-70ff915a2eb8,0
+2026-08-23T17:56:07.8552812Z,Preparing deployment for commit id '188e19e1-d'.,b8f2f71e-b53d-48ce-b6c0-54767b97e288,0
+2026-08-23T17:56:08.3264831Z,PreDeployment: context.CleanOutputPath False,14eaea18-6495-4015-84d2-42d48e43b7a8,0
+2026-08-23T17:56:08.7364911Z,PreDeployment: context.OutputPath /home/site/wwwroot,09ef079a-e1b6-4831-bfab-ac5236d993ad,0
+2026-08-23T17:56:08.9544845Z,Repository path is /tmp/zipdeploy/extracted,c33b1d57-3c81-4f6d-b39f-3689cd28f6bf,0
+2026-08-23T17:56:09.2774416Z,Running oryx build...,c745e9a5-31e3-420f-8bda-d7a3b3ec7665,0
+	2026-08-23T17:56:09.3170412Z,Command: oryx build /tmp/zipdeploy/extracted -o /home/site/wwwroot --platform python --platform-version 3.11 -p virtualenv_name=antenv --log-file /tmp/build-debug.log  -i /tmp/8df013fcf36568e --compress-destination-dir | tee /tmp/oryx-build.log,,0
+	2026-08-23T17:56:12.5671602Z,Operation performed by Microsoft Oryx&comma; https://github.com/Microsoft/Oryx,,0
+	2026-08-23T17:56:12.6245487Z,You can report issues at https://github.com/Microsoft/Oryx/issues,,0
+	2026-08-23T17:56:12.6705714Z,,,0
+	2026-08-23T17:56:12.7107541Z,Oryx Version: 0.2.20260513.1+5c94136d0d5c06204a00d688dc7aea902452e52c&comma; Commit: 5c94136d0d5c06204a00d688dc7aea902452e52c&comma; ReleaseTagName: 20260513.1,,0
+	2026-08-23T17:56:12.7421976Z,,,0
+	2026-08-23T17:56:12.7914641Z,Build Operation ID: f84461f252b94968,,0
+	2026-08-23T17:56:12.8222321Z,Repository Commit : 188e19e1-dbe9-448d-9937-5b36e1d75b79,,0
+	2026-08-23T17:56:12.8621386Z,OS Type           : bullseye,,0
+	2026-08-23T17:56:12.9097217Z,Image Type        : githubactions,,0
+	2026-08-23T17:56:12.9313082Z,,,0
+	2026-08-23T17:56:12.9608089Z,Primary SDK Storage URL: https://oryx-cdn.microsoft.io,,0
+	2026-08-23T17:56:13.0091964Z,Backup SDK Storage URL: ,,0
+	2026-08-23T17:56:13.0759747Z,ACR SDK Registry URL: (not set),,0
+	2026-08-23T17:56:13.1086197Z,SDK provider status:,,0
+	2026-08-23T17:56:13.1350252Z,  External ACR SDK provider: Enabled,,0
+	2026-08-23T17:56:13.1599016Z,  External SDK provider: Enabled,,0
+	2026-08-23T17:56:13.1855058Z,  Direct ACR SDK provider: Disabled,,0
+	2026-08-23T17:56:13.2066869Z,  Blob SDK provider: Enabled,,0
+	2026-08-23T17:56:13.2248642Z,External ACR SDK provider is enabled. Only using user-specified platform: python,,0
+	2026-08-23T17:56:13.2452058Z,Detecting platforms...,,0
+	2026-08-23T17:56:21.7205592Z,External ACR provider resolved version '3.11.15' for python.,,0
+	2026-08-23T17:56:21.8193818Z,Version resolved using external ACR SDK provider.,,0
+	2026-08-23T17:56:21.8590603Z,Detected following platforms:,,0
+	2026-08-23T17:56:21.9168168Z,  python: 3.11.15,,0
+	2026-08-23T17:56:21.9558561Z,Requesting SDK from ACR via external provider: python 3.11.15 (bullseye),,0
+	2026-08-23T17:56:24.2724868Z,Successfully pulled SDK from ACR via external provider: python 3.11.15,,0
+	2026-08-23T17:56:24.3715303Z,SDK for 'python' version '3.11.15' fetched via external ACR provider.,,0
+	2026-08-23T17:56:24.4306653Z,Version '3.11.15' of platform 'python' is not installed. Generating script to install it...,,0
+	2026-08-23T17:56:25.0675687Z,,,0
+	2026-08-23T17:56:25.2186619Z,Using intermediate directory '/tmp/8df013fcf36568e'.,,0
+	2026-08-23T17:56:25.2882141Z,,,0
+	2026-08-23T17:56:25.3475044Z,Copying files to the intermediate directory...,,0
+	2026-08-23T17:56:25.6159073Z,Copying files to intermediate directory done in 0 sec(s).,,0
+	2026-08-23T17:56:25.6740035Z,,,0
+	2026-08-23T17:56:25.7050317Z,Source directory     : /tmp/8df013fcf36568e,,0
+	2026-08-23T17:56:25.7438424Z,Destination directory: /home/site/wwwroot,,0
+	2026-08-23T17:56:25.7849209Z,,,0
+	2026-08-23T17:56:25.8279541Z,Installing platform...,,0
+	2026-08-23T17:56:25.8452458Z,,,0
+	2026-08-23T17:56:25.9304649Z,Downloading and extracting 'python' version '3.11.15' to '/tmp/oryx/platforms/python/3.11.15'...,,0
+	2026-08-23T17:56:25.9832423Z,Detected image debian flavor: bullseye.,,0
+	2026-08-23T17:56:26.0817551Z,SDK binary download was skipped. Looking for cached tarball...,,0
+	2026-08-23T17:56:26.2169465Z,Found tarball at /var/OryxAcrSdks/python/python-bullseye-3.11.15.tar.gz,,0
+	2026-08-23T17:56:45.7251313Z,Successfully extracted python version 3.11.15 from cached tarball.,,0
+	2026-08-23T17:56:45.8526984Z,,,0
+	2026-08-23T17:56:45.9137610Z,image detector file exists&comma; platform is python..,,0
+	2026-08-23T17:56:45.9633763Z,OS detector file exists&comma; OS is bullseye..,,0
+	2026-08-23T17:56:46.0227622Z,Platform installation done in 20 sec(s).,,0
+	2026-08-23T17:56:46.2617496Z,Running build script snippets...,,0
+	2026-08-23T17:56:46.3439406Z,Python Version: /tmp/oryx/platforms/python/3.11.15/bin/python3.11,,0
+	2026-08-23T17:56:46.4091555Z,Creating directory for command manifest file if it does not exist,,0
+	2026-08-23T17:56:46.4417633Z,Removing existing manifest file,,0
+	2026-08-23T17:56:46.4804079Z,Python Virtual Environment: antenv,,0
+	2026-08-23T17:56:46.5397508Z,Creating virtual environment...,,0
+	2026-08-23T17:56:46.6158290Z,Executing: /tmp/oryx/platforms/python/3.11.15/bin/python3.11 -m venv antenv --copies --system-site-packages,,0
+	2026-08-23T17:57:05.6524625Z,Activating virtual environment...,,0
+	2026-08-23T17:57:05.7235843Z,Fast build is enabled,,0
+	2026-08-23T17:57:05.7658368Z,Installing uv...,,0
+	2026-08-23T17:57:10.7262572Z,Collecting uv,,0
+	2026-08-23T17:57:10.8608391Z,  Downloading uv-0.12.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB),,0
+	2026-08-23T17:57:11.2558420Z,Downloading uv-0.12.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (23.7 MB),,0
+	2026-08-23T17:57:14.8335326Z,   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 4.8 MB/s eta 0:00:00,,0
+	2026-08-23T17:57:16.5803907Z,Installing collected packages: uv,,0
+	2026-08-23T17:57:21.1773467Z,Successfully installed uv-0.12.5,,0
+	2026-08-23T17:57:22.8001006Z,,,1
+	2026-08-23T17:57:22.9342018Z,[notice] A new release of pip is available: 24.0 -> 26.2.1,,1
+	2026-08-23T17:57:23.0237471Z,[notice] To update&comma; run: pip install --upgrade pip,,1
+	2026-08-23T17:57:24.5948895Z,Running uv pip install...,,0
+	2026-08-23T17:57:42.6155590Z,Using Python 3.11.15 environment at: antenv,,0
+	2026-08-23T17:57:42.7247779Z,Resolved 28 packages in 2.18s,,0
+	2026-08-23T17:57:42.8119928Z,Downloading sqlalchemy (3.2MiB),,0
+	2026-08-23T17:57:42.8716311Z, Downloaded sqlalchemy,,0
+	2026-08-23T17:57:42.9591008Z,Prepared 28 packages in 2.44s,,0
+	2026-08-23T17:57:43.0151923Z,Installed 28 packages in 508ms,,0
+	2026-08-23T17:57:43.0627992Z,Bytecode compiled 883 files in 11.45s,,0
+	2026-08-23T17:57:43.1352718Z, + asn1crypto==1.5.1,,0
+	2026-08-23T17:57:43.2033192Z, + bcrypt==5.0.0,,0
+	2026-08-23T17:57:43.2511346Z, + blinker==1.9.0,,0
+	2026-08-23T17:57:43.2925548Z, + certifi==2026.7.22,,0
+	2026-08-23T17:57:43.3395357Z, + charset-normalizer==3.5.1,,0
+	2026-08-23T17:57:43.3842678Z, + click==8.4.2,,0
+	2026-08-23T17:57:43.4296206Z, + et-xmlfile==2.0.0,,0
+	2026-08-23T17:57:43.4716415Z, + flask==3.1.3,,0
+	2026-08-23T17:57:43.5108395Z, + flask-cors==6.0.5,,0
+	2026-08-23T17:57:43.6201320Z, + geographiclib==2.1,,0
+	2026-08-23T17:57:43.6680382Z, + geopy==2.5.0,,0
+	2026-08-23T17:57:43.7378371Z, + greenlet==3.5.5,,0
+	2026-08-23T17:57:43.7673005Z, + gunicorn==26.1.0,,0
+	2026-08-23T17:57:43.7982876Z, + idna==3.19,,0
+	2026-08-23T17:57:43.8354936Z, + itsdangerous==2.2.0,,0
+	2026-08-23T17:57:43.8656886Z, + jinja2==3.1.6,,0
+	2026-08-23T17:57:43.8947930Z, + markupsafe==3.0.3,,0
+	2026-08-23T17:57:43.9244559Z, + openpyxl==3.1.5,,0
+	2026-08-23T17:57:43.9627587Z, + pg8000==1.31.5,,0
+	2026-08-23T17:57:44.0017737Z, + pyjwt==2.13.0,,0
+	2026-08-23T17:57:44.0306336Z, + python-dateutil==2.9.0.post0,,0
+	2026-08-23T17:57:44.0695482Z, + requests==2.34.2,,0
+	2026-08-23T17:57:44.1028683Z, + scramp==1.4.17,,0
+	2026-08-23T17:57:44.1505851Z, + six==1.17.0,,0
+	2026-08-23T17:57:44.1809133Z, + sqlalchemy==2.0.52,,0
+	2026-08-23T17:57:44.2401124Z, + typing-extensions==4.16.0,,0
+	2026-08-23T17:57:44.2888913Z, + urllib3==2.7.0,,0
+	2026-08-23T17:57:44.3366281Z, + werkzeug==3.1.8,,0
+	2026-08-23T17:57:44.3858541Z,uv pip install done in 37 sec(s).,,0
+	2026-08-23T17:57:44.4253947Z,Not a vso image&comma; so not writing build commands,,0
+	2026-08-23T17:57:44.4631834Z,,,0
+	2026-08-23T17:57:44.5017722Z,Copying 'requirements.txt' to destination directory...,,0
+	2026-08-23T17:57:44.5532222Z,Done copying requirements.txt to destination directory.,,0
+	2026-08-23T17:57:44.6196802Z,Build script snippets done in 56 sec(s).,,0
+	2026-08-23T17:57:44.6587695Z,Preparing output...,,0
+	2026-08-23T17:57:44.7080457Z,Compressing source directory directly to destination (optimized path)...,,0
+	2026-08-23T17:57:44.7703574Z,Using zstd for compression,,0
+	2026-08-23T17:57:50.5030833Z,Copied the compressed output to '/home/site/wwwroot',,0
+	2026-08-23T17:57:50.5814111Z,Direct compression with zstd done in 8 sec(s).,,0
+	2026-08-23T17:57:50.6757093Z,,,0
+	2026-08-23T17:57:50.7287001Z,Removing existing manifest file,,0
+	2026-08-23T17:57:50.7597830Z,Creating a manifest file...,,0
+	2026-08-23T17:57:50.7944679Z,Manifest file created.,,0
+	2026-08-23T17:57:50.8337997Z,Copying .ostype to manifest output directory.,,0
+	2026-08-23T17:57:50.8636056Z,,,0
+	2026-08-23T17:57:50.8772886Z,Total execution done in 85 sec(s).,,0
+2026-08-23T17:57:51.3505221Z,Running post deployment command(s)...,c0e25bc0-1c9d-497c-ad34-ffbae52f5be8,0
+2026-08-23T17:57:51.5240904Z,,ec1a36a8-6eab-44a2-ba5a-2535410c4d59,0
+2026-08-23T17:57:51.6556666Z,Generating summary of Oryx build,4319ed56-06a4-40f4-9f72-052dfa0d051b,0
+2026-08-23T17:57:51.9393523Z,Parsing the build logs,eb62359d-20db-4aa2-9896-a25f52315f27,0
+2026-08-23T17:57:52.1004495Z,Found 0 issue(s),cdff9f30-ad54-4f69-9a0b-5c29aa9cdea7,0
+2026-08-23T17:57:52.2881005Z,,323bc452-850a-42e7-9b68-641b665b813c,0
+2026-08-23T17:57:52.4570288Z,Build Summary :,1e7276c7-da27-40a8-a44a-cfd6538d9b13,0
+2026-08-23T17:57:52.6316503Z,===============,06e109b1-4455-425d-b371-657b7ed0bfad,0
+2026-08-23T17:57:52.8166184Z,Errors (0),9f14aacc-fc39-4279-915b-d12aacea205a,0
+2026-08-23T17:57:53.0149903Z,Warnings (0),d71471e6-b0c4-4dcd-abf0-cd57f185326b,0
+2026-08-23T17:57:53.1754442Z,,e05cd02e-6f85-4d99-911a-c6ee7216abd4,0
+2026-08-23T17:57:53.3906669Z,Triggering container recycle for OneDeploy by adding/updating restartTrigger.txt to the site root path,21552690-0c07-42d6-82be-efcd293c3fd4,0
+2026-08-23T17:57:53.6436266Z,Deployment successful. deployer = OneDeploy deploymentPath = OneDeploy,46832acd-dd9c-45eb-9e80-f03999efa4aa,0
