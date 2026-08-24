@@ -73,7 +73,7 @@ export default function Settings() {
       <div className="flex items-baseline justify-between">
         <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#111315] tracking-tight">Settings</h1>
         <span
-          className={`text-[12px] text-[#008080] transition-opacity duration-300 ${saved ? "opacity-100" : "opacity-0"}`}
+          className={`text-[12px] text-[#111315] transition-opacity duration-300 ${saved ? "opacity-100" : "opacity-0"}`}
         >
           Saved
         </span>
@@ -136,11 +136,11 @@ export default function Settings() {
                       onClick={() => patch({ mode: m.value })}
                       className={`text-left rounded-xl border px-3.5 py-3 transition-colors ${
                         active
-                          ? "border-[#008080] bg-[#008080]/[0.04]"
+                          ? "border-[#111315] bg-[#111315]/[0.04]"
                           : "border-[#E9ECEF] hover:border-[#ced4da]"
                       }`}
                     >
-                      <span className={`block text-[13px] font-medium ${active ? "text-[#008080]" : "text-[#111315]"}`}>
+                      <span className={`block text-[13px] font-medium ${active ? "text-[#111315]" : "text-[#111315]"}`}>
                         {m.label}
                       </span>
                       <span className="block text-[11px] text-[#868E96] mt-0.5 leading-snug">{m.desc}</span>
@@ -180,7 +180,7 @@ export default function Settings() {
                       disabled={busy || !settings}
                       onClick={() => patch({ max_actions_per_run: n })}
                       className={`w-9 h-8 rounded-lg text-[13px] font-medium transition-colors ${
-                        active ? "bg-[#008080] text-white" : "bg-[#F1F3F5] text-[#495057] hover:bg-[#E9ECEF]"
+                        active ? "bg-[#111315] text-white" : "bg-[#F1F3F5] text-[#495057] hover:bg-[#E9ECEF]"
                       }`}
                     >
                       {n}
@@ -266,7 +266,7 @@ function Toggle({ checked, onChange, disabled }) {
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={`relative w-[42px] h-[26px] rounded-full shrink-0 transition-colors duration-200 ${
-        checked ? "bg-[#008080]" : "bg-[#DEE2E6]"
+        checked ? "bg-[#111315]" : "bg-[#DEE2E6]"
       } ${disabled ? "opacity-60 cursor-default" : "cursor-pointer"}`}
     >
       <span

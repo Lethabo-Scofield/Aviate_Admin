@@ -40,7 +40,7 @@ function timeAgo(iso) {
 
 function BatteryBadge({ pct }) {
   const low = pct < 20;
-  const color = low ? "#ff3b30" : pct < 40 ? "#ff9500" : "#34c759";
+  const color = low ? "#343A40" : pct < 40 ? "#868E96" : "#5C636A";
   const Icon = low ? BatteryLow : Battery;
   return (
     <div className="flex items-center gap-1.5">
@@ -60,7 +60,7 @@ function SignalBars({ strength }) {
           className="w-1 rounded-sm"
           style={{
             height: `${b * 25}%`,
-            background: b <= bars ? "#34c759" : "#E9ECEF",
+            background: b <= bars ? "#5C636A" : "#E9ECEF",
           }}
         />
       ))}
@@ -83,9 +83,9 @@ function readinessFromDevice(device) {
 }
 
 function readinessTier(score) {
-  if (score >= 85) return { label: "Ready", color: "#34c759" };
-  if (score >= 65) return { label: "Degraded", color: "#ff9500" };
-  if (score > 0) return { label: "Faulty", color: "#ff3b30" };
+  if (score >= 85) return { label: "Ready", color: "#5C636A" };
+  if (score >= 65) return { label: "Degraded", color: "#868E96" };
+  if (score > 0) return { label: "Faulty", color: "#343A40" };
   return { label: "Offline", color: "#868E96" };
 }
 
@@ -107,7 +107,7 @@ function Device3DCard({ device, driverName }) {
   };
   const onLeave = () => setTilt({ rx: -8, ry: 14 });
 
-  const batteryColor = device.battery_pct < 20 ? "#ff3b30" : device.battery_pct < 40 ? "#ff9500" : "#34c759";
+  const batteryColor = device.battery_pct < 20 ? "#343A40" : device.battery_pct < 40 ? "#868E96" : "#5C636A";
   const online = device.status === "online";
   const alertness = alertnessFromDevice(device);
   const tier = alertnessTier(alertness);
@@ -175,8 +175,8 @@ function Device3DCard({ device, driverName }) {
               <span
                 className="w-1.5 h-1.5 rounded-full"
                 style={{
-                  background: online ? "#ff3b30" : "#343A40",
-                  boxShadow: online ? "0 0 6px #ff3b30" : "none",
+                  background: online ? "#343A40" : "#343A40",
+                  boxShadow: online ? "0 0 6px #343A40" : "none",
                 }}
                 title="IR camera"
               />
@@ -324,7 +324,7 @@ function DeviceDetailSheet({ device, driverName, onClose, onOta, onRemove, otaBu
               </div>
               <div className="rounded-2xl bg-[#F1F3F5] p-3">
                 <p className="text-[10px] uppercase tracking-wider text-[#868E96] font-semibold mb-1">Battery</p>
-                <p className="text-[13px] font-semibold" style={{ color: device.battery_pct < 20 ? "#ff3b30" : device.battery_pct < 40 ? "#ff9500" : "#34c759" }}>{device.battery_pct}%</p>
+                <p className="text-[13px] font-semibold" style={{ color: device.battery_pct < 20 ? "#343A40" : device.battery_pct < 40 ? "#868E96" : "#5C636A" }}>{device.battery_pct}%</p>
               </div>
               <div className="rounded-2xl bg-[#F1F3F5] p-3">
                 <p className="text-[10px] uppercase tracking-wider text-[#868E96] font-semibold mb-1">Signal</p>
@@ -336,7 +336,7 @@ function DeviceDetailSheet({ device, driverName, onClose, onOta, onRemove, otaBu
               <div className="flex items-center justify-between py-1">
                 <span className="text-[12px] text-[#868E96]">Status</span>
                 <span className="flex items-center gap-1.5 text-[13px] font-medium text-[#111315]">
-                  <span className={`w-2 h-2 rounded-full ${device.status === "online" ? "bg-[#34c759]" : "bg-[#ADB5BD]"}`} />
+                  <span className={`w-2 h-2 rounded-full ${device.status === "online" ? "bg-[#5C636A]" : "bg-[#ADB5BD]"}`} />
                   {device.status === "online" ? "Online" : "Offline"}
                 </span>
               </div>
@@ -371,7 +371,7 @@ function DeviceDetailSheet({ device, driverName, onClose, onOta, onRemove, otaBu
               )}
               <button
                 onClick={async () => { const ok = await onRemove(device.id); if (ok) onClose(); }}
-                className="apple-btn apple-btn-secondary text-[#ff3b30]"
+                className="apple-btn apple-btn-secondary text-[#343A40]"
               >
                 <Trash2 size={14} /> Remove
               </button>
@@ -468,9 +468,9 @@ export default function Devices({ embedded = false }) {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Total devices", value: devices.length, color: "#111315" },
-          { label: "Online now", value: onlineCount, color: "#34c759" },
-          { label: "Drivers covered", value: devices.filter((d) => d.driver_id).length, color: "#008080" },
-          { label: "Need attention", value: lowBattery + updatesAvailable, color: "#ff9500" },
+          { label: "Online now", value: onlineCount, color: "#5C636A" },
+          { label: "Drivers covered", value: devices.filter((d) => d.driver_id).length, color: "#111315" },
+          { label: "Need attention", value: lowBattery + updatesAvailable, color: "#868E96" },
         ].map((s) => (
           <div key={s.label} className="stat-card">
             <p className="text-[11px] text-[#868E96] font-medium uppercase tracking-wide mb-2">{s.label}</p>
@@ -531,7 +531,7 @@ export default function Devices({ embedded = false }) {
                         setSelectedId(d.id);
                       }
                     }}
-                    className="border-b border-black/[0.04] last:border-0 hover:bg-[#fafafc] cursor-pointer transition-colors focus:outline-none focus-visible:bg-[#fafafc] focus-visible:ring-2 focus-visible:ring-[#008080]/40"
+                    className="border-b border-black/[0.04] last:border-0 hover:bg-[#fafafc] cursor-pointer transition-colors focus:outline-none focus-visible:bg-[#fafafc] focus-visible:ring-2 focus-visible:ring-[#111315]/40"
                   >
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2">
@@ -545,7 +545,7 @@ export default function Devices({ embedded = false }) {
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`w-2 h-2 rounded-full ${d.status === "online" ? "bg-[#34c759]" : "bg-[#ADB5BD]"}`}
+                          className={`w-2 h-2 rounded-full ${d.status === "online" ? "bg-[#5C636A]" : "bg-[#ADB5BD]"}`}
                           style={d.status === "online" ? { animation: "pulseGlow 2s ease-in-out infinite" } : undefined}
                         />
                         <span className="text-[12px] font-medium text-[#343A40] capitalize">{d.status}</span>
@@ -598,7 +598,7 @@ export default function Devices({ embedded = false }) {
                           </span>
                         )}
                         {d.ota_status === "up_to_date" && (
-                          <CheckCircle2 size={12} className="text-[#34c759]" />
+                          <CheckCircle2 size={12} className="text-[#5C636A]" />
                         )}
                       </div>
                     </td>
@@ -617,7 +617,7 @@ export default function Devices({ embedded = false }) {
                         <button
                           onClick={() => handleRemove(d.id)}
                           title="Remove"
-                          className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#ff3b30]/10 text-[#868E96] hover:text-[#ff3b30]"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#343A40]/10 text-[#868E96] hover:text-[#343A40]"
                         >
                           <Trash2 size={14} />
                         </button>

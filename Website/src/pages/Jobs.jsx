@@ -80,7 +80,7 @@ export default function Jobs({ embedded = false }) {
 
       {error ? (
         <div className="apple-card p-10 text-center">
-          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <p className="text-[14px] text-[#343A40] mb-4">{error}</p>
           <button onClick={() => { setLoading(true); loadData(); }} className="apple-btn apple-btn-primary">Retry</button>
         </div>
       ) : jobs.length === 0 ? (
@@ -97,7 +97,7 @@ export default function Jobs({ embedded = false }) {
         <div className="space-y-6">
           {unassigned.length > 0 && (
             <div>
-              <h2 className="text-[12px] font-semibold text-[#ff9500] uppercase tracking-wider mb-3">
+              <h2 className="text-[12px] font-semibold text-[#868E96] uppercase tracking-wider mb-3">
                 Needs Driver ({unassigned.length})
               </h2>
               <div className="space-y-2">
@@ -178,8 +178,8 @@ function JobRow({ job, drivers, expanded, assigning, onToggle, onAssignToggle, o
             <div className="flex items-center gap-2">
               <span className="text-[12px] text-[#5C636A] font-medium hidden sm:inline">{job.driver_name}</span>
               <button onClick={(e) => { e.stopPropagation(); onUnassign(); }}
-                className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#ff3b30]/10 transition-colors">
-                <X size={12} className="text-[#c7c7cc] hover:text-[#ff3b30]" />
+                className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#343A40]/10 transition-colors">
+                <X size={12} className="text-[#c7c7cc] hover:text-[#343A40]" />
               </button>
             </div>
           ) : (
@@ -230,27 +230,27 @@ function JobRow({ job, drivers, expanded, assigning, onToggle, onAssignToggle, o
             {job.stops.map((stop, idx) => {
               const tracking = trackingState[stop.id] || {};
               return (
-              <div key={stop.id} className={`flex items-center gap-2.5 p-2 rounded-lg text-[12px] ${stop.completed ? "bg-[#34c759]/5" : "bg-[#F1F3F5]"}`}>
+              <div key={stop.id} className={`flex items-center gap-2.5 p-2 rounded-lg text-[12px] ${stop.completed ? "bg-[#5C636A]/5" : "bg-[#F1F3F5]"}`}>
                 <span className="font-bold text-[#c7c7cc] w-4 text-right shrink-0">{idx + 1}</span>
                 <div className="flex-1 min-w-0">
                   <span className="font-medium text-[#111315]">{stop.customer_name}</span>
                   <span className="text-[#ADB5BD] ml-1.5 truncate hidden sm:inline">{stop.address} · {fmtMoney(stop.display_total)}</span>
                   {tracking.link && (
-                    <p className="text-[10.5px] text-[#008080] truncate mt-0.5">{tracking.link}</p>
+                    <p className="text-[10.5px] text-[#111315] truncate mt-0.5">{tracking.link}</p>
                   )}
                   {tracking.error && (
-                    <p className="text-[10.5px] text-[#ff3b30] mt-0.5">{tracking.error}</p>
+                    <p className="text-[10.5px] text-[#343A40] mt-0.5">{tracking.error}</p>
                   )}
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); handleTrackingLink(stop.id); }}
                   disabled={tracking.loading}
-                  className="w-7 h-7 rounded-lg bg-white hover:bg-[#008080]/10 flex items-center justify-center transition-colors disabled:opacity-50"
+                  className="w-7 h-7 rounded-lg bg-white hover:bg-[#111315]/10 flex items-center justify-center transition-colors disabled:opacity-50"
                   title="Generate customer tracking link"
                 >
-                  {tracking.copied ? <Check size={13} className="text-[#34c759]" /> : <Link2 size={13} className="text-[#008080]" />}
+                  {tracking.copied ? <Check size={13} className="text-[#5C636A]" /> : <Link2 size={13} className="text-[#111315]" />}
                 </button>
-                {stop.completed && <span className="text-[9px] px-1.5 py-0.5 bg-[#34c759]/10 text-[#34c759] rounded-full font-semibold">Done</span>}
+                {stop.completed && <span className="text-[9px] px-1.5 py-0.5 bg-[#5C636A]/10 text-[#5C636A] rounded-full font-semibold">Done</span>}
               </div>
             );})}
           </div>

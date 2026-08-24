@@ -150,8 +150,8 @@ export default function DispatchCenter({ embedded = false }) {
           <div key={label} className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all ${
-                stepIndex > i ? "bg-[#008080] text-white" :
-                stepIndex === i ? "bg-[#008080] text-white" :
+                stepIndex > i ? "bg-[#111315] text-white" :
+                stepIndex === i ? "bg-[#111315] text-white" :
                 "bg-[#F1F3F5] text-[#c7c7cc]"
               }`}>
                 {stepIndex > i ? "✓" : i + 1}
@@ -160,14 +160,14 @@ export default function DispatchCenter({ embedded = false }) {
                 {label}
               </span>
             </div>
-            {i < 2 && <div className={`w-6 sm:w-10 h-px ${stepIndex > i ? "bg-[#008080]" : "bg-[#e5e5ea]"}`} />}
+            {i < 2 && <div className={`w-6 sm:w-10 h-px ${stepIndex > i ? "bg-[#111315]" : "bg-[#e5e5ea]"}`} />}
           </div>
         ))}
       </div>
 
       {error && (
-        <div className="mb-5 apple-card p-4 flex items-center gap-3 border-l-4 border-l-[#ff3b30] animate-slide-up">
-          <AlertTriangle size={18} className="text-[#ff3b30] shrink-0" />
+        <div className="mb-5 apple-card p-4 flex items-center gap-3 border-l-4 border-l-[#343A40] animate-slide-up">
+          <AlertTriangle size={18} className="text-[#343A40] shrink-0" />
           <p className="text-[13px] text-[#111315]">{error}</p>
         </div>
       )}
@@ -178,8 +178,8 @@ export default function DispatchCenter({ embedded = false }) {
             <div className="apple-card p-6 sm:p-7 mb-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#008080]/10 flex items-center justify-center">
-                    <ShoppingBag size={18} className="text-[#008080]" strokeWidth={1.8} />
+                  <div className="w-10 h-10 rounded-xl bg-[#111315]/10 flex items-center justify-center">
+                    <ShoppingBag size={18} className="text-[#111315]" strokeWidth={1.8} />
                   </div>
                   <div>
                     <h2 className="text-[15px] font-semibold text-[#111315]">Store orders</h2>
@@ -215,11 +215,11 @@ export default function DispatchCenter({ embedded = false }) {
                         </div>
                         <span className="text-[11px] font-semibold text-[#111315] shrink-0">{fmtMoney(o.display_total ?? o.total)}</span>
                         {o.imported ? (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#34c759]/10 text-[#34c759] font-semibold shrink-0">Imported</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#5C636A]/10 text-[#5C636A] font-semibold shrink-0">Imported</span>
                         ) : !o.importable ? (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ff9500]/10 text-[#ff9500] font-semibold shrink-0">No address</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#868E96]/10 text-[#868E96] font-semibold shrink-0">No address</span>
                         ) : (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#008080]/10 text-[#008080] font-semibold shrink-0">New</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#111315]/10 text-[#111315] font-semibold shrink-0">New</span>
                         )}
                       </div>
                     ))}
@@ -286,10 +286,10 @@ export default function DispatchCenter({ embedded = false }) {
         <div className="max-w-2xl animate-slide-up">
           {uploadResult && (
             <div className="apple-card p-4 flex items-center gap-3 mb-5">
-              <CheckCircle size={18} className="text-[#34c759] shrink-0" />
+              <CheckCircle size={18} className="text-[#5C636A] shrink-0" />
               <p className="text-[13px] text-[#111315]">
                 <span className="font-semibold">{uploadResult.geocoded}</span> of {uploadResult.total_rows} addresses geocoded
-                {uploadResult.failed > 0 && <span className="text-[#ff9500]"> | {uploadResult.failed} failed</span>}
+                {uploadResult.failed > 0 && <span className="text-[#868E96]"> | {uploadResult.failed} failed</span>}
               </p>
             </div>
           )}
@@ -350,10 +350,10 @@ export default function DispatchCenter({ embedded = false }) {
       {step === "results" && (
         <div className="animate-slide-up">
           {storeConfigured && storeOrders && storeOrders.filter((o) => !o.imported && o.importable).length > 0 && (
-            <div className="apple-card p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border border-[#008080]/20">
+            <div className="apple-card p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 border border-[#111315]/20">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#008080]/10 flex items-center justify-center shrink-0">
-                  <ShoppingBag size={16} className="text-[#008080]" strokeWidth={1.8} />
+                <div className="w-9 h-9 rounded-xl bg-[#111315]/10 flex items-center justify-center shrink-0">
+                  <ShoppingBag size={16} className="text-[#111315]" strokeWidth={1.8} />
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-[#111315]">
@@ -377,7 +377,7 @@ export default function DispatchCenter({ embedded = false }) {
 
           <div className="apple-card p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5">
             <div className="flex items-center gap-3">
-              <CheckCircle size={20} className="text-[#34c759] shrink-0" />
+              <CheckCircle size={20} className="text-[#5C636A] shrink-0" />
               <div>
                 <p className="text-[14px] font-semibold text-[#111315]">{jobs.length} optimized jobs created</p>
                 <p className="text-[12px] text-[#868E96]">{readyStops.length} stops grouped by area with optimized sequences · {fmtMoney(readyStops.reduce((sum, s) => sum + Number(s.display_total || 0), 0))}</p>
@@ -399,8 +399,8 @@ export default function DispatchCenter({ embedded = false }) {
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#F1F3F5] text-[#868E96] font-semibold">{job.id}</span>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                    job.status === "assigned" ? "bg-[#008080]/10 text-[#008080]" :
-                    "bg-[#ff9500]/10 text-[#ff9500]"
+                    job.status === "assigned" ? "bg-[#111315]/10 text-[#111315]" :
+                    "bg-[#868E96]/10 text-[#868E96]"
                   }`}>{job.status}</span>
                 </div>
                 <h3 className="text-[15px] font-semibold text-[#111315] mb-3">{job.area}</h3>

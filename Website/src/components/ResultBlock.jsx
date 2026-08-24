@@ -6,7 +6,7 @@ function ActionReceipt({ action }) {
   if (!details.title && !details.inputs && !details.steps) {
     return (
       <div className="text-[12px] flex items-start gap-2">
-        <span className="text-[#008080] mt-0.5">▸</span>
+        <span className="text-[#111315] mt-0.5">▸</span>
         <span className="text-[#111315]">{action.summary}</span>
       </div>
     );
@@ -16,7 +16,7 @@ function ActionReceipt({ action }) {
     <div className="rounded-xl border border-black/[0.06] bg-white px-3 py-3 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[10.5px] uppercase tracking-wider font-semibold text-[#008080]">
+          <p className="text-[10.5px] uppercase tracking-wider font-semibold text-[#111315]">
             {details.status || "Completed"}
           </p>
           <p className="text-[13.5px] font-semibold text-[#111315] mt-0.5">
@@ -44,7 +44,7 @@ function ActionReceipt({ action }) {
           <div className="grid gap-1.5">
             {details.inputs.map((item) => (
               <div key={item} className="flex items-start gap-2 text-[12px] text-[#111315]">
-                <CheckCircle2 size={12} className="text-[#34c759] mt-0.5 shrink-0" />
+                <CheckCircle2 size={12} className="text-[#5C636A] mt-0.5 shrink-0" />
                 <span>{item}</span>
               </div>
             ))}
@@ -58,7 +58,7 @@ function ActionReceipt({ action }) {
           <div className="space-y-1.5">
             {details.steps.map((step, index) => (
               <div key={step} className="flex items-start gap-2 text-[12px] text-[#111315]">
-                <span className="w-4 h-4 rounded-full bg-[#008080]/10 text-[#008080] text-[10px] font-semibold flex items-center justify-center shrink-0 mt-px">
+                <span className="w-4 h-4 rounded-full bg-[#111315]/10 text-[#111315] text-[10px] font-semibold flex items-center justify-center shrink-0 mt-px">
                   {index + 1}
                 </span>
                 <span>{step}</span>
@@ -69,8 +69,8 @@ function ActionReceipt({ action }) {
       )}
 
       {details.outcome && (
-        <div className="rounded-lg bg-[#008080]/[0.06] px-3 py-2">
-          <p className="text-[10.5px] font-semibold uppercase tracking-wider text-[#008080] mb-1">Outcome</p>
+        <div className="rounded-lg bg-[#111315]/[0.06] px-3 py-2">
+          <p className="text-[10.5px] font-semibold uppercase tracking-wider text-[#111315] mb-1">Outcome</p>
           <p className="text-[12.5px] text-[#111315] leading-snug">{details.outcome}</p>
         </div>
       )}
@@ -93,7 +93,7 @@ export default function ResultBlock({ result }) {
   if (!result) return null;
   if (!result.ok) {
     return (
-      <div className="flex items-start gap-2 text-[13px] text-[#ff3b30]">
+      <div className="flex items-start gap-2 text-[13px] text-[#343A40]">
         <AlertCircle size={14} className="mt-0.5 shrink-0" />
         <span>{result.summary}</span>
       </div>
@@ -106,7 +106,7 @@ export default function ResultBlock({ result }) {
       <div className="space-y-1.5">
         {result.items?.map((c, i) => (
           <div key={i} className="flex items-baseline gap-3 text-[12px]">
-            <span className="text-[#008080] font-medium italic">"{c.phrase || c.command}"</span>
+            <span className="text-[#111315] font-medium italic">"{c.phrase || c.command}"</span>
             <span className="text-[#868E96]">— {c.does || c.description}</span>
           </div>
         ))}
@@ -120,7 +120,7 @@ export default function ResultBlock({ result }) {
         <div className="grid gap-1.5">
           {result.items?.map((c, i) => (
             <div key={i} className="flex items-baseline gap-3 text-[12px]">
-              <span className="text-[#008080] font-medium italic">"{c.phrase}"</span>
+              <span className="text-[#111315] font-medium italic">"{c.phrase}"</span>
               <span className="text-[#868E96]">— {c.does}</span>
             </div>
           ))}
@@ -136,7 +136,7 @@ export default function ResultBlock({ result }) {
     return (
       <div className="space-y-2">
         <div className="flex items-start gap-2 text-[13px] text-[#111315]">
-          <CheckCircle2 size={14} className="text-[#008080] mt-0.5 shrink-0" />
+          <CheckCircle2 size={14} className="text-[#111315] mt-0.5 shrink-0" />
           <span>{result.summary}</span>
         </div>
         {settings.mode && (
@@ -147,20 +147,20 @@ export default function ResultBlock({ result }) {
             </div>
             <div className="rounded-lg bg-[#F1F3F5] px-3 py-2">
               <p className="text-[11px] text-[#868E96]">State</p>
-              <p className={`text-[13px] font-semibold ${settings.enabled ? "text-[#34c759]" : "text-[#ff9500]"}`}>
+              <p className={`text-[13px] font-semibold ${settings.enabled ? "text-[#5C636A]" : "text-[#868E96]"}`}>
                 {settings.enabled ? "On" : "Off"}
               </p>
             </div>
           </div>
         )}
         {pending.slice(0, 3).map((a) => (
-          <div key={a.id} className="rounded-lg bg-[#ff9500]/[0.07] px-3 py-2 text-[12px] text-[#111315]">
+          <div key={a.id} className="rounded-lg bg-[#868E96]/[0.07] px-3 py-2 text-[12px] text-[#111315]">
             {a.summary}
           </div>
         ))}
         {(actions.length > 0 ? actions : recent).slice(0, 4).map((a, i) => (
           <div key={a.id || i} className="text-[12px] flex items-start gap-2">
-            <span className="text-[#008080] mt-0.5">▸</span>
+            <span className="text-[#111315] mt-0.5">▸</span>
             <span className="text-[#111315]">{a.summary}</span>
           </div>
         ))}
@@ -193,7 +193,7 @@ export default function ResultBlock({ result }) {
           <div key={d.id} className="flex items-center gap-2 text-[12px] font-mono">
             <span className="text-[#ADB5BD] w-32 truncate">{d.id}</span>
             <span className="text-[#111315] flex-1 truncate">{d.name}</span>
-            <span className={`text-[11px] uppercase tracking-wider ${d.blocked ? "text-[#ff3b30]" : "text-[#34c759]"}`}>
+            <span className={`text-[11px] uppercase tracking-wider ${d.blocked ? "text-[#343A40]" : "text-[#5C636A]"}`}>
               {d.blocked ? "blocked" : d.status || "available"}
             </span>
           </div>
@@ -209,7 +209,7 @@ export default function ResultBlock({ result }) {
           <div key={j.id} className="flex items-center gap-2 text-[12px] font-mono">
             <span className="text-[#ADB5BD] w-36 truncate">{j.id}</span>
             <span className="text-[#111315] flex-1 truncate">{j.area} · {j.total_stops} stops</span>
-            <span className={`text-[11px] uppercase tracking-wider ${j.status === "unassigned" ? "text-[#ff9500]" : "text-[#34c759]"}`}>
+            <span className={`text-[11px] uppercase tracking-wider ${j.status === "unassigned" ? "text-[#868E96]" : "text-[#5C636A]"}`}>
               {j.driver_name || j.status}
             </span>
           </div>
@@ -223,7 +223,7 @@ export default function ResultBlock({ result }) {
         {result.items?.length === 0 && <p className="text-[12px] text-[#868E96]">No open alerts.</p>}
         {result.items?.map((a) => (
           <div key={a.id} className="text-[12px]">
-            <span className="text-[11px] uppercase tracking-wider text-[#ff3b30] font-semibold mr-2">
+            <span className="text-[11px] uppercase tracking-wider text-[#343A40] font-semibold mr-2">
               {a.severity}
             </span>
             <span className="text-[#111315]">{a.title}</span>
@@ -251,7 +251,7 @@ export default function ResultBlock({ result }) {
         {result.items?.length === 0 && <p className="text-[12px] text-[#868E96]">No active recommendations.</p>}
         {result.items?.map((r) => (
           <div key={r.id} className="text-[12px]">
-            <span className="text-[11px] uppercase tracking-wider font-semibold text-[#ff9500] mr-2">{r.severity}</span>
+            <span className="text-[11px] uppercase tracking-wider font-semibold text-[#868E96] mr-2">{r.severity}</span>
             <span className="text-[#111315]">{r.what}</span>
           </div>
         ))}
@@ -262,7 +262,7 @@ export default function ResultBlock({ result }) {
     return (
       <div className="space-y-2">
         <div className="flex items-center gap-2 text-[12px] text-[#111315]">
-          <MapPin size={13} className="text-[#008080]" />
+          <MapPin size={13} className="text-[#111315]" />
           <span>{result.summary}</span>
         </div>
         <MiniRouteMap routes={result.routes || []} height={260} />
@@ -284,7 +284,7 @@ export default function ResultBlock({ result }) {
   if (t === "notify_result") {
     return (
       <div className="flex items-start gap-2 text-[13px] text-[#111315]">
-        <Send size={14} className="text-[#008080] mt-0.5 shrink-0" />
+        <Send size={14} className="text-[#111315] mt-0.5 shrink-0" />
         <div>
           <div>{result.summary}</div>
           {result.alert && (
@@ -300,12 +300,12 @@ export default function ResultBlock({ result }) {
     return (
       <div className="space-y-1.5">
         <div className="flex items-start gap-2 text-[13px] text-[#111315]">
-          <CheckCircle2 size={14} className="text-[#34c759] mt-0.5 shrink-0" />
+          <CheckCircle2 size={14} className="text-[#5C636A] mt-0.5 shrink-0" />
           <span>{result.summary}</span>
         </div>
         {result.driver_notified && (
           <div className="flex items-start gap-2 text-[11px] text-[#868E96] pl-5">
-            <Send size={11} className="text-[#008080] mt-0.5 shrink-0" />
+            <Send size={11} className="text-[#111315] mt-0.5 shrink-0" />
             <span>In-app alert queued for driver: "{result.driver_notified.message}"</span>
           </div>
         )}
@@ -314,7 +314,7 @@ export default function ResultBlock({ result }) {
   }
   return (
     <div className="flex items-start gap-2 text-[13px] text-[#111315]">
-      <CheckCircle2 size={14} className="text-[#34c759] mt-0.5 shrink-0" />
+      <CheckCircle2 size={14} className="text-[#5C636A] mt-0.5 shrink-0" />
       <span>{result.summary}</span>
     </div>
   );

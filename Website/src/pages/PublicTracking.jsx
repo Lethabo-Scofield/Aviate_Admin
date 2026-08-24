@@ -102,13 +102,13 @@ export default function PublicTracking() {
 
         <section className="apple-card p-5 mb-4">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#008080]/10 flex items-center justify-center">
-              <Truck size={22} className="text-[#008080]" />
+            <div className="w-12 h-12 rounded-2xl bg-[#111315]/10 flex items-center justify-center">
+              <Truck size={22} className="text-[#111315]" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-[12px] text-[#868E96]">Order reference</p>
               <p className="text-[16px] font-semibold text-[#111315] break-all">{order.reference}</p>
-              <span className="inline-flex mt-3 px-2.5 py-1 rounded-full bg-[#008080]/10 text-[#008080] text-[12px] font-semibold">
+              <span className="inline-flex mt-3 px-2.5 py-1 rounded-full bg-[#111315]/10 text-[#111315] text-[12px] font-semibold">
                 {order.status_label}
               </span>
             </div>
@@ -133,8 +133,8 @@ export default function PublicTracking() {
           <div className="space-y-3">
             {(delivery.timeline || []).map((item) => (
               <div key={item.status} className="flex gap-3">
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${item.completed ? "bg-[#34c759]/10" : "bg-[#F1F3F5]"}`}>
-                  {item.completed ? <CheckCircle2 size={14} className="text-[#34c759]" /> : <Clock size={13} className="text-[#ADB5BD]" />}
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${item.completed ? "bg-[#5C636A]/10" : "bg-[#F1F3F5]"}`}>
+                  {item.completed ? <CheckCircle2 size={14} className="text-[#5C636A]" /> : <Clock size={13} className="text-[#ADB5BD]" />}
                 </div>
                 <div>
                   <p className="text-[13px] font-medium text-[#111315]">{item.label}</p>

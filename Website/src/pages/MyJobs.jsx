@@ -58,8 +58,8 @@ export default function MyJobs() {
     <div className="max-w-lg mx-auto animate-fade-in">
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-xl bg-[#008080]/10 flex items-center justify-center">
-            <Truck size={18} className="text-[#008080]" />
+          <div className="w-10 h-10 rounded-xl bg-[#111315]/10 flex items-center justify-center">
+            <Truck size={18} className="text-[#111315]" />
           </div>
           <div>
             <h1 className="text-[22px] font-semibold text-[#111315] tracking-tight">My Deliveries</h1>
@@ -72,7 +72,7 @@ export default function MyJobs() {
 
       {error ? (
         <div className="apple-card p-10 text-center">
-          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <p className="text-[14px] text-[#343A40] mb-4">{error}</p>
           <button onClick={() => { setLoading(true); load(); }} className="apple-btn apple-btn-primary">Retry</button>
         </div>
       ) : data.jobs.length === 0 ? (
@@ -109,11 +109,11 @@ export default function MyJobs() {
                   <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 relative">
                     <svg className="w-10 h-10 -rotate-90">
                       <circle cx="20" cy="20" r="16" fill="none" stroke="#F1F3F5" strokeWidth="3" />
-                      <circle cx="20" cy="20" r="16" fill="none" stroke="#008080" strokeWidth="3"
+                      <circle cx="20" cy="20" r="16" fill="none" stroke="#111315" strokeWidth="3"
                         strokeDasharray={`${progress * 1.005} 100.5`}
                         strokeLinecap="round" />
                     </svg>
-                    <span className="absolute text-[10px] font-bold text-[#008080]">{Math.round(progress)}%</span>
+                    <span className="absolute text-[10px] font-bold text-[#111315]">{Math.round(progress)}%</span>
                   </div>
                 </button>
 
@@ -128,7 +128,7 @@ export default function MyJobs() {
                           className={`flex items-start gap-3 p-3 rounded-xl transition-colors ${stop.completed ? "bg-[#F1F3F5] opacity-50" : "bg-white"}`}
                         >
                           <div className="flex flex-col items-center shrink-0 pt-0.5">
-                            <span className="w-6 h-6 rounded-full bg-[#008080]/10 flex items-center justify-center text-[10px] font-bold text-[#008080]">
+                            <span className="w-6 h-6 rounded-full bg-[#111315]/10 flex items-center justify-center text-[10px] font-bold text-[#111315]">
                               {i + 1}
                             </span>
                             {i < job.stops.length - 1 && (
@@ -142,7 +142,7 @@ export default function MyJobs() {
                             <p className="text-[11px] text-[#868E96] leading-relaxed mt-0.5">{stop.address}</p>
                             <div className="flex flex-wrap gap-3 mt-1.5">
                               {stop.phone && (
-                                <a href={`tel:${stop.phone}`} className="flex items-center gap-1 text-[11px] text-[#008080] font-medium">
+                                <a href={`tel:${stop.phone}`} className="flex items-center gap-1 text-[11px] text-[#111315] font-medium">
                                   <Phone size={10} /> {stop.phone}
                                 </a>
                               )}
@@ -155,14 +155,14 @@ export default function MyJobs() {
                           </div>
                           <div className="shrink-0">
                             {stop.completed ? (
-                              <div className="w-8 h-8 rounded-full bg-[#34c759]/10 flex items-center justify-center">
-                                <CheckCircle2 size={16} className="text-[#34c759]" />
+                              <div className="w-8 h-8 rounded-full bg-[#5C636A]/10 flex items-center justify-center">
+                                <CheckCircle2 size={16} className="text-[#5C636A]" />
                               </div>
                             ) : (
                               <button
                                 onClick={() => handleComplete(job.id, stop.id)}
                                 disabled={completing === stop.id}
-                                className="w-8 h-8 rounded-full bg-[#008080] flex items-center justify-center hover:bg-[#006e6e] transition-colors disabled:opacity-50"
+                                className="w-8 h-8 rounded-full bg-[#111315] flex items-center justify-center hover:bg-[#343a40] transition-colors disabled:opacity-50"
                               >
                                 {completing === stop.id ? (
                                   <Spinner size={12} />
@@ -186,8 +186,8 @@ export default function MyJobs() {
               <p className="text-[12px] font-semibold text-[#868E96] uppercase tracking-wider mb-2 px-1">Completed</p>
               {completedJobs.map((job) => (
                 <div key={job.id} className="apple-card p-4 flex items-center gap-3 opacity-50 mb-2">
-                  <div className="w-8 h-8 rounded-xl bg-[#34c759]/10 flex items-center justify-center shrink-0">
-                    <CheckCircle2 size={14} className="text-[#34c759]" />
+                  <div className="w-8 h-8 rounded-xl bg-[#5C636A]/10 flex items-center justify-center shrink-0">
+                    <CheckCircle2 size={14} className="text-[#5C636A]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-medium text-[#111315]">{job.area}</p>

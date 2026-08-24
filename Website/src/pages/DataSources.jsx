@@ -80,8 +80,8 @@ export default function DataSources() {
       </p>
 
       {/* Honest scope notice */}
-      <div className="mb-6 rounded-xl border border-[#008080]/20 bg-[#008080]/[0.04] p-3 flex items-start gap-2">
-        <AlertTriangle size={14} className="text-[#008080] mt-0.5 shrink-0" />
+      <div className="mb-6 rounded-xl border border-[#111315]/20 bg-[#111315]/[0.04] p-3 flex items-start gap-2">
+        <AlertTriangle size={14} className="text-[#111315] mt-0.5 shrink-0" />
         <p className="text-[12px] text-[#111315] leading-snug">
           <span className="font-semibold">Heads up:</span> sources you add here are saved
           on this device. Automatic syncing into your job list will turn on once your
@@ -130,7 +130,7 @@ export default function DataSources() {
                     aria-label={`Remove ${s.name}`}
                     whileTap={{ scale: 0.88 }}
                     transition={TAP_SPRING}
-                    className="w-8 h-8 rounded-full hover:bg-[#ff3b30]/[0.08] text-[#868E96] hover:text-[#ff3b30] flex items-center justify-center shrink-0"
+                    className="w-8 h-8 rounded-full hover:bg-[#343A40]/[0.08] text-[#868E96] hover:text-[#343A40] flex items-center justify-center shrink-0"
                   >
                     <Trash2 size={14} />
                   </motion.button>
@@ -154,7 +154,7 @@ export default function DataSources() {
               onClick={() => setPicker(key)}
               whileTap={{ scale: 0.97 }}
               transition={TAP_SPRING}
-              className="apple-card p-4 text-left hover:border-[#008080]/30 hover:bg-[#008080]/[0.02] transition-colors"
+              className="apple-card p-4 text-left hover:border-[#111315]/30 hover:bg-[#111315]/[0.02] transition-colors"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-lg bg-[#F1F3F5] flex items-center justify-center">
@@ -163,7 +163,7 @@ export default function DataSources() {
                 <p className="text-[13px] font-semibold text-[#111315]">{t.label}</p>
               </div>
               <p className="text-[11.5px] text-[#868E96] leading-snug">{t.blurb}</p>
-              <p className="text-[11.5px] text-[#008080] mt-2 inline-flex items-center gap-1">
+              <p className="text-[11.5px] text-[#111315] mt-2 inline-flex items-center gap-1">
                 <Plus size={11} /> Add
               </p>
             </motion.button>
@@ -195,7 +195,7 @@ export default function DataSources() {
             <div className={`rounded-full px-4 py-2 text-[13px] shadow-lg flex items-center gap-2 ${
               toast.tone === "warn"
                 ? "bg-[#111315] text-white"
-                : "bg-[#008080] text-white"
+                : "bg-[#111315] text-white"
             }`}>
               <Check size={14} />
               <span>{toast.msg}</span>
@@ -264,7 +264,7 @@ function FormActions({ onCancel, canSave, saveLabel = "Save source" }) {
         transition={TAP_SPRING}
         className={`text-[13px] font-medium px-3.5 py-2 rounded-full ${
           canSave
-            ? "bg-[#008080] hover:bg-[#006666] text-white"
+            ? "bg-[#111315] hover:bg-[#343A40] text-white"
             : "bg-[#F1F3F5] text-[#ADB5BD] cursor-not-allowed"
         }`}
       >
@@ -317,7 +317,7 @@ function ApiForm({ onCancel, onSave }) {
           className="apple-input font-mono text-[12.5px]"
         />
         {url && !validUrl && (
-          <p className="text-[11px] text-[#ff9500] mt-1">That doesn't look like a valid http(s) URL.</p>
+          <p className="text-[11px] text-[#868E96] mt-1">That doesn't look like a valid http(s) URL.</p>
         )}
       </Field>
       <Field label="Auth header (optional)">
@@ -426,7 +426,7 @@ function CsvForm({ onCancel, onSave }) {
           onClick={() => inputRef.current?.click()}
           onDragOver={(e) => { e.preventDefault(); }}
           onDrop={(e) => { e.preventDefault(); pickFile(e.dataTransfer.files?.[0]); }}
-          className="rounded-xl border border-dashed border-black/15 hover:border-[#008080]/40 hover:bg-[#008080]/[0.02] p-5 text-center cursor-pointer transition-colors"
+          className="rounded-xl border border-dashed border-black/15 hover:border-[#111315]/40 hover:bg-[#111315]/[0.02] p-5 text-center cursor-pointer transition-colors"
         >
           <Upload size={18} className="text-[#868E96] mx-auto mb-1.5" />
           <p className="text-[13px] text-[#111315]">
@@ -445,14 +445,14 @@ function CsvForm({ onCancel, onSave }) {
         </div>
         {parsing && <p className="text-[11.5px] text-[#868E96] mt-2">Reading…</p>}
         {error && (
-          <p className="text-[11.5px] text-[#ff3b30] mt-2 flex items-start gap-1.5">
+          <p className="text-[11.5px] text-[#343A40] mt-2 flex items-start gap-1.5">
             <AlertTriangle size={11} className="mt-0.5 shrink-0" /> {error}
           </p>
         )}
         {preview && !error && (
           <div className="mt-3 rounded-lg bg-[#F1F3F5] p-2.5 text-[11.5px] text-[#111315]">
             <p className="flex items-center gap-1.5 mb-1.5">
-              <FileText size={11} className="text-[#008080]" />
+              <FileText size={11} className="text-[#111315]" />
               <span className="font-medium">{preview.rows.toLocaleString()} rows</span>
               <span className="text-[#868E96]">· {preview.fields.length} columns</span>
             </p>
@@ -501,8 +501,8 @@ function FolderForm({ onCancel, onSave }) {
   if (!supported) {
     return (
       <div>
-        <div className="rounded-xl border border-[#ff9500]/30 bg-[#ff9500]/[0.04] p-3 flex items-start gap-2">
-          <AlertTriangle size={14} className="text-[#ff9500] mt-0.5 shrink-0" />
+        <div className="rounded-xl border border-[#868E96]/30 bg-[#868E96]/[0.04] p-3 flex items-start gap-2">
+          <AlertTriangle size={14} className="text-[#868E96] mt-0.5 shrink-0" />
           <p className="text-[12px] text-[#111315]">
             <span className="font-semibold">Your browser can't open folders.</span>{" "}
             This needs a Chromium-based browser (Chrome, Edge, Arc). On Safari and Firefox,
@@ -541,7 +541,7 @@ function FolderForm({ onCancel, onSave }) {
           onClick={pick}
           whileTap={{ scale: 0.97 }}
           transition={TAP_SPRING}
-          className="w-full rounded-xl border border-dashed border-black/15 hover:border-[#008080]/40 hover:bg-[#008080]/[0.02] p-5 text-center transition-colors"
+          className="w-full rounded-xl border border-dashed border-black/15 hover:border-[#111315]/40 hover:bg-[#111315]/[0.02] p-5 text-center transition-colors"
         >
           <FolderOpen size={18} className="text-[#868E96] mx-auto mb-1.5" />
           <p className="text-[13px] text-[#111315]">
@@ -552,7 +552,7 @@ function FolderForm({ onCancel, onSave }) {
           </p>
         </motion.button>
         {error && (
-          <p className="text-[11.5px] text-[#ff3b30] mt-2 flex items-start gap-1.5">
+          <p className="text-[11.5px] text-[#343A40] mt-2 flex items-start gap-1.5">
             <AlertTriangle size={11} className="mt-0.5 shrink-0" /> {error}
           </p>
         )}

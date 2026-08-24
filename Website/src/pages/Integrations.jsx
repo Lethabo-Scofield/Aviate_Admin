@@ -151,24 +151,24 @@ export default function Integrations() {
               {editing ? (
                 <button
                   onClick={() => fileRef.current?.click()}
-                  className="w-11 h-11 rounded-2xl bg-[#008080]/10 flex items-center justify-center shrink-0 relative overflow-hidden group border border-dashed border-[#008080]/40 hover:border-[#008080] transition-colors"
+                  className="w-11 h-11 rounded-2xl bg-[#111315]/10 flex items-center justify-center shrink-0 relative overflow-hidden group border border-dashed border-[#111315]/40 hover:border-[#111315] transition-colors"
                   title="Upload logo"
                 >
                   {previewLogo ? (
                     <img src={previewLogo} alt="Store logo" className="w-full h-full object-cover" />
                   ) : (
-                    <ImagePlus size={17} className="text-[#008080]" strokeWidth={1.8} />
+                    <ImagePlus size={17} className="text-[#111315]" strokeWidth={1.8} />
                   )}
                   <span className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <ImagePlus size={15} className="text-white" strokeWidth={2} />
                   </span>
                 </button>
               ) : (
-                <div className="w-11 h-11 rounded-2xl bg-[#008080]/10 flex items-center justify-center shrink-0 overflow-hidden">
+                <div className="w-11 h-11 rounded-2xl bg-[#111315]/10 flex items-center justify-center shrink-0 overflow-hidden">
                   {branding.logo ? (
                     <img src={branding.logo} alt="Store logo" className="w-full h-full object-cover" />
                   ) : (
-                    <ShoppingBag size={19} className="text-[#008080]" strokeWidth={1.8} />
+                    <ShoppingBag size={19} className="text-[#111315]" strokeWidth={1.8} />
                   )}
                 </div>
               )}
@@ -183,7 +183,7 @@ export default function Integrations() {
                       placeholder="Aiviate Operational Store"
                       maxLength={80}
                       autoFocus
-                      className="w-full max-w-xs px-3 py-1.5 rounded-lg border border-black/[0.1] text-[14px] font-semibold text-[#111315] focus:outline-none focus:border-[#008080] focus:ring-2 focus:ring-[#008080]/15"
+                      className="w-full max-w-xs px-3 py-1.5 rounded-lg border border-black/[0.1] text-[14px] font-semibold text-[#111315] focus:outline-none focus:border-[#111315] focus:ring-2 focus:ring-[#111315]/15"
                     />
                     <div className="flex items-center gap-2 flex-wrap">
                       <button onClick={handleSave} disabled={saving} className="apple-btn apple-btn-primary text-[12px] py-1.5 px-3">
@@ -196,19 +196,19 @@ export default function Integrations() {
                         <button
                           onClick={() => setDraftLogo("")}
                           disabled={saving}
-                          className="inline-flex items-center gap-1 text-[11.5px] text-[#868E96] hover:text-[#ff3b30] transition-colors"
+                          className="inline-flex items-center gap-1 text-[11.5px] text-[#868E96] hover:text-[#343A40] transition-colors"
                         >
                           <Trash2 size={12} /> Remove logo
                         </button>
                       )}
                     </div>
-                    {editError && <p className="text-[11.5px] text-[#ff3b30]">{editError}</p>}
+                    {editError && <p className="text-[11.5px] text-[#343A40]">{editError}</p>}
                   </div>
                 ) : (
                   <div className="flex items-center gap-2 flex-wrap">
                     <h2 className="text-[15px] font-semibold text-[#111315]">{storeName}</h2>
-                    <span className="inline-flex items-center gap-1.5 text-[10.5px] px-2 py-0.5 rounded-full bg-[#34c759]/10 text-[#34c759] font-semibold">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#34c759] animate-pulse" />
+                    <span className="inline-flex items-center gap-1.5 text-[10.5px] px-2 py-0.5 rounded-full bg-[#5C636A]/10 text-[#5C636A] font-semibold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#5C636A] animate-pulse" />
                       Connected
                     </span>
                   </div>
@@ -254,7 +254,7 @@ export default function Integrations() {
               <p className="text-[10.5px] text-[#868E96] mt-0.5">Orders synced</p>
             </div>
             <div className="bg-[#F1F3F5] rounded-xl p-3 text-center">
-              <p className="text-[17px] font-semibold text-[#008080]">{status.newCount}</p>
+              <p className="text-[17px] font-semibold text-[#111315]">{status.newCount}</p>
               <p className="text-[10.5px] text-[#868E96] mt-0.5">Ready to dispatch</p>
             </div>
             <div className="bg-[#F1F3F5] rounded-xl p-3 text-center">
@@ -336,7 +336,7 @@ export default function Integrations() {
             <div>
               <p className="text-[12px] font-semibold text-[#111315] mb-1.5">3 · Optimize & dispatch</p>
               <p className="text-[11.5px] text-[#868E96]">
-                The uploaded orders appear on the <Link to="/jobs?tab=dispatch" className="text-[#008080] font-medium hover:underline">Jobs page</Link> ready
+                The uploaded orders appear on the <Link to="/jobs?tab=dispatch" className="text-[#111315] font-medium hover:underline">Jobs page</Link> ready
                 to be optimized into routes — or trigger it from code with <span className="font-mono text-[10.5px] bg-[#F1F3F5] px-1 py-0.5 rounded">POST /api/optimize</span>.
               </p>
             </div>

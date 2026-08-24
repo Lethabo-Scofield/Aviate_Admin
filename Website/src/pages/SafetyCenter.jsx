@@ -14,9 +14,9 @@ import {
 import { getSafetyOverview, getSafetyEvents } from "../services/api";
 
 const EVENT_META = {
-  fatigue: { label: "Drowsiness", icon: Eye, color: "#ff3b30" },
-  harsh_brake: { label: "Harsh brake", icon: AlertTriangle, color: "#ff9500" },
-  speeding: { label: "Speeding", icon: Gauge, color: "#ff9500" },
+  fatigue: { label: "Drowsiness", icon: Eye, color: "#343A40" },
+  harsh_brake: { label: "Harsh brake", icon: AlertTriangle, color: "#868E96" },
+  speeding: { label: "Speeding", icon: Gauge, color: "#868E96" },
   phone_use: { label: "Phone use", icon: Smartphone, color: "#868E96" },
   sharp_turn: { label: "Sharp turn", icon: CornerUpRight, color: "#868E96" },
 };
@@ -47,9 +47,9 @@ function alertnessFromDriver(d) {
 }
 
 function tier(score) {
-  if (score >= 85) return { label: "Alert", color: "#34c759" };
-  if (score >= 65) return { label: "Watch", color: "#ff9500" };
-  return { label: "At risk", color: "#ff3b30" };
+  if (score >= 85) return { label: "Alert", color: "#5C636A" };
+  if (score >= 65) return { label: "Watch", color: "#868E96" };
+  return { label: "At risk", color: "#343A40" };
 }
 
 export default function SafetyCenter({ embedded = false }) {
@@ -126,7 +126,7 @@ export default function SafetyCenter({ embedded = false }) {
       {severeNow.length > 0 ? (
         <div
           className="rounded-2xl p-5 mb-5 flex items-start gap-4"
-          style={{ background: "linear-gradient(135deg, #ff3b30 0%, #ff6b3d 100%)", color: "white" }}
+          style={{ background: "linear-gradient(135deg, #343A40 0%, #ff6b3d 100%)", color: "white" }}
         >
           <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
             <AlertTriangle size={20} />
@@ -143,9 +143,9 @@ export default function SafetyCenter({ embedded = false }) {
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl p-4 mb-5 flex items-center gap-3 bg-[#34c759]/[0.08] border border-[#34c759]/20">
-          <div className="w-9 h-9 rounded-xl bg-[#34c759]/15 flex items-center justify-center">
-            <Shield size={16} className="text-[#34c759]" />
+        <div className="rounded-2xl p-4 mb-5 flex items-center gap-3 bg-[#5C636A]/[0.08] border border-[#5C636A]/20">
+          <div className="w-9 h-9 rounded-xl bg-[#5C636A]/15 flex items-center justify-center">
+            <Shield size={16} className="text-[#5C636A]" />
           </div>
           <div>
             <p className="text-[13px] font-semibold text-[#111315]">All clear right now</p>
@@ -158,7 +158,7 @@ export default function SafetyCenter({ embedded = false }) {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
         <div className="stat-card">
           <p className="text-[11px] text-[#868E96] font-medium uppercase tracking-wide mb-2">Drowsy now</p>
-          <p className="text-[28px] font-semibold tracking-tight leading-none" style={{ color: severeNow.length > 0 ? "#ff3b30" : "#34c759" }}>
+          <p className="text-[28px] font-semibold tracking-tight leading-none" style={{ color: severeNow.length > 0 ? "#343A40" : "#5C636A" }}>
             {severeNow.length}
           </p>
           <p className="text-[11px] text-[#ADB5BD] mt-2">drivers in last hour</p>
@@ -170,12 +170,12 @@ export default function SafetyCenter({ embedded = false }) {
         </div>
         <div className="stat-card">
           <p className="text-[11px] text-[#868E96] font-medium uppercase tracking-wide mb-2">Cameras watching</p>
-          <p className="text-[28px] font-semibold tracking-tight leading-none text-[#008080]">{drivers.length}</p>
+          <p className="text-[28px] font-semibold tracking-tight leading-none text-[#111315]">{drivers.length}</p>
           <p className="text-[11px] text-[#ADB5BD] mt-2">drivers protected</p>
         </div>
         <div className="stat-card">
           <p className="text-[11px] text-[#868E96] font-medium uppercase tracking-wide mb-2">At-risk drivers</p>
-          <p className="text-[28px] font-semibold tracking-tight leading-none" style={{ color: atRiskNow.length > 0 ? "#ff9500" : "#34c759" }}>
+          <p className="text-[28px] font-semibold tracking-tight leading-none" style={{ color: atRiskNow.length > 0 ? "#868E96" : "#5C636A" }}>
             {atRiskNow.length}
           </p>
           <p className="text-[11px] text-[#ADB5BD] mt-2">risk score below 65</p>
@@ -244,8 +244,8 @@ export default function SafetyCenter({ embedded = false }) {
                   center={[p.lat, p.lng]}
                   radius={6 + p.severity * 2}
                   pathOptions={{
-                    color: "#ff3b30",
-                    fillColor: "#ff3b30",
+                    color: "#343A40",
+                    fillColor: "#343A40",
                     fillOpacity: 0.3 + Math.min(0.5, p.severity * 0.1),
                     weight: 1,
                   }}
@@ -270,7 +270,7 @@ export default function SafetyCenter({ embedded = false }) {
           <div className="space-y-1.5 max-h-[360px] overflow-y-auto">
             {fatigueEvents.slice(0, 25).map((e) => (
               <div key={e.id} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#F1F3F5]">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[#ff3b30]/10 text-[#ff3b30]">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 bg-[#343A40]/10 text-[#343A40]">
                   <Eye size={14} strokeWidth={1.8} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -281,7 +281,7 @@ export default function SafetyCenter({ embedded = false }) {
                   <p className="text-[11px] text-[#ADB5BD]">severity {e.severity}/5 · {timeAgo(e.created_at)}</p>
                 </div>
                 {e.severity >= 4 && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ff3b30] text-white font-semibold">CRITICAL</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#343A40] text-white font-semibold">CRITICAL</span>
                 )}
               </div>
             ))}

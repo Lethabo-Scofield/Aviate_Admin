@@ -25,8 +25,8 @@ const TYPE_ICONS = {
 };
 
 const SEVERITY_STYLE = {
-  critical: { bg: "bg-[#ff3b30]/10", text: "text-[#ff3b30]", label: "Critical" },
-  warning: { bg: "bg-[#ff9500]/10", text: "text-[#ff9500]", label: "Warning" },
+  critical: { bg: "bg-[#343A40]/10", text: "text-[#343A40]", label: "Critical" },
+  warning: { bg: "bg-[#868E96]/10", text: "text-[#868E96]", label: "Warning" },
   info: { bg: "bg-[#0a84ff]/10", text: "text-[#0a84ff]", label: "Info" },
 };
 
@@ -177,7 +177,7 @@ export default function Alerts() {
                   <button
                     onClick={() => handleDelete(a.id)}
                     title="Delete"
-                    className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-[#ff3b30]/10 text-[#868E96] hover:text-[#ff3b30]"
+                    className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-[#343A40]/10 text-[#868E96] hover:text-[#343A40]"
                   >
                     <Trash2 size={14} />
                   </button>

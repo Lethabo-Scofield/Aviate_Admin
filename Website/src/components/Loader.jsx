@@ -8,7 +8,7 @@ export function LogoSpinner({ size = 32, className = "" }) {
           width={size}
           height={size}
           className="animate-logo-pulse"
-          style={{ filter: "drop-shadow(0 0 8px rgba(0,128,128,0.2))" }}
+          style={{ filter: "drop-shadow(0 0 8px rgba(17, 19, 21,0.2))" }}
         />
       </div>
     </div>

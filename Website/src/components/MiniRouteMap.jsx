@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip, Marker } from
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const COLORS = ["#008080", "#ff9500", "#5e5ce6", "#ff3b30", "#34c759", "#af52de"];
+const COLORS = ["#111315", "#868E96", "#5C636A", "#343A40", "#5C636A", "#868E96"];
 
 const driverIcon = L.divIcon({
   className: "",
@@ -74,7 +74,7 @@ export default function MiniRouteMap({ routes = [], height = 240 }) {
                 pathOptions={{
                   color: "#fff",
                   weight: 2,
-                  fillColor: s.completed ? "#34c759" : color,
+                  fillColor: s.completed ? "#5C636A" : color,
                   fillOpacity: 1,
                 }}
               >

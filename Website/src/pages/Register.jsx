@@ -45,8 +45,8 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="px-4 py-3 rounded-xl bg-[#ff3b30]/[0.06]">
-              <p className="text-[13px] text-[#ff3b30]">{error}</p>
+            <div className="px-4 py-3 rounded-xl bg-[#343A40]/[0.06]">
+              <p className="text-[13px] text-[#343A40]">{error}</p>
             </div>
           )}
 

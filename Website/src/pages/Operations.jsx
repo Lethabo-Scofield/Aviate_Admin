@@ -52,8 +52,8 @@ function greeting() {
 }
 
 const SEV_COLOR = {
-  critical: "#ff3b30", high: "#ff3b30", medium: "#ff9500", low: "#34c759",
-  warning: "#ff9500", info: "#008080",
+  critical: "#343A40", high: "#343A40", medium: "#868E96", low: "#5C636A",
+  warning: "#868E96", info: "#111315",
 };
 
 /* ─────────────────────────── small bits ─────────────────────────── */
@@ -69,7 +69,7 @@ function Toast({ toast, onClose }) {
           exit={{ opacity: 0, y: 16, scale: 0.97 }}
           transition={{ type: "tween", duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
           className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-3"
-          style={{ background: toast.kind === "error" ? "#ff3b30" : "#111315", color: "white" }}
+          style={{ background: toast.kind === "error" ? "#343A40" : "#111315", color: "white" }}
         >
           <span className="text-[13px]">{toast.message}</span>
           <motion.button
@@ -151,7 +151,7 @@ function InboxRow({ rec, onAck, onDismiss }) {
       </div>
       {rec.action && (
         <p className="text-[11.5px] text-white/70 mt-1.5 flex items-start gap-1.5">
-          <Zap size={10} className="text-[#34d399] mt-0.5 shrink-0" />
+          <Zap size={10} className="text-[#5C636A] mt-0.5 shrink-0" />
           <span>{rec.action}</span>
         </p>
       )}
@@ -469,7 +469,7 @@ export default function Operations() {
           <motion.div
             layoutId="ask-aiviate-prompt"
             transition={{ type: "tween", duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-            className="max-w-[680px] mx-auto mb-4 flex items-center gap-3 px-5 py-3.5 rounded-full bg-white border border-black/[0.08] shadow-[0_2px_18px_rgba(0,0,0,0.04)] focus-within:border-[#008080]/40 focus-within:shadow-[0_2px_22px_rgba(0,128,128,0.10)]"
+            className="max-w-[680px] mx-auto mb-4 flex items-center gap-3 px-5 py-3.5 rounded-full bg-white border border-black/[0.08] shadow-[0_2px_18px_rgba(0,0,0,0.04)] focus-within:border-[#111315]/40 focus-within:shadow-[0_2px_22px_rgba(17, 19, 21,0.10)]"
           >
             <motion.button
               type="button"
@@ -498,7 +498,7 @@ export default function Operations() {
               disabled={chatBusy}
               className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
                 askText.trim()
-                  ? "bg-[#008080] hover:bg-[#006666] text-white"
+                  ? "bg-[#111315] hover:bg-[#343A40] text-white"
                   : "bg-[#F1F3F5] text-[#ADB5BD]"
               }`}
             >
@@ -509,7 +509,7 @@ export default function Operations() {
           <motion.div
             layoutId="ask-aiviate-prompt"
             transition={{ type: "tween", duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-            className="sticky top-14 lg:top-3 z-20 max-w-[760px] mx-auto mb-4 flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur border border-black/[0.08] shadow-[0_2px_18px_rgba(0,0,0,0.05)] focus-within:border-[#008080]/40"
+            className="sticky top-14 lg:top-3 z-20 max-w-[760px] mx-auto mb-4 flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur border border-black/[0.08] shadow-[0_2px_18px_rgba(0,0,0,0.05)] focus-within:border-[#111315]/40"
           >
             <img src="/logo.png" alt="" className="w-4 h-4 shrink-0" />
             <input
@@ -538,7 +538,7 @@ export default function Operations() {
               disabled={chatBusy || !askText.trim()}
               className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                 askText.trim() && !chatBusy
-                  ? "bg-[#008080] hover:bg-[#006666] text-white"
+                  ? "bg-[#111315] hover:bg-[#343A40] text-white"
                   : "bg-[#F1F3F5] text-[#ADB5BD]"
               }`}
             >
@@ -578,8 +578,8 @@ export default function Operations() {
 
             {/* Load error banner (honest) */}
             {loadError && (
-              <div className="max-w-[680px] mx-auto mb-6 rounded-xl border border-[#ff9500]/30 bg-[#ff9500]/[0.04] p-3 flex items-start gap-2">
-                <AlertTriangle size={14} className="text-[#ff9500] mt-0.5 shrink-0" />
+              <div className="max-w-[680px] mx-auto mb-6 rounded-xl border border-[#868E96]/30 bg-[#868E96]/[0.04] p-3 flex items-start gap-2">
+                <AlertTriangle size={14} className="text-[#868E96] mt-0.5 shrink-0" />
                 <p className="text-[12px] text-[#111315]">
                   <span className="font-semibold">Heads up:</span> {loadError}. Treat those sections as unknown, not safe.
                 </p>
@@ -614,7 +614,7 @@ export default function Operations() {
           ) : visibleRecs.length === 0 ? (
             <>
               <p className="text-[22px] sm:text-[24px] font-semibold leading-tight">
-                <span className="text-[#34d399]">All clear.</span>{" "}
+                <span className="text-[#5C636A]">All clear.</span>{" "}
                 <span className="text-white/90">Nothing on your plate.</span>
               </p>
               <p className="text-[13px] text-white/70 mt-2">
@@ -636,7 +636,7 @@ export default function Operations() {
                 const others = visibleRecs.length - critical;
                 return (
                   <p className="text-[22px] sm:text-[24px] font-semibold leading-tight">
-                    <span className="text-[#34d399]">
+                    <span className="text-[#5C636A]">
                       {visibleRecs.length} {visibleRecs.length === 1 ? "decision" : "decisions"}
                     </span>{" "}
                     <span className="text-white/95">need attention.</span>
@@ -671,7 +671,7 @@ export default function Operations() {
 
         {/* ───── Autopilot control tower ───── */}
         <div className="rounded-3xl bg-white border border-black/[0.05] overflow-hidden flex flex-col min-h-[340px] shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-          <div className="relative px-5 sm:px-6 py-6 bg-gradient-to-br from-[#008080] via-[#0a9c9c] to-[#16b8b8] text-white">
+          <div className="relative px-5 sm:px-6 py-6 bg-gradient-to-br from-[#111315] via-[#343a40] to-[#5c636a] text-white">
             <div className="absolute inset-0 opacity-[0.18]" style={{
               backgroundImage:
                 "radial-gradient(circle at 20% 20%, white 0, transparent 40%), radial-gradient(circle at 80% 70%, white 0, transparent 35%)",
@@ -688,7 +688,7 @@ export default function Operations() {
                   whileTap={{ scale: 0.94 }}
                   transition={TAP_SPRING}
                   className={`text-[11px] font-semibold px-3 py-1.5 rounded-full ${
-                    autopilotOn ? "bg-white text-[#008080]" : "bg-white/15 text-white"
+                    autopilotOn ? "bg-white text-[#111315]" : "bg-white/15 text-white"
                   }`}
                 >
                   {autopilotOn ? "ON" : "OFF"}
@@ -719,7 +719,7 @@ export default function Operations() {
                   transition={TAP_SPRING}
                   className={`text-[11px] capitalize font-medium px-2.5 py-1.5 rounded-lg ${
                     autopilotSettings?.mode === mode
-                      ? "bg-[#008080] text-white"
+                      ? "bg-[#111315] text-white"
                       : "bg-[#F1F3F5] text-[#343A40] hover:bg-[#ebebed]"
                   }`}
                 >
@@ -746,7 +746,7 @@ export default function Operations() {
             ) : pendingApprovals.length > 0 ? (
               <div className="space-y-2.5 flex-1">
                 {pendingApprovals.slice(0, 3).map((a) => (
-                  <div key={a.id} className="rounded-xl bg-[#ff9500]/[0.07] border border-[#ff9500]/20 p-3">
+                  <div key={a.id} className="rounded-xl bg-[#868E96]/[0.07] border border-[#868E96]/20 p-3">
                     <p className="text-[12.5px] font-medium text-[#111315] leading-snug">{a.summary}</p>
                     <p className="text-[11px] text-[#868E96] mt-1">
                       Confidence {Math.round((a.confidence || 0) * 100)}% · awaiting operator approval
@@ -762,7 +762,7 @@ export default function Operations() {
               <div className="space-y-2.5 flex-1">
                 {recentAutoActions.map((a, i) => (
                   <div key={i} className="flex items-start gap-2 text-[13px] text-[#111315]">
-                    <span className="text-[#008080] mt-0.5">▸</span>
+                    <span className="text-[#111315] mt-0.5">▸</span>
                     <span className="flex-1 leading-snug">{a.summary}</span>
                     <span className="text-[11px] text-[#ADB5BD] shrink-0 mt-0.5">{timeAgo(a.at)}</span>
                   </div>
@@ -773,7 +773,7 @@ export default function Operations() {
               onClick={() => askHere("AgentZero, show me the full details of the completed Autopilot task")}
               whileTap={{ scale: 0.96 }}
               transition={TAP_SPRING}
-              className="mt-3 text-[12px] font-medium text-[#008080] hover:underline inline-flex items-center gap-1 self-start"
+              className="mt-3 text-[12px] font-medium text-[#111315] hover:underline inline-flex items-center gap-1 self-start"
             >
               Ask AgentZero for details <ArrowUpRight size={12} />
             </motion.button>
@@ -839,8 +839,8 @@ export default function Operations() {
                 },
               ].map(({ title, Icon, meta, q, tone }, i) => {
                 const metaColor =
-                  tone === "alert" ? "text-[#ff3b30]" :
-                  tone === "warn" ? "text-[#ff9500]" :
+                  tone === "alert" ? "text-[#343A40]" :
+                  tone === "warn" ? "text-[#868E96]" :
                   "text-[#868E96]";
                 return (
                   <motion.button
@@ -850,7 +850,7 @@ export default function Operations() {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.04 + i * 0.04, type: "tween", duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }}
-                    className="w-full text-left rounded-xl border border-black/[0.05] hover:border-[#008080]/30 hover:bg-[#008080]/[0.02] p-3"
+                    className="w-full text-left rounded-xl border border-black/[0.05] hover:border-[#111315]/30 hover:bg-[#111315]/[0.02] p-3"
                   >
                     <p className="text-[13px] font-medium text-[#111315] leading-snug">{title}</p>
                     <p className={`text-[11.5px] mt-1 flex items-center gap-1.5 ${metaColor}`}>
@@ -888,7 +888,7 @@ export default function Operations() {
                   >
                     {/* Your question — right-aligned bubble */}
                     <div className="flex justify-end">
-                      <div className="max-w-[85%] rounded-2xl rounded-br-md bg-[#008080] text-white text-[13.5px] px-3.5 py-2 leading-snug shadow-[0_2px_10px_rgba(0,128,128,0.18)]">
+                      <div className="max-w-[85%] rounded-2xl rounded-br-md bg-[#111315] text-white text-[13.5px] px-3.5 py-2 leading-snug shadow-[0_2px_10px_rgba(17, 19, 21,0.18)]">
                         {turn.input}
                       </div>
                     </div>
@@ -900,7 +900,7 @@ export default function Operations() {
                             <motion.span
                               animate={{ opacity: [0.3, 1, 0.3] }}
                               transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-                              className="inline-block w-1.5 h-1.5 rounded-full bg-[#008080]"
+                              className="inline-block w-1.5 h-1.5 rounded-full bg-[#111315]"
                             />
                             <span>Aiviate is thinking…</span>
                           </div>

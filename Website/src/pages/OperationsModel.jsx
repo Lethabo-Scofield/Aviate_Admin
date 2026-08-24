@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Activity,
   AlertTriangle,
-  ArrowRight,
+  ArrowUpRight,
   Bot,
   CheckCircle2,
   ClipboardCheck,
@@ -65,7 +65,7 @@ function PageHeader({ title, body, icon }) {
     <div className="mb-6 sm:mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <div className="flex items-center gap-2.5">
-          <span className="w-9 h-9 rounded-lg bg-[#E6F4F4] text-[#008080] flex items-center justify-center">
+          <span className="w-9 h-9 rounded-lg bg-[#F1F3F5] text-[#111315] flex items-center justify-center">
             <Icon size={17} strokeWidth={1.8} />
           </span>
           <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#111315] tracking-tight">{title}</h1>
@@ -79,8 +79,8 @@ function PageHeader({ title, body, icon }) {
 function Metric({ label, value, tone = "neutral" }) {
   const tones = {
     neutral: "bg-white border-[#E9ECEF]",
-    good: "bg-[#F0FDF4] border-[#BBF7D0]",
-    warn: "bg-[#FFF7ED] border-[#FED7AA]",
+    good: "bg-[#F8F9FA] border-[#DEE2E6]",
+    warn: "bg-[#F8F9FA] border-[#DEE2E6]",
   };
   return (
     <div className={`rounded-lg border p-4 ${tones[tone] || tones.neutral}`}>
@@ -122,23 +122,141 @@ function LoadingPanel() {
   );
 }
 
-function ChatTurn({ turn }) {
+function TypewriterResult({ result }) {
+  const [visible, setVisible] = useState("");
+  const [done, setDone] = useState(false);
+  const text = result?.summary || (result?.ok ? "Done." : "Aiviate could not answer that yet.");
+
+  useEffect(() => {
+    setVisible("");
+    setDone(false);
+    let index = 0;
+    const id = window.setInterval(() => {
+      index += 1;
+      setVisible(text.slice(0, index));
+      if (index >= text.length) {
+        window.clearInterval(id);
+        setDone(true);
+      }
+    }, 16);
+    return () => window.clearInterval(id);
+  }, [text]);
+
+  const hasDetails = result?.ok && result?.type && result.type !== "greeting";
+
   return (
     <div className="space-y-3">
-      <div className="ml-auto max-w-[78%] rounded-2xl bg-[#111315] px-4 py-3 text-[14px] text-white">
-        {turn.input}
+      <p className={`text-[14px] leading-relaxed ${result?.ok === false ? "text-[#343A40]" : "text-[#111315]"}`}>
+        {visible}
+        {!done && <span className="ml-0.5 inline-block h-4 w-[1.5px] translate-y-0.5 animate-pulse bg-[#111315]" />}
+      </p>
+      {done && hasDetails && (
+        <div className="animate-fade-in border-t border-[#E9ECEF] pt-3">
+          <ResultBlock result={result} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ChatTurn({ turn }) {
+  return (
+    <div className="space-y-5">
+      <div className="flex justify-end">
+        <div className="max-w-[78%] rounded-2xl rounded-br-md bg-[#111315] px-4 py-3 text-[14px] leading-relaxed text-white shadow-sm">
+          {turn.input}
+        </div>
       </div>
-      <div className="max-w-[86%] rounded-2xl border border-[#E9ECEF] bg-white px-4 py-3 shadow-[0_1px_2px_rgba(17,19,21,0.03)]">
-        {turn.busy ? (
-          <div className="flex items-center gap-2 text-[13px] text-[#868E96]">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-[#008080]" />
-            Aiviate is checking the operation...
-          </div>
-        ) : (
-          <ResultBlock result={turn.result} />
-        )}
+
+      <div className="flex items-start gap-3">
+        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E9ECEF] bg-white">
+          <img src="/logo.png" alt="" className="h-5 w-5" />
+        </div>
+        <div className="min-w-0 flex-1 rounded-2xl rounded-tl-md border border-[#E9ECEF] bg-white px-4 py-3 shadow-[0_1px_2px_rgba(17,19,21,0.03)]">
+          {turn.busy ? (
+            <div className="flex items-center gap-2 text-[13px] text-[#868E96]">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#111315]" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#5C636A] [animation-delay:120ms]" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ADB5BD] [animation-delay:240ms]" />
+              <span className="ml-1">Aiviate is checking the operation</span>
+            </div>
+          ) : (
+            <TypewriterResult result={turn.result} />
+          )}
+        </div>
       </div>
     </div>
+  );
+}
+
+function EmptyChatState({ onPrompt }) {
+  const prompts = [
+    "Show orders",
+    "Prepare operation",
+    "What needs attention?",
+    "Assign Sipho",
+  ];
+  return (
+    <div className="mx-auto flex min-h-[42vh] max-w-[760px] flex-col items-center justify-center text-center">
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E9ECEF] bg-white shadow-sm">
+        <img src="/logo.png" alt="" className="h-8 w-8" />
+      </div>
+      <h1 className="text-[30px] font-semibold tracking-tight text-[#111315] sm:text-[40px]">
+        What should Aiviate handle?
+      </h1>
+      <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-[#5C636A]">
+        Ask about orders, dispatch, routes, drivers, exceptions, or tell Aiviate to prepare the operation.
+      </p>
+      <div className="mt-7 grid w-full gap-2 sm:grid-cols-2">
+        {prompts.map((prompt) => (
+          <button
+            key={prompt}
+            onClick={() => onPrompt(prompt)}
+            className="rounded-xl border border-[#E9ECEF] bg-white px-4 py-3 text-left text-[13px] text-[#343A40] shadow-[0_1px_2px_rgba(17,19,21,0.03)] transition-colors hover:border-[#ADB5BD] hover:bg-[#F8F9FA]"
+          >
+            {prompt}
+            <span className="block pt-1 text-[11px] text-[#ADB5BD]">Ask Aiviate</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ChatComposer({ value, onChange, onSubmit, busy, inputRef }) {
+  return (
+    <form onSubmit={onSubmit} className="mx-auto max-w-[820px]">
+      <div className="rounded-2xl border border-[#DEE2E6] bg-white p-2 shadow-[0_12px_40px_rgba(17,19,21,0.08)] focus-within:border-[#111315]/50">
+        <div className="flex items-end gap-2">
+          <textarea
+            ref={inputRef}
+            rows={1}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                onSubmit(e);
+              }
+            }}
+            placeholder="Message Aiviate..."
+            className="max-h-32 min-h-11 flex-1 resize-none bg-transparent px-3 py-3 text-[15px] leading-snug text-[#111315] outline-none placeholder:text-[#ADB5BD]"
+          />
+          <button
+            type="submit"
+            disabled={busy || !value.trim()}
+            className="mb-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#111315] text-white transition-colors hover:bg-[#343A40] disabled:bg-[#E9ECEF] disabled:text-[#ADB5BD]"
+            aria-label="Send"
+          >
+            <ArrowUpRight size={16} strokeWidth={1.6} />
+          </button>
+        </div>
+        <div className="flex items-center justify-between px-3 pb-1">
+          <p className="text-[11px] text-[#ADB5BD]">Enter to send · Shift Enter for a new line</p>
+          <p className="text-[11px] text-[#ADB5BD]">Aiviate Ops</p>
+        </div>
+      </div>
+    </form>
   );
 }
 
@@ -157,13 +275,13 @@ function Surface({ title, action, children }) {
 function ModuleLink({ to, label, detail, icon: Icon, tone = "neutral" }) {
   const tones = {
     neutral: "border-[#E9ECEF] hover:border-[#C8D1D6]",
-    warn: "border-[#FED7AA] bg-[#FFF7ED] hover:border-[#FDBA74]",
-    good: "border-[#BBF7D0] bg-[#F0FDF4] hover:border-[#86EFAC]",
+    warn: "border-[#DEE2E6] bg-[#F8F9FA] hover:border-[#ADB5BD]",
+    good: "border-[#DEE2E6] bg-[#F8F9FA] hover:border-[#ADB5BD]",
   };
   return (
     <Link to={to} className={`rounded-lg border p-3 transition-colors ${tones[tone] || tones.neutral}`}>
       <div className="flex items-center gap-2">
-        <Icon size={15} strokeWidth={1.8} className={tone === "warn" ? "text-[#D97706]" : "text-[#008080]"} />
+        <Icon size={15} strokeWidth={1.8} className={tone === "warn" ? "text-[#5C636A]" : "text-[#111315]"} />
         <p className="text-[13px] font-semibold text-[#111315]">{label}</p>
       </div>
       <p className="mt-1 text-[12px] leading-snug text-[#5C636A]">{detail}</p>
@@ -186,26 +304,11 @@ function useAsync(loader, deps = []) {
 }
 
 export function OperationsCommand() {
-  const [snapshot, setSnapshot] = useState(null);
-  const [workflow, setWorkflow] = useState(null);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
   const [askText, setAskText] = useState("");
   const [thread, setThread] = useState([]);
   const [chatBusy, setChatBusy] = useState(false);
   const askRef = useRef(null);
   const endRef = useRef(null);
-
-  const load = async () => {
-    try {
-      setSnapshot(await getOperationsSnapshot());
-      setError("");
-    } catch (e) {
-      setError(e?.message || "Failed to load operations");
-    }
-  };
-
-  useEffect(() => { load(); }, []);
 
   const askHere = useCallback(async (raw) => {
     const text = (raw || "").trim();
@@ -226,7 +329,6 @@ export function OperationsCommand() {
         : item));
     } finally {
       setChatBusy(false);
-      await load();
     }
   }, []);
 
@@ -245,21 +347,6 @@ export function OperationsCommand() {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [thread]);
 
-  const run = async () => {
-    setBusy(true);
-    try {
-      const res = await runNewOrderWorkflow();
-      setWorkflow(res);
-      await load();
-    } catch (e) {
-      setError(e?.message || "Workflow failed");
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  const status = snapshot?.operational_status || {};
-  const activity = snapshot?.activity || {};
   const submitAsk = (e) => {
     e?.preventDefault?.();
     askHere(askText);
@@ -267,159 +354,24 @@ export function OperationsCommand() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-6 sm:mb-8 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#D9EDED] bg-white shadow-sm">
-          <img src="/logo.png" alt="" className="h-7 w-7" />
-        </div>
-        <h1 className="text-[28px] sm:text-[36px] font-semibold tracking-tight text-[#111315]">
-          What should Aiviate handle?
-        </h1>
-        <p className="mx-auto mt-2 max-w-2xl text-[14px] text-[#5C636A]">
-          Ask for orders, routes, drivers, exceptions, or tell it to prepare the operation.
-        </p>
-      </div>
-
-      <form onSubmit={submitAsk} className="mx-auto mb-4 max-w-[760px]">
-        <div className="flex items-center gap-3 rounded-2xl border border-[#DDE5E8] bg-white px-4 py-3 shadow-[0_8px_28px_rgba(17,19,21,0.06)] focus-within:border-[#008080]/50">
-          <Bot size={18} className="shrink-0 text-[#008080]" />
-          <input
-            ref={askRef}
-            value={askText}
-            onChange={(e) => setAskText(e.target.value)}
-            placeholder='Message Aiviate, e.g. "prepare operation"'
-            className="min-w-0 flex-1 bg-transparent text-[15px] text-[#111315] outline-none placeholder:text-[#ADB5BD]"
-          />
-          <button
-            type="submit"
-            disabled={chatBusy || !askText.trim()}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#008080] text-white disabled:bg-[#E9ECEF] disabled:text-[#ADB5BD]"
-            aria-label="Send"
-          >
-            <ArrowRight size={16} />
-          </button>
-        </div>
-      </form>
-
-      <div className="mx-auto mb-8 flex max-w-[760px] flex-wrap justify-center gap-2">
-        {[
-          "Show orders",
-          "Prepare operation",
-          "What needs attention?",
-          "Assign Sipho",
-        ].map((prompt) => (
-          <button
-            key={prompt}
-            onClick={() => askHere(prompt)}
-            className="rounded-full border border-[#E9ECEF] bg-white px-3 py-1.5 text-[12px] text-[#5C636A] hover:border-[#008080]/30 hover:text-[#111315]"
-          >
-            {prompt}
-          </button>
-        ))}
-      </div>
-
-      {thread.length > 0 && (
-        <div className="mx-auto mb-8 max-w-[820px] space-y-5">
+      {thread.length === 0 ? (
+        <EmptyChatState onPrompt={askHere} />
+      ) : (
+        <div className="mx-auto mb-8 max-w-[820px] space-y-8 pb-4">
           {thread.map((turn) => <ChatTurn key={turn.id} turn={turn} />)}
           <div ref={endRef} />
         </div>
       )}
 
-      {error && <div className="mb-4 rounded-lg border border-[#FED7AA] bg-[#FFF7ED] p-3 text-[13px] text-[#9A3412]">{error}</div>}
-      {!snapshot ? <LoadingPanel /> : (
-        <>
-          <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-5">
-            <Metric label="Deliveries" value={fmt(status.total_deliveries)} />
-            <Metric label="Pending" value={fmt(status.pending)} tone={status.pending ? "warn" : "good"} />
-            <Metric label="Active" value={fmt(status.active)} />
-            <Metric label="Drivers active" value={fmt(status.drivers_active)} />
-            <Metric label="On-time projection" value={`${status.projected_on_time_pct || 0}%`} tone="good" />
-          </div>
-
-          <div className="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-[1.25fr_0.75fr]">
-            <Surface
-              title="Autonomous workflow"
-              action={
-                <button
-                  onClick={run}
-                  disabled={busy}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#008080] px-3 py-1.5 text-[12px] font-medium text-white disabled:opacity-60"
-                >
-                  <RefreshCw size={13} className={busy ? "animate-spin" : ""} />
-                  Prepare Operation
-                </button>
-              }
-            >
-              <div className="grid gap-2 sm:grid-cols-4">
-                {["Sense orders", "Plan route", "Assign driver", "Notify"].map((stage, index) => (
-                  <div key={stage} className="rounded-lg bg-[#F8F9FA] p-3">
-                    <p className="text-[11px] font-semibold text-[#008080]">0{index + 1}</p>
-                    <p className="mt-1 text-[13px] font-medium text-[#111315]">{stage}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-3 text-[12px] text-[#5C636A]">
-                Runs only against `STORE-*` storefront orders. Customer messages are still simulation until a real provider is configured.
-              </p>
-            </Surface>
-
-            <Surface title="Needs attention">
-              <div className="grid gap-2">
-                <ModuleLink
-                  to="/exceptions"
-                  icon={AlertTriangle}
-                  label={`${fmt(status.unresolved_exceptions)} exceptions`}
-                  detail="Delivery risks, failed stops, safety warnings, and unresolved alerts."
-                  tone={status.unresolved_exceptions ? "warn" : "good"}
-                />
-                <ModuleLink
-                  to="/approvals"
-                  icon={ShieldCheck}
-                  label={`${fmt(status.pending_approvals)} approvals`}
-                  detail="Restricted actions that need manager authority."
-                  tone={status.pending_approvals ? "warn" : "good"}
-                />
-              </div>
-            </Surface>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-            <Surface title="Work handled">
-              <div className="grid grid-cols-2 gap-3">
-                <Metric label="Orders processed" value={fmt(activity.orders_processed)} />
-                <Metric label="Routes created" value={fmt(activity.routes_created)} />
-                <Metric label="Drivers assigned" value={fmt(activity.drivers_assigned)} />
-                <Metric label="Customers contacted" value={fmt(activity.customers_contacted)} />
-              </div>
-            </Surface>
-            <Surface
-              title="Latest trail"
-              action={<Link to="/activity" className="text-[12px] font-medium text-[#008080]">View all</Link>}
-            >
-              <ActivityList entries={snapshot.recent_activity || []} />
-            </Surface>
-            <Surface title="Deeper views">
-              <div className="grid gap-2">
-                <ModuleLink to="/communications" icon={Mail} label="Communications" detail="Driver alerts, customer notification simulations, and future call outcomes." />
-                <ModuleLink to="/policies" icon={ShieldCheck} label="Policies" detail="Control what Aiviate can do automatically." />
-                <ModuleLink to="/customers" icon={Users} label="Customers" detail="Customer delivery history from real orders." />
-              </div>
-            </Surface>
-          </div>
-          {workflow && (
-            <div className="mt-5 rounded-xl border border-[#BBF7D0] bg-[#F0FDF4] p-4">
-              <p className="text-[14px] font-semibold text-[#14532D]">{workflow.summary}</p>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
-                {(workflow.steps || []).map((step) => (
-                  <div key={step.stage} className="rounded-lg bg-white/80 border border-[#DCFCE7] p-3">
-                    <p className="text-[12px] font-semibold text-[#166534]">{step.stage}</p>
-                    <p className="text-[12px] text-[#14532D] mt-1">{step.result}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </>
-      )}
+      <div className="sticky bottom-0 z-20 -mx-5 bg-[#F8F9FA]/90 px-5 pb-4 pt-3 backdrop-blur sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+        <ChatComposer
+          value={askText}
+          onChange={setAskText}
+          onSubmit={submitAsk}
+          busy={chatBusy}
+          inputRef={askRef}
+        />
+      </div>
     </div>
   );
 }
@@ -459,7 +411,7 @@ export function Exceptions() {
       <PageHeader title="Exceptions" icon="exceptions" body="Operational disruptions raised from alerts, safety events, failed deliveries, and workflow guardrails." />
       {state.loading ? <LoadingPanel /> : (
         <div className="space-y-3">
-          {(state.data?.exceptions || []).length === 0 && <div className="rounded-xl border border-[#DCFCE7] bg-[#F0FDF4] p-4 text-[13px] text-[#166534]">No unresolved exceptions are currently raised.</div>}
+          {(state.data?.exceptions || []).length === 0 && <div className="rounded-xl border border-[#E9ECEF] bg-[#F8F9FA] p-4 text-[13px] text-[#343A40]">No unresolved exceptions are currently raised.</div>}
           {(state.data?.exceptions || []).map((item) => (
             <div key={item.id} className="rounded-xl border border-[#E9ECEF] bg-white p-4">
               <div className="flex items-center justify-between gap-3">
@@ -483,13 +435,13 @@ export function Approvals() {
       <PageHeader title="Approvals" icon="approvals" body="Human authority queue for restricted actions such as capacity shortages, safety escalations, and major route changes." />
       {state.loading ? <LoadingPanel /> : (
         <div className="space-y-3">
-          {requests.length === 0 && <div className="rounded-xl border border-[#DCFCE7] bg-[#F0FDF4] p-4 text-[13px] text-[#166534]">No approvals are waiting right now.</div>}
+          {requests.length === 0 && <div className="rounded-xl border border-[#E9ECEF] bg-[#F8F9FA] p-4 text-[13px] text-[#343A40]">No approvals are waiting right now.</div>}
           {requests.map((item) => (
             <div key={item.id} className="rounded-xl border border-[#E9ECEF] bg-white p-4">
               <p className="text-[14px] font-semibold text-[#111315]">{item.summary || item.title}</p>
               <p className="text-[13px] text-[#5C636A] mt-1">{item.message || item.action_type || "Approval requested"}</p>
               <div className="mt-3 flex gap-2">
-                <button className="rounded-lg bg-[#008080] text-white px-3 py-1.5 text-[12px] font-medium">Approve</button>
+                <button className="rounded-lg bg-[#111315] text-white px-3 py-1.5 text-[12px] font-medium">Approve</button>
                 <button className="rounded-lg bg-[#F1F3F5] text-[#111315] px-3 py-1.5 text-[12px] font-medium">Review</button>
               </div>
             </div>
@@ -528,7 +480,7 @@ export function PoliciesAutonomy() {
       <PageHeader title="Policies & Autonomy" icon="policies" body="Backend-enforced guardrails for what Aiviate can do automatically and what needs approval." />
       {state.loading ? <LoadingPanel /> : (
         <>
-          {state.error && <div className="mb-4 rounded-lg border border-[#FED7AA] bg-[#FFF7ED] p-3 text-[13px] text-[#9A3412]">{state.error}</div>}
+          {state.error && <div className="mb-4 rounded-lg border border-[#DEE2E6] bg-[#F8F9FA] p-3 text-[13px] text-[#343A40]">{state.error}</div>}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="rounded-xl border border-[#E9ECEF] bg-white p-4">
               <p className="text-[12px] text-[#868E96]">Autonomy level</p>
@@ -536,10 +488,10 @@ export function PoliciesAutonomy() {
               <p className="text-[13px] text-[#5C636A] mt-2 capitalize">{policies.mode || "assist"} mode</p>
             </div>
             {["enabled", "auto_assign", "auto_optimize", "auto_notify"].map((field) => (
-              <button key={field} onClick={() => toggle(field)} className="rounded-xl border border-[#E9ECEF] bg-white p-4 text-left hover:border-[#008080]/40 transition-colors">
+              <button key={field} onClick={() => toggle(field)} className="rounded-xl border border-[#E9ECEF] bg-white p-4 text-left hover:border-[#111315]/40 transition-colors">
                 <div className="flex items-center justify-between">
                   <p className="text-[14px] font-semibold text-[#111315]">{field.replaceAll("_", " ")}</p>
-                  {policies[field] ? <CheckCircle2 size={18} className="text-[#16A34A]" /> : <AlertTriangle size={18} className="text-[#D97706]" />}
+                  {policies[field] ? <CheckCircle2 size={18} className="text-[#343A40]" /> : <AlertTriangle size={18} className="text-[#5C636A]" />}
                 </div>
                 <p className="text-[13px] text-[#868E96] mt-2">{policies[field] ? "Automatic where allowed" : "Manual or approval required"}</p>
               </button>

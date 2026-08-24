@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 
 const JOB_COLORS = [
-  "#111315", "#008080", "#ff9500", "#007aff", "#ff3b30",
-  "#af52de", "#5ac8fa", "#ff2d55", "#34c759", "#a2845e",
+  "#111315", "#111315", "#868E96", "#5C636A", "#343A40",
+  "#868E96", "#5ac8fa", "#ff2d55", "#5C636A", "#a2845e",
   "#30b0c7", "#ff6482", "#ffd60a", "#64d2ff", "#bf5af2",
 ];
 
@@ -263,7 +263,7 @@ export default function MapView() {
           <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#111315] tracking-tight">Map</h1>
         </div>
         <div className="apple-card p-10 text-center">
-          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <p className="text-[14px] text-[#343A40] mb-4">{error}</p>
           <button onClick={() => window.location.reload()} className="apple-btn apple-btn-primary">Retry</button>
         </div>
       </div>
@@ -392,7 +392,7 @@ export default function MapView() {
                             </div>
                           )}
                           {stop.completed && (
-                            <div style={{ marginTop: "4px", color: "#34c759", fontSize: "11px", fontWeight: 600 }}>
+                            <div style={{ marginTop: "4px", color: "#5C636A", fontSize: "11px", fontWeight: 600 }}>
                               Completed
                             </div>
                           )}
@@ -477,9 +477,9 @@ export default function MapView() {
                     <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: color }} />
                     <span className="text-[11px] text-[#111315] font-medium flex-1 truncate">{job.area}</span>
                     <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                      job.status === "completed" ? "bg-[#34c759]/10 text-[#34c759]" :
-                      job.status === "assigned" ? "bg-[#008080]/10 text-[#008080]" :
-                      "bg-[#ff9500]/10 text-[#ff9500]"
+                      job.status === "completed" ? "bg-[#5C636A]/10 text-[#5C636A]" :
+                      job.status === "assigned" ? "bg-[#111315]/10 text-[#111315]" :
+                      "bg-[#868E96]/10 text-[#868E96]"
                     }`}>
                       {job.driver_name || job.status}
                     </span>

@@ -59,18 +59,99 @@ function parseItems(summary) {
 
 function StatusBadge({ order }) {
   if (order.imported) {
-    return <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#34c759]/10 text-[#34c759] font-semibold whitespace-nowrap">Imported</span>;
+    return <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#5C636A]/10 text-[#5C636A] font-semibold whitespace-nowrap">Imported</span>;
   }
   if (!order.importable) {
-    return <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ff9500]/10 text-[#ff9500] font-semibold whitespace-nowrap">No address</span>;
+    return <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#868E96]/10 text-[#868E96] font-semibold whitespace-nowrap">No address</span>;
   }
-  return <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#008080]/10 text-[#008080] font-semibold whitespace-nowrap">New</span>;
+  return <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#111315]/10 text-[#111315] font-semibold whitespace-nowrap">New</span>;
 }
 
 function statusExplainer(order) {
   if (order.imported) return "This order is already in your dispatch queue as a delivery stop.";
   if (!order.importable) return "This order can't be dispatched until it has a shipping address.";
   return "Ready to import — it will become a delivery stop you can assign to a driver.";
+}
+
+function pct(value, total) {
+  if (!total) return 0;
+  return Math.round((Number(value || 0) / total) * 100);
+}
+
+function OrdersFlow({ counts, loading }) {
+  const total = counts.total || 0;
+  const segments = [
+    { key: "fresh", label: "New", value: counts.fresh, className: "bg-[#111315]" },
+    { key: "imported", label: "Imported", value: counts.imported, className: "bg-[#5C636A]" },
+    { key: "noAddress", label: "Missing address", value: counts.noAddress, className: "bg-[#ADB5BD]" },
+  ];
+  const maxValue = Math.max(...segments.map((s) => s.value), 1);
+
+  return (
+    <div className="apple-card mb-6 overflow-hidden">
+      <div className="grid gap-0 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="border-b border-black/[0.06] p-5 lg:border-b-0 lg:border-r">
+          <p className="text-[11px] uppercase tracking-wider text-[#ADB5BD] font-semibold">Order flow</p>
+          <div className="mt-4 flex items-end gap-3">
+            <p className="text-[44px] font-semibold leading-none tracking-tight text-[#111315] tabular-nums">
+              {loading ? "–" : total}
+            </p>
+            <p className="pb-1.5 text-[13px] text-[#868E96]">live store orders</p>
+          </div>
+          <p className="mt-3 text-[12px] leading-relaxed text-[#5C636A]">
+            See what is ready for dispatch, what already moved into route planning, and what still needs clean delivery information.
+          </p>
+        </div>
+
+        <div className="p-5">
+          <div className="mb-5 flex h-3 overflow-hidden rounded-full bg-[#F1F3F5]">
+            {segments.map((segment) => {
+              const width = total ? Math.max(pct(segment.value, total), segment.value ? 4 : 0) : 0;
+              return (
+                <div
+                  key={segment.key}
+                  className={`${segment.className} transition-all duration-500`}
+                  style={{ width: `${width}%` }}
+                  title={`${segment.label}: ${segment.value}`}
+                />
+              );
+            })}
+          </div>
+
+          <div className="grid gap-3">
+            {segments.map((segment) => {
+              const percentage = pct(segment.value, total);
+              return (
+                <button
+                  key={segment.key}
+                  onClick={() => {
+                    if (segment.key === "fresh") document.querySelector("[data-filter='new']")?.click();
+                    if (segment.key === "imported") document.querySelector("[data-filter='imported']")?.click();
+                    if (segment.key === "noAddress") document.querySelector("[data-filter='attention']")?.click();
+                  }}
+                  className="group grid grid-cols-[88px_1fr_54px] items-center gap-3 rounded-xl border border-transparent px-2 py-1.5 text-left transition-colors hover:border-[#E9ECEF] hover:bg-[#F8F9FA]"
+                >
+                  <div>
+                    <p className="text-[13px] font-medium text-[#111315]">{loading ? "–" : segment.value}</p>
+                    <p className="text-[11px] text-[#868E96]">{segment.label}</p>
+                  </div>
+                  <div className="h-2 overflow-hidden rounded-full bg-[#F1F3F5]">
+                    <div
+                      className={`h-full rounded-full ${segment.className} transition-all duration-500`}
+                      style={{ width: `${loading ? 0 : Math.max((segment.value / maxValue) * 100, segment.value ? 6 : 0)}%` }}
+                    />
+                  </div>
+                  <p className="text-right text-[12px] font-medium tabular-nums text-[#5C636A]">
+                    {loading ? "–" : `${percentage}%`}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Orders() {
@@ -192,32 +273,21 @@ export default function Orders() {
       </div>
 
       {error && (
-        <div className="apple-card p-4 flex items-center gap-3 mb-5 border border-[#ff3b30]/20">
-          <AlertTriangle size={16} className="text-[#ff3b30] shrink-0" />
+        <div className="apple-card p-4 flex items-center gap-3 mb-5 border border-[#343A40]/20">
+          <AlertTriangle size={16} className="text-[#343A40] shrink-0" />
           <p className="text-[13px] text-[#111315]">{error}</p>
         </div>
       )}
 
       <>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-            {[
-              { label: "Total orders", value: counts.total, tone: "text-[#111315]" },
-              { label: "New — ready to import", value: counts.fresh, tone: "text-[#008080]" },
-              { label: "Imported to dispatch", value: counts.imported, tone: "text-[#34c759]" },
-              { label: "Missing address", value: counts.noAddress, tone: "text-[#ff9500]" },
-            ].map((s) => (
-              <div key={s.label} className="apple-card p-4">
-                <p className={`text-[22px] font-semibold ${s.tone}`}>{loading ? "–" : s.value}</p>
-                <p className="text-[11px] text-[#868E96] mt-0.5">{s.label}</p>
-              </div>
-            ))}
-          </div>
+          <OrdersFlow counts={counts} loading={loading} />
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
             <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-[#F1F3F5] self-start">
               {FILTERS.map((f) => (
                 <button
                   key={f.id}
+                  data-filter={f.id}
                   onClick={() => setFilter(f.id)}
                   className={`px-3.5 py-1.5 rounded-lg text-[13px] font-medium transition-all ${
                     filter === f.id ? "bg-white text-[#111315] shadow-sm" : "text-[#868E96] hover:text-[#111315]"
@@ -277,8 +347,8 @@ function OrderCard({ order: o, expanded, onToggle, onImport, importingThis, impo
         aria-expanded={expanded}
         className="w-full text-left px-4 sm:px-5 py-3.5 flex items-center gap-3 sm:gap-4 hover:bg-[#fafafa] transition-colors"
       >
-        <div className="w-9 h-9 rounded-xl bg-[#008080]/[0.06] flex items-center justify-center shrink-0">
-          <ShoppingBag size={15} className="text-[#008080]" strokeWidth={1.8} />
+        <div className="w-9 h-9 rounded-xl bg-[#111315]/[0.06] flex items-center justify-center shrink-0">
+          <ShoppingBag size={15} className="text-[#111315]" strokeWidth={1.8} />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
@@ -338,7 +408,7 @@ function OrderCard({ order: o, expanded, onToggle, onImport, importingThis, impo
                 {o.shipping_address ? (
                   <p className="text-[12.5px] text-[#111315] leading-relaxed">{o.shipping_address}</p>
                 ) : (
-                  <p className="text-[12.5px] text-[#ff9500]">No shipping address on this order</p>
+                  <p className="text-[12.5px] text-[#868E96]">No shipping address on this order</p>
                 )}
               </div>
               <div className="space-y-1.5">
@@ -358,9 +428,9 @@ function OrderCard({ order: o, expanded, onToggle, onImport, importingThis, impo
                   <Clock size={11} className="text-[#ADB5BD]" /> {fmtDate(o.created_at)}
                 </span>
                 <span className={`text-[11.5px] inline-flex items-center gap-1.5 font-medium ${
-                  o.payment_status === "paid" ? "text-[#34c759]" : "text-[#868E96]"
+                  o.payment_status === "paid" ? "text-[#5C636A]" : "text-[#868E96]"
                 }`}>
-                  <CreditCard size={11} className={o.payment_status === "paid" ? "text-[#34c759]" : "text-[#ADB5BD]"} />
+                  <CreditCard size={11} className={o.payment_status === "paid" ? "text-[#5C636A]" : "text-[#ADB5BD]"} />
                   {o.payment_status === "paid" ? "Paid" : (o.payment_status || "Payment status unknown")}
                 </span>
               </div>
@@ -370,7 +440,7 @@ function OrderCard({ order: o, expanded, onToggle, onImport, importingThis, impo
           {/* Footer: status explainer + action */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-4 pt-3.5 border-t border-black/[0.06]">
             <p className="text-[12px] text-[#868E96] flex-1 flex items-center gap-1.5">
-              {o.imported && <CheckCircle size={12} className="text-[#34c759] shrink-0" />}
+              {o.imported && <CheckCircle size={12} className="text-[#5C636A] shrink-0" />}
               {statusExplainer(o)}
             </p>
             {!o.imported && o.importable && (

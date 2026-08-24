@@ -1,25 +1,16 @@
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  Bot, Menu, Settings, X,
+  Boxes, Menu, PanelLeftClose, PenLine, Route, UserCircle, X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "../contexts/AuthContext";
 
 const NAV = [
-  { to: "/", icon: Bot, label: "Aiviate", end: true },
+  { to: "/", icon: PenLine, label: "New Chat", end: true },
+  { to: "/orders", icon: Boxes, label: "Orders" },
+  { to: "/routes", icon: Route, label: "Dispatch" },
+  { to: "/drivers", icon: UserCircle, label: "Drivers" },
 ];
-
-const SECONDARY = [
-  { to: "/settings", icon: Settings, label: "Settings" },
-];
-
-function UserAvatar({ size = 28 }) {
-  return (
-    <img src="/default-avatar.png" alt="Profile" className="rounded-full object-cover flex-shrink-0"
-         style={{ width: size, height: size }} />
-  );
-}
 
 function isPathActive(pathname, to, end) {
   if (end || to === "/") return pathname === to;
@@ -31,40 +22,39 @@ function NavItem({ to, icon: Icon, label, end, active }) {
     <NavLink
       to={to}
       end={end}
-      className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] outline-none transition-colors duration-150 active:scale-[0.985] ${
+      className={`group relative flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-[13px] outline-none transition-colors duration-150 active:scale-[0.985] ${
         active ? "text-[#111315] font-medium" : "text-[#5C636A] hover:text-[#111315] hover:bg-black/[0.03]"
       }`}
     >
       {active && (
         <motion.span
           layoutId="sidebar-active-pill"
-          className="absolute inset-0 rounded-lg bg-[#F1F3F5]"
+          className="absolute inset-0 rounded-xl bg-[#F1F3F5]"
           transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
         />
       )}
       {active && (
         <motion.span
           layoutId="sidebar-active-bar"
-          className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-[3px] rounded-full bg-[#008080]"
+          className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-[3px] rounded-full bg-[#111315]"
           transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
         />
       )}
-      <Icon
-        size={16}
-        strokeWidth={1.8}
-        className={`relative z-10 transition-colors duration-150 ${
-          active ? "text-[#008080]" : "text-[#868E96] group-hover:text-[#111315]"
-        }`}
-      />
+      <span className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-[9px] border transition-colors duration-150 ${
+        active
+          ? "border-black/[0.08] bg-white text-[#111315] shadow-[0_1px_1px_rgba(17,19,21,0.04)]"
+          : "border-transparent bg-transparent text-[#868E96] group-hover:bg-white group-hover:text-[#111315]"
+      }`}>
+        <Icon size={16} strokeWidth={1.55} strokeLinecap="round" strokeLinejoin="round" />
+      </span>
       <span className="relative z-10 flex-1">{label}</span>
     </NavLink>
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed = false, onCollapse = () => {}, onExpand = () => {} }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const { user } = useAuth();
 
   useEffect(() => { setOpen(false); }, [location.pathname]);
 
@@ -77,11 +67,13 @@ export default function Sidebar() {
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => { onExpand(); setOpen(true); }}
         aria-label="Open menu"
-        className="fixed top-4 left-4 z-50 w-10 h-10 rounded-xl bg-white/90 backdrop-blur-lg border border-black/[0.06] flex items-center justify-center lg:hidden shadow-sm active:scale-95 transition-transform"
+        className={`fixed left-4 top-4 z-50 h-10 w-10 items-center justify-center rounded-xl border border-black/[0.06] bg-white/90 shadow-sm backdrop-blur-lg transition-transform active:scale-95 ${
+          collapsed ? "flex" : "flex lg:hidden"
+        }`}
       >
-        <Menu size={18} className="text-[#111315]" strokeWidth={1.8} />
+        <Menu size={18} className="text-[#111315]" strokeWidth={1.6} />
       </button>
 
       <AnimatePresence>
@@ -98,32 +90,33 @@ export default function Sidebar() {
       </AnimatePresence>
 
       <aside
-        className={`w-[260px] fixed left-0 top-0 bottom-0 z-50 flex flex-col bg-white border-r border-black/[0.06] transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)] lg:translate-x-0 ${
-          open ? "translate-x-0" : "-translate-x-full"
+        className={`w-[260px] fixed left-0 top-0 bottom-0 z-50 flex flex-col bg-white border-r border-black/[0.06] transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
+          collapsed ? "-translate-x-full" : "lg:translate-x-0"
+        } ${open && !collapsed ? "translate-x-0" : "-translate-x-full"}
         }`}
       >
         <div className="px-5 pt-7 pb-6 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="Aiviate" className="w-7 h-7" />
+            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-black/[0.06] bg-[#F8F9FA]">
+              <img src="/logo.png" alt="Aiviate" className="h-5 w-5" />
+            </span>
             <h1 className="text-[15px] font-semibold text-[#111315] tracking-tight">Aiviate</h1>
           </div>
-          <button onClick={() => setOpen(false)}
-                  aria-label="Close menu"
-                  className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/[0.04] transition-colors lg:hidden">
-            <X size={16} className="text-[#868E96]" />
+          <button
+            onClick={() => {
+              setOpen(false);
+              if (window.innerWidth >= 1024) onCollapse();
+            }}
+            aria-label="Close sidebar"
+            title="Close sidebar"
+            className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-black/[0.04] transition-colors"
+          >
+            <PanelLeftClose size={16} strokeWidth={1.55} className="hidden text-[#868E96] lg:block" />
+            <X size={16} strokeWidth={1.55} className="text-[#868E96] lg:hidden" />
           </button>
         </div>
 
         <nav className="flex-1 px-3 overflow-y-auto space-y-1">
-          <div className="mx-2 mb-4 rounded-xl border border-[#D9EDED] bg-[#F4FBFB] px-3 py-3">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#008080]" />
-              <p className="text-[12px] font-semibold text-[#0F3F3F]">Ask Aiviate</p>
-            </div>
-            <p className="mt-1 text-[11px] leading-snug text-[#4C6F6F]">
-              One workspace for orders, routes, drivers, and decisions.
-            </p>
-          </div>
           {NAV.map((item) => (
             <NavItem key={item.to} {...item}
                      active={isPathActive(location.pathname, item.to, item.end)} />
@@ -149,25 +142,6 @@ export default function Sidebar() {
           </div>
         </nav>
 
-        <div className="px-3 pb-1 pt-2 space-y-0.5 border-t border-black/[0.05] mx-0">
-          {SECONDARY.map((item) => (
-            <NavItem key={item.to} {...item}
-                     active={isPathActive(location.pathname, item.to, item.end)} />
-          ))}
-        </div>
-
-        {user && (
-          <NavLink to="/profile"
-            className={`mx-3 mb-4 mt-1 flex items-center gap-3 px-2 py-2 rounded-lg transition-colors duration-150 active:scale-[0.985] ${
-              location.pathname === "/profile" ? "bg-[#F1F3F5]" : "hover:bg-black/[0.03]"
-            }`}>
-            <UserAvatar size={28} />
-            <div className="flex-1 min-w-0">
-              <p className="text-[12px] font-medium text-[#111315] truncate leading-tight">{user.name}</p>
-              <p className="text-[11px] text-[#ADB5BD] truncate leading-tight mt-0.5">{user.email}</p>
-            </div>
-          </NavLink>
-        )}
       </aside>
     </>
   );

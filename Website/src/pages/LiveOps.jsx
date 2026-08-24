@@ -26,10 +26,10 @@ const ALERT_ICONS = {
   battery_low: Battery,
 };
 
-const ALERT_COLOR = { critical: "#ff3b30", warning: "#ff9500", info: "#0a84ff" };
+const ALERT_COLOR = { critical: "#343A40", warning: "#868E96", info: "#0a84ff" };
 
 function driverIcon(status, label) {
-  const color = status === "on_route" ? "#34c759" : status === "blocked" ? "#ff3b30" : "#ADB5BD";
+  const color = status === "on_route" ? "#5C636A" : status === "blocked" ? "#343A40" : "#ADB5BD";
   return L.divIcon({
     className: "custom-marker",
     html: `
@@ -102,7 +102,7 @@ export default function LiveOps() {
           <span className="text-[14px] font-normal text-[#868E96] ml-3">{activeCount}/{drivers.length} on-route</span>
         </h1>
         <div className="flex items-center gap-2 text-[12px] text-[#868E96]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#34c759] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#5C636A] animate-pulse" />
           Live
         </div>
       </div>
@@ -168,7 +168,7 @@ export default function LiveOps() {
               <div className="space-y-1 max-h-[260px] overflow-y-auto">
                 {drivers.map((d, i) => {
                   const active = selected === d.driver_id;
-                  const dotColor = d.status === "on_route" ? "#34c759" : d.status === "blocked" ? "#ff3b30" : "#ADB5BD";
+                  const dotColor = d.status === "on_route" ? "#5C636A" : d.status === "blocked" ? "#343A40" : "#ADB5BD";
                   return (
                     <button
                       key={d.driver_id}

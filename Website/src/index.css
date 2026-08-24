@@ -29,10 +29,10 @@
   --color-surface: #f1f3f5;
   --color-border: #e9ecef;
 
-  /* Olyxee accent (brand) */
-  --color-primary: #008080;
-  --color-primary-hover: #006e6e;
-  --color-primary-light: rgba(0, 128, 128, 0.08);
+  /* Neutral action colors */
+  --color-primary: #111315;
+  --color-primary-hover: #343a40;
+  --color-primary-light: rgba(17, 19, 21, 0.08);
 
   /* Text tiers mapped to the neutral scale */
   --color-text-primary: #111315;
@@ -41,11 +41,11 @@
   --color-text-quaternary: #adb5bd;
 
   /* Semantic — meaning before decoration */
-  --color-info: #2563eb;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
-  --color-review: #ea580c;
+  --color-info: #5C636A;
+  --color-success: #343A40;
+  --color-warning: #5C636A;
+  --color-error: #343A40;
+  --color-review: #5C636A;
 
   /* Olyxee radius scale */
   --radius-xs: 4px;
@@ -170,7 +170,7 @@ button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
 }
 @keyframes logoPulse {
   0%   { opacity: 0.4; transform: scale(0.92); }
-  50%  { opacity: 1;   transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(0,128,128,0.35)); }
+  50%  { opacity: 1;   transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(17, 19, 21,0.35)); }
   100% { opacity: 0.4; transform: scale(0.92); }
 }
 @keyframes spinSmooth {
@@ -195,9 +195,9 @@ button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
   40%, 60%  { transform: translateX(3px); }
 }
 @keyframes ringPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(0,128,128,0.35); }
-  70%  { box-shadow: 0 0 0 10px rgba(0,128,128,0); }
-  100% { box-shadow: 0 0 0 0 rgba(0,128,128,0); }
+  0%   { box-shadow: 0 0 0 0 rgba(17, 19, 21,0.35); }
+  70%  { box-shadow: 0 0 0 10px rgba(17, 19, 21,0); }
+  100% { box-shadow: 0 0 0 0 rgba(17, 19, 21,0); }
 }
 @keyframes badgeBounce {
   from { transform: scale(0); }
@@ -261,7 +261,7 @@ button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
 }
 .apple-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.12);
+  box-shadow: 0 0 0 4px rgba(17, 19, 21, 0.12);
   background: var(--color-neutral-0);
 }
 .apple-input::placeholder { color: var(--color-neutral-400); }
@@ -299,7 +299,7 @@ button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
   background: var(--color-primary-hover);
   box-shadow: var(--shadow-sm);
 }
-.apple-btn-primary:active { background: #005f5f; }
+.apple-btn-primary:active { background: #343a40; }
 
 .apple-btn-accent {
   background: var(--color-neutral-900);
@@ -331,7 +331,7 @@ button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
 .tap:focus-visible,
 .list-row:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.28);
+  box-shadow: 0 0 0 4px rgba(17, 19, 21, 0.28);
 }
 
 /* ============ Tap-press for arbitrary elements ============ */

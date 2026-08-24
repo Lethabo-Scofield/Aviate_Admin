@@ -114,7 +114,7 @@ function DriverDetailPanel({ driverId, onClose, onUpdate }) {
             <div className="flex items-center gap-2">
               <h1 className="text-[24px] sm:text-[28px] font-semibold text-[#111315] tracking-tight">{detail.name}</h1>
               {detail.blocked && (
-                <span className="px-2 py-0.5 rounded-md bg-[#ff3b30]/10 text-[11px] font-semibold text-[#ff3b30]">BLOCKED</span>
+                <span className="px-2 py-0.5 rounded-md bg-[#343A40]/10 text-[11px] font-semibold text-[#343A40]">BLOCKED</span>
               )}
             </div>
             <p className="text-[14px] text-[#868E96]">{detail.email} &middot; {detail.vehicle_type}</p>
@@ -171,7 +171,7 @@ function DriverDetailPanel({ driverId, onClose, onUpdate }) {
                 </div>
                 <button onClick={() => copyToClipboard(detail.email, "email")}
                   className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors">
-                  {copiedField === "email" ? <Check size={14} className="text-[#34c759]" /> : <Copy size={14} className="text-[#868E96]" />}
+                  {copiedField === "email" ? <Check size={14} className="text-[#5C636A]" /> : <Copy size={14} className="text-[#868E96]" />}
                 </button>
               </div>
               <div className="h-px bg-black/[0.06]" />
@@ -196,7 +196,7 @@ function DriverDetailPanel({ driverId, onClose, onUpdate }) {
                   {detail.last_generated_password && (
                     <button onClick={() => copyToClipboard(detail.last_generated_password, "password")}
                       className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors">
-                      {copiedField === "password" ? <Check size={14} className="text-[#34c759]" /> : <Copy size={14} className="text-[#868E96]" />}
+                      {copiedField === "password" ? <Check size={14} className="text-[#5C636A]" /> : <Copy size={14} className="text-[#868E96]" />}
                     </button>
                   )}
                 </div>
@@ -221,7 +221,7 @@ function DriverDetailPanel({ driverId, onClose, onUpdate }) {
               </div>
               <div className="flex justify-between">
                 <span className="text-[13px] text-[#868E96]">Status</span>
-                <span className={`text-[13px] font-medium ${detail.blocked ? 'text-[#ff3b30]' : 'text-[#34c759]'}`}>
+                <span className={`text-[13px] font-medium ${detail.blocked ? 'text-[#343A40]' : 'text-[#5C636A]'}`}>
                   {detail.blocked ? "Blocked" : "Active"}
                 </span>
               </div>
@@ -249,12 +249,12 @@ function DriverDetailPanel({ driverId, onClose, onUpdate }) {
               <div key={d.job.id} className="apple-card p-4 animate-fade-in" style={{ animationDelay: `${i * 40}ms` }}>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${d.job.status === 'completed' ? 'bg-[#34c759]' : d.job.status === 'assigned' ? 'bg-[#007aff]' : 'bg-[#ADB5BD]'}`} />
+                    <span className={`w-2 h-2 rounded-full ${d.job.status === 'completed' ? 'bg-[#5C636A]' : d.job.status === 'assigned' ? 'bg-[#5C636A]' : 'bg-[#ADB5BD]'}`} />
                     <p className="text-[14px] font-semibold text-[#111315]">{d.job.area || "Job"}</p>
                   </div>
                   <span className={`px-2 py-0.5 rounded-md text-[11px] font-semibold ${
-                    d.job.status === 'completed' ? 'bg-[#34c759]/10 text-[#34c759]' :
-                    d.job.status === 'assigned' ? 'bg-[#007aff]/10 text-[#007aff]' :
+                    d.job.status === 'completed' ? 'bg-[#5C636A]/10 text-[#5C636A]' :
+                    d.job.status === 'assigned' ? 'bg-[#5C636A]/10 text-[#5C636A]' :
                     'bg-[#F1F3F5] text-[#868E96]'
                   }`}>
                     {d.job.status}
@@ -276,7 +276,7 @@ function DriverDetailPanel({ driverId, onClose, onUpdate }) {
                 {d.total_stops > 0 && (
                   <div className="mt-3">
                     <div className="h-1.5 bg-[#F1F3F5] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#008080] rounded-full transition-all" style={{ width: `${d.completion_pct}%` }} />
+                      <div className="h-full bg-[#111315] rounded-full transition-all" style={{ width: `${d.completion_pct}%` }} />
                     </div>
                     <p className="text-[11px] text-[#ADB5BD] mt-1">{d.completion_pct}% complete</p>
                   </div>
@@ -393,8 +393,8 @@ export default function Drivers({ embedded = false }) {
       {newDriverCredentials && (
         <div className="apple-card p-6 mb-6 max-w-lg animate-slide-up">
           <div className="flex items-start gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-[#34c759]/10 flex items-center justify-center shrink-0">
-              <KeyRound size={18} className="text-[#34c759]" />
+            <div className="w-10 h-10 rounded-xl bg-[#5C636A]/10 flex items-center justify-center shrink-0">
+              <KeyRound size={18} className="text-[#5C636A]" />
             </div>
             <div>
               <h3 className="text-[15px] font-semibold text-[#111315]">Driver account created</h3>
@@ -414,7 +414,7 @@ export default function Drivers({ embedded = false }) {
                 onClick={() => copyToClipboard(newDriverCredentials.email, "email")}
                 className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors"
               >
-                {copiedField === "email" ? <Check size={14} className="text-[#34c759]" /> : <Copy size={14} className="text-[#868E96]" />}
+                {copiedField === "email" ? <Check size={14} className="text-[#5C636A]" /> : <Copy size={14} className="text-[#868E96]" />}
               </button>
             </div>
             <div className="h-px bg-black/[0.06]" />
@@ -427,7 +427,7 @@ export default function Drivers({ embedded = false }) {
                 onClick={() => copyToClipboard(newDriverCredentials.password, "password")}
                 className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/80 transition-colors"
               >
-                {copiedField === "password" ? <Check size={14} className="text-[#34c759]" /> : <Copy size={14} className="text-[#868E96]" />}
+                {copiedField === "password" ? <Check size={14} className="text-[#5C636A]" /> : <Copy size={14} className="text-[#868E96]" />}
               </button>
             </div>
           </div>
@@ -488,17 +488,17 @@ export default function Drivers({ embedded = false }) {
                     onClick={() => setForm({ ...form, vehicle_type: value })}
                     className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all ${
                       form.vehicle_type === value
-                        ? "border-[#008080] bg-[#008080]/[0.04]"
+                        ? "border-[#111315] bg-[#111315]/[0.04]"
                         : "border-transparent bg-[#F1F3F5] hover:bg-[#ebebed]"
                     }`}
                   >
                     <VIcon
                       size={22}
                       strokeWidth={1.6}
-                      className={form.vehicle_type === value ? "text-[#008080]" : "text-[#868E96]"}
+                      className={form.vehicle_type === value ? "text-[#111315]" : "text-[#868E96]"}
                     />
                     <span className={`text-[11px] font-medium ${
-                      form.vehicle_type === value ? "text-[#008080]" : "text-[#868E96]"
+                      form.vehicle_type === value ? "text-[#111315]" : "text-[#868E96]"
                     }`}>{label}</span>
                   </button>
                 ))}
@@ -516,7 +516,7 @@ export default function Drivers({ embedded = false }) {
 
       {error ? (
         <div className="apple-card p-10 text-center">
-          <p className="text-[14px] text-[#ff3b30] mb-4">{error}</p>
+          <p className="text-[14px] text-[#343A40] mb-4">{error}</p>
           <button onClick={() => { setLoading(true); loadData(); }} className="apple-btn apple-btn-primary">Retry</button>
         </div>
       ) : drivers.length === 0 ? (
@@ -547,10 +547,10 @@ export default function Drivers({ embedded = false }) {
                   <div className="flex items-center gap-2">
                     <p className="text-[14px] font-semibold text-[#111315]">{driver.name}</p>
                     {driver.blocked && (
-                      <span className="px-1.5 py-0.5 rounded-md bg-[#ff3b30]/10 text-[10px] font-semibold text-[#ff3b30]">BLOCKED</span>
+                      <span className="px-1.5 py-0.5 rounded-md bg-[#343A40]/10 text-[10px] font-semibold text-[#343A40]">BLOCKED</span>
                     )}
                     {driver.has_account && !driver.blocked && (
-                      <span className="px-1.5 py-0.5 rounded-md bg-[#34c759]/10 text-[10px] font-semibold text-[#34c759]">APP</span>
+                      <span className="px-1.5 py-0.5 rounded-md bg-[#5C636A]/10 text-[10px] font-semibold text-[#5C636A]">APP</span>
                     )}
                   </div>
                   <p className="text-[12px] text-[#ADB5BD]">
@@ -570,7 +570,7 @@ export default function Drivers({ embedded = false }) {
                     <span className="text-[12px] text-[#ADB5BD] hidden sm:inline">No jobs</span>
                   )}
                   <button onClick={(e) => handleRemove(e, driver.id)}
-                    className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#ff3b30]/10 transition-colors">
+                    className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#343A40]/10 transition-colors">
                     <Trash2 size={14} className="text-[#DEE2E6]" />
                   </button>
                   <ChevronRight size={16} className="text-[#DEE2E6]" />
