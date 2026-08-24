@@ -1,33 +1,16 @@
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  Map as MapIcon, Settings, Menu, X,
-  Activity, AlertTriangle, Bot, Car, ClipboardCheck,
-  Mail, PackageCheck, Plug, Route, ShieldCheck, ShoppingBag,
-  Truck, UserCheck, Users,
+  Bot, Menu, Settings, X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../contexts/AuthContext";
 
 const NAV = [
-  { to: "/", icon: Bot, label: "Operations", end: true },
-  { to: "/orders", icon: ShoppingBag, label: "Orders" },
-  { to: "/planning", icon: ClipboardCheck, label: "Planning" },
-  { to: "/live", icon: Activity, label: "Live Operations" },
-  { to: "/exceptions", icon: AlertTriangle, label: "Exceptions" },
-  { to: "/approvals", icon: ShieldCheck, label: "Approvals" },
-  { to: "/routes", icon: Route, label: "Routes" },
-  { to: "/drivers", icon: UserCheck, label: "Drivers" },
-  { to: "/vehicles", icon: Truck, label: "Vehicles" },
-  { to: "/customers", icon: Users, label: "Customers" },
-  { to: "/communications", icon: Mail, label: "Communications" },
-  { to: "/activity", icon: PackageCheck, label: "Aiviate Activity" },
-  { to: "/intelligence", icon: MapIcon, label: "Intelligence" },
-  { to: "/policies", icon: Car, label: "Policies & Autonomy" },
+  { to: "/", icon: Bot, label: "Aiviate", end: true },
 ];
 
 const SECONDARY = [
-  { to: "/integrations", icon: Plug, label: "Integrations" },
   { to: "/settings", icon: Settings, label: "Settings" },
 ];
 
@@ -131,17 +114,38 @@ export default function Sidebar() {
           </button>
         </div>
 
-        <nav className="flex-1 px-3 overflow-y-auto space-y-0.5">
+        <nav className="flex-1 px-3 overflow-y-auto space-y-1">
+          <div className="mx-2 mb-4 rounded-xl border border-[#D9EDED] bg-[#F4FBFB] px-3 py-3">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#008080]" />
+              <p className="text-[12px] font-semibold text-[#0F3F3F]">Ask Aiviate</p>
+            </div>
+            <p className="mt-1 text-[11px] leading-snug text-[#4C6F6F]">
+              One workspace for orders, routes, drivers, and decisions.
+            </p>
+          </div>
           {NAV.map((item) => (
             <NavItem key={item.to} {...item}
                      active={isPathActive(location.pathname, item.to, item.end)} />
           ))}
 
           <div className="px-3 pt-6 pb-1 text-[10px] uppercase tracking-wider text-[#ADB5BD] font-semibold">
-            Tip
+            Try
           </div>
-          <div className="px-3 py-2 text-[11px] text-[#868E96] leading-snug">
-            Press <span className="font-mono text-[#111315] bg-[#F1F3F5] px-1 rounded">⌘K</span> anywhere to ask Aiviate a question or run a command.
+          <div className="space-y-1 px-1">
+            {[
+              "Show orders",
+              "Prepare operation",
+              "What needs attention?",
+            ].map((text) => (
+              <button
+                key={text}
+                onClick={() => window.dispatchEvent(new CustomEvent("ask-aiviate", { detail: { text } }))}
+                className="w-full rounded-lg px-2 py-2 text-left text-[12px] text-[#5C636A] hover:bg-black/[0.03] hover:text-[#111315]"
+              >
+                {text}
+              </button>
+            ))}
           </div>
         </nav>
 
