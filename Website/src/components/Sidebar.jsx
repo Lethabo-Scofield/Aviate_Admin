@@ -1,14 +1,14 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
-  Boxes, Menu, PanelLeftClose, PenLine, Route, UserCircle, X,
+  Boxes, Cable, Clock3, Menu, Moon, PanelLeftClose, PenLine, Settings2, Sun, UserCircle, X,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { queueChatOpen, readChatHistory } from "../lib/chatHistory";
 
 const NAV = [
   { to: "/", icon: PenLine, label: "New Chat", end: true },
   { to: "/orders", icon: Boxes, label: "Orders" },
-  { to: "/routes", icon: Route, label: "Dispatch" },
   { to: "/drivers", icon: UserCircle, label: "Drivers" },
 ];
 
@@ -17,12 +17,13 @@ function isPathActive(pathname, to, end) {
   return pathname === to || pathname.startsWith(to + "/");
 }
 
-function NavItem({ to, icon: Icon, label, end, active }) {
+function NavItem({ to, icon: Icon, label, end, active, onClick }) {
   return (
     <NavLink
       to={to}
       end={end}
-      className={`group relative flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-[13px] outline-none transition-colors duration-150 active:scale-[0.985] ${
+      onClick={onClick}
+      className={`group relative flex items-center gap-2.5 px-2.5 py-2.5 rounded-xl text-[13px] leading-[1.35] outline-none transition-colors duration-150 active:scale-[0.985] ${
         active ? "text-[#111315] font-medium" : "text-[#5C636A] hover:text-[#111315] hover:bg-black/[0.03]"
       }`}
     >
@@ -52,17 +53,75 @@ function NavItem({ to, icon: Icon, label, end, active }) {
   );
 }
 
-export default function Sidebar({ collapsed = false, onCollapse = () => {}, onExpand = () => {} }) {
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
+function UserAvatar({ user, size = 34 }) {
+  return (
+    <img
+      src="/default-avatar.png"
+      alt={user?.name || "Profile"}
+      className="rounded-full object-cover"
+      style={{ width: size, height: size }}
+    />
+  );
+}
 
-  useEffect(() => { setOpen(false); }, [location.pathname]);
+export default function Sidebar({
+  collapsed = false,
+  onCollapse = () => {},
+  onExpand = () => {},
+  user = null,
+  themeMode = "light",
+  onToggleTheme = () => {},
+  onOpenIntegrations = () => {},
+  onOpenSettings = () => {},
+  onOpenProfile = () => {},
+}) {
+  const [open, setOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [history, setHistory] = useState(() => readChatHistory());
+  const location = useLocation();
+  const navigate = useNavigate();
+  const profileRef = useRef(null);
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    setOpen(false);
+    setProfileOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        setProfileOpen(false);
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  useEffect(() => {
+    const onPointerDown = (e) => {
+      if (!profileRef.current?.contains(e.target)) setProfileOpen(false);
+    };
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => window.removeEventListener("pointerdown", onPointerDown);
+  }, []);
+
+  useEffect(() => {
+    const syncHistory = () => setHistory(readChatHistory());
+    window.addEventListener("storage", syncHistory);
+    window.addEventListener("aiviate:chat-history-updated", syncHistory);
+    return () => {
+      window.removeEventListener("storage", syncHistory);
+      window.removeEventListener("aiviate:chat-history-updated", syncHistory);
+    };
+  }, []);
+
+  const openConversation = (id) => {
+    queueChatOpen(id);
+    window.dispatchEvent(new CustomEvent("aiviate:open-chat", { detail: { id } }));
+    navigate("/");
+    setOpen(false);
+  };
 
   return (
     <>
@@ -97,10 +156,8 @@ export default function Sidebar({ collapsed = false, onCollapse = () => {}, onEx
       >
         <div className="px-5 pt-7 pb-6 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] border border-black/[0.06] bg-[#F8F9FA]">
-              <img src="/logo.png" alt="Aiviate" className="h-5 w-5" />
-            </span>
-            <h1 className="text-[15px] font-semibold text-[#111315] tracking-tight">Aiviate</h1>
+            <img src="/logo.png" alt="Aiviate" className="h-9 w-9 object-contain animate-logo-orbit" />
+            <h1 className="text-[15px] font-semibold text-[#111315]">Aiviate</h1>
           </div>
           <button
             onClick={() => {
@@ -118,11 +175,15 @@ export default function Sidebar({ collapsed = false, onCollapse = () => {}, onEx
 
         <nav className="flex-1 px-3 overflow-y-auto space-y-1">
           {NAV.map((item) => (
-            <NavItem key={item.to} {...item}
-                     active={isPathActive(location.pathname, item.to, item.end)} />
+            <NavItem
+              key={item.to}
+              {...item}
+              active={isPathActive(location.pathname, item.to, item.end)}
+              onClick={item.to === "/" ? () => window.dispatchEvent(new CustomEvent("aiviate:new-chat")) : undefined}
+            />
           ))}
 
-          <div className="px-3 pt-6 pb-1 text-[10px] uppercase tracking-wider text-[#ADB5BD] font-semibold">
+          <div className="px-3 pt-6 pb-1 text-[10px] uppercase text-[#ADB5BD] font-semibold">
             Try
           </div>
           <div className="space-y-1 px-1">
@@ -134,14 +195,112 @@ export default function Sidebar({ collapsed = false, onCollapse = () => {}, onEx
               <button
                 key={text}
                 onClick={() => window.dispatchEvent(new CustomEvent("ask-aiviate", { detail: { text } }))}
-                className="w-full rounded-lg px-2 py-2 text-left text-[12px] text-[#5C636A] hover:bg-black/[0.03] hover:text-[#111315]"
+                className="w-full rounded-lg px-2 py-2 text-left text-[12px] leading-[1.4] text-[#5C636A] hover:bg-black/[0.03] hover:text-[#111315]"
               >
                 {text}
               </button>
             ))}
           </div>
+
+          <div className="px-3 pt-6 pb-1 text-[10px] uppercase text-[#ADB5BD] font-semibold">
+            History
+          </div>
+          <div className="space-y-1 px-1 pb-3">
+            {history.length ? history.slice(0, 8).map((item) => (
+              <button
+                key={item.id}
+                onClick={() => openConversation(item.id)}
+                className="group flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-[12px] leading-[1.4] text-[#5C636A] hover:bg-black/[0.03] hover:text-[#111315]"
+                title={item.title}
+              >
+                <Clock3 size={13} strokeWidth={1.6} className="shrink-0 text-[#ADB5BD] group-hover:text-[#5C636A]" />
+                <span className="min-w-0 flex-1 truncate">{item.title || "Conversation"}</span>
+              </button>
+            )) : (
+              <p className="px-2 py-2 text-[12px] leading-snug text-[#ADB5BD]">
+                Conversations will appear here after you ask Aiviate something.
+              </p>
+            )}
+          </div>
         </nav>
 
+        {user && (
+          <div ref={profileRef} className="relative border-t border-black/[0.06] p-3">
+            <AnimatePresence>
+              {profileOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                  transition={{ duration: 0.16, ease: [0.2, 0, 0, 1] }}
+                  className="absolute bottom-[74px] left-3 right-3 overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_18px_48px_rgba(17,19,21,0.14)]"
+                >
+                  <div className="border-b border-black/[0.06] px-3 py-3">
+                    <div className="flex items-center gap-3">
+                      <UserAvatar user={user} size={34} />
+                      <div className="min-w-0">
+                        <p className="truncate text-[13px] font-semibold text-[#111315]">{user.name}</p>
+                        <p className="truncate text-[11px] text-[#868E96]">{user.email}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-1.5">
+                    <button
+                      onClick={() => { setProfileOpen(false); onOpenIntegrations(); }}
+                      className="flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-[13px] text-[#343A40] hover:bg-[#F1F3F5] hover:text-[#111315]"
+                    >
+                      <span className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#F1F3F5] text-[#111315]">
+                        <Cable size={15} strokeWidth={1.55} />
+                      </span>
+                      Integrations
+                    </button>
+                    <button
+                      onClick={() => { setProfileOpen(false); onOpenSettings(); }}
+                      className="flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-[13px] text-[#343A40] hover:bg-[#F1F3F5] hover:text-[#111315]"
+                    >
+                      <span className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#F1F3F5] text-[#111315]">
+                        <Settings2 size={15} strokeWidth={1.55} />
+                      </span>
+                      Settings
+                    </button>
+                    <button
+                      onClick={() => { setProfileOpen(false); onOpenProfile(); }}
+                      className="flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left text-[13px] text-[#343A40] hover:bg-[#F1F3F5] hover:text-[#111315]"
+                    >
+                      <span className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#F1F3F5] text-[#111315]">
+                        <UserCircle size={15} strokeWidth={1.55} />
+                      </span>
+                      Profile
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setProfileOpen((value) => !value)}
+                aria-label="Open profile menu"
+                aria-expanded={profileOpen}
+                className="min-w-0 flex flex-1 items-center gap-2 rounded-2xl px-2 py-2 text-left transition-colors hover:bg-black/[0.03]"
+              >
+                <UserAvatar user={user} size={34} />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[13px] font-medium text-[#111315]">{user.name}</p>
+                  <p className="truncate text-[11px] text-[#868E96]">{user.role || "member"}</p>
+                </div>
+              </button>
+              <button
+                onClick={onToggleTheme}
+                aria-label={themeMode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                title={themeMode === "dark" ? "Light mode" : "Dark mode"}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-black/[0.06] bg-[#F8F9FA] text-[#111315] transition-colors hover:bg-[#F1F3F5]"
+              >
+                {themeMode === "dark" ? <Sun size={16} strokeWidth={1.6} /> : <Moon size={16} strokeWidth={1.6} />}
+              </button>
+            </div>
+          </div>
+        )}
       </aside>
     </>
   );

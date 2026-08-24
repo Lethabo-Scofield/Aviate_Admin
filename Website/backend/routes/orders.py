@@ -225,10 +225,9 @@ def _store_order_from_stop(stop):
 def _list_operational_orders(company_id):
     db = get_db_session()
     try:
-        _ensure_default_store_orders(db, company_id)
         stops = (
             db.query(Stop)
-            .filter(Stop.company_id == company_id)
+            .filter(Stop.company_id == company_id, Stop.order_id.like(f"{ORDER_ID_PREFIX}%"))
             .order_by(Stop.created_at.desc())
             .all()
         )
@@ -454,8 +453,8 @@ def list_store_orders():
     if not orders_db_configured():
         return jsonify({
             "configured": True,
-            "source": "storefront_orders",
-            "orders": [],
+            "source": "operational_stops",
+            "orders": _list_operational_orders(g.company_id),
         })
 
     try:
@@ -480,7 +479,9 @@ def list_store_orders():
         db.close()
 
     for o in orders:
-        o["imported"] = _store_order_id(o["id"]) in imported_ids
+        external_id = str(o.get("id") or "")
+        store_id = external_id if external_id.startswith(ORDER_ID_PREFIX) else _store_order_id(external_id)
+        o["imported"] = store_id in imported_ids
         o["importable"] = bool(o["shipping_address"])
 
     return jsonify({"configured": True, "source": detected_source, "orders": orders})

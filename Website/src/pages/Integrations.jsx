@@ -3,10 +3,20 @@ import { Link } from "react-router-dom";
 import {
   ShoppingBag, RefreshCw, ArrowRight, Globe, Lock,
   Pencil, Check, X, ImagePlus, Trash2, Code2, ChevronDown, ChevronUp,
+  Users, Truck,
 } from "lucide-react";
 import { Spinner } from "../components/Loader";
 import { API_BASE, getStoreOrders, getStoreIntegration, updateStoreIntegration } from "../services/api";
-import { siShopify, siWoocommerce } from "simple-icons";
+import {
+  siGmail,
+  siQuickbooks,
+  siSage,
+  siShopify,
+  siWhatsapp,
+  siWoocommerce,
+  siXero,
+  siZoho,
+} from "simple-icons";
 
 function BrandIcon({ icon, size = 16 }) {
   return (
@@ -44,6 +54,14 @@ function fileToLogoDataUrl(file) {
 const AVAILABLE = [
   { name: "Shopify", desc: "Pull orders straight from your Shopify store.", brand: siShopify },
   { name: "WooCommerce", desc: "Sync WooCommerce orders automatically.", brand: siWoocommerce },
+  { name: "Gmail", desc: "Turn order emails and support threads into operational context.", brand: siGmail },
+  { name: "WhatsApp", desc: "Customer delivery messages, availability and reschedule requests.", brand: siWhatsapp },
+  { name: "Microsoft Teams", desc: "Post dispatch alerts and exception summaries to your ops channels.", Icon: Users },
+  { name: "QuickBooks", desc: "Connect invoices, COD payments and delivery cost references.", brand: siQuickbooks },
+  { name: "Xero", desc: "Sync accounting contacts, invoices and payment references.", brand: siXero },
+  { name: "Sage", desc: "Connect finance records for delivery reconciliation.", brand: siSage },
+  { name: "Zoho", desc: "Connect CRM, Books or inventory context.", brand: siZoho },
+  { name: "Olyxee Logistics", desc: "Connect the Olyxee logistics workspace once the brand asset is added.", Icon: Truck },
   { name: "Custom API", desc: "Connect any REST endpoint that serves orders.", Icon: Globe },
 ];
 
@@ -277,7 +295,7 @@ export default function Integrations() {
       )}
 
       <p className="text-[11px] uppercase tracking-wider font-semibold text-[#868E96] mb-2">Available</p>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
         {AVAILABLE.map(({ name, desc, Icon, brand }) => (
           <div key={name} className="apple-card p-4">
             <div className="flex items-center gap-2.5 mb-2">
@@ -287,7 +305,10 @@ export default function Integrations() {
               <p className="text-[13px] font-semibold text-[#111315]">{name}</p>
             </div>
             <p className="text-[11.5px] text-[#868E96] leading-snug mb-2.5">{desc}</p>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#F1F3F5] text-[#ADB5BD] font-semibold">Coming soon</span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#F1F3F5] text-[#ADB5BD] font-semibold">Setup required</span>
+              <button className="text-[11px] font-medium text-[#343A40] hover:text-[#111315]">Configure</button>
+            </div>
           </div>
         ))}
       </div>

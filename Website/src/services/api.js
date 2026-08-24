@@ -43,6 +43,20 @@ export async function getAutopilotStatus() {
   return handleResponse(res);
 }
 
+export async function getWorkspaceMembers() {
+  const res = await fetch(`${API_BASE}/workspace/members`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function addWorkspaceMember(payload) {
+  const res = await fetch(`${API_BASE}/workspace/members`, {
+    method: "POST",
+    headers: getAuthHeaders("application/json"),
+    body: JSON.stringify(payload),
+  });
+  return handleResponse(res);
+}
+
 export async function getOperationsSnapshot() {
   const res = await fetch(`${API_BASE}/operations/snapshot`, { headers: getAuthHeaders() });
   return handleResponse(res);

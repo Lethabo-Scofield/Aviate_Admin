@@ -39,8 +39,12 @@ export function AuthProvider({ children }) {
       setLoading(false);
       return;
     }
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 8000);
+
     fetch(`${API_BASE}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
+      signal: controller.signal,
     })
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
@@ -60,7 +64,10 @@ export function AuthProvider({ children }) {
       })
       .catch(() => {
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        window.clearTimeout(timeout);
+        setLoading(false);
+      });
   }, []);
 
   const parseJSON = async (res) => {

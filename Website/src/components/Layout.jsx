@@ -2,18 +2,51 @@ import { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Sidebar from "./Sidebar";
-import { ArrowUpRight, Cable, Settings2, UserCircle } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { setPendingAsk } from "../lib/askBus";
 import { useAuth } from "../contexts/AuthContext";
+import Integrations from "../pages/Integrations";
+import Settings from "../pages/Settings";
 
-function UserAvatar({ user, size = 34 }) {
+function ProfilePanelModal({ panel, onClose }) {
+  const title = panel === "integrations" ? "Integrations" : "Settings";
   return (
-    <img
-      src="/default-avatar.png"
-      alt={user?.name || "Profile"}
-      className="rounded-full object-cover"
-      style={{ width: size, height: size }}
-    />
+    <AnimatePresence>
+      {panel && (
+        <motion.div
+          className="fixed inset-0 z-[210] flex items-start justify-center overflow-y-auto bg-black/25 px-4 py-16 backdrop-blur-md sm:py-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 14, scale: 0.98 }}
+            transition={{ duration: 0.22, ease: [0.2, 0, 0, 1] }}
+            className="w-full max-w-[980px] overflow-hidden rounded-[26px] border border-white/70 bg-[#F8F9FA] shadow-[0_30px_90px_rgba(17,19,21,0.24)]"
+          >
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-black/[0.06] bg-white/85 px-5 py-3 backdrop-blur-md">
+              <p className="text-[14px] font-semibold text-[#111315]">{title}</p>
+              <button
+                onClick={onClose}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F1F3F5] text-[#5C636A] transition-colors hover:bg-[#E9ECEF] hover:text-[#111315]"
+                aria-label={`Close ${title}`}
+              >
+                <X size={15} strokeWidth={1.6} />
+              </button>
+            </div>
+            <div className="max-h-[78vh] overflow-y-auto p-5 sm:p-7">
+              {panel === "integrations" ? <Integrations /> : <Settings />}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -23,13 +56,24 @@ export default function Layout() {
   const { user } = useAuth();
   const isHome = location.pathname === "/";
   const [topText, setTopText] = useState("");
-  const [profileOpen, setProfileOpen] = useState(false);
+  const [profilePanel, setProfilePanel] = useState(null);
+  const [themeMode, setThemeMode] = useState(() => {
+    try { return localStorage.getItem("aiviate_theme_mode") || "light"; }
+    catch { return "light"; }
+  });
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     try { return localStorage.getItem("aiviate_sidebar_collapsed") === "true"; }
     catch { return false; }
   });
   const topInputRef = useRef(null);
-  const profileRef = useRef(null);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark-ui", themeMode === "dark");
+    try { localStorage.setItem("aiviate_theme_mode", themeMode); }
+    catch {
+      // Ignore private-mode storage failures.
+    }
+  }, [themeMode]);
 
   /**
    * Single entry point for "ask Aiviate" from anywhere in the app.
@@ -65,17 +109,19 @@ export default function Layout() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const onPointerDown = (e) => {
-      if (!profileRef.current?.contains(e.target)) setProfileOpen(false);
-    };
     const onKey = (e) => {
-      if (e.key === "Escape") setProfileOpen(false);
+      if (e.key === "Escape") setProfilePanel(null);
     };
-    window.addEventListener("pointerdown", onPointerDown);
+    const onOpenPanel = (e) => {
+      if (e?.detail?.panel === "integrations" || e?.detail?.panel === "settings") {
+        setProfilePanel(e.detail.panel);
+      }
+    };
     window.addEventListener("keydown", onKey);
+    window.addEventListener("aiviate:open-panel", onOpenPanel);
     return () => {
-      window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("aiviate:open-panel", onOpenPanel);
     };
   }, []);
 
@@ -109,80 +155,22 @@ export default function Layout() {
         collapsed={sidebarCollapsed}
         onCollapse={() => setSidebar(true)}
         onExpand={() => setSidebar(false)}
+        user={user}
+        themeMode={themeMode}
+        onToggleTheme={() => setThemeMode((mode) => (mode === "dark" ? "light" : "dark"))}
+        onOpenIntegrations={() => setProfilePanel("integrations")}
+        onOpenSettings={() => setProfilePanel("settings")}
+        onOpenProfile={() => navigate("/profile")}
       />
       <main className={`flex-1 overflow-auto transition-[margin] duration-300 ease-[cubic-bezier(0.2,0,0,1)] ${
         sidebarCollapsed ? "lg:ml-0" : "lg:ml-[260px]"
       }`}>
-        {user && (
-          <div ref={profileRef} className="fixed right-4 top-4 z-[170]">
-            <button
-              onClick={() => setProfileOpen((v) => !v)}
-              aria-label="Open profile menu"
-              aria-expanded={profileOpen}
-              className="flex h-10 items-center gap-2 rounded-full border border-black/[0.08] bg-white/90 py-1 pl-2 pr-3 shadow-sm backdrop-blur transition-colors hover:bg-[#F8F9FA]"
-            >
-              <UserAvatar user={user} size={32} />
-              <span className="max-w-[140px] truncate text-[13px] font-medium text-[#111315]">
-                {user.name}
-              </span>
-            </button>
-            <AnimatePresence>
-              {profileOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -6, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                  transition={{ duration: 0.16, ease: [0.2, 0, 0, 1] }}
-                  className="absolute right-0 mt-2 w-[250px] overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_18px_48px_rgba(17,19,21,0.14)]"
-                >
-                  <div className="border-b border-black/[0.06] px-3 py-3">
-                    <div className="flex items-center gap-3">
-                      <UserAvatar user={user} size={34} />
-                      <div className="min-w-0">
-                        <p className="truncate text-[13px] font-semibold text-[#111315]">{user.name}</p>
-                        <p className="truncate text-[11px] text-[#868E96]">{user.email}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-1.5">
-                    <button
-                      onClick={() => { setProfileOpen(false); navigate("/integrations"); }}
-                      className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] text-[#343A40] hover:bg-[#F1F3F5] hover:text-[#111315]"
-                    >
-                      <span className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#F1F3F5] text-[#111315]">
-                        <Cable size={15} strokeWidth={1.55} />
-                      </span>
-                      Integrations
-                    </button>
-                    <button
-                      onClick={() => { setProfileOpen(false); navigate("/settings"); }}
-                      className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] text-[#343A40] hover:bg-[#F1F3F5] hover:text-[#111315]"
-                    >
-                      <span className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#F1F3F5] text-[#111315]">
-                        <Settings2 size={15} strokeWidth={1.55} />
-                      </span>
-                      Settings
-                    </button>
-                    <button
-                      onClick={() => { setProfileOpen(false); navigate("/profile"); }}
-                      className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] text-[#343A40] hover:bg-[#F1F3F5] hover:text-[#111315]"
-                    >
-                      <span className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#F1F3F5] text-[#111315]">
-                        <UserCircle size={15} strokeWidth={1.55} />
-                      </span>
-                      Profile
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
+        <ProfilePanelModal panel={profilePanel} onClose={() => setProfilePanel(null)} />
         {/* Persistent "Ask Aiviate" bar — shown on every page EXCEPT Home,
             because Home has its own centered hero prompt. */}
         {!isHome && (
           <div className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-black/[0.06]">
-            <div className="max-w-[960px] mx-auto px-5 sm:px-8 lg:px-12 py-3 pt-16 lg:pt-3">
+            <div className="max-w-[960px] mx-auto px-5 sm:px-8 lg:px-12 py-3">
               <form onSubmit={submitTop}>
                 <motion.div
                   layoutId="ask-aiviate-prompt"
@@ -217,7 +205,7 @@ export default function Layout() {
           </div>
         )}
 
-        <div className={`px-5 sm:px-8 lg:px-12 ${isHome ? "pt-14 lg:pt-8" : "py-6"} pb-10`}>
+        <div className={`px-5 sm:px-8 lg:px-12 ${isHome ? "pt-8" : "py-6"} pb-10`}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={location.pathname}

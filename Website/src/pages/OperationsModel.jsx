@@ -5,17 +5,25 @@ import {
   AlertTriangle,
   ArrowUpRight,
   Bot,
+  Cable,
   CheckCircle2,
+  ChevronDown,
   ClipboardCheck,
+  Headphones,
   Mail,
   Map,
+  Mic,
+  MicOff,
   Package,
   RefreshCw,
   Route,
   ShieldCheck,
+  Sparkles,
   Truck,
   UserCheck,
   Users,
+  Volume2,
+  X,
 } from "lucide-react";
 import {
   getActivity,
@@ -32,6 +40,20 @@ import {
 } from "../services/api";
 import ResultBlock from "../components/ResultBlock";
 import { takePendingAsk } from "../lib/askBus";
+import {
+  getChatHistoryItem,
+  takeQueuedChatOpen,
+  titleFromThread,
+  upsertChatHistory,
+} from "../lib/chatHistory";
+import {
+  siGmail,
+  siQuickbooks,
+  siSage,
+  siWhatsapp,
+  siXero,
+  siZoho,
+} from "simple-icons";
 
 const ICONS = {
   operations: Bot,
@@ -50,6 +72,23 @@ const ICONS = {
   policies: ShieldCheck,
 };
 
+const DEFAULT_AGENT_PREFS = {
+  assistant_name: "Aiviate",
+  voice_mode: true,
+  speak_replies: true,
+};
+
+function readAgentPrefs() {
+  try {
+    return {
+      ...DEFAULT_AGENT_PREFS,
+      ...JSON.parse(localStorage.getItem("aiviate_agent_preferences") || "{}"),
+    };
+  } catch {
+    return DEFAULT_AGENT_PREFS;
+  }
+}
+
 function fmt(n) {
   return Number(n || 0).toLocaleString();
 }
@@ -57,6 +96,15 @@ function fmt(n) {
 function time(iso) {
   if (!iso) return "";
   return new Date(iso).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+function BrandIcon({ icon, size = 16 }) {
+  return (
+    <svg role="img" viewBox="0 0 24 24" width={size} height={size} fill={`#${icon.hex}`} xmlns="http://www.w3.org/2000/svg">
+      <title>{icon.title}</title>
+      <path d={icon.path} />
+    </svg>
+  );
 }
 
 function PageHeader({ title, body, icon }) {
@@ -122,10 +170,15 @@ function LoadingPanel() {
   );
 }
 
-function TypewriterResult({ result }) {
+function resultSpeechText(result) {
+  if (!result) return "";
+  return result.summary || (result.ok ? "Done." : "Aiviate could not answer that yet.");
+}
+
+function TypewriterResult({ result, onDone }) {
   const [visible, setVisible] = useState("");
   const [done, setDone] = useState(false);
-  const text = result?.summary || (result?.ok ? "Done." : "Aiviate could not answer that yet.");
+  const text = resultSpeechText(result);
 
   useEffect(() => {
     setVisible("");
@@ -137,16 +190,17 @@ function TypewriterResult({ result }) {
       if (index >= text.length) {
         window.clearInterval(id);
         setDone(true);
+        onDone?.(result);
       }
     }, 16);
     return () => window.clearInterval(id);
-  }, [text]);
+  }, [text, result, onDone]);
 
   const hasDetails = result?.ok && result?.type && result.type !== "greeting";
 
   return (
     <div className="space-y-3">
-      <p className={`text-[14px] leading-relaxed ${result?.ok === false ? "text-[#343A40]" : "text-[#111315]"}`}>
+      <p className={`text-[15px] leading-[1.68] ${result?.ok === false ? "text-[#343A40]" : "text-[#111315]"}`}>
         {visible}
         {!done && <span className="ml-0.5 inline-block h-4 w-[1.5px] translate-y-0.5 animate-pulse bg-[#111315]" />}
       </p>
@@ -159,29 +213,27 @@ function TypewriterResult({ result }) {
   );
 }
 
-function ChatTurn({ turn }) {
+function ChatTurn({ turn, onTyped, assistantName }) {
   return (
     <div className="space-y-5">
       <div className="flex justify-end">
-        <div className="max-w-[78%] rounded-2xl rounded-br-md bg-[#111315] px-4 py-3 text-[14px] leading-relaxed text-white shadow-sm">
+        <div className="max-w-[78%] rounded-[22px] rounded-br-md bg-[#111315] px-4 py-3 text-[15px] leading-[1.58] text-white shadow-[0_6px_20px_rgba(17,19,21,0.14)]">
           {turn.input}
         </div>
       </div>
 
       <div className="flex items-start gap-3">
-        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E9ECEF] bg-white">
-          <img src="/logo.png" alt="" className="h-5 w-5" />
-        </div>
-        <div className="min-w-0 flex-1 rounded-2xl rounded-tl-md border border-[#E9ECEF] bg-white px-4 py-3 shadow-[0_1px_2px_rgba(17,19,21,0.03)]">
+        <img src="/logo.png" alt="" className="mt-1 h-8 w-8 shrink-0 object-contain animate-logo-orbit" />
+        <div className="min-w-0 flex-1 rounded-[22px] rounded-tl-md border border-[#E9ECEF] bg-white px-4 py-3 shadow-[0_8px_28px_rgba(17,19,21,0.05)]">
           {turn.busy ? (
             <div className="flex items-center gap-2 text-[13px] text-[#868E96]">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#111315]" />
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#5C636A] [animation-delay:120ms]" />
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#ADB5BD] [animation-delay:240ms]" />
-              <span className="ml-1">Aiviate is checking the operation</span>
+              <span className="ml-1">{assistantName} is checking the operation</span>
             </div>
           ) : (
-            <TypewriterResult result={turn.result} />
+            <TypewriterResult result={turn.result} onDone={onTyped} />
           )}
         </div>
       </div>
@@ -189,33 +241,136 @@ function ChatTurn({ turn }) {
   );
 }
 
-function EmptyChatState({ onPrompt }) {
+const CHAT_CONNECTORS = [
+  { name: "Gmail", detail: "Email orders and support", brand: siGmail },
+  { name: "WhatsApp", detail: "Customer messages", brand: siWhatsapp },
+  { name: "Teams", detail: "Ops team alerts", Icon: Users, tone: "#6264A7" },
+  { name: "QuickBooks", detail: "Invoices and payments", brand: siQuickbooks },
+  { name: "Xero", detail: "Accounting sync", brand: siXero },
+  { name: "Sage", detail: "Accounting sync", brand: siSage },
+  { name: "Zoho", detail: "Accounting and CRM", brand: siZoho },
+  { name: "Olyxee Logistics", detail: "Fleet operations", logo: "/logo.png" },
+];
+
+function ConnectorIcon({ connector, size = 16 }) {
+  if (connector.brand) return <BrandIcon icon={connector.brand} size={size} />;
+  if (connector.logo) return <img src={connector.logo} alt="" className="h-4 w-4 object-contain" />;
+  const Icon = connector.Icon || Cable;
+  return <Icon size={size} strokeWidth={1.75} style={{ color: connector.tone || "#111315" }} />;
+}
+
+function ConnectorPicker({ compact = false }) {
+  const [open, setOpen] = useState(false);
+  const openIntegrations = () => {
+    setOpen(false);
+    window.dispatchEvent(new CustomEvent("aiviate:open-panel", { detail: { panel: "integrations" } }));
+  };
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        className="inline-flex items-center gap-2 rounded-xl bg-[#F1F3F5] px-2.5 py-1.5 text-[12px] font-medium text-[#343A40] transition-colors hover:bg-[#E9ECEF] hover:text-[#111315]"
+        aria-expanded={open}
+      >
+        <Cable size={14} strokeWidth={1.7} />
+        Tools
+        <ChevronDown size={13} strokeWidth={1.7} />
+      </button>
+      {open && (
+        <div className={`absolute bottom-full left-0 z-30 mb-2 w-[min(420px,calc(100vw-48px))] rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_18px_55px_rgba(17,19,21,0.16)] ${compact ? "sm:left-auto sm:right-0" : ""}`}>
+          <div className="mb-2 px-1">
+            <p className="text-[13px] font-semibold text-[#111315]">Connect tools</p>
+            <p className="text-[11.5px] leading-[1.45] text-[#868E96]">Use real business systems for orders, messages, alerts and finance context.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {CHAT_CONNECTORS.map((connector) => (
+              <button
+                type="button"
+                key={connector.name}
+                onClick={openIntegrations}
+                className="flex items-center gap-2 rounded-xl border border-[#E9ECEF] bg-[#F8F9FA] px-2.5 py-2 text-left transition-colors hover:border-[#ADB5BD] hover:bg-white"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white shadow-[0_1px_2px_rgba(17,19,21,0.04)]">
+                  <ConnectorIcon connector={connector} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-[12px] font-semibold text-[#111315]">{connector.name}</span>
+                  <span className="block truncate text-[10.5px] text-[#868E96]">{connector.detail}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={openIntegrations}
+            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#111315] px-3 py-2.5 text-[12px] font-medium text-white transition-colors hover:bg-[#343A40]"
+          >
+            Manage integrations
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PromptToolChips() {
+  return (
+    <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+      <ConnectorPicker />
+      {CHAT_CONNECTORS.slice(0, 5).map((connector) => (
+        <button
+          key={connector.name}
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent("aiviate:open-panel", { detail: { panel: "integrations" } }))}
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#E9ECEF] bg-white px-2.5 py-1.5 text-[12px] font-medium text-[#343A40] transition-colors hover:border-[#ADB5BD] hover:text-[#111315]"
+        >
+          <ConnectorIcon connector={connector} size={14} />
+          {connector.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function EmptyChatState({ onPrompt, onVoice, assistantName, voiceEnabled }) {
   const prompts = [
-    "Show orders",
-    "Prepare operation",
-    "What needs attention?",
-    "Assign Sipho",
+    { title: "Show orders", detail: "See current storefront demand" },
+    { title: "Prepare operation", detail: "Plan, assign, and notify" },
+    { title: "What needs attention?", detail: "Surface exceptions and approvals" },
+    { title: "Assign Sipho", detail: "Check driver work and route assignment" },
   ];
   return (
-    <div className="mx-auto flex min-h-[42vh] max-w-[760px] flex-col items-center justify-center text-center">
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E9ECEF] bg-white shadow-sm">
-        <img src="/logo.png" alt="" className="h-8 w-8" />
-      </div>
-      <h1 className="text-[30px] font-semibold tracking-tight text-[#111315] sm:text-[40px]">
-        What should Aiviate handle?
+    <div className="mx-auto flex min-h-[55vh] max-w-[820px] flex-col items-center justify-center text-center">
+      <img src="/logo.png" alt="" className="mb-6 h-14 w-14 animate-logo-orbit" />
+      <h1 className="text-[34px] font-semibold text-[#111315] sm:text-[46px]">
+        Talk through the operation.
       </h1>
-      <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-[#5C636A]">
-        Ask about orders, dispatch, routes, drivers, exceptions, or tell Aiviate to prepare the operation.
+      <p className="mt-3 max-w-xl text-[16px] leading-[1.65] text-[#5C636A]">
+        Ask {assistantName} about orders, dispatch, routes, drivers, exceptions, or your delivery business.
       </p>
+      <PromptToolChips />
+      {voiceEnabled && (
+        <button
+          onClick={onVoice}
+          className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#111315] px-4 py-2.5 text-[13px] font-medium text-white shadow-[0_12px_34px_rgba(17,19,21,0.18)] transition-transform active:scale-[0.98]"
+        >
+          <Headphones size={16} strokeWidth={1.6} />
+          Start voice mode
+        </button>
+      )}
       <div className="mt-7 grid w-full gap-2 sm:grid-cols-2">
         {prompts.map((prompt) => (
           <button
-            key={prompt}
-            onClick={() => onPrompt(prompt)}
-            className="rounded-xl border border-[#E9ECEF] bg-white px-4 py-3 text-left text-[13px] text-[#343A40] shadow-[0_1px_2px_rgba(17,19,21,0.03)] transition-colors hover:border-[#ADB5BD] hover:bg-[#F8F9FA]"
+            key={prompt.title}
+            onClick={() => onPrompt(prompt.title)}
+            className="group rounded-2xl border border-[#E9ECEF] bg-white px-4 py-3.5 text-left shadow-[0_1px_2px_rgba(17,19,21,0.03)] transition-colors hover:border-[#ADB5BD] hover:bg-[#F8F9FA]"
           >
-            {prompt}
-            <span className="block pt-1 text-[11px] text-[#ADB5BD]">Ask Aiviate</span>
+            <span className="flex items-center justify-between gap-3 text-[13px] font-medium text-[#111315]">
+              {prompt.title}
+              <Sparkles size={14} strokeWidth={1.55} className="text-[#ADB5BD] transition-colors group-hover:text-[#5C636A]" />
+            </span>
+            <span className="block pt-1 text-[11px] text-[#868E96]">{prompt.detail}</span>
           </button>
         ))}
       </div>
@@ -223,11 +378,22 @@ function EmptyChatState({ onPrompt }) {
   );
 }
 
-function ChatComposer({ value, onChange, onSubmit, busy, inputRef }) {
+function ChatComposer({ value, onChange, onSubmit, busy, inputRef, onVoice, assistantName, voiceEnabled }) {
   return (
     <form onSubmit={onSubmit} className="mx-auto max-w-[820px]">
-      <div className="rounded-2xl border border-[#DEE2E6] bg-white p-2 shadow-[0_12px_40px_rgba(17,19,21,0.08)] focus-within:border-[#111315]/50">
+      <div className="rounded-[24px] border border-[#DEE2E6] bg-white p-2 shadow-[0_18px_55px_rgba(17,19,21,0.10)] focus-within:border-[#111315]/50">
         <div className="flex items-end gap-2">
+          {voiceEnabled && (
+            <button
+              type="button"
+              onClick={onVoice}
+              className="mb-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#F1F3F5] text-[#111315] transition-colors hover:bg-[#E9ECEF]"
+              aria-label="Start voice mode"
+              title="Voice mode"
+            >
+              <Mic size={16} strokeWidth={1.6} />
+            </button>
+          )}
           <textarea
             ref={inputRef}
             rows={1}
@@ -239,8 +405,8 @@ function ChatComposer({ value, onChange, onSubmit, busy, inputRef }) {
                 onSubmit(e);
               }
             }}
-            placeholder="Message Aiviate..."
-            className="max-h-32 min-h-11 flex-1 resize-none bg-transparent px-3 py-3 text-[15px] leading-snug text-[#111315] outline-none placeholder:text-[#ADB5BD]"
+            placeholder={`Message ${assistantName}...`}
+            className="max-h-32 min-h-11 flex-1 resize-none bg-transparent px-3 py-3 text-[15px] leading-[1.45] text-[#111315] outline-none placeholder:text-[#ADB5BD]"
           />
           <button
             type="submit"
@@ -252,11 +418,126 @@ function ChatComposer({ value, onChange, onSubmit, busy, inputRef }) {
           </button>
         </div>
         <div className="flex items-center justify-between px-3 pb-1">
-          <p className="text-[11px] text-[#ADB5BD]">Enter to send · Shift Enter for a new line</p>
-          <p className="text-[11px] text-[#ADB5BD]">Aiviate Ops</p>
+          <div className="flex min-w-0 items-center gap-2">
+            <ConnectorPicker compact />
+            <p className="hidden text-[11px] text-[#ADB5BD] sm:block">Enter to send · Shift Enter for a new line</p>
+          </div>
+          <p className="text-[11px] text-[#ADB5BD]">{voiceEnabled ? "Voice ready" : "Voice off"}</p>
         </div>
       </div>
     </form>
+  );
+}
+
+function getSpeechRecognition() {
+  return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+}
+
+function VoiceMode({ open, onClose, onTranscript, speaking, assistantName, speakReplies }) {
+  const [supported, setSupported] = useState(true);
+  const [listening, setListening] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const recognitionRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const SpeechRecognition = getSpeechRecognition();
+    setSupported(Boolean(SpeechRecognition));
+    return () => {
+      recognitionRef.current?.stop?.();
+      recognitionRef.current = null;
+      setListening(false);
+    };
+  }, [open]);
+
+  const start = () => {
+    const SpeechRecognition = getSpeechRecognition();
+    if (!SpeechRecognition) {
+      setSupported(false);
+      return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = "en-ZA";
+    recognition.onstart = () => setListening(true);
+    recognition.onend = () => setListening(false);
+    recognition.onerror = () => setListening(false);
+    recognition.onresult = (event) => {
+      let text = "";
+      for (let i = event.resultIndex; i < event.results.length; i += 1) {
+        text += event.results[i][0].transcript;
+      }
+      setTranscript(text);
+      const last = event.results[event.results.length - 1];
+      if (last?.isFinal && text.trim()) {
+        onTranscript(text.trim());
+        setTranscript("");
+      }
+    };
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
+
+  const stop = () => recognitionRef.current?.stop?.();
+
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-[220] flex items-center justify-center bg-black/25 px-4 backdrop-blur-sm">
+      <div className="w-full max-w-[420px] rounded-[28px] border border-white/60 bg-white p-5 shadow-[0_28px_80px_rgba(17,19,21,0.24)]">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[13px] font-semibold text-[#111315]">Voice mode</p>
+            <p className="text-[12px] text-[#868E96]">Talk to {assistantName} about your business</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F1F3F5] text-[#5C636A] hover:bg-[#E9ECEF]"
+            aria-label="Close voice mode"
+          >
+            <X size={15} strokeWidth={1.6} />
+          </button>
+        </div>
+
+        <div className="py-8 text-center">
+          <button
+            onClick={listening ? stop : start}
+            disabled={!supported}
+            className={`mx-auto flex h-24 w-24 items-center justify-center rounded-full border shadow-[0_18px_55px_rgba(17,19,21,0.14)] transition-transform active:scale-[0.98] ${
+              listening ? "animate-ring-pulse border-[#111315] bg-[#111315] text-white" : "border-[#E9ECEF] bg-[#F8F9FA] text-[#111315]"
+            }`}
+            aria-label={listening ? "Stop listening" : "Start listening"}
+          >
+            {listening ? <MicOff size={30} strokeWidth={1.5} /> : <Mic size={30} strokeWidth={1.5} />}
+          </button>
+
+          <div className="mt-6 flex items-end justify-center gap-1.5">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <span
+                key={i}
+                className={`voice-bar h-4 w-1.5 rounded-full ${listening ? "bg-[#111315]" : "bg-[#DEE2E6]"}`}
+                style={{ animationDelay: `${i * 90}ms` }}
+              />
+            ))}
+          </div>
+
+          <p className="mt-5 min-h-10 text-[14px] leading-relaxed text-[#343A40]">
+            {!supported
+              ? `Voice recognition is not available in this browser. You can still type to ${assistantName}.`
+              : transcript || (speaking ? `${assistantName} is speaking...` : listening ? "Listening..." : "Tap the microphone and speak.")}
+          </p>
+        </div>
+
+        <div className="rounded-2xl bg-[#F8F9FA] px-4 py-3">
+          <div className="flex items-start gap-2 text-[12px] text-[#5C636A]">
+            <Volume2 size={14} strokeWidth={1.6} className="mt-0.5 shrink-0" />
+            {speakReplies
+              ? `${assistantName} will read the response aloud when your browser supports speech.`
+              : "Read-aloud replies are turned off in Settings."}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -306,18 +587,38 @@ function useAsync(loader, deps = []) {
 export function OperationsCommand() {
   const [askText, setAskText] = useState("");
   const [thread, setThread] = useState([]);
+  const [conversationId, setConversationId] = useState(null);
   const [chatBusy, setChatBusy] = useState(false);
+  const [voiceOpen, setVoiceOpen] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+  const [agentPrefs, setAgentPrefs] = useState(readAgentPrefs);
+  const voiceReplyRef = useRef(null);
   const askRef = useRef(null);
   const endRef = useRef(null);
 
-  const askHere = useCallback(async (raw) => {
+  const speak = useCallback((text) => {
+    if (!agentPrefs.speak_replies || !text || !("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.95;
+    utterance.pitch = 0.95;
+    utterance.onstart = () => setSpeaking(true);
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    window.speechSynthesis.speak(utterance);
+  }, [agentPrefs.speak_replies]);
+
+  const askHere = useCallback(async (raw, options = {}) => {
     const text = (raw || "").trim();
     if (!text) {
       askRef.current?.focus();
       return;
     }
     setAskText("");
+    const currentConversationId = conversationId || `chat-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    if (!conversationId) setConversationId(currentConversationId);
     const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    if (options.voice && agentPrefs.speak_replies) voiceReplyRef.current = id;
     setThread((items) => [...items, { id, input: text, busy: true, result: null }]);
     setChatBusy(true);
     try {
@@ -330,7 +631,13 @@ export function OperationsCommand() {
     } finally {
       setChatBusy(false);
     }
-  }, []);
+  }, [agentPrefs.speak_replies, conversationId]);
+
+  const handleTyped = useCallback((turn, result) => {
+    if (voiceReplyRef.current !== turn.id) return;
+    voiceReplyRef.current = null;
+    speak(resultSpeechText(result));
+  }, [speak]);
 
   useEffect(() => {
     const onHomeAsk = (e) => askHere(e?.detail?.text || "");
@@ -344,8 +651,61 @@ export function OperationsCommand() {
   }, [askHere]);
 
   useEffect(() => {
+    const openConversation = (id) => {
+      const saved = getChatHistoryItem(id);
+      if (!saved) return;
+      setConversationId(saved.id);
+      setThread(saved.thread || []);
+    };
+    const queued = takeQueuedChatOpen();
+    if (queued) openConversation(queued);
+    const onOpenChat = (e) => openConversation(e?.detail?.id);
+    const onNewChat = () => {
+      setConversationId(null);
+      setThread([]);
+      setAskText("");
+      voiceReplyRef.current = null;
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    };
+    window.addEventListener("aiviate:open-chat", onOpenChat);
+    window.addEventListener("aiviate:new-chat", onNewChat);
+    return () => {
+      window.removeEventListener("aiviate:open-chat", onOpenChat);
+      window.removeEventListener("aiviate:new-chat", onNewChat);
+    };
+  }, []);
+
+  useEffect(() => {
+    const completedThread = thread.filter((turn) => turn.input && !turn.busy && turn.result);
+    if (!conversationId || !completedThread.length) return;
+    upsertChatHistory({
+      id: conversationId,
+      title: titleFromThread(completedThread),
+      thread: completedThread,
+      updated_at: new Date().toISOString(),
+    });
+  }, [conversationId, thread]);
+
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === "aiviate_agent_preferences") setAgentPrefs(readAgentPrefs());
+    };
+    const onAgentPrefs = (e) => setAgentPrefs({ ...DEFAULT_AGENT_PREFS, ...(e.detail || {}) });
+    window.addEventListener("storage", onStorage);
+    window.addEventListener("aiviate:agent-preferences", onAgentPrefs);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("aiviate:agent-preferences", onAgentPrefs);
+    };
+  }, []);
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [thread]);
+
+  useEffect(() => () => {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  }, []);
 
   const submitAsk = (e) => {
     e?.preventDefault?.();
@@ -353,25 +713,50 @@ export function OperationsCommand() {
   };
 
   return (
-    <div className="animate-fade-in">
-      {thread.length === 0 ? (
-        <EmptyChatState onPrompt={askHere} />
-      ) : (
-        <div className="mx-auto mb-8 max-w-[820px] space-y-8 pb-4">
-          {thread.map((turn) => <ChatTurn key={turn.id} turn={turn} />)}
-          <div ref={endRef} />
-        </div>
-      )}
+    <div className="animate-fade-in -mx-5 -mt-14 flex min-h-[calc(100vh-1rem)] flex-col sm:-mx-8 lg:-mx-12 lg:-mt-8">
+      <div className="flex-1 overflow-y-auto px-5 pt-16 sm:px-8 lg:px-12 lg:pt-10">
+        {thread.length === 0 ? (
+          <EmptyChatState
+            onPrompt={askHere}
+            onVoice={() => setVoiceOpen(true)}
+            assistantName={agentPrefs.assistant_name || "Aiviate"}
+            voiceEnabled={agentPrefs.voice_mode}
+          />
+        ) : (
+          <div className="mx-auto max-w-[820px] space-y-8 pb-8">
+            {thread.map((turn) => (
+              <ChatTurn
+                key={turn.id}
+                turn={turn}
+                assistantName={agentPrefs.assistant_name || "Aiviate"}
+                onTyped={(result) => handleTyped(turn, result)}
+              />
+            ))}
+            <div ref={endRef} />
+          </div>
+        )}
+      </div>
 
-      <div className="sticky bottom-0 z-20 -mx-5 bg-[#F8F9FA]/90 px-5 pb-4 pt-3 backdrop-blur sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12">
+      <div className="z-20 border-t border-black/[0.06] bg-[#F8F9FA]/95 px-5 pb-4 pt-3 backdrop-blur sm:px-8 lg:px-12">
         <ChatComposer
           value={askText}
           onChange={setAskText}
           onSubmit={submitAsk}
           busy={chatBusy}
           inputRef={askRef}
+          onVoice={() => setVoiceOpen(true)}
+          assistantName={agentPrefs.assistant_name || "Aiviate"}
+          voiceEnabled={agentPrefs.voice_mode}
         />
       </div>
+      <VoiceMode
+        open={voiceOpen && agentPrefs.voice_mode}
+        onClose={() => setVoiceOpen(false)}
+        onTranscript={(text) => askHere(text, { voice: true })}
+        speaking={speaking}
+        assistantName={agentPrefs.assistant_name || "Aiviate"}
+        speakReplies={agentPrefs.speak_replies}
+      />
     </div>
   );
 }

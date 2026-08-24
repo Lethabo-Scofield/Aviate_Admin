@@ -5,8 +5,8 @@ import bcrypt
 from flask import request, jsonify, g
 
 from routes import auth_bp
-from middleware import require_auth
-from models import User, Company, Driver
+from middleware import require_auth, require_admin
+from models import User, Company, Driver, AuditLog
 from utils import generate_token, get_db_session
 
 
@@ -103,5 +103,78 @@ def get_me():
         if not user:
             return jsonify({"error": "User not found"}), 404
         return jsonify({"user": user.to_dict()})
+    finally:
+        db.close()
+
+
+@auth_bp.route("/api/workspace/members", methods=["GET"])
+@require_auth
+@require_admin
+def list_workspace_members():
+    db = get_db_session()
+    try:
+        members = (
+            db.query(User)
+            .filter(User.company_id == g.company_id)
+            .order_by(User.created_at.asc())
+            .all()
+        )
+        return jsonify({"members": [member.to_dict() for member in members]})
+    finally:
+        db.close()
+
+
+@auth_bp.route("/api/workspace/members", methods=["POST"])
+@require_auth
+@require_admin
+def create_workspace_member():
+    data = request.get_json() or {}
+    email = (data.get("email") or "").strip().lower()
+    name = (data.get("name") or "").strip()
+    password = data.get("password") or ""
+    role = (data.get("role") or "operator").strip().lower()
+
+    allowed_roles = {"admin", "operator", "support"}
+    if role not in allowed_roles:
+        return jsonify({"error": "Role must be admin, operator or support"}), 400
+    if not name or not email or not password:
+        return jsonify({"error": "Name, email and temporary password are required"}), 400
+    if "@" not in email:
+        return jsonify({"error": "Enter a valid email address"}), 400
+    if len(password) < 6:
+        return jsonify({"error": "Temporary password must be at least 6 characters"}), 400
+
+    db = get_db_session()
+    try:
+        existing = db.query(User).filter(User.email == email).first()
+        if existing:
+            return jsonify({"error": "A user with this email already exists"}), 409
+
+        password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        member = User(
+            id=f"USR-{uuid.uuid4().hex[:8].upper()}",
+            email=email,
+            password_hash=password_hash,
+            name=name,
+            role=role,
+            company_id=g.company_id,
+        )
+        db.add(member)
+        db.add(AuditLog(
+            id=f"AUD-{uuid.uuid4().hex[:10].upper()}",
+            company_id=g.company_id,
+            action_type="workspace_member_created",
+            summary=f"Workspace member {name} was added as {role}.",
+            actor=g.user_email or g.user_id,
+            related_id=member.id,
+            details={"member_id": member.id, "email": email, "role": role},
+        ))
+        db.commit()
+        db.refresh(member)
+        return jsonify({"success": True, "member": member.to_dict()}), 201
+    except Exception:
+        db.rollback()
+        traceback.print_exc()
+        return jsonify({"error": "Could not add workspace member"}), 500
     finally:
         db.close()
