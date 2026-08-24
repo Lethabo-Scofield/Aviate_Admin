@@ -43,6 +43,49 @@ export async function getAutopilotStatus() {
   return handleResponse(res);
 }
 
+export async function getOperationsSnapshot() {
+  const res = await fetch(`${API_BASE}/operations/snapshot`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function runNewOrderWorkflow() {
+  const res = await fetch(`${API_BASE}/operations/run-new-order-workflow`, {
+    method: "POST",
+    headers: getAuthHeaders("application/json"),
+    body: JSON.stringify({}),
+  });
+  return handleResponse(res);
+}
+
+export async function getActivity(limit = 100) {
+  const res = await fetch(`${API_BASE}/activity?limit=${limit}`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function getExceptions() {
+  const res = await fetch(`${API_BASE}/exceptions`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function getApprovals() {
+  const res = await fetch(`${API_BASE}/approvals`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function getPolicies() {
+  const res = await fetch(`${API_BASE}/policies`, { headers: getAuthHeaders() });
+  return handleResponse(res);
+}
+
+export async function updatePolicies(payload) {
+  const res = await fetch(`${API_BASE}/policies`, {
+    method: "PATCH",
+    headers: getAuthHeaders("application/json"),
+    body: JSON.stringify(payload),
+  });
+  return handleResponse(res);
+}
+
 export async function updateAutopilotSettings(payload) {
   const res = await fetch(`${API_BASE}/autopilot/settings`, {
     method: "PATCH",

@@ -1,18 +1,29 @@
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  Home, Map as MapIcon, Settings, Menu, X,
-  ClipboardList, Users, ShoppingBag, Plug,
+  Map as MapIcon, Settings, Menu, X,
+  Activity, AlertTriangle, Bot, Car, ClipboardCheck,
+  Mail, PackageCheck, Plug, Route, ShieldCheck, ShoppingBag,
+  Truck, UserCheck, Users,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "../contexts/AuthContext";
 
 const NAV = [
-  { to: "/", icon: Home, label: "Home", end: true },
-  { to: "/map", icon: MapIcon, label: "Map" },
+  { to: "/", icon: Bot, label: "Operations", end: true },
   { to: "/orders", icon: ShoppingBag, label: "Orders" },
-  { to: "/jobs", icon: ClipboardList, label: "Jobs" },
-  { to: "/fleet", icon: Users, label: "Fleet" },
+  { to: "/planning", icon: ClipboardCheck, label: "Planning" },
+  { to: "/live", icon: Activity, label: "Live Operations" },
+  { to: "/exceptions", icon: AlertTriangle, label: "Exceptions" },
+  { to: "/approvals", icon: ShieldCheck, label: "Approvals" },
+  { to: "/routes", icon: Route, label: "Routes" },
+  { to: "/drivers", icon: UserCheck, label: "Drivers" },
+  { to: "/vehicles", icon: Truck, label: "Vehicles" },
+  { to: "/customers", icon: Users, label: "Customers" },
+  { to: "/communications", icon: Mail, label: "Communications" },
+  { to: "/activity", icon: PackageCheck, label: "Aiviate Activity" },
+  { to: "/intelligence", icon: MapIcon, label: "Intelligence" },
+  { to: "/policies", icon: Car, label: "Policies & Autonomy" },
 ];
 
 const SECONDARY = [

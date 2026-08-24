@@ -17,5 +17,6 @@ engine_bp = Blueprint("engine", __name__)
 orders_bp = Blueprint("orders", __name__)
 support_bp = Blueprint("support", __name__)
 public_bp = Blueprint("public", __name__)
+operations_bp = Blueprint("operations", __name__)
 
-from . import auth, jobs, drivers, stops, optimization, stats, safety, devices, alerts, liveops, demo, intelligence, agents, autopilot, engine, orders, support, public_tracking
+from . import auth, jobs, drivers, stops, optimization, stats, safety, devices, alerts, liveops, demo, intelligence, agents, autopilot, engine, orders, support, public_tracking, operations

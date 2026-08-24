@@ -13,12 +13,23 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import LiveOps from "./pages/LiveOps";
 import Alerts from "./pages/Alerts";
-import Operations from "./pages/Operations";
 import Settings from "./pages/Settings";
 import DataSources from "./pages/DataSources";
 import Orders from "./pages/Orders";
 import Integrations from "./pages/Integrations";
 import PublicTracking from "./pages/PublicTracking";
+import {
+  AiviateActivity,
+  Approvals,
+  Communications,
+  Customers,
+  Exceptions,
+  Intelligence,
+  OperationsCommand,
+  Planning,
+  PoliciesAutonomy,
+  Vehicles,
+} from "./pages/OperationsModel";
 
 function AppRoutes() {
   const { user } = useAuth();
@@ -37,25 +48,34 @@ function AppRoutes() {
           </>
         ) : (
           <>
-            <Route path="/" element={<Operations />} />
+            <Route path="/" element={<OperationsCommand />} />
             <Route path="/map" element={<MapView />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/planning" element={<Planning />} />
+            <Route path="/exceptions" element={<Exceptions />} />
+            <Route path="/approvals" element={<Approvals />} />
+            <Route path="/routes" element={<JobsCenter />} />
+            <Route path="/drivers" element={<Fleet />} />
+            <Route path="/vehicles" element={<Vehicles />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/communications" element={<Communications />} />
+            <Route path="/activity" element={<AiviateActivity />} />
+            <Route path="/policies" element={<PoliciesAutonomy />} />
             <Route path="/integrations" element={<Integrations />} />
             <Route path="/jobs" element={<JobsCenter />} />
             <Route path="/fleet" element={<Fleet />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/settings/data-sources" element={<DataSources />} />
             <Route path="/profile" element={<Profile />} />
-            {/* Legacy URLs kept for back-compat — planning now lives with the agent,
-                and Drivers/Devices/Safety now live under Fleet. */}
+            {/* Legacy URLs kept for back-compat. */}
             <Route path="/ai-planner" element={<Navigate to="/" replace />} />
             <Route path="/command" element={<Navigate to="/" replace />} />
             <Route path="/dispatch" element={<Navigate to="/jobs?tab=dispatch" replace />} />
-            <Route path="/drivers" element={<Navigate to="/fleet" replace />} />
             <Route path="/devices" element={<Navigate to="/fleet?tab=devices" replace />} />
             <Route path="/safety" element={<Navigate to="/fleet?tab=safety" replace />} />
             <Route path="/live" element={<LiveOps />} />
-            <Route path="/intelligence" element={<Alerts />} />
+            <Route path="/intelligence" element={<Intelligence />} />
+            <Route path="/legacy-intelligence" element={<Alerts />} />
             <Route path="/guardians" element={<Navigate to="/" replace />} />
             <Route path="/events" element={<Navigate to="/" replace />} />
             <Route path="/alerts" element={<Navigate to="/" replace />} />
